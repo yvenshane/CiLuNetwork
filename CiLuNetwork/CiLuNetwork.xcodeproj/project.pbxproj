@@ -7,6 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2CB54FC321B65B93003AD4D8 /* VENHomePageNavigationItemTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB54FC221B65B93003AD4D8 /* VENHomePageNavigationItemTitleView.m */; };
+		2CB54FC721B67A84003AD4D8 /* VENHomePageCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB54FC521B67A84003AD4D8 /* VENHomePageCollectionViewCell.m */; };
+		2CB54FC821B67A84003AD4D8 /* VENHomePageCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2CB54FC621B67A84003AD4D8 /* VENHomePageCollectionViewCell.xib */; };
+		2CB54FCD21B77D91003AD4D8 /* VENHomePageCollectionViewHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB54FCC21B77D91003AD4D8 /* VENHomePageCollectionViewHeaderView.m */; };
+		2CB54FD621B7AF03003AD4D8 /* VENHomePageHorizontalCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB54FD521B7AF03003AD4D8 /* VENHomePageHorizontalCollectionView.m */; };
+		2CB54FDA21B7B081003AD4D8 /* VENHomePageHorizontalCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB54FD821B7B081003AD4D8 /* VENHomePageHorizontalCollectionViewCell.m */; };
+		2CB54FDB21B7B081003AD4D8 /* VENHomePageHorizontalCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2CB54FD921B7B081003AD4D8 /* VENHomePageHorizontalCollectionViewCell.xib */; };
 		2CDF9F3B21B5724B00254B52 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CDF9F3A21B5724B00254B52 /* AppDelegate.m */; };
 		2CDF9F4321B5724D00254B52 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2CDF9F4221B5724D00254B52 /* Assets.xcassets */; };
 		2CDF9F4621B5724D00254B52 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2CDF9F4421B5724D00254B52 /* LaunchScreen.storyboard */; };
@@ -107,6 +114,18 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2CB54FC121B65B93003AD4D8 /* VENHomePageNavigationItemTitleView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VENHomePageNavigationItemTitleView.h; sourceTree = "<group>"; };
+		2CB54FC221B65B93003AD4D8 /* VENHomePageNavigationItemTitleView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VENHomePageNavigationItemTitleView.m; sourceTree = "<group>"; };
+		2CB54FC421B67A84003AD4D8 /* VENHomePageCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VENHomePageCollectionViewCell.h; sourceTree = "<group>"; };
+		2CB54FC521B67A84003AD4D8 /* VENHomePageCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VENHomePageCollectionViewCell.m; sourceTree = "<group>"; };
+		2CB54FC621B67A84003AD4D8 /* VENHomePageCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VENHomePageCollectionViewCell.xib; sourceTree = "<group>"; };
+		2CB54FCB21B77D91003AD4D8 /* VENHomePageCollectionViewHeaderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VENHomePageCollectionViewHeaderView.h; sourceTree = "<group>"; };
+		2CB54FCC21B77D91003AD4D8 /* VENHomePageCollectionViewHeaderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VENHomePageCollectionViewHeaderView.m; sourceTree = "<group>"; };
+		2CB54FD421B7AF03003AD4D8 /* VENHomePageHorizontalCollectionView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VENHomePageHorizontalCollectionView.h; sourceTree = "<group>"; };
+		2CB54FD521B7AF03003AD4D8 /* VENHomePageHorizontalCollectionView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VENHomePageHorizontalCollectionView.m; sourceTree = "<group>"; };
+		2CB54FD721B7B081003AD4D8 /* VENHomePageHorizontalCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VENHomePageHorizontalCollectionViewCell.h; sourceTree = "<group>"; };
+		2CB54FD821B7B081003AD4D8 /* VENHomePageHorizontalCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VENHomePageHorizontalCollectionViewCell.m; sourceTree = "<group>"; };
+		2CB54FD921B7B081003AD4D8 /* VENHomePageHorizontalCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VENHomePageHorizontalCollectionViewCell.xib; sourceTree = "<group>"; };
 		2CDF9F3621B5724B00254B52 /* CiLuNetwork.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CiLuNetwork.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CDF9F3921B5724B00254B52 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		2CDF9F3A21B5724B00254B52 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -325,6 +344,36 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2CB54FC921B77976003AD4D8 /* NavigationItemTitleView */ = {
+			isa = PBXGroup;
+			children = (
+				2CB54FC121B65B93003AD4D8 /* VENHomePageNavigationItemTitleView.h */,
+				2CB54FC221B65B93003AD4D8 /* VENHomePageNavigationItemTitleView.m */,
+			);
+			path = NavigationItemTitleView;
+			sourceTree = "<group>";
+		};
+		2CB54FCA21B779A4003AD4D8 /* CollectionViewHeaderView */ = {
+			isa = PBXGroup;
+			children = (
+				2CB54FCB21B77D91003AD4D8 /* VENHomePageCollectionViewHeaderView.h */,
+				2CB54FCC21B77D91003AD4D8 /* VENHomePageCollectionViewHeaderView.m */,
+			);
+			path = CollectionViewHeaderView;
+			sourceTree = "<group>";
+		};
+		2CB54FD321B7AEE3003AD4D8 /* HorizontalCollectionView */ = {
+			isa = PBXGroup;
+			children = (
+				2CB54FD421B7AF03003AD4D8 /* VENHomePageHorizontalCollectionView.h */,
+				2CB54FD521B7AF03003AD4D8 /* VENHomePageHorizontalCollectionView.m */,
+				2CB54FD721B7B081003AD4D8 /* VENHomePageHorizontalCollectionViewCell.h */,
+				2CB54FD821B7B081003AD4D8 /* VENHomePageHorizontalCollectionViewCell.m */,
+				2CB54FD921B7B081003AD4D8 /* VENHomePageHorizontalCollectionViewCell.xib */,
+			);
+			path = HorizontalCollectionView;
+			sourceTree = "<group>";
+		};
 		2CDF9F2D21B5724B00254B52 = {
 			isa = PBXGroup;
 			children = (
@@ -511,6 +560,12 @@
 		2CDF9F6721B5799300254B52 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				2CB54FC921B77976003AD4D8 /* NavigationItemTitleView */,
+				2CB54FD321B7AEE3003AD4D8 /* HorizontalCollectionView */,
+				2CB54FCA21B779A4003AD4D8 /* CollectionViewHeaderView */,
+				2CB54FC421B67A84003AD4D8 /* VENHomePageCollectionViewCell.h */,
+				2CB54FC521B67A84003AD4D8 /* VENHomePageCollectionViewCell.m */,
+				2CB54FC621B67A84003AD4D8 /* VENHomePageCollectionViewCell.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1010,9 +1065,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				2CDFA08D21B5813500254B52 /* IQKeyboardManager.bundle in Resources */,
+				2CB54FDB21B7B081003AD4D8 /* VENHomePageHorizontalCollectionViewCell.xib in Resources */,
 				2CDF9F4621B5724D00254B52 /* LaunchScreen.storyboard in Resources */,
 				2CDFA09821B5813500254B52 /* MJRefresh.bundle in Resources */,
 				2CDF9F4321B5724D00254B52 /* Assets.xcassets in Resources */,
+				2CB54FC821B67A84003AD4D8 /* VENHomePageCollectionViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1032,7 +1089,9 @@
 				2CDFA0A121B5813500254B52 /* MJRefreshAutoNormalFooter.m in Sources */,
 				2CDFA08321B5813500254B52 /* UIView+WebCacheOperation.m in Sources */,
 				2CDFA06B21B5813500254B52 /* UIActivityIndicatorView+AFNetworking.m in Sources */,
+				2CB54FDA21B7B081003AD4D8 /* VENHomePageHorizontalCollectionViewCell.m in Sources */,
 				2CDFA0B021B5813500254B52 /* SDCycleScrollView.m in Sources */,
+				2CB54FD621B7AF03003AD4D8 /* VENHomePageHorizontalCollectionView.m in Sources */,
 				2CDF9F7621B57BD400254B52 /* VENBaseViewController.m in Sources */,
 				2CDFA0A621B5813500254B52 /* MJRefreshHeader.m in Sources */,
 				2CDFA05E21B5813500254B52 /* NSArray+MASAdditions.m in Sources */,
@@ -1054,6 +1113,7 @@
 				2CDFA06E21B5813500254B52 /* AFImageDownloader.m in Sources */,
 				2CDFA0A021B5813500254B52 /* MJRefreshAutoGifFooter.m in Sources */,
 				2CDFA0C221B582D600254B52 /* VENMBProgressHUDManager.m in Sources */,
+				2CB54FC721B67A84003AD4D8 /* VENHomePageCollectionViewCell.m in Sources */,
 				2CDFA09221B5813500254B52 /* IQUIView+Hierarchy.m in Sources */,
 				2CDFA08E21B5813500254B52 /* IQKeyboardManager.m in Sources */,
 				2CDFA05B21B5813500254B52 /* MASCompositeConstraint.m in Sources */,
@@ -1091,6 +1151,7 @@
 				2CDFA08B21B5813500254B52 /* IQUIView+IQKeyboardToolbar.m in Sources */,
 				2CDFA05D21B5813500254B52 /* MASLayoutConstraint.m in Sources */,
 				2CDFA07421B5813500254B52 /* AFSecurityPolicy.m in Sources */,
+				2CB54FC321B65B93003AD4D8 /* VENHomePageNavigationItemTitleView.m in Sources */,
 				2CDFA09C21B5813500254B52 /* MJRefreshBackGifFooter.m in Sources */,
 				2CDFA08821B5813500254B52 /* IQToolbar.m in Sources */,
 				2CDFA07C21B5813500254B52 /* UIImage+MultiFormat.m in Sources */,
@@ -1111,6 +1172,7 @@
 				2CDFA07321B5813500254B52 /* AFNetworkReachabilityManager.m in Sources */,
 				2CDFA07F21B5813500254B52 /* SDImageCache.m in Sources */,
 				2CDFA09721B5813500254B52 /* MJRefreshConst.m in Sources */,
+				2CB54FCD21B77D91003AD4D8 /* VENHomePageCollectionViewHeaderView.m in Sources */,
 				2CDFA07D21B5813500254B52 /* SDWebImageCompat.m in Sources */,
 				2CDFA08221B5813500254B52 /* UIImageView+WebCache.m in Sources */,
 				2CDF9F3B21B5724B00254B52 /* AppDelegate.m in Sources */,

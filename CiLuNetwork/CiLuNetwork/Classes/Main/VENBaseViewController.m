@@ -25,15 +25,15 @@
     
     // 判断是否有上级页面，有的话再调用
     if ([self.navigationController.viewControllers indexOfObject:self] > 0) {
-        [self setupLeftBtn];
+        [self setupNavigationItemLeftBarButtonItem];
     }
 }
 
-- (void)setupLeftBtn {
+- (void)setupNavigationItemLeftBarButtonItem {
     UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
     button.contentEdgeInsets = UIEdgeInsetsMake(0, -20, 0, 0);
     [button setImage:[UIImage imageNamed:@"top_back01"] forState:UIControlStateNormal];
-    [button addTarget:self action:@selector(leftBtnClick) forControlEvents:UIControlEventTouchUpInside];
+    [button addTarget:self action:@selector(leftButtonClick) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithCustomView:button];
     self.navigationItem.leftBarButtonItem = barButton;
     
@@ -41,7 +41,7 @@
     self.navigationController.interactivePopGestureRecognizer.delegate = (id<UIGestureRecognizerDelegate>)self;
 }
 
-- (void)leftBtnClick {
+- (void)leftButtonClick {
     [self.navigationController popViewControllerAnimated:YES];
 }
 

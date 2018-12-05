@@ -18,15 +18,15 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    UIViewController *vc1 = [self loadChildViewControllerWithClassName:@"VENHomePageViewController" andTitle:@"首页" andImageName:@"ic_home"];
-    UIViewController *vc2 = [self loadChildViewControllerWithClassName:@"VENClassifyViewController" andTitle:@"分类" andImageName:@"ic_home"];
-    UIViewController *vc3 = [self loadChildViewControllerWithClassName:@"VENShoppingCartViewController" andTitle:@"购物车" andImageName:@"ic_culture"];
-    UIViewController *vc4 = [self loadChildViewControllerWithClassName:@"VENMineViewController" andTitle:@"我的" andImageName:@"ic_user"];
+    UIViewController *vc1 = [self loadChildViewControllerWithClassName:@"VENHomePageViewController" andTitle:@"首页" andImageName:@"icon_nav01"];
+    UIViewController *vc2 = [self loadChildViewControllerWithClassName:@"VENClassifyViewController" andTitle:@"分类" andImageName:@"icon_nav02"];
+    UIViewController *vc3 = [self loadChildViewControllerWithClassName:@"VENShoppingCartViewController" andTitle:@"购物车" andImageName:@"icon_nav03"];
+    UIViewController *vc4 = [self loadChildViewControllerWithClassName:@"VENMineViewController" andTitle:@"我的" andImageName:@"icon_nav04"];
     vc4.tabBarItem.tag = 3;
     
     self.viewControllers = @[vc1, vc2, vc3, vc4];
     
-//    self.tabBar.tintColor = COLOR_THEME;
+    self.tabBar.tintColor = COLOR_THEME;
     //    self.tabBar.barTintColor = [UIColor whiteColor];
     self.tabBar.translucent = NO;
 }
@@ -42,12 +42,12 @@
     // 设置TabBar的文字
     vc.tabBarItem.title = title;
     
-    NSString *normalImageName = [imageName stringByAppendingString:@"_nor"];
+    NSString *normalImageName = [imageName stringByAppendingString:@""];
     // 设置默认状态的图片
     vc.tabBarItem.image = [[UIImage imageNamed:normalImageName] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     
     // 拼接选中状态的图片
-    NSString *selectedImageName = [imageName stringByAppendingString:@"_on"];
+    NSString *selectedImageName = [imageName stringByAppendingString:@"_active"];
     // 设置选中图片
     vc.tabBarItem.selectedImage = [[UIImage imageNamed:selectedImageName] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     
