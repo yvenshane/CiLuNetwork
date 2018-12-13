@@ -96,7 +96,7 @@
 }
 
 - (void)setupNavigationItemRightBarButtonItem {
-    UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
+    UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 44, 44)];
 //    button.contentEdgeInsets = UIEdgeInsetsMake(0, -20, 0, 0);
     [button setImage:[UIImage imageNamed:@"icon_search01"] forState:UIControlStateNormal];
     [button addTarget:self action:@selector(rightButtonClick) forControlEvents:UIControlEventTouchUpInside];
@@ -109,7 +109,7 @@
 }
 
 - (void)setupNavigationItemLeftBarButtonItem {
-    UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
+    UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 44, 44)];
 //    button.contentEdgeInsets = UIEdgeInsetsMake(0, -20, 0, 0);
     [button setImage:[UIImage imageNamed:@"icon_class"] forState:UIControlStateNormal];
     [button addTarget:self action:@selector(leftButtonClick) forControlEvents:UIControlEventTouchUpInside];

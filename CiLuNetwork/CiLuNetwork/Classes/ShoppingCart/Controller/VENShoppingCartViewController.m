@@ -49,7 +49,9 @@ static NSString *cellIdentifier = @"cellIdentifier";
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    return [[UIView alloc] init];
+    UIView *lineView = [[UIView alloc] init];
+    lineView.backgroundColor = UIColorFromRGB(0xF5F5F5);
+    return lineView;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
@@ -57,7 +59,9 @@ static NSString *cellIdentifier = @"cellIdentifier";
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
-    return [[UIView alloc] init];
+    UIView *lineView = [[UIView alloc] init];
+    lineView.backgroundColor = UIColorFromRGB(0xF5F5F5);
+    return lineView;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
@@ -82,6 +86,8 @@ static NSString *cellIdentifier = @"cellIdentifier";
     UITableView *tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kMainScreenWidth, kMainScreenHeight - 44 - statusNavHeight - tabBarHeight) style:UITableViewStyleGrouped];
     tableView.delegate = self;
     tableView.dataSource = self;
+    tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    tableView.backgroundColor = UIColorFromRGB(0xF5F5F5);
     tableView.rowHeight = 100;
     [tableView registerNib:[UINib nibWithNibName:@"VENShoppingCartTableViewCell" bundle:nil] forCellReuseIdentifier:cellIdentifier];
     [self.view addSubview:tableView];
