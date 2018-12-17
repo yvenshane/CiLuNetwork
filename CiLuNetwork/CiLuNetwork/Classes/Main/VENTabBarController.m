@@ -19,7 +19,7 @@
     // Do any additional setup after loading the view.
     
     UIViewController *vc1 = [self loadChildViewControllerWithClassName:@"VENHomePageViewController" andTitle:@"首页" andImageName:@"icon_nav01"];
-    UIViewController *vc2 = [self loadChildViewControllerWithClassName:@"LoadDataViewController" andTitle:@"分类" andImageName:@"icon_nav02"];
+    UIViewController *vc2 = [self loadChildViewControllerWithClassName:@"VENClassifyViewController" andTitle:@"分类" andImageName:@"icon_nav02"];
     UIViewController *vc3 = [self loadChildViewControllerWithClassName:@"VENShoppingCartViewController" andTitle:@"购物车" andImageName:@"icon_nav03"];
     UIViewController *vc4 = [self loadChildViewControllerWithClassName:@"VENMineViewController" andTitle:@"我的" andImageName:@"icon_nav04"];
     vc4.tabBarItem.tag = 3;

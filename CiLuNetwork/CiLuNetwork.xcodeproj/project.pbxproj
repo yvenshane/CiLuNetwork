@@ -13,9 +13,6 @@
 		2C275AFF21C1F50800E6719E /* VENMineTableViewCellStyleTwo.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2C275AFD21C1F50800E6719E /* VENMineTableViewCellStyleTwo.xib */; };
 		2C275B0321C1FCE400E6719E /* VENMineTableViewCellStyleThree.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C275B0121C1FCE400E6719E /* VENMineTableViewCellStyleThree.m */; };
 		2C275B0421C1FCE400E6719E /* VENMineTableViewCellStyleThree.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2C275B0221C1FCE400E6719E /* VENMineTableViewCellStyleThree.xib */; };
-		2C2C822821B9684B008AFB20 /* LoadDataViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C2C822721B9684B008AFB20 /* LoadDataViewController.m */; };
-		2C2C822B21B96865008AFB20 /* LoadDataListBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C2C822921B96865008AFB20 /* LoadDataListBaseViewController.m */; };
-		2C2C822E21B969ED008AFB20 /* UIWindow+JXSafeArea.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C2C822D21B969ED008AFB20 /* UIWindow+JXSafeArea.m */; };
 		2C2E2D8C21BFEAD700D44120 /* VENShoppingCartTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C2E2D8A21BFEAD700D44120 /* VENShoppingCartTableViewCell.m */; };
 		2C2E2D8D21BFEAD700D44120 /* VENShoppingCartTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2C2E2D8B21BFEAD700D44120 /* VENShoppingCartTableViewCell.xib */; };
 		2C2E2D9121C139B300D44120 /* VENShoppingCartEditTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C2E2D8F21C139B300D44120 /* VENShoppingCartEditTableViewCell.m */; };
@@ -28,6 +25,7 @@
 		2CB54FD621B7AF03003AD4D8 /* VENHomePageHorizontalCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB54FD521B7AF03003AD4D8 /* VENHomePageHorizontalCollectionView.m */; };
 		2CB54FDA21B7B081003AD4D8 /* VENHomePageHorizontalCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB54FD821B7B081003AD4D8 /* VENHomePageHorizontalCollectionViewCell.m */; };
 		2CB54FDB21B7B081003AD4D8 /* VENHomePageHorizontalCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2CB54FD921B7B081003AD4D8 /* VENHomePageHorizontalCollectionViewCell.xib */; };
+		2CC8078E21C38A2200B65C88 /* VENClassifyCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC8078D21C38A2200B65C88 /* VENClassifyCollectionViewController.m */; };
 		2CDF9F3B21B5724B00254B52 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CDF9F3A21B5724B00254B52 /* AppDelegate.m */; };
 		2CDF9F4321B5724D00254B52 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2CDF9F4221B5724D00254B52 /* Assets.xcassets */; };
 		2CDF9F4621B5724D00254B52 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2CDF9F4421B5724D00254B52 /* LaunchScreen.storyboard */; };
@@ -169,12 +167,6 @@
 		2C275B0021C1FCE400E6719E /* VENMineTableViewCellStyleThree.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VENMineTableViewCellStyleThree.h; sourceTree = "<group>"; };
 		2C275B0121C1FCE400E6719E /* VENMineTableViewCellStyleThree.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VENMineTableViewCellStyleThree.m; sourceTree = "<group>"; };
 		2C275B0221C1FCE400E6719E /* VENMineTableViewCellStyleThree.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VENMineTableViewCellStyleThree.xib; sourceTree = "<group>"; };
-		2C2C822621B9684B008AFB20 /* LoadDataViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoadDataViewController.h; sourceTree = "<group>"; };
-		2C2C822721B9684B008AFB20 /* LoadDataViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoadDataViewController.m; sourceTree = "<group>"; };
-		2C2C822921B96865008AFB20 /* LoadDataListBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoadDataListBaseViewController.m; sourceTree = "<group>"; };
-		2C2C822A21B96865008AFB20 /* LoadDataListBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoadDataListBaseViewController.h; sourceTree = "<group>"; };
-		2C2C822C21B969ED008AFB20 /* UIWindow+JXSafeArea.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIWindow+JXSafeArea.h"; sourceTree = "<group>"; };
-		2C2C822D21B969ED008AFB20 /* UIWindow+JXSafeArea.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWindow+JXSafeArea.m"; sourceTree = "<group>"; };
 		2C2E2D8921BFEAD700D44120 /* VENShoppingCartTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VENShoppingCartTableViewCell.h; sourceTree = "<group>"; };
 		2C2E2D8A21BFEAD700D44120 /* VENShoppingCartTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VENShoppingCartTableViewCell.m; sourceTree = "<group>"; };
 		2C2E2D8B21BFEAD700D44120 /* VENShoppingCartTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VENShoppingCartTableViewCell.xib; sourceTree = "<group>"; };
@@ -195,6 +187,8 @@
 		2CB54FD721B7B081003AD4D8 /* VENHomePageHorizontalCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VENHomePageHorizontalCollectionViewCell.h; sourceTree = "<group>"; };
 		2CB54FD821B7B081003AD4D8 /* VENHomePageHorizontalCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VENHomePageHorizontalCollectionViewCell.m; sourceTree = "<group>"; };
 		2CB54FD921B7B081003AD4D8 /* VENHomePageHorizontalCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VENHomePageHorizontalCollectionViewCell.xib; sourceTree = "<group>"; };
+		2CC8078C21C38A2200B65C88 /* VENClassifyCollectionViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VENClassifyCollectionViewController.h; sourceTree = "<group>"; };
+		2CC8078D21C38A2200B65C88 /* VENClassifyCollectionViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VENClassifyCollectionViewController.m; sourceTree = "<group>"; };
 		2CDF9F3621B5724B00254B52 /* CiLuNetwork.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CiLuNetwork.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CDF9F3921B5724B00254B52 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		2CDF9F3A21B5724B00254B52 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -581,14 +575,10 @@
 		2CDF9F5921B5799300254B52 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				2C2C822C21B969ED008AFB20 /* UIWindow+JXSafeArea.h */,
-				2C2C822D21B969ED008AFB20 /* UIWindow+JXSafeArea.m */,
-				2C2C822A21B96865008AFB20 /* LoadDataListBaseViewController.h */,
-				2C2C822921B96865008AFB20 /* LoadDataListBaseViewController.m */,
-				2C2C822621B9684B008AFB20 /* LoadDataViewController.h */,
-				2C2C822721B9684B008AFB20 /* LoadDataViewController.m */,
 				2CDF9F6B21B57A0900254B52 /* VENClassifyViewController.h */,
 				2CDF9F6C21B57A0900254B52 /* VENClassifyViewController.m */,
+				2CC8078C21C38A2200B65C88 /* VENClassifyCollectionViewController.h */,
+				2CC8078D21C38A2200B65C88 /* VENClassifyCollectionViewController.m */,
 				2CFDDA4521BFB77F00275DA3 /* VENClassifySearchViewController.h */,
 				2CFDDA4621BFB77F00275DA3 /* VENClassifySearchViewController.m */,
 			);
@@ -1395,13 +1385,11 @@
 				2CDFA0A321B5813500254B52 /* MJRefreshStateHeader.m in Sources */,
 				2CDFA09121B5813500254B52 /* IQUIScrollView+Additions.m in Sources */,
 				2CDFA09F21B5813500254B52 /* MJRefreshAutoStateFooter.m in Sources */,
-				2C2C822821B9684B008AFB20 /* LoadDataViewController.m in Sources */,
 				2CDFA07B21B5813500254B52 /* UIImage+GIF.m in Sources */,
 				2CDF9F7021B57A2000254B52 /* VENShoppingCartViewController.m in Sources */,
 				2CDFA0A121B5813500254B52 /* MJRefreshAutoNormalFooter.m in Sources */,
 				2CDFA08321B5813500254B52 /* UIView+WebCacheOperation.m in Sources */,
 				2CEB832821B819CE004A8629 /* JXCategoryDotView.m in Sources */,
-				2C2C822B21B96865008AFB20 /* LoadDataListBaseViewController.m in Sources */,
 				2CDFA06B21B5813500254B52 /* UIActivityIndicatorView+AFNetworking.m in Sources */,
 				2CEB833B21B819CE004A8629 /* JXCategoryBaseCell.m in Sources */,
 				2CB54FDA21B7B081003AD4D8 /* VENHomePageHorizontalCollectionViewCell.m in Sources */,
@@ -1440,11 +1428,11 @@
 				2CDFA0C221B582D600254B52 /* VENMBProgressHUDManager.m in Sources */,
 				2CB54FC721B67A84003AD4D8 /* VENHomePageCollectionViewCell.m in Sources */,
 				2CEB832121B819CE004A8629 /* JXCategoryIndicatorBallView.m in Sources */,
-				2C2C822E21B969ED008AFB20 /* UIWindow+JXSafeArea.m in Sources */,
 				2CDFA09221B5813500254B52 /* IQUIView+Hierarchy.m in Sources */,
 				2CDFA08E21B5813500254B52 /* IQKeyboardManager.m in Sources */,
 				2CDFA05B21B5813500254B52 /* MASCompositeConstraint.m in Sources */,
 				2CEB833221B819CE004A8629 /* JXCategoryImageCellModel.m in Sources */,
+				2CC8078E21C38A2200B65C88 /* VENClassifyCollectionViewController.m in Sources */,
 				2CDFA09D21B5813500254B52 /* MJRefreshBackStateFooter.m in Sources */,
 				2CDFA07921B5813500254B52 /* UIImageView+HighlightedWebCache.m in Sources */,
 				2CDFA07E21B5813500254B52 /* SDWebImagePrefetcher.m in Sources */,

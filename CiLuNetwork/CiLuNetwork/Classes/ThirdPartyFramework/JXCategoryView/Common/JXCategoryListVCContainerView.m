@@ -123,7 +123,7 @@
 
 #pragma mark - Private
 
-- (void)listVCWillAppear:(NSInteger)index {
+- (void) listVCWillAppear:(NSInteger)index {
     self.targetIndex = index;
 
     UIViewController *vc = self.listVCArray[index];
