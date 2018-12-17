@@ -10,6 +10,7 @@
 #import "VENMineTableViewCellStyleOne.h"
 #import "VENMineTableViewCellStyleTwo.h"
 #import "VENMineTableViewCellStyleThree.h"
+#import "VENLoginViewController.h"
 
 @interface VENMineViewController () <UITableViewDelegate, UITableViewDataSource>
 
@@ -89,6 +90,13 @@ static NSString *cellIdentifier3 = @"cellIdentifier3";
         
         
         return cell;
+    }
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.section == 0) {
+        VENLoginViewController *vc = [[VENLoginViewController alloc] init];
+        [self presentViewController:vc animated:YES completion:nil];
     }
 }
 
