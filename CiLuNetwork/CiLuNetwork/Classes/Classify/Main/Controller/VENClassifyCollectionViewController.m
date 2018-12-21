@@ -8,6 +8,7 @@
 
 #import "VENClassifyCollectionViewController.h"
 #import "VENHomePageCollectionViewCell.h"
+#import "VENClassifyDetailsViewController.h"
 
 @interface VENClassifyCollectionViewController () <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout>
 @property (nonatomic, strong) NSMutableArray *dataSource;
@@ -37,7 +38,7 @@
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    
+    self.block([NSString stringWithFormat:@"%@", indexPath]);
 }
 
 - (NSMutableArray *)dataSource {

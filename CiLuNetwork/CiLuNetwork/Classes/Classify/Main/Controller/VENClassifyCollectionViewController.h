@@ -8,6 +8,8 @@
 
 #import "VENBaseViewController.h"
 
+typedef void (^collectionViewDidSelectBlock)(NSString *);
 @interface VENClassifyCollectionViewController : UICollectionViewController
+@property (nonatomic, copy) collectionViewDidSelectBlock block;
 
 @end

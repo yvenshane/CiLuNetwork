@@ -81,21 +81,7 @@
                         <constraint firstAttribute="height" constant="1" id="avl-GS-jSm"/>
                     </constraints>
                 </view>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Wd-L2-btp">
-                    <rect key="frame" x="20" y="340" width="335" height="48"/>
-                    <color key="backgroundColor" red="0.87058823529999996" green="0.87058823529999996" blue="0.87058823529999996" alpha="1" colorSpace="calibratedRGB"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="48" id="CrQ-ly-HKU"/>
-                    </constraints>
-                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                    <state key="normal" title="下一步">
-                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    </state>
-                    <connections>
-                        <action selector="nextButtonClick:" destination="-1" eventType="touchUpInside" id="lfs-YB-swp"/>
-                    </connections>
-                </button>
-                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="邀请码（选填）" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="MHe-dI-zp7">
+                <textField hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="邀请码（选填）" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="MHe-dI-zp7">
                     <rect key="frame" x="20" y="255" width="335" height="54"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="54" id="X4p-bW-23c"/>
@@ -104,7 +90,7 @@
                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                     <textInputTraits key="textInputTraits"/>
                 </textField>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DxV-bt-nrR">
+                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DxV-bt-nrR">
                     <rect key="frame" x="20" y="309" width="335" height="1"/>
                     <color key="backgroundColor" red="0.86274509799999999" green="0.86274509799999999" blue="0.86274509799999999" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
@@ -118,16 +104,30 @@
                         <color key="titleColor" red="0.7803921568627451" green="0.59215686274509804" blue="0.30980392156862746" alpha="1" colorSpace="calibratedRGB"/>
                     </state>
                 </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Wd-L2-btp">
+                    <rect key="frame" x="20" y="286" width="335" height="48"/>
+                    <color key="backgroundColor" red="0.87058823529999996" green="0.87058823529999996" blue="0.87058823529999996" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="48" id="CrQ-ly-HKU"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                    <state key="normal" title="下一步">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </state>
+                    <connections>
+                        <action selector="nextButtonClick:" destination="-1" eventType="touchUpInside" id="lfs-YB-swp"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
+                <constraint firstItem="5Wd-L2-btp" firstAttribute="top" secondItem="ctQ-FI-imS" secondAttribute="bottom" constant="30" id="569-cQ-pkv"/>
                 <constraint firstItem="MHe-dI-zp7" firstAttribute="top" secondItem="oIi-T3-zJs" secondAttribute="bottom" id="7gf-YW-Avu"/>
                 <constraint firstItem="f1K-Dv-btb" firstAttribute="top" secondItem="RlQ-b1-6T5" secondAttribute="bottom" id="8Tr-Aa-J2v"/>
                 <constraint firstItem="6Tu-be-4el" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" id="CNw-i9-BE3"/>
                 <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="MHe-dI-zp7" secondAttribute="trailing" constant="20" id="D8M-pW-hex"/>
                 <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="RlQ-b1-6T5" secondAttribute="trailing" constant="20" id="Gua-CL-9xB"/>
                 <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="oIi-T3-zJs" secondAttribute="trailing" constant="140" id="IyJ-N8-MRh"/>
-                <constraint firstItem="5Wd-L2-btp" firstAttribute="top" secondItem="DxV-bt-nrR" secondAttribute="bottom" constant="30" id="K3Q-13-Wwn"/>
                 <constraint firstItem="oIi-T3-zJs" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" constant="20" id="LZy-3V-bJ9"/>
                 <constraint firstAttribute="trailing" secondItem="ctQ-FI-imS" secondAttribute="trailing" constant="20" id="O08-nS-3a2"/>
                 <constraint firstItem="RlQ-b1-6T5" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" constant="20" id="TFb-AJ-wxf"/>

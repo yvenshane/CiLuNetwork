@@ -19,7 +19,7 @@
 @implementation VENHomePageNavigationItemTitleView
 
 - (instancetype)initWithFrame:(CGRect)frame {
-    if (self == [super initWithFrame:frame]) {
+    if (self = [super initWithFrame:frame]) {
         
         UIButton *leftButton = [[UIButton alloc] init];
         leftButton.selected = YES;

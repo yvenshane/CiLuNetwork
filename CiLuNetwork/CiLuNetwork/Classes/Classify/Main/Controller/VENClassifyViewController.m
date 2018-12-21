@@ -11,6 +11,7 @@
 #import "VENFilterView.h"
 #import "VENClassifySearchViewController.h"
 #import "VENClassifyCollectionViewController.h"
+#import "VENClassifyDetailsViewController.h"
 
 @interface VENClassifyViewController () <JXCategoryViewDelegate, UITextFieldDelegate>
 @property (nonatomic, strong) JXCategoryTitleView *categoryView;
@@ -80,6 +81,11 @@
         layout.scrollDirection = UICollectionViewScrollDirectionVertical;
         
         VENClassifyCollectionViewController *listVC = [[VENClassifyCollectionViewController alloc] initWithCollectionViewLayout:layout];
+        listVC.block = ^(NSString *str) {
+            VENClassifyDetailsViewController *vc = [[VENClassifyDetailsViewController alloc] init];
+            vc.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:vc animated:YES];
+        };
         listVC.view.frame = CGRectMake(i*width, 0, width, height - 36 - 50 + 9);
         [self.listVCArray addObject:listVC];
     }
@@ -95,7 +101,7 @@
     lineView.indicatorLineViewHeight = 2;
     self.categoryView.indicators = @[lineView];
     [self.view addSubview:self.categoryView];
-    
+
     self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, categoryViewHeight + 36 - 8,  width, height)];
     self.scrollView.pagingEnabled = YES;
     self.scrollView.contentSize = CGSizeMake(width*count, height);

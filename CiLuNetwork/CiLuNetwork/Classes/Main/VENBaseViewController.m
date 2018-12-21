@@ -20,6 +20,8 @@
     
 //    self.view.backgroundColor = [UIColor colorWithRed:arc4random_uniform(255)/255.0 green:arc4random_uniform(255)/255.0 blue:arc4random_uniform(255)/255.0 alpha:1];
     
+    self.view.backgroundColor = [UIColor whiteColor];
+    
     // 不允许 viewController 自动调整，我们自己布局；如果设置为YES，视图会自动下移 64 像素
     self.automaticallyAdjustsScrollViewInsets = NO;
     
@@ -30,9 +32,9 @@
 }
 
 - (void)setupNavigationItemLeftBarButtonItem {
-    UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
+    UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 44, 44)];
     button.contentEdgeInsets = UIEdgeInsetsMake(0, -20, 0, 0);
-    [button setImage:[UIImage imageNamed:@"top_back01"] forState:UIControlStateNormal];
+    [button setImage:[UIImage imageNamed:@"icon_back"] forState:UIControlStateNormal];
     [button addTarget:self action:@selector(leftButtonClick) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithCustomView:button];
     self.navigationItem.leftBarButtonItem = barButton;
