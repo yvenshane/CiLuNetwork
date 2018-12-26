@@ -20,10 +20,10 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8BP-cK-8il">
-                        <rect key="frame" x="15" y="40.5" width="18" height="18"/>
+                        <rect key="frame" x="0.0" y="25.5" width="48" height="48"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="18" id="9eg-vG-X2V"/>
-                            <constraint firstAttribute="height" constant="18" id="bL3-iQ-feg"/>
+                            <constraint firstAttribute="width" constant="48" id="9eg-vG-X2V"/>
+                            <constraint firstAttribute="height" constant="48" id="bL3-iQ-feg"/>
                         </constraints>
                         <state key="normal" image="icon_selecte_not"/>
                         <state key="selected" image="icon_selecte"/>
@@ -36,7 +36,7 @@
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" text="规格：625ml*6瓶" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vec-wz-qcS">
-                        <rect key="frame" x="133" y="60" width="98" height="15"/>
+                        <rect key="frame" x="133" y="58.5" width="98" height="15"/>
                         <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="12"/>
                         <color key="textColor" red="0.69803921570000005" green="0.69803921570000005" blue="0.69803921570000005" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
@@ -50,7 +50,7 @@
                         <state key="normal" title="-"/>
                     </button>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OQr-qY-rGF">
-                        <rect key="frame" x="223" y="15" width="30" height="30"/>
+                        <rect key="frame" x="221" y="15" width="30" height="30"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="30" id="cr5-Eu-5k6"/>
                             <constraint firstAttribute="height" constant="30" id="fd5-FE-k5a"/>
@@ -58,7 +58,7 @@
                         <state key="normal" title="+"/>
                     </button>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n3A-6E-BNd">
-                        <rect key="frame" x="163" y="15" width="60" height="30"/>
+                        <rect key="frame" x="162" y="15" width="60" height="30"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="30" id="Obd-1t-TSt"/>
                             <constraint firstAttribute="width" constant="60" id="ssb-4o-EwM"/>
@@ -68,37 +68,44 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ns8-vn-IsB">
-                        <rect key="frame" x="290" y="59" width="16" height="16"/>
+                        <rect key="frame" x="290" y="57.5" width="16" height="16"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="16" id="4HC-Rm-OWF"/>
                             <constraint firstAttribute="width" constant="16" id="UDb-Ef-Meh"/>
                         </constraints>
                         <state key="normal" image="icon_delete"/>
                     </button>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="¥58.00" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VTt-Vw-Wt3">
-                        <rect key="frame" x="257" y="22" width="49" height="16"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                        <color key="textColor" red="0.81568627449999997" green="0.0078431372550000003" blue="0.1058823529" alpha="1" colorSpace="calibratedRGB"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VTt-Vw-Wt3">
+                        <rect key="frame" x="255" y="15" width="51" height="15"/>
+                        <attributedString key="attributedText">
+                            <fragment content="¥58.00">
+                                <attributes>
+                                    <color key="NSColor" red="0.81568627450980391" green="0.0078431372549019607" blue="0.10588235294117647" alpha="1" colorSpace="calibratedRGB"/>
+                                    <font key="NSFont" size="13" name="Helvetica-Bold"/>
+                                    <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                </attributes>
+                            </fragment>
+                        </attributedString>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="tlx-nQ-bBN" firstAttribute="leading" secondItem="8BP-cK-8il" secondAttribute="trailing" constant="15" id="1uT-nY-nfO"/>
                     <constraint firstItem="vec-wz-qcS" firstAttribute="leading" secondItem="tlx-nQ-bBN" secondAttribute="trailing" constant="15" id="25z-gs-oIJ"/>
                     <constraint firstAttribute="trailing" secondItem="VTt-Vw-Wt3" secondAttribute="trailing" constant="15" id="2gR-6x-ZmG"/>
                     <constraint firstItem="VTt-Vw-Wt3" firstAttribute="leading" secondItem="OQr-qY-rGF" secondAttribute="trailing" constant="4" id="5bF-DF-0rv"/>
+                    <constraint firstAttribute="bottom" secondItem="vec-wz-qcS" secondAttribute="bottom" constant="26" id="7z0-pb-BO0"/>
                     <constraint firstItem="tlx-nQ-bBN" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="B15-if-EIa"/>
+                    <constraint firstItem="tlx-nQ-bBN" firstAttribute="leading" secondItem="8BP-cK-8il" secondAttribute="trailing" id="BMT-pY-9MY"/>
                     <constraint firstItem="nHh-Td-KuZ" firstAttribute="leading" secondItem="tlx-nQ-bBN" secondAttribute="trailing" constant="15" id="IwC-w7-STz"/>
-                    <constraint firstItem="VTt-Vw-Wt3" firstAttribute="centerY" secondItem="n3A-6E-BNd" secondAttribute="centerY" id="dgf-oV-eiM"/>
+                    <constraint firstItem="VTt-Vw-Wt3" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="15" id="dYO-BY-kQZ"/>
                     <constraint firstItem="n3A-6E-BNd" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="15" id="gvT-fg-NSM"/>
-                    <constraint firstItem="8BP-cK-8il" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="gyv-mG-kaf"/>
+                    <constraint firstItem="8BP-cK-8il" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="gyv-mG-kaf"/>
                     <constraint firstItem="nHh-Td-KuZ" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="15" id="iQb-A2-g7C"/>
-                    <constraint firstItem="n3A-6E-BNd" firstAttribute="leading" secondItem="nHh-Td-KuZ" secondAttribute="trailing" id="jZq-Pa-Fuy"/>
-                    <constraint firstItem="vec-wz-qcS" firstAttribute="top" secondItem="nHh-Td-KuZ" secondAttribute="bottom" constant="15" id="nDm-WI-P8P"/>
+                    <constraint firstItem="n3A-6E-BNd" firstAttribute="leading" secondItem="nHh-Td-KuZ" secondAttribute="trailing" constant="-1" id="jZq-Pa-Fuy"/>
                     <constraint firstItem="8BP-cK-8il" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="ncd-Ht-F6E"/>
                     <constraint firstItem="OQr-qY-rGF" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="15" id="tSJ-Ef-vt7"/>
                     <constraint firstItem="ns8-vn-IsB" firstAttribute="centerY" secondItem="vec-wz-qcS" secondAttribute="centerY" id="uHl-m4-YF8"/>
-                    <constraint firstItem="OQr-qY-rGF" firstAttribute="leading" secondItem="n3A-6E-BNd" secondAttribute="trailing" id="v7d-ah-cla"/>
+                    <constraint firstItem="OQr-qY-rGF" firstAttribute="leading" secondItem="n3A-6E-BNd" secondAttribute="trailing" constant="-1" id="v7d-ah-cla"/>
                     <constraint firstAttribute="trailing" secondItem="ns8-vn-IsB" secondAttribute="trailing" constant="15" id="xGh-mr-vmx"/>
                 </constraints>
             </tableViewCellContentView>

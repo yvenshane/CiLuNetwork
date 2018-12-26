@@ -8,13 +8,25 @@
 
 #import "VENShoppingCartViewController.h"
 #import "VENShoppingCartTableViewCell.h"
+#import "VENShoppingCartEditTableViewCell.h"
+#import "VENShoppingCartPlacingOrderViewController.h"
 
 @interface VENShoppingCartViewController () <UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong) NSMutableArray *dataSourceMuArr;
+@property (nonatomic, strong) UITableView *tableView;
+@property (nonatomic, assign) BOOL isEdit;
+@property (nonatomic, strong) UIButton *navigationRightButton;
+
+@property (nonatomic, strong) UIButton *selectAllButton;
+@property (nonatomic, strong) UILabel *priceLabel;
+@property (nonatomic, strong) UIButton *payButton;
+
+@property (nonatomic, strong) NSMutableArray *choiceMuArr;
 
 @end
 
 static NSString *cellIdentifier = @"cellIdentifier";
+static NSString *cellIdentifier2 = @"cellIdentifier2";
 @implementation VENShoppingCartViewController
 
 - (void)viewDidLoad {
@@ -42,10 +54,54 @@ static NSString *cellIdentifier = @"cellIdentifier";
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    VENShoppingCartTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    if (self.isEdit) {
+        VENShoppingCartEditTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier2 forIndexPath:indexPath];
+        cell.iconImageView.backgroundColor = [UIColor colorWithRed:arc4random_uniform(255)/255.0 green:arc4random_uniform(255)/255.0 blue:arc4random_uniform(255)/255.0 alpha:1];
+        
+        [cell.choiceButton addTarget:self action:@selector(choiceButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+        
+        cell.choiceButton.tag = 998 + indexPath.section;
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        return cell;
+    } else {
+        VENShoppingCartTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
+        cell.iconImageView.backgroundColor = [UIColor colorWithRed:arc4random_uniform(255)/255.0 green:arc4random_uniform(255)/255.0 blue:arc4random_uniform(255)/255.0 alpha:1];
+        
+        
+        [cell.choiceButton addTarget:self action:@selector(choiceButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+        cell.choiceButton.tag = 998 + indexPath.section;
+        
+        for (NSString *str in self.choiceMuArr) {
+            cell.choiceButton.selected = [[NSString stringWithFormat:@"%ld", (long)cell.choiceButton.tag - 998] isEqualToString:str] ? YES : NO;
+        }
+        
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        return cell;
+    }
+}
+
+- (void)choiceButtonClick:(UIButton *)button {
+    button.selected = !button.selected;
     
-    return cell;
+    
+    if (button.selected == YES) {
+        [self.choiceMuArr addObject:[NSString stringWithFormat:@"%ld", (long)button.tag - 998]];
+    } else {
+        
+        
+        for (NSString *str in self.choiceMuArr) {
+            if ([[NSString stringWithFormat:@"%ld", (long)button.tag - 998] isEqualToString:str]) {
+                [self.choiceMuArr removeObject:str];
+                break;
+            }
+        }
+    }
+    
+    [self.payButton setTitle:[NSString stringWithFormat:@"结算(%lu)", (unsigned long)self.choiceMuArr.count] forState:UIControlStateNormal];
+    
+    self.payButton.backgroundColor = self.choiceMuArr.count > 0 ? COLOR_THEME : UIColorFromRGB(0xCCCCCC);
+    
+    NSLog(@"%@", _choiceMuArr);
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
@@ -68,18 +124,22 @@ static NSString *cellIdentifier = @"cellIdentifier";
     return section == self.dataSourceMuArr.count - 1 ? 10 : 5;
 }
 
-- (void)editButtonClick {
-    
-}
-
 - (void)setupEditButton {
-    UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 60, 44)];
+    UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 44, 44)];
     [button setTitle:@"编辑" forState:UIControlStateNormal];
     [button setTitleColor:UIColorFromRGB(0x1A1A1A) forState:UIControlStateNormal];
     button.titleLabel.font = [UIFont systemFontOfSize:15.0f];
     [button addTarget:self action:@selector(editButtonClick) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithCustomView:button];
     self.navigationItem.rightBarButtonItem = barButton;
+    
+    _navigationRightButton = button;
+}
+
+- (void)editButtonClick {
+    self.isEdit = self.isEdit ? NO : YES;
+    [self.navigationRightButton setTitle:self.isEdit ? @"完成" : @"编辑" forState:UIControlStateNormal];
+    [self.tableView reloadData];
 }
 
 - (void)setupTableView {
@@ -90,7 +150,10 @@ static NSString *cellIdentifier = @"cellIdentifier";
     tableView.backgroundColor = UIColorFromRGB(0xF5F5F5);
     tableView.rowHeight = 100;
     [tableView registerNib:[UINib nibWithNibName:@"VENShoppingCartTableViewCell" bundle:nil] forCellReuseIdentifier:cellIdentifier];
+    [tableView registerNib:[UINib nibWithNibName:@"VENShoppingCartEditTableViewCell" bundle:nil] forCellReuseIdentifier:cellIdentifier2];
     [self.view addSubview:tableView];
+    
+    _tableView = tableView;
 }
 
 - (void)setupShoppingBar {
@@ -104,6 +167,7 @@ static NSString *cellIdentifier = @"cellIdentifier";
     [selectAllButton setTitle:@"   全选" forState:UIControlStateNormal];
     [selectAllButton setTitleColor:UIColorFromRGB(0x1A1A1A) forState:UIControlStateNormal];
     selectAllButton.titleLabel.font = [UIFont systemFontOfSize:14.0f];
+    [selectAllButton addTarget:self action:@selector(selectAllButtonClick) forControlEvents:UIControlEventTouchUpInside];
     [shoppingBar addSubview:selectAllButton];
     
     NSString *tempStr = @"56.00";
@@ -121,11 +185,30 @@ static NSString *cellIdentifier = @"cellIdentifier";
     payButton.backgroundColor = UIColorFromRGB(0xCCCCCC);
     [payButton setTitle:@"结算(0)" forState:UIControlStateNormal];
     payButton.titleLabel.font = [UIFont systemFontOfSize:16.0f];
+    [payButton addTarget:self action:@selector(payButtonClick) forControlEvents:UIControlEventTouchUpInside];
     [shoppingBar addSubview:payButton];
     
     UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kMainScreenWidth, 1)];
     lineView.backgroundColor = UIColorFromRGB(0xE8E8E8);
     [shoppingBar addSubview:lineView];
+    
+    _selectAllButton = selectAllButton;
+    _priceLabel = priceLabel;
+    _payButton = payButton;
+}
+
+- (void)selectAllButtonClick {
+    NSLog(@"全选");
+    
+}
+
+- (void)payButtonClick {
+    if (self.choiceMuArr.count > 0) {
+        NSLog(@"结算/删除");
+        VENShoppingCartPlacingOrderViewController *vc = [[VENShoppingCartPlacingOrderViewController alloc] init];
+        vc.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:vc animated:YES];
+    }
 }
 
 - (void)setupPlaceholderStatus {
@@ -165,6 +248,13 @@ static NSString *cellIdentifier = @"cellIdentifier";
 - (CGFloat)label:(UILabel *)label setWidthToHeight:(CGFloat)Height {
     CGSize size = [label sizeThatFits:CGSizeMake(CGFLOAT_MAX, Height)];
     return size.width;
+}
+
+- (NSMutableArray *)choiceMuArr {
+    if (_choiceMuArr == nil) {
+        _choiceMuArr = [NSMutableArray array];
+    }
+    return _choiceMuArr;
 }
 
 - (NSMutableArray *)dataSourceMuArr {
