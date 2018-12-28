@@ -76,7 +76,7 @@
                         <state key="normal" image="icon_delete"/>
                     </button>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VTt-Vw-Wt3">
-                        <rect key="frame" x="255" y="15" width="51" height="15"/>
+                        <rect key="frame" x="266" y="15" width="40" height="15"/>
                         <attributedString key="attributedText">
                             <fragment content="¥58.00">
                                 <attributes>
@@ -92,12 +92,11 @@
                 <constraints>
                     <constraint firstItem="vec-wz-qcS" firstAttribute="leading" secondItem="tlx-nQ-bBN" secondAttribute="trailing" constant="15" id="25z-gs-oIJ"/>
                     <constraint firstAttribute="trailing" secondItem="VTt-Vw-Wt3" secondAttribute="trailing" constant="15" id="2gR-6x-ZmG"/>
-                    <constraint firstItem="VTt-Vw-Wt3" firstAttribute="leading" secondItem="OQr-qY-rGF" secondAttribute="trailing" constant="4" id="5bF-DF-0rv"/>
-                    <constraint firstAttribute="bottom" secondItem="vec-wz-qcS" secondAttribute="bottom" constant="26" id="7z0-pb-BO0"/>
                     <constraint firstItem="tlx-nQ-bBN" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="B15-if-EIa"/>
                     <constraint firstItem="tlx-nQ-bBN" firstAttribute="leading" secondItem="8BP-cK-8il" secondAttribute="trailing" id="BMT-pY-9MY"/>
                     <constraint firstItem="nHh-Td-KuZ" firstAttribute="leading" secondItem="tlx-nQ-bBN" secondAttribute="trailing" constant="15" id="IwC-w7-STz"/>
                     <constraint firstItem="VTt-Vw-Wt3" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="15" id="dYO-BY-kQZ"/>
+                    <constraint firstAttribute="bottom" secondItem="vec-wz-qcS" secondAttribute="bottom" constant="26" id="gJB-Sc-m4t"/>
                     <constraint firstItem="n3A-6E-BNd" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="15" id="gvT-fg-NSM"/>
                     <constraint firstItem="8BP-cK-8il" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="gyv-mG-kaf"/>
                     <constraint firstItem="nHh-Td-KuZ" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="15" id="iQb-A2-g7C"/>

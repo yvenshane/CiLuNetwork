@@ -12,6 +12,8 @@
 #import "VENMineTableViewCellStyleThree.h"
 #import "VENLoginViewController.h"
 
+#import "VENMyOrderViewController.h"
+
 @interface VENMineViewController () <UITableViewDelegate, UITableViewDataSource>
 
 @end
@@ -55,6 +57,11 @@ static NSString *cellIdentifier3 = @"cellIdentifier3";
     } else if (indexPath.section == 1) {
         VENMineTableViewCellStyleTwo *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier2 forIndexPath:indexPath];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        
+        [cell.waitingForShipmentButton addTarget:self action:@selector(waitingForShipmentButtonClick) forControlEvents:UIControlEventTouchUpInside];
+        [cell.waitingForReceivingButton addTarget:self action:@selector(waitingForReceivingButtonClick) forControlEvents:UIControlEventTouchUpInside];
+        [cell.waitingForEvaluationButton addTarget:self action:@selector(waitingForEvaluationButtonClick) forControlEvents:UIControlEventTouchUpInside];
+        
         return cell;
     } else {
         VENMineTableViewCellStyleOne *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
@@ -64,7 +71,7 @@ static NSString *cellIdentifier3 = @"cellIdentifier3";
             if (indexPath.row == 0) {
                 cell.leftLabel.text = @"我的余额";
                 cell.rightLabel.hidden = NO;
-                cell.rightLabel.text = @"100元";
+                cell.rightLabel.text = @"0元";
             } else {
                 cell.rightLabel.hidden = YES;
                 
@@ -93,10 +100,43 @@ static NSString *cellIdentifier3 = @"cellIdentifier3";
     }
 }
 
+- (void)waitingForShipmentButtonClick {
+    NSLog(@"待发货");
+    
+    VENMyOrderViewController *vc = [[VENMyOrderViewController alloc] init];
+    vc.pushIndexPath = 1;
+    vc.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
+- (void)waitingForReceivingButtonClick {
+    NSLog(@"待收货");
+    
+    VENMyOrderViewController *vc = [[VENMyOrderViewController alloc] init];
+    vc.pushIndexPath = 2;
+    vc.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
+- (void)waitingForEvaluationButtonClick {
+    NSLog(@"待评价");
+    
+    VENMyOrderViewController *vc = [[VENMyOrderViewController alloc] init];
+    vc.pushIndexPath = 3;
+    vc.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
         VENLoginViewController *vc = [[VENLoginViewController alloc] init];
         [self presentViewController:vc animated:YES completion:nil];
+    } else if (indexPath.section == 1) {
+        NSLog(@"全部订单");
+        
+        VENMyOrderViewController *vc = [[VENMyOrderViewController alloc] init];
+        vc.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:vc animated:YES];
     }
 }
 

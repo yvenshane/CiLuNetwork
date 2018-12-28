@@ -19,12 +19,13 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="103.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FvB-nv-mib">
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FvB-nv-mib">
                         <rect key="frame" x="15" y="15" width="72" height="72"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="72" id="Dqx-MY-vgC"/>
                             <constraint firstAttribute="width" constant="72" id="OFA-Kc-C0c"/>
                         </constraints>
+                        <state key="normal" image="icon_default_head_big"/>
                     </button>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="点击登录/注册" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vwh-D7-N55">
                         <rect key="frame" x="102" y="24" width="203" height="22"/>
@@ -32,8 +33,12 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="游客" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1G1-Ga-Hfc">
-                        <rect key="frame" x="102" y="56" width="25" height="15"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="游客" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1G1-Ga-Hfc">
+                        <rect key="frame" x="102" y="56" width="44" height="20"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="20" id="IBO-js-G5U"/>
+                            <constraint firstAttribute="width" constant="44" id="usj-fg-QwJ"/>
+                        </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
@@ -58,4 +63,7 @@
             <point key="canvasLocation" x="34" y="84"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="icon_default_head_big" width="72" height="72"/>
+    </resources>
 </document>

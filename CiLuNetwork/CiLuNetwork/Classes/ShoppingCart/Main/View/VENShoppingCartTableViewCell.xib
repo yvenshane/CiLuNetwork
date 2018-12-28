@@ -47,17 +47,10 @@
                         <color key="textColor" red="0.69803921568627447" green="0.69803921568627447" blue="0.69803921568627447" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lh7-wl-yL0">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="¥58.00" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lh7-wl-yL0">
                         <rect key="frame" x="265" y="15" width="40" height="15"/>
-                        <attributedString key="attributedText">
-                            <fragment content="¥58.00">
-                                <attributes>
-                                    <color key="NSColor" red="0.81568627450980391" green="0.0078431372549019607" blue="0.10588235294117647" alpha="1" colorSpace="calibratedRGB"/>
-                                    <font key="NSFont" size="13" name="Helvetica-Bold"/>
-                                    <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                </attributes>
-                            </fragment>
-                        </attributedString>
+                        <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="13"/>
+                        <color key="textColor" red="0.81568627450980391" green="0.0078431372549019607" blue="0.10588235294117647" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="x1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I9F-ge-hxb">
@@ -70,7 +63,6 @@
                 <constraints>
                     <constraint firstItem="I9F-ge-hxb" firstAttribute="centerY" secondItem="fHF-xJ-Z3a" secondAttribute="centerY" id="2kF-Kl-aVc"/>
                     <constraint firstItem="fHF-xJ-Z3a" firstAttribute="leading" secondItem="bbT-IW-wpA" secondAttribute="trailing" constant="15" id="6DC-vf-gii"/>
-                    <constraint firstAttribute="bottom" secondItem="fHF-xJ-Z3a" secondAttribute="bottom" constant="26" id="ELV-7t-9s2"/>
                     <constraint firstAttribute="trailing" secondItem="I9F-ge-hxb" secondAttribute="trailing" constant="15" id="Gvu-xq-n2H"/>
                     <constraint firstItem="b7r-q0-yg6" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="15" id="Gw7-xc-xma"/>
                     <constraint firstItem="9pd-wx-zQO" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="Uz6-69-pwG"/>
@@ -80,6 +72,7 @@
                     <constraint firstItem="bbT-IW-wpA" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="f1j-uP-edo"/>
                     <constraint firstItem="I9F-ge-hxb" firstAttribute="leading" secondItem="fHF-xJ-Z3a" secondAttribute="trailing" constant="8" id="hzI-zg-zhI"/>
                     <constraint firstItem="Lh7-wl-yL0" firstAttribute="leading" secondItem="b7r-q0-yg6" secondAttribute="trailing" constant="4" id="oU1-OD-COQ"/>
+                    <constraint firstAttribute="bottom" secondItem="fHF-xJ-Z3a" secondAttribute="bottom" constant="26" id="px6-3D-iz7"/>
                     <constraint firstItem="b7r-q0-yg6" firstAttribute="leading" secondItem="bbT-IW-wpA" secondAttribute="trailing" constant="15" id="qmO-tH-OLQ"/>
                     <constraint firstAttribute="trailing" secondItem="Lh7-wl-yL0" secondAttribute="trailing" constant="15" id="wQV-GO-h2v"/>
                 </constraints>
