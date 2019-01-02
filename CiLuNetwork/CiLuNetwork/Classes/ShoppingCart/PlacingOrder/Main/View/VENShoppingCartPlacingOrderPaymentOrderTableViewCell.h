@@ -12,6 +12,6 @@
 @property (weak, nonatomic) IBOutlet UIImageView *leftImageView;
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *errorLabel;
-@property (weak, nonatomic) IBOutlet UIButton *choiseButton;
+@property (weak, nonatomic) IBOutlet UIButton *choiceButton;
 
 @end

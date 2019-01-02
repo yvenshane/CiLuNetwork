@@ -40,12 +40,12 @@
     [button setTitle:@"完成" forState:UIControlStateNormal];
     [button setTitleColor:UIColorFromRGB(0x1A1A1A) forState:UIControlStateNormal];
     button.titleLabel.font = [UIFont systemFontOfSize:15.0f];
-    [button addTarget:self action:@selector(leftButtonClick) forControlEvents:UIControlEventTouchUpInside];
+    [button addTarget:self action:@selector(backButtonClick) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithCustomView:button];
     self.navigationItem.rightBarButtonItem = barButton;
 }
 
-- (void)leftButtonClick {
+- (void)backButtonClick {
     int index = (int)[[self.navigationController viewControllers]indexOfObject:self];
     
     [self.navigationController popToViewController:[self.navigationController.viewControllers objectAtIndex:(index - 3)] animated:YES];

@@ -13,6 +13,7 @@
 #import "VENLoginViewController.h"
 
 #import "VENMyOrderViewController.h"
+#import "VENMyBalanceViewController.h"
 
 @interface VENMineViewController () <UITableViewDelegate, UITableViewDataSource>
 
@@ -137,6 +138,14 @@ static NSString *cellIdentifier3 = @"cellIdentifier3";
         VENMyOrderViewController *vc = [[VENMyOrderViewController alloc] init];
         vc.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:vc animated:YES];
+    } else if (indexPath.section == 2) {
+        if (indexPath.row == 0) {
+            NSLog(@"我的余额");
+            
+            VENMyBalanceViewController *vc = [[VENMyBalanceViewController alloc] init];
+            vc.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:vc animated:YES];
+        }
     }
 }
 
@@ -157,7 +166,7 @@ static NSString *cellIdentifier3 = @"cellIdentifier3";
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return section == 0 ? 0 : 5;
+    return section == 0 ? 0.01 : 5;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {

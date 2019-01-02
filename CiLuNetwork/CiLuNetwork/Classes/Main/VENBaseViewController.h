@@ -11,7 +11,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface VENBaseViewController : UIViewController
-- (void)leftButtonClick;
+- (void)backButtonClick;
 
 @end
 

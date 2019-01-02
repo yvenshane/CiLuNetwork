@@ -72,7 +72,7 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="aW0-zy-SZf"/>
             <connections>
-                <outlet property="choiseButton" destination="TTi-Va-yjK" id="pQm-yP-Sx0"/>
+                <outlet property="choiceButton" destination="TTi-Va-yjK" id="5Lv-t9-OTg"/>
                 <outlet property="errorLabel" destination="Ejk-wF-K7b" id="jI7-aZ-Ald"/>
                 <outlet property="leftImageView" destination="IWq-Nq-xdV" id="yYY-HP-bBr"/>
                 <outlet property="titleLabel" destination="qiX-xf-UVT" id="QDj-zC-uOC"/>
