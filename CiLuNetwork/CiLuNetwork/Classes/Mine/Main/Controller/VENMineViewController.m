@@ -14,6 +14,7 @@
 
 #import "VENMyOrderViewController.h"
 #import "VENMyBalanceViewController.h"
+#import "VENMyPointsViewController.h"
 
 @interface VENMineViewController () <UITableViewDelegate, UITableViewDataSource>
 
@@ -143,6 +144,12 @@ static NSString *cellIdentifier3 = @"cellIdentifier3";
             NSLog(@"我的余额");
             
             VENMyBalanceViewController *vc = [[VENMyBalanceViewController alloc] init];
+            vc.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:vc animated:YES];
+        } else if (indexPath.row == 1) {
+            NSLog(@"我的积分");
+            
+            VENMyPointsViewController *vc = [[VENMyPointsViewController alloc] init];
             vc.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:vc animated:YES];
         }

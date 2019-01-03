@@ -30,6 +30,9 @@
 		2C275AFF21C1F50800E6719E /* VENMineTableViewCellStyleTwo.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2C275AFD21C1F50800E6719E /* VENMineTableViewCellStyleTwo.xib */; };
 		2C275B0321C1FCE400E6719E /* VENMineTableViewCellStyleThree.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C275B0121C1FCE400E6719E /* VENMineTableViewCellStyleThree.m */; };
 		2C275B0421C1FCE400E6719E /* VENMineTableViewCellStyleThree.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2C275B0221C1FCE400E6719E /* VENMineTableViewCellStyleThree.xib */; };
+		2C2D737E21DDA449006E417D /* VENMyPointsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C2D737D21DDA449006E417D /* VENMyPointsViewController.m */; };
+		2C2D738221DDA58B006E417D /* VENMyPointsHeaderViewTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C2D738021DDA58B006E417D /* VENMyPointsHeaderViewTableViewCell.m */; };
+		2C2D738321DDA58B006E417D /* VENMyPointsHeaderViewTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2C2D738121DDA58B006E417D /* VENMyPointsHeaderViewTableViewCell.xib */; };
 		2C2E2D8C21BFEAD700D44120 /* VENShoppingCartTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C2E2D8A21BFEAD700D44120 /* VENShoppingCartTableViewCell.m */; };
 		2C2E2D8D21BFEAD700D44120 /* VENShoppingCartTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2C2E2D8B21BFEAD700D44120 /* VENShoppingCartTableViewCell.xib */; };
 		2C2E2D9121C139B300D44120 /* VENShoppingCartEditTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C2E2D8F21C139B300D44120 /* VENShoppingCartEditTableViewCell.m */; };
@@ -267,6 +270,11 @@
 		2C275B0021C1FCE400E6719E /* VENMineTableViewCellStyleThree.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VENMineTableViewCellStyleThree.h; sourceTree = "<group>"; };
 		2C275B0121C1FCE400E6719E /* VENMineTableViewCellStyleThree.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VENMineTableViewCellStyleThree.m; sourceTree = "<group>"; };
 		2C275B0221C1FCE400E6719E /* VENMineTableViewCellStyleThree.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VENMineTableViewCellStyleThree.xib; sourceTree = "<group>"; };
+		2C2D737C21DDA449006E417D /* VENMyPointsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VENMyPointsViewController.h; sourceTree = "<group>"; };
+		2C2D737D21DDA449006E417D /* VENMyPointsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VENMyPointsViewController.m; sourceTree = "<group>"; };
+		2C2D737F21DDA58B006E417D /* VENMyPointsHeaderViewTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VENMyPointsHeaderViewTableViewCell.h; sourceTree = "<group>"; };
+		2C2D738021DDA58B006E417D /* VENMyPointsHeaderViewTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VENMyPointsHeaderViewTableViewCell.m; sourceTree = "<group>"; };
+		2C2D738121DDA58B006E417D /* VENMyPointsHeaderViewTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VENMyPointsHeaderViewTableViewCell.xib; sourceTree = "<group>"; };
 		2C2E2D8921BFEAD700D44120 /* VENShoppingCartTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VENShoppingCartTableViewCell.h; sourceTree = "<group>"; };
 		2C2E2D8A21BFEAD700D44120 /* VENShoppingCartTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VENShoppingCartTableViewCell.m; sourceTree = "<group>"; };
 		2C2E2D8B21BFEAD700D44120 /* VENShoppingCartTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VENShoppingCartTableViewCell.xib; sourceTree = "<group>"; };
@@ -798,6 +806,42 @@
 			sourceTree = "<group>";
 		};
 		2C1B7E0121DCBC590030532B /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		2C2D737521DDA394006E417D /* MyPoints */ = {
+			isa = PBXGroup;
+			children = (
+				2C2D737821DDA3EA006E417D /* Model */,
+				2C2D737621DDA3EA006E417D /* View */,
+				2C2D737721DDA3EA006E417D /* Controller */,
+			);
+			path = MyPoints;
+			sourceTree = "<group>";
+		};
+		2C2D737621DDA3EA006E417D /* View */ = {
+			isa = PBXGroup;
+			children = (
+				2C2D737F21DDA58B006E417D /* VENMyPointsHeaderViewTableViewCell.h */,
+				2C2D738021DDA58B006E417D /* VENMyPointsHeaderViewTableViewCell.m */,
+				2C2D738121DDA58B006E417D /* VENMyPointsHeaderViewTableViewCell.xib */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		2C2D737721DDA3EA006E417D /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				2C2D737C21DDA449006E417D /* VENMyPointsViewController.h */,
+				2C2D737D21DDA449006E417D /* VENMyPointsViewController.m */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		2C2D737821DDA3EA006E417D /* Model */ = {
 			isa = PBXGroup;
 			children = (
 			);
@@ -1365,6 +1409,7 @@
 				2C0F658421D365860093A6D0 /* Main */,
 				2C0F658521D365920093A6D0 /* MyOrder */,
 				2C54DEC321DC4FB900E72241 /* MyBalance */,
+				2C2D737521DDA394006E417D /* MyPoints */,
 			);
 			path = Mine;
 			sourceTree = "<group>";
@@ -2135,6 +2180,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2C2D738321DDA58B006E417D /* VENMyPointsHeaderViewTableViewCell.xib in Resources */,
 				2CF7EFB221CB3B900020A448 /* VENClassifyDetailsHeaderView.xib in Resources */,
 				2CD4FF3721C782E500868525 /* VENLoginViewController.xib in Resources */,
 				2CDFA08D21B5813500254B52 /* IQKeyboardManager.bundle in Resources */,
@@ -2192,6 +2238,7 @@
 				2CDF9F7021B57A2000254B52 /* VENShoppingCartViewController.m in Sources */,
 				2CDFA0A121B5813500254B52 /* MJRefreshAutoNormalFooter.m in Sources */,
 				2CDFA08321B5813500254B52 /* UIView+WebCacheOperation.m in Sources */,
+				2C2D738221DDA58B006E417D /* VENMyPointsHeaderViewTableViewCell.m in Sources */,
 				2C5FCB3421D0C5F3004A2C31 /* VENShoppingCartPlacingOrderReceivingAddressTableViewCell.m in Sources */,
 				2CEB832821B819CE004A8629 /* JXCategoryDotView.m in Sources */,
 				2CDFA06B21B5813500254B52 /* UIActivityIndicatorView+AFNetworking.m in Sources */,
@@ -2337,6 +2384,7 @@
 				2CDFA0A221B5813500254B52 /* MJRefreshNormalHeader.m in Sources */,
 				2CDFA08421B5813500254B52 /* UIButton+WebCache.m in Sources */,
 				2CDF9F5621B575FF00254B52 /* VENTabBarController.m in Sources */,
+				2C2D737E21DDA449006E417D /* VENMyPointsViewController.m in Sources */,
 				2CDFA09421B5813500254B52 /* IQKeyboardReturnKeyHandler.m in Sources */,
 				2C1B7DFB21DCB7A40030532B /* VENMyBalanceWithdrawTableViewCell2.m in Sources */,
 				2C1B7E0421DCBC6B0030532B /* VENMyBalanceAddAccountViewController.m in Sources */,

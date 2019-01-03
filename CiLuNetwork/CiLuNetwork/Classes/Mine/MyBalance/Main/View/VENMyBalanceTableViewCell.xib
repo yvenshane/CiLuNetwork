@@ -43,13 +43,23 @@
                         <color key="textColor" red="0.1019607843" green="0.1019607843" blue="0.1019607843" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CgV-BY-jzY">
+                        <rect key="frame" x="15" y="65" width="305" height="1"/>
+                        <color key="backgroundColor" red="0.90980392156862744" green="0.90980392156862744" blue="0.90980392156862744" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="1" id="bEq-Od-TFo"/>
+                        </constraints>
+                    </view>
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="trailing" secondItem="zxv-AF-ffH" secondAttribute="trailing" constant="15" id="3Hd-XW-MF9"/>
+                    <constraint firstAttribute="bottom" secondItem="CgV-BY-jzY" secondAttribute="bottom" id="AgW-1w-lQb"/>
                     <constraint firstItem="zxv-AF-ffH" firstAttribute="leading" secondItem="bMf-wp-q6n" secondAttribute="trailing" constant="15" id="DHL-Tb-mHx"/>
                     <constraint firstAttribute="trailing" secondItem="dZT-CF-A8d" secondAttribute="trailing" constant="15" id="HKR-Gp-0VG"/>
                     <constraint firstItem="bMf-wp-q6n" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="O22-bj-L8m"/>
                     <constraint firstItem="bMf-wp-q6n" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="12" id="TOQ-rR-PNf"/>
+                    <constraint firstAttribute="trailing" secondItem="CgV-BY-jzY" secondAttribute="trailing" id="YJH-LV-GMh"/>
+                    <constraint firstItem="CgV-BY-jzY" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="ed9-Yr-dBZ"/>
                     <constraint firstItem="dZT-CF-A8d" firstAttribute="top" secondItem="bMf-wp-q6n" secondAttribute="bottom" constant="3" id="rDv-Qp-hIf"/>
                     <constraint firstItem="zxv-AF-ffH" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="12" id="v5U-K0-nd1"/>
                     <constraint firstItem="dZT-CF-A8d" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="zYr-fI-8M7"/>
