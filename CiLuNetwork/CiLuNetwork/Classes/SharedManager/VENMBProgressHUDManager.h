@@ -11,7 +11,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface VENMBProgressHUDManager : MBProgressHUD
 + (instancetype)sharedManager;
+
 - (void)showText:(NSString *)text;
+- (void)addLoading;
+- (void)removeLoading;
 
 @end
 

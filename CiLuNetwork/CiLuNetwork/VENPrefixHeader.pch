@@ -22,10 +22,9 @@
 #import "MJRefreshNormalHeader.h"
 #import "JXCategoryView.h"
 
-//#import "VENUserTypeManager.h"
-//#import "VENNetworkTool.h"
-//#import "VENMBProgressHUDManager.h"
-//#import "VENClassEmptyManager.h"
+#import "VENNetworkTool.h"
+#import "VENMBProgressHUDManager.h"
+#import "VENClassEmptyManager.h"
 
 #define kMainScreenFrameRect [UIScreen mainScreen].bounds
 #define kMainScreenWidth kMainScreenFrameRect.size.width

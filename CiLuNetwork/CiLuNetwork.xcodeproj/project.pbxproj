@@ -37,6 +37,8 @@
 		2C2E2D8D21BFEAD700D44120 /* VENShoppingCartTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2C2E2D8B21BFEAD700D44120 /* VENShoppingCartTableViewCell.xib */; };
 		2C2E2D9121C139B300D44120 /* VENShoppingCartEditTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C2E2D8F21C139B300D44120 /* VENShoppingCartEditTableViewCell.m */; };
 		2C2E2D9221C139B300D44120 /* VENShoppingCartEditTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2C2E2D9021C139B300D44120 /* VENShoppingCartEditTableViewCell.xib */; };
+		2C42086321E5D25B0033E030 /* VENMBProgressHUDManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C42085F21E5D25B0033E030 /* VENMBProgressHUDManager.m */; };
+		2C42086421E5D25B0033E030 /* VENNetworkTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C42086221E5D25B0033E030 /* VENNetworkTool.m */; };
 		2C4E5B7D21BE933900A041B3 /* VENFilterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C4E5B7C21BE933900A041B3 /* VENFilterView.m */; };
 		2C54DEC921DC504C00E72241 /* VENMyBalanceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C54DEC821DC504C00E72241 /* VENMyBalanceViewController.m */; };
 		2C54DECD21DC507200E72241 /* VENMyBalanceTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C54DECB21DC507200E72241 /* VENMyBalanceTableViewCell.m */; };
@@ -190,8 +192,6 @@
 		2CDFA0B921B5813500254B52 /* NSObject+YYModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CDFA05521B5813500254B52 /* NSObject+YYModel.m */; };
 		2CDFA0BA21B5813500254B52 /* YYClassInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CDFA05621B5813500254B52 /* YYClassInfo.m */; };
 		2CDFA0C121B582D600254B52 /* VENClassEmptyManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CDFA0BE21B582D600254B52 /* VENClassEmptyManager.m */; };
-		2CDFA0C221B582D600254B52 /* VENMBProgressHUDManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CDFA0BF21B582D600254B52 /* VENMBProgressHUDManager.m */; };
-		2CDFA0C321B582D600254B52 /* VENNetworkTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CDFA0C021B582D600254B52 /* VENNetworkTool.m */; };
 		2CEB831E21B819CE004A8629 /* JXCategoryIndicatorLineView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CEB82D921B819CE004A8629 /* JXCategoryIndicatorLineView.m */; };
 		2CEB831F21B819CE004A8629 /* JXCategoryIndicatorTriangleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CEB82DA21B819CE004A8629 /* JXCategoryIndicatorTriangleView.m */; };
 		2CEB832021B819CE004A8629 /* JXCategoryIndicatorImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CEB82DC21B819CE004A8629 /* JXCategoryIndicatorImageView.m */; };
@@ -281,6 +281,10 @@
 		2C2E2D8E21C139B300D44120 /* VENShoppingCartEditTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VENShoppingCartEditTableViewCell.h; sourceTree = "<group>"; };
 		2C2E2D8F21C139B300D44120 /* VENShoppingCartEditTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VENShoppingCartEditTableViewCell.m; sourceTree = "<group>"; };
 		2C2E2D9021C139B300D44120 /* VENShoppingCartEditTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VENShoppingCartEditTableViewCell.xib; sourceTree = "<group>"; };
+		2C42085F21E5D25B0033E030 /* VENMBProgressHUDManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VENMBProgressHUDManager.m; path = ../../../../../PenBook/PenBook/PenBook/SharedManager/VENMBProgressHUDManager.m; sourceTree = "<group>"; };
+		2C42086021E5D25B0033E030 /* VENMBProgressHUDManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VENMBProgressHUDManager.h; path = ../../../../../PenBook/PenBook/PenBook/SharedManager/VENMBProgressHUDManager.h; sourceTree = "<group>"; };
+		2C42086121E5D25B0033E030 /* VENNetworkTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VENNetworkTool.h; path = ../../../../../PenBook/PenBook/PenBook/SharedManager/VENNetworkTool.h; sourceTree = "<group>"; };
+		2C42086221E5D25B0033E030 /* VENNetworkTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VENNetworkTool.m; path = ../../../../../PenBook/PenBook/PenBook/SharedManager/VENNetworkTool.m; sourceTree = "<group>"; };
 		2C4E5B7B21BE933900A041B3 /* VENFilterView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VENFilterView.h; sourceTree = "<group>"; };
 		2C4E5B7C21BE933900A041B3 /* VENFilterView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VENFilterView.m; sourceTree = "<group>"; };
 		2C54DEC721DC504C00E72241 /* VENMyBalanceViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VENMyBalanceViewController.h; sourceTree = "<group>"; };
@@ -576,11 +580,7 @@
 		2CDFA05621B5813500254B52 /* YYClassInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYClassInfo.m; sourceTree = "<group>"; };
 		2CDFA05721B5813500254B52 /* NSObject+YYModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+YYModel.h"; sourceTree = "<group>"; };
 		2CDFA0BB21B582D500254B52 /* VENClassEmptyManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VENClassEmptyManager.h; sourceTree = "<group>"; };
-		2CDFA0BC21B582D500254B52 /* VENNetworkTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VENNetworkTool.h; sourceTree = "<group>"; };
-		2CDFA0BD21B582D600254B52 /* VENMBProgressHUDManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VENMBProgressHUDManager.h; sourceTree = "<group>"; };
 		2CDFA0BE21B582D600254B52 /* VENClassEmptyManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VENClassEmptyManager.m; sourceTree = "<group>"; };
-		2CDFA0BF21B582D600254B52 /* VENMBProgressHUDManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VENMBProgressHUDManager.m; sourceTree = "<group>"; };
-		2CDFA0C021B582D600254B52 /* VENNetworkTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VENNetworkTool.m; sourceTree = "<group>"; };
 		2CEB82D521B819CE004A8629 /* JXCategoryIndicatorCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXCategoryIndicatorCell.h; sourceTree = "<group>"; };
 		2CEB82D621B819CE004A8629 /* JXCategoryIndicatorCellModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXCategoryIndicatorCellModel.h; sourceTree = "<group>"; };
 		2CEB82D721B819CE004A8629 /* JXCategoryIndicatorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXCategoryIndicatorView.h; sourceTree = "<group>"; };
@@ -1490,10 +1490,10 @@
 			children = (
 				2CDFA0BB21B582D500254B52 /* VENClassEmptyManager.h */,
 				2CDFA0BE21B582D600254B52 /* VENClassEmptyManager.m */,
-				2CDFA0BD21B582D600254B52 /* VENMBProgressHUDManager.h */,
-				2CDFA0BF21B582D600254B52 /* VENMBProgressHUDManager.m */,
-				2CDFA0BC21B582D500254B52 /* VENNetworkTool.h */,
-				2CDFA0C021B582D600254B52 /* VENNetworkTool.m */,
+				2C42086021E5D25B0033E030 /* VENMBProgressHUDManager.h */,
+				2C42085F21E5D25B0033E030 /* VENMBProgressHUDManager.m */,
+				2C42086121E5D25B0033E030 /* VENNetworkTool.h */,
+				2C42086221E5D25B0033E030 /* VENNetworkTool.m */,
 			);
 			path = SharedManager;
 			sourceTree = "<group>";
@@ -2275,7 +2275,6 @@
 				2CEB833521B819CE004A8629 /* JXCategoryNumberCellModel.m in Sources */,
 				2CDFA05F21B5813500254B52 /* View+MASAdditions.m in Sources */,
 				2CEB831E21B819CE004A8629 /* JXCategoryIndicatorLineView.m in Sources */,
-				2CDFA0C321B582D600254B52 /* VENNetworkTool.m in Sources */,
 				2C4E5B7D21BE933900A041B3 /* VENFilterView.m in Sources */,
 				2C98D45021D6070F004E1153 /* VENMyOrderOrderDetailsTableViewCell.m in Sources */,
 				2C55A14D21CA2BD7005862D5 /* VENClassifyDetailsToolBarView.m in Sources */,
@@ -2289,10 +2288,10 @@
 				2CDFA0B621B5813500254B52 /* TAAbstractDotView.m in Sources */,
 				2CDFA05921B5813500254B52 /* NSLayoutConstraint+MASDebugAdditions.m in Sources */,
 				2CDFA06E21B5813500254B52 /* AFImageDownloader.m in Sources */,
+				2C42086421E5D25B0033E030 /* VENNetworkTool.m in Sources */,
 				2C98D44A21D60163004E1153 /* VENMyOrderOrderDetailsHeaderView.m in Sources */,
 				2CDFA0A021B5813500254B52 /* MJRefreshAutoGifFooter.m in Sources */,
 				2C54DED321DC549300E72241 /* VENMyBalanceHeaderViewTableViewCell.m in Sources */,
-				2CDFA0C221B582D600254B52 /* VENMBProgressHUDManager.m in Sources */,
 				2CB54FC721B67A84003AD4D8 /* VENHomePageCollectionViewCell.m in Sources */,
 				2CEB832121B819CE004A8629 /* JXCategoryIndicatorBallView.m in Sources */,
 				2CDFA09221B5813500254B52 /* IQUIView+Hierarchy.m in Sources */,
@@ -2327,6 +2326,7 @@
 				2CDFA09A21B5813500254B52 /* NSBundle+MJRefresh.m in Sources */,
 				2C1B7E0821DCBF000030532B /* VENMyBalanceAddAccountTableViewCell.m in Sources */,
 				2C0F658E21D366660093A6D0 /* VENMyOrderCategoryView.m in Sources */,
+				2C42086321E5D25B0033E030 /* VENMBProgressHUDManager.m in Sources */,
 				2C5FCB3021D0C50C004A2C31 /* VENShoppingCartPlacingOrderReceivingAddressViewController.m in Sources */,
 				2CDFA09921B5813500254B52 /* UIScrollView+MJExtension.m in Sources */,
 				2CDFA0AB21B5813500254B52 /* MBProgressHUD.m in Sources */,

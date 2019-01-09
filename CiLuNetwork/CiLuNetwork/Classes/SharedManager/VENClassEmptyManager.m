@@ -7,14 +7,14 @@
 
 #import "VENClassEmptyManager.h"
 
+static VENClassEmptyManager *instance;
+static dispatch_once_t onceToken;
 @implementation VENClassEmptyManager
 
 + (instancetype)sharedManager {
-    static VENClassEmptyManager *instance;
-    
-    static dispatch_once_t onceToken;
+
     dispatch_once(&onceToken, ^{
-        instance = [[self alloc] init];
+        instance = [[VENClassEmptyManager alloc] init];
     });
     return instance;
 }
