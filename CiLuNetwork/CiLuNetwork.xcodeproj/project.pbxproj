@@ -92,6 +92,7 @@
 		2C94E28421E73715003F6595 /* LGPhotoPickerImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C94E24621E73715003F6595 /* LGPhotoPickerImageView.m */; };
 		2C94E28521E73715003F6595 /* DACircularProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C94E24B21E73715003F6595 /* DACircularProgressView.m */; };
 		2C94E29C21E75B82003F6595 /* NSArray+Log.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C94E29A21E75B82003F6595 /* NSArray+Log.m */; };
+		2C94E29F21E77291003F6595 /* VENUserStatusManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C94E29E21E77291003F6595 /* VENUserStatusManager.m */; };
 		2C98D44A21D60163004E1153 /* VENMyOrderOrderDetailsHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C98D44921D60163004E1153 /* VENMyOrderOrderDetailsHeaderView.m */; };
 		2C98D44C21D60170004E1153 /* VENMyOrderOrderDetailsHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2C98D44B21D60170004E1153 /* VENMyOrderOrderDetailsHeaderView.xib */; };
 		2C98D45021D6070F004E1153 /* VENMyOrderOrderDetailsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C98D44E21D6070F004E1153 /* VENMyOrderOrderDetailsTableViewCell.m */; };
@@ -411,6 +412,8 @@
 		2C94E26C21E73715003F6595 /* LGPhotoPickerCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LGPhotoPickerCommon.h; sourceTree = "<group>"; };
 		2C94E29A21E75B82003F6595 /* NSArray+Log.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+Log.m"; sourceTree = "<group>"; };
 		2C94E29B21E75B82003F6595 /* NSArray+Log.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+Log.h"; sourceTree = "<group>"; };
+		2C94E29D21E77291003F6595 /* VENUserStatusManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VENUserStatusManager.h; sourceTree = "<group>"; };
+		2C94E29E21E77291003F6595 /* VENUserStatusManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VENUserStatusManager.m; sourceTree = "<group>"; };
 		2C98D44821D60163004E1153 /* VENMyOrderOrderDetailsHeaderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VENMyOrderOrderDetailsHeaderView.h; sourceTree = "<group>"; };
 		2C98D44921D60163004E1153 /* VENMyOrderOrderDetailsHeaderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VENMyOrderOrderDetailsHeaderView.m; sourceTree = "<group>"; };
 		2C98D44B21D60170004E1153 /* VENMyOrderOrderDetailsHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VENMyOrderOrderDetailsHeaderView.xib; sourceTree = "<group>"; };
@@ -1724,6 +1727,8 @@
 				2C4208A121E6D1C70033E030 /* VENMBProgressHUDManager.m */,
 				2C42089F21E6D1C70033E030 /* VENNetworkTool.h */,
 				2C4208A021E6D1C70033E030 /* VENNetworkTool.m */,
+				2C94E29D21E77291003F6595 /* VENUserStatusManager.h */,
+				2C94E29E21E77291003F6595 /* VENUserStatusManager.m */,
 			);
 			path = SharedManager;
 			sourceTree = "<group>";
@@ -2625,6 +2630,7 @@
 				2CDFA07C21B5813500254B52 /* UIImage+MultiFormat.m in Sources */,
 				2CDF9F6A21B579E800254B52 /* VENHomePageViewController.m in Sources */,
 				2CEB832C21B819CE004A8629 /* JXCategoryTitleImageCellModel.m in Sources */,
+				2C94E29F21E77291003F6595 /* VENUserStatusManager.m in Sources */,
 				2C54DEE321DC5A2600E72241 /* VENMyBalanceRechargeViewController.m in Sources */,
 				2C93660021CCE9B5002B0ED9 /* VENShoppingCartPlacingOrderFooterView.m in Sources */,
 				2CDFA09321B5813500254B52 /* IQUIViewController+Additions.m in Sources */,

@@ -19,6 +19,9 @@
 @property (weak, nonatomic) IBOutlet UIButton *forgetPasswordButton;
 @property (weak, nonatomic) IBOutlet UIButton *wxLoginButton;
 
+@property (nonatomic, assign) BOOL phoneTextFieldStatus;
+@property (nonatomic, assign) BOOL passwordTextFieldStatus;
+
 @end
 
 @implementation VENLoginViewController
@@ -32,6 +35,24 @@
     
     self.wxLoginButton.layer.cornerRadius = 4.0f;
     self.wxLoginButton.layer.masksToBounds = YES;
+    
+    [self.phoneTextField addTarget:self action:@selector(phoneTextFieldChanged:) forControlEvents:UIControlEventEditingChanged];
+    
+    [self.passwordTextField addTarget:self action:@selector(passwordTextFieldChanged:) forControlEvents:UIControlEventEditingChanged];
+}
+    
+- (void)phoneTextFieldChanged:(UITextField*)textField {
+    self.phoneTextFieldStatus = textField.text.length == 11 ? YES : NO;
+    self.loginButton.backgroundColor = self.phoneTextFieldStatus == YES && self.passwordTextFieldStatus == YES ? COLOR_THEME : UIColorFromRGB(0xDEDEDE);
+    
+    NSLog(@"%d", self.phoneTextFieldStatus);
+}
+
+- (void)passwordTextFieldChanged:(UITextField*)textField {
+    self.passwordTextFieldStatus = textField.text.length >= 6 ? YES : NO;
+    self.loginButton.backgroundColor = self.phoneTextFieldStatus == YES && self.passwordTextFieldStatus == YES ? COLOR_THEME : UIColorFromRGB(0xDEDEDE);
+    
+    NSLog(@"%d", self.passwordTextFieldStatus);
 }
 
 - (IBAction)closeButtonClick:(id)sender {
@@ -40,8 +61,32 @@
 
 #pragma mark - 登录
 - (IBAction)loginButtonClick:(id)sender {
-//    VENVerificationOfPhoneNumberViewController *vc = [[VENVerificationOfPhoneNumberViewController alloc] init];
-//    [self presentViewController:vc animated:YES completion:nil];
+    if ([[VENClassEmptyManager sharedManager] isEmptyString:self.phoneTextField.text] || self.phoneTextField.text.length != 11) {
+        [[VENMBProgressHUDManager sharedManager] showText:@"请输入手机号码"];
+        return;
+    }
+    
+    if ([[VENClassEmptyManager sharedManager] isEmptyString:self.passwordTextField.text] || self.passwordTextField.text.length < 6) {
+        [[VENMBProgressHUDManager sharedManager] showText:@"请输入密码"];
+        return;
+    }
+    
+    NSDictionary *params = @{@"mobile" : self.phoneTextField.text,
+                             @"password" : self.passwordTextField.text};
+    
+    [[VENNetworkTool sharedManager] requestWithMethod:HTTPMethodPost path:@"auth/login" params:params showLoading:YES successBlock:^(id response) {
+        
+        if ([response[@"status"] integerValue] == 0) {
+            
+            NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+            [userDefaults setObject:response[@"data"][@"token"] forKey:@"token"];
+            
+            [self dismissViewControllerAnimated:YES completion:nil];
+        }
+        
+    } failureBlock:^(NSError *error) {
+        
+    }];
 }
 
 #pragma mark - 注册新用户

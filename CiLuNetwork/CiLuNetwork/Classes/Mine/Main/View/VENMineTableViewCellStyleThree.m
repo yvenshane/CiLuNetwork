@@ -18,12 +18,12 @@
     self.iconButton.layer.cornerRadius = 36.0f;
     self.iconButton.layer.masksToBounds = YES;
     
-    self.otherLabel.layer.cornerRadius = 10.0f;
-    self.otherLabel.layer.masksToBounds = YES;
-    self.otherLabel.layer.borderWidth = 1.0f;
-    self.otherLabel.layer.borderColor = UIColorFromRGB(0xE8E8E8).CGColor;
+    self.otherButton.layer.cornerRadius = 10.0f;
+    self.otherButton.layer.masksToBounds = YES;
+    self.otherButton.layer.borderWidth = 1.0f;
+    self.otherButton.layer.borderColor = UIColorFromRGB(0xE8E8E8).CGColor;
     
-    self.otherLabel.textColor = UIColorFromRGB(0xCCCCCC);
+    [self.otherButton setTitleColor:UIColorFromRGB(0xCCCCCC) forState:UIControlStateNormal];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

@@ -10,7 +10,7 @@
 
 @interface VENMineTableViewCellStyleThree : UITableViewCell
 @property (weak, nonatomic) IBOutlet UIButton *iconButton;
-@property (weak, nonatomic) IBOutlet UILabel *nameLabel;
-@property (weak, nonatomic) IBOutlet UILabel *otherLabel;
+@property (weak, nonatomic) IBOutlet UIButton *nameButton;
+@property (weak, nonatomic) IBOutlet UIButton *otherButton;
 
 @end
