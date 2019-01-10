@@ -2,34 +2,38 @@
 
 @implementation NSArray (Log)
 
-- (NSString *)descriptionWithLocale:(id)locale
-{
-    NSMutableString *strM = [NSMutableString stringWithString:@"(\n"];
+- (NSString *)descriptionWithLocale:(id)locale indent:(NSUInteger)level{
     
-    [self enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        [strM appendFormat:@"\t%@,\n", obj];
+    NSMutableString *nmString = [NSMutableString stringWithString:@"\n[\n"];
+    
+    [self enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        
+        [nmString appendFormat:@"\t%@\n",obj];
+        
     }];
     
-    [strM appendString:@")"];
+    [nmString appendString:@"]\n"];
     
-    return strM;
+    return nmString.copy;
 }
 
 @end
 
 @implementation NSDictionary (Log)
 
-- (NSString *)descriptionWithLocale:(id)locale
-{
-    NSMutableString *strM = [NSMutableString stringWithString:@"{\n"];
+- (NSString *)descriptionWithLocale:(id)locale indent:(NSUInteger)level {
     
-    [self enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
-        [strM appendFormat:@"\t%@ = %@;\n", key, obj];
+    NSMutableString *nmString = [NSMutableString stringWithString:@"\n{\n"];
+    
+    [self enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
+        
+        [nmString appendFormat:@"\t%@ = %@\n",key,obj];
+        
     }];
     
-    [strM appendString:@"}\n"];
+    [nmString appendString:@"\n}\n"];
     
-    return strM;
+    return nmString.copy;
 }
 
 @end

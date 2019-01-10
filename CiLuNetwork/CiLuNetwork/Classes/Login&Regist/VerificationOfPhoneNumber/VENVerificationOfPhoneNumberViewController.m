@@ -107,11 +107,6 @@
     
     [[VENNetworkTool sharedManager] requestWithMethod:HTTPMethodPost path:@"auth/verifyMobile" params:params showLoading:YES successBlock:^(id response) {
         
-        if ([response[@"status"] integerValue] != 0) {
-            [[VENMBProgressHUDManager sharedManager] showText:response[@"message"]];
-            return;
-        }
-        
         VENFillInInformationViewController *vc = [[VENFillInInformationViewController alloc] init];
         vc.phoneCode = self.phoneTextField.text;
         vc.verificationCode = self.verificationCodeTextField.text;

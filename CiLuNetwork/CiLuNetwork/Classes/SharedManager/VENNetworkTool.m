@@ -94,9 +94,7 @@ static dispatch_once_t onceToken;
                 
                 NSLog(@"%@", responseObject);
                 
-                if ([responseObject[@"status"] integerValue] == 0) {
-                    [[VENMBProgressHUDManager sharedManager] showText:responseObject[@"message"]];
-                }
+                [[VENMBProgressHUDManager sharedManager] showText:responseObject[@"message"]];
                 
                 if ([responseObject[@"code"] integerValue] == 10099) {
                     NSLog(@"10099");
@@ -105,6 +103,7 @@ static dispatch_once_t onceToken;
                 success(responseObject);
             } failure:^(NSURLSessionTask *operation, NSError *error) {
                 [self hideLoading:isShow];
+                
                 failure(error);
             }];
             break;
