@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment version="2304" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -28,7 +28,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yBG-Rl-yHh">
-                    <rect key="frame" x="0.0" y="20" width="44" height="44"/>
+                    <rect key="frame" x="0.0" y="40" width="44" height="44"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="44" id="75E-Rx-Q1u"/>
                         <constraint firstAttribute="width" constant="44" id="Hy8-A4-AUK"/>
@@ -39,7 +39,7 @@
                     </connections>
                 </button>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1YP-Gv-RBN">
-                    <rect key="frame" x="20" y="88" width="96" height="34"/>
+                    <rect key="frame" x="20" y="108" width="96" height="34"/>
                     <attributedString key="attributedText">
                         <fragment content="账号登录">
                             <attributes>
@@ -50,7 +50,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="手机号码" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="QEf-1g-Rkw">
-                    <rect key="frame" x="20" y="146" width="335" height="54"/>
+                    <rect key="frame" x="20" y="166" width="335" height="54"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="54" id="SYn-IA-eAS"/>
                     </constraints>
@@ -59,14 +59,14 @@
                     <textInputTraits key="textInputTraits"/>
                 </textField>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PxC-mH-tAJ">
-                    <rect key="frame" x="20" y="200" width="335" height="1"/>
+                    <rect key="frame" x="20" y="220" width="335" height="1"/>
                     <color key="backgroundColor" red="0.86274509803921573" green="0.86274509803921573" blue="0.86274509803921573" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="1" id="WSY-HP-TE3"/>
                     </constraints>
                 </view>
                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="密码" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="p7U-gc-Z55">
-                    <rect key="frame" x="20" y="201" width="335" height="54"/>
+                    <rect key="frame" x="20" y="221" width="335" height="54"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="54" id="asz-IF-KIs"/>
                     </constraints>
@@ -75,14 +75,14 @@
                     <textInputTraits key="textInputTraits"/>
                 </textField>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tcW-I8-QyJ">
-                    <rect key="frame" x="20" y="255" width="335" height="1"/>
+                    <rect key="frame" x="20" y="275" width="335" height="1"/>
                     <color key="backgroundColor" red="0.86274509799999999" green="0.86274509799999999" blue="0.86274509799999999" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="1" id="1tL-3A-DpR"/>
                     </constraints>
                 </view>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vfw-kf-gIz">
-                    <rect key="frame" x="20" y="286" width="335" height="48"/>
+                    <rect key="frame" x="20" y="306" width="335" height="48"/>
                     <color key="backgroundColor" red="0.87058823529411766" green="0.87058823529411766" blue="0.87058823529411766" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="48" id="6d9-GB-SNb"/>
@@ -96,7 +96,7 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eT5-i0-3Su">
-                    <rect key="frame" x="20" y="359" width="77" height="30"/>
+                    <rect key="frame" x="20" y="379" width="77" height="30"/>
                     <state key="normal" title="注册新用户">
                         <color key="titleColor" red="0.7803921568627451" green="0.59215686274509804" blue="0.30980392156862746" alpha="1" colorSpace="calibratedRGB"/>
                     </state>
@@ -105,10 +105,13 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="whz-vf-c0T">
-                    <rect key="frame" x="278" y="359" width="77" height="30"/>
+                    <rect key="frame" x="278" y="379" width="77" height="30"/>
                     <state key="normal" title="忘记密码？">
                         <color key="titleColor" red="0.78039215689999997" green="0.59215686270000001" blue="0.30980392159999998" alpha="1" colorSpace="calibratedRGB"/>
                     </state>
+                    <connections>
+                        <action selector="findPasswordButtonClick:" destination="-1" eventType="touchUpInside" id="qr3-eh-1rp"/>
+                    </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="77L-P3-o9D">
                     <rect key="frame" x="20" y="594" width="335" height="48"/>
@@ -147,7 +150,7 @@
                 <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="whz-vf-c0T" secondAttribute="trailing" constant="20" id="1RJ-Iq-oER"/>
                 <constraint firstItem="eT5-i0-3Su" firstAttribute="top" secondItem="vfw-kf-gIz" secondAttribute="bottom" constant="25" id="5Je-v2-Qxc"/>
                 <constraint firstItem="1YP-Gv-RBN" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" constant="20" id="5tz-zR-quq"/>
-                <constraint firstItem="yBG-Rl-yHh" firstAttribute="top" secondItem="Q5M-cg-NOt" secondAttribute="top" id="79n-YJ-if5"/>
+                <constraint firstItem="yBG-Rl-yHh" firstAttribute="top" secondItem="Q5M-cg-NOt" secondAttribute="top" constant="20" id="79n-YJ-if5"/>
                 <constraint firstItem="QEf-1g-Rkw" firstAttribute="top" secondItem="1YP-Gv-RBN" secondAttribute="bottom" constant="24" id="ACP-Z2-RAe"/>
                 <constraint firstItem="vfw-kf-gIz" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" constant="20" id="CRv-yh-1Dr"/>
                 <constraint firstItem="WhG-f0-deb" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" constant="20" id="Cbb-Zq-3CB"/>

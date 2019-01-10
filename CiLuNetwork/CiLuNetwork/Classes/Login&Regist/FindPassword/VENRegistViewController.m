@@ -1,19 +1,19 @@
 //
-//  VENVerificationOfPhoneNumberViewController.m
+//  VENRegistViewController.m
 //  CiLuNetwork
 //
 //  Created by YVEN on 2018/12/17.
 //  Copyright © 2018年 Hefei Haiba Network Technology Co., Ltd. All rights reserved.
 //
 
-#import "VENVerificationOfPhoneNumberViewController.h"
-#import "VENFillInInformationViewController.h"
+#import "VENRegistViewController.h"
+#import "VENRegistSetPasswordViewController.h"
 
-@interface VENVerificationOfPhoneNumberViewController ()
+@interface VENRegistViewController ()
 @property (weak, nonatomic) IBOutlet UIButton *closeButton;
 @property (weak, nonatomic) IBOutlet UITextField *phoneTextField;
 @property (weak, nonatomic) IBOutlet UITextField *verificationCodeTextField;
-@property (weak, nonatomic) IBOutlet UITextField *invitationCodeTextField;
+//@property (weak, nonatomic) IBOutlet UITextField *invitationCodeTextField;
 @property (weak, nonatomic) IBOutlet UIButton *getverificationCodeButton;
 @property (weak, nonatomic) IBOutlet UIButton *nextButton;
 
@@ -25,7 +25,7 @@
 
 @end
 
-@implementation VENVerificationOfPhoneNumberViewController
+@implementation VENRegistViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -33,7 +33,7 @@
     
     self.nextButton.layer.cornerRadius = 4.0f;
     self.nextButton.layer.masksToBounds = YES;
-
+    
     [self.phoneTextField addTarget:self action:@selector(phoneTextFieldChanged:) forControlEvents:UIControlEventEditingChanged];
     
     [self.verificationCodeTextField addTarget:self action:@selector(verificationCodeTextFieldChanged:) forControlEvents:UIControlEventEditingChanged];
@@ -55,7 +55,6 @@
 
 #pragma mark - 获取验证码
 - (IBAction)getVerificationCodeButtonClick:(id)sender {
-    
     if ([[VENClassEmptyManager sharedManager] isEmptyString:self.phoneTextField.text] || self.phoneTextField.text.length != 11) {
         [[VENMBProgressHUDManager sharedManager] showText:@"请输入手机号码"];
         return;
@@ -92,6 +91,7 @@
 }
 
 - (IBAction)nextButtonClick:(id)sender {
+    
     if ([[VENClassEmptyManager sharedManager] isEmptyString:self.phoneTextField.text] || self.phoneTextField.text.length != 11) {
         [[VENMBProgressHUDManager sharedManager] showText:@"请输入手机号码"];
         return;
@@ -112,18 +112,15 @@
             return;
         }
         
-        VENFillInInformationViewController *vc = [[VENFillInInformationViewController alloc] init];
+        VENRegistSetPasswordViewController *vc = [[VENRegistSetPasswordViewController alloc] init];
         vc.phoneCode = self.phoneTextField.text;
         vc.verificationCode = self.verificationCodeTextField.text;
-        vc.invitationCode = self.invitationCodeTextField.text;
+        //    vc.invitationCode = self.invitationCodeTextField.text;
         [self presentViewController:vc animated:YES completion:nil];
         
     } failureBlock:^(NSError *error) {
         
     }];
-    
-
-    
 }
 
 - (void)didReceiveMemoryWarning {

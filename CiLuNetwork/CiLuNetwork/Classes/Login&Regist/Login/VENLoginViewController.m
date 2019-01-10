@@ -7,8 +7,8 @@
 //
 
 #import "VENLoginViewController.h"
-#import "VENVerificationOfPhoneNumberViewController.h"
 #import "VENRegistViewController.h"
+#import "VENVerificationOfPhoneNumberViewController.h"
 
 @interface VENLoginViewController ()
 @property (weak, nonatomic) IBOutlet UIButton *closeButton;
@@ -38,16 +38,23 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
+#pragma mark - 登录
 - (IBAction)loginButtonClick:(id)sender {
+//    VENVerificationOfPhoneNumberViewController *vc = [[VENVerificationOfPhoneNumberViewController alloc] init];
+//    [self presentViewController:vc animated:YES completion:nil];
+}
+
+#pragma mark - 注册新用户
+- (IBAction)registButtonClick:(id)sender {
     VENVerificationOfPhoneNumberViewController *vc = [[VENVerificationOfPhoneNumberViewController alloc] init];
     [self presentViewController:vc animated:YES completion:nil];
 }
 
-- (IBAction)registButtonClick:(id)sender {
+#pragma mark - 忘记密码
+- (IBAction)findPasswordButtonClick:(id)sender {
     VENRegistViewController *vc = [[VENRegistViewController alloc] init];
     [self presentViewController:vc animated:YES completion:nil];
 }
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

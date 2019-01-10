@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment version="2304" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -24,7 +24,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bay-kS-lAu">
-                    <rect key="frame" x="0.0" y="20" width="44" height="44"/>
+                    <rect key="frame" x="0.0" y="40" width="44" height="44"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="44" id="Ccc-NR-XSa"/>
                         <constraint firstAttribute="width" constant="44" id="Cqo-yC-SDX"/>
@@ -35,7 +35,7 @@
                     </connections>
                 </button>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P0V-OX-N3h">
-                    <rect key="frame" x="20" y="88" width="96" height="34"/>
+                    <rect key="frame" x="20" y="108" width="96" height="34"/>
                     <attributedString key="attributedText">
                         <fragment content="完善信息">
                             <attributes>
@@ -47,7 +47,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fIk-18-QkJ">
-                    <rect key="frame" x="20" y="142" width="335" height="140"/>
+                    <rect key="frame" x="20" y="162" width="335" height="140"/>
                     <color key="backgroundColor" red="0.97254901960784312" green="0.97254901960784312" blue="0.97254901960784312" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="140" id="TsM-eA-Pr6"/>
@@ -56,9 +56,12 @@
                     <state key="normal" title="   上传免冠正面照" image="icon_login_add">
                         <color key="titleColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
                     </state>
+                    <connections>
+                        <action selector="uploadButtonClick:" destination="-1" eventType="touchUpInside" id="IQ7-aP-3Ap"/>
+                    </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qFk-ia-fIV">
-                    <rect key="frame" x="20" y="382" width="335" height="48"/>
+                    <rect key="frame" x="20" y="402" width="335" height="48"/>
                     <color key="backgroundColor" red="0.87058823529999996" green="0.87058823529999996" blue="0.87058823529999996" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="48" id="gc8-Eh-PIt"/>
@@ -72,14 +75,14 @@
                     </connections>
                 </button>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9bx-67-wCa">
-                    <rect key="frame" x="20" y="351" width="335" height="1"/>
+                    <rect key="frame" x="20" y="371" width="335" height="1"/>
                     <color key="backgroundColor" red="0.86274509799999999" green="0.86274509799999999" blue="0.86274509799999999" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="1" id="waA-kt-V8a"/>
                     </constraints>
                 </view>
                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入身份证号" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ZSl-RV-faG">
-                    <rect key="frame" x="110" y="297" width="245" height="54"/>
+                    <rect key="frame" x="110" y="317" width="245" height="54"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="54" id="uDR-OH-olP"/>
                     </constraints>
@@ -88,7 +91,7 @@
                     <textInputTraits key="textInputTraits"/>
                 </textField>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="身份证号" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yGn-l0-QKw">
-                    <rect key="frame" x="20" y="314" width="66" height="20"/>
+                    <rect key="frame" x="20" y="334" width="66" height="20"/>
                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
@@ -100,7 +103,7 @@
                 <constraint firstItem="P0V-OX-N3h" firstAttribute="top" secondItem="Bay-kS-lAu" secondAttribute="bottom" constant="24" id="0SU-ey-lmt"/>
                 <constraint firstItem="yGn-l0-QKw" firstAttribute="centerY" secondItem="ZSl-RV-faG" secondAttribute="centerY" id="1it-Cn-5dY"/>
                 <constraint firstItem="fIk-18-QkJ" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" constant="20" id="4xs-fS-kwE"/>
-                <constraint firstItem="Bay-kS-lAu" firstAttribute="top" secondItem="Q5M-cg-NOt" secondAttribute="top" id="9NI-F6-clJ"/>
+                <constraint firstItem="Bay-kS-lAu" firstAttribute="top" secondItem="Q5M-cg-NOt" secondAttribute="top" constant="20" id="9NI-F6-clJ"/>
                 <constraint firstItem="qFk-ia-fIV" firstAttribute="top" secondItem="9bx-67-wCa" secondAttribute="bottom" constant="30" id="AOh-y3-aKY"/>
                 <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="ZSl-RV-faG" secondAttribute="trailing" constant="20" id="JBz-5i-jVz"/>
                 <constraint firstItem="ZSl-RV-faG" firstAttribute="top" secondItem="fIk-18-QkJ" secondAttribute="bottom" constant="15" id="T72-nH-O5A"/>

@@ -19,7 +19,7 @@ static dispatch_once_t onceToken;
 
 + (instancetype)sharedManager {
     dispatch_once(&onceToken, ^{
-        instance = [[VENNetworkTool alloc] initWithBaseURL:[NSURL URLWithString:@"http://47.98.181.74"]];
+        instance = [[VENNetworkTool alloc] initWithBaseURL:[NSURL URLWithString:@"http://47.98.181.74/"]];
     });
     return instance;
 }
@@ -77,6 +77,9 @@ static dispatch_once_t onceToken;
             [self showLoading:isShow];
             [self GET:path parameters:mutableParams progress:nil success:^(NSURLSessionTask *task, id responseObject) {
                 [self hideLoading:isShow];
+                
+                NSLog(@"%@", responseObject);
+                
                 success(responseObject);
             } failure:^(NSURLSessionTask *operation, NSError *error) {
                 [self hideLoading:isShow];
@@ -88,10 +91,15 @@ static dispatch_once_t onceToken;
             [self showLoading:isShow];
             [self POST:path parameters:mutableParams progress:nil success:^(NSURLSessionTask *task, id responseObject) {
                 [self hideLoading:isShow];
+                
                 NSLog(@"%@", responseObject);
                 
+                if ([responseObject[@"status"] integerValue] == 0) {
+                    [[VENMBProgressHUDManager sharedManager] showText:responseObject[@"message"]];
+                }
+                
                 if ([responseObject[@"code"] integerValue] == 10099) {
-                    
+                    NSLog(@"10099");
                 }
                 
                 success(responseObject);

@@ -24,10 +24,19 @@
     
     self.nextButton.layer.cornerRadius = 4.0f;
     self.nextButton.layer.masksToBounds = YES;
+    
+    NSLog(@"phoneCode - %@", self.phoneCode);
+    NSLog(@"verificationCode - %@", self.verificationCode);
+    NSLog(@"invitationCode - %@", self.invitationCode);
 }
 
 - (IBAction)closeButtonClick:(id)sender {
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+#pragma mark - 上传免冠正面照
+- (IBAction)uploadButtonClick:(id)sender {
+
 }
 
 - (IBAction)nextButtonClick:(id)sender {

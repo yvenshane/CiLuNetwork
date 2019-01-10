@@ -131,8 +131,21 @@ static NSString *cellIdentifier3 = @"cellIdentifier3";
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
-        VENLoginViewController *vc = [[VENLoginViewController alloc] init];
-        [self presentViewController:vc animated:YES completion:nil];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            VENLoginViewController *vc = [[VENLoginViewController alloc] init];
+            [self presentViewController:vc animated:YES completion:nil];
+        });
+
+        
+        
+
+        
+
+        
+        
+        
+        
     } else if (indexPath.section == 1) {
         NSLog(@"全部订单");
         

@@ -9,5 +9,8 @@
 #import <UIKit/UIKit.h>
 
 @interface VENRegistSetPasswordViewController : UIViewController
+@property (nonatomic, copy) NSString *phoneCode;
+//@property (nonatomic, copy) NSString *invitationCode;
+@property (nonatomic, copy) NSString *verificationCode;
 
 @end

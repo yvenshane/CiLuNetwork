@@ -20,5 +20,6 @@ typedef enum {
 + (instancetype)sharedManager;
 - (BOOL)isConnectInternet;
 - (void)startMonitorNetworkWithBlock:(NetworkStatusBlock)block;
+- (void)requestWithMethod:(HTTPMethod)method path:(NSString *)path params:(NSDictionary *)params showLoading:(BOOL)isShow successBlock:(SuccessBlock)success failureBlock:(FailureBlock)failure;
 
 @end
