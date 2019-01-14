@@ -81,6 +81,8 @@
             NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
             [userDefaults setObject:response[@"data"][@"token"] forKey:@"token"];
             
+            self.block(@"loginSuccess");
+            
             [self dismissViewControllerAnimated:YES completion:nil];
         }
         

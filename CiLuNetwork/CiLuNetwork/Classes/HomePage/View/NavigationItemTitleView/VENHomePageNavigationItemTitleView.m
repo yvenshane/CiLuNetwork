@@ -21,10 +21,12 @@
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
         
+        NSDictionary *metaData = [[NSUserDefaults standardUserDefaults] objectForKey:@"metaData"];
+        
         UIButton *leftButton = [[UIButton alloc] init];
         leftButton.selected = YES;
         leftButton.userInteractionEnabled = NO;
-        [leftButton setTitle:@"正雷太极" forState:UIControlStateNormal];
+        [leftButton setTitle:metaData[@"tag_list"][0][@"name"] forState:UIControlStateNormal];
         [leftButton setTitleColor:COLOR_THEME forState:UIControlStateSelected];
         [leftButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         leftButton.titleLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:16.0f];
@@ -36,7 +38,7 @@
         [self addSubview:leftView];
         
         UIButton *rightButton = [[UIButton alloc] init];
-        [rightButton setTitle:@"赐路赢" forState:UIControlStateNormal];
+        [rightButton setTitle:metaData[@"tag_list"][1][@"name"] forState:UIControlStateNormal];
         [rightButton setTitleColor:COLOR_THEME forState:UIControlStateSelected];
         [rightButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         rightButton.titleLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:16.0f];

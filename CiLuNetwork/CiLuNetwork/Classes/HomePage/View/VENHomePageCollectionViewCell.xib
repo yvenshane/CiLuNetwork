@@ -36,32 +36,31 @@
                                 <color key="textColor" red="0.81568627450980391" green="0.0078431372549019607" blue="0.10588235294117647" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="anP-ig-wYV">
-                                <rect key="frame" x="0.0" y="0.0" width="196" height="172"/>
-                                <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="172" id="ITX-KC-O27"/>
-                                </constraints>
-                            </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="已销售 180件" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4cA-56-YjP">
                                 <rect key="frame" x="68" y="228" width="62" height="12"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                 <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="lUJ-YG-Ndu">
+                                <rect key="frame" x="0.0" y="0.0" width="196" height="172"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="172" id="fBj-gu-l2U"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="Dnv-2Z-Kf1" firstAttribute="top" secondItem="lUJ-YG-Ndu" secondAttribute="bottom" constant="11" id="39t-kd-hpG"/>
+                            <constraint firstItem="lUJ-YG-Ndu" firstAttribute="top" secondItem="640-bb-Tf1" secondAttribute="top" id="3Gb-ha-mgs"/>
                             <constraint firstItem="4cA-56-YjP" firstAttribute="leading" secondItem="T4n-OG-3KW" secondAttribute="trailing" constant="10" id="6eF-F6-aiy"/>
-                            <constraint firstItem="anP-ig-wYV" firstAttribute="leading" secondItem="640-bb-Tf1" secondAttribute="leading" id="LwI-Z1-SDD"/>
+                            <constraint firstAttribute="trailing" secondItem="lUJ-YG-Ndu" secondAttribute="trailing" id="Hvn-lK-vIM"/>
                             <constraint firstItem="T4n-OG-3KW" firstAttribute="top" secondItem="Dnv-2Z-Kf1" secondAttribute="bottom" constant="11" id="OiE-bD-ZdI"/>
                             <constraint firstAttribute="trailing" secondItem="Dnv-2Z-Kf1" secondAttribute="trailing" id="Ztp-LR-pr6"/>
                             <constraint firstItem="4cA-56-YjP" firstAttribute="centerY" secondItem="T4n-OG-3KW" secondAttribute="centerY" id="aVJ-6U-t9f"/>
-                            <constraint firstAttribute="trailing" secondItem="anP-ig-wYV" secondAttribute="trailing" id="bWH-3g-vbs"/>
-                            <constraint firstItem="Dnv-2Z-Kf1" firstAttribute="top" secondItem="anP-ig-wYV" secondAttribute="bottom" constant="11" id="dWw-P4-iGu"/>
                             <constraint firstItem="T4n-OG-3KW" firstAttribute="leading" secondItem="640-bb-Tf1" secondAttribute="leading" id="mRg-01-WMW"/>
                             <constraint firstItem="Dnv-2Z-Kf1" firstAttribute="leading" secondItem="640-bb-Tf1" secondAttribute="leading" id="rcj-3F-500"/>
-                            <constraint firstItem="anP-ig-wYV" firstAttribute="top" secondItem="640-bb-Tf1" secondAttribute="top" id="sjh-Ff-WE8"/>
+                            <constraint firstItem="lUJ-YG-Ndu" firstAttribute="leading" secondItem="640-bb-Tf1" secondAttribute="leading" id="x2S-cU-ygz"/>
                         </constraints>
                     </view>
                 </subviews>
@@ -75,10 +74,11 @@
             <viewLayoutGuide key="safeArea" id="SEy-5g-ep8"/>
             <size key="customSize" width="196" height="249"/>
             <connections>
-                <outlet property="dateLabel" destination="T4n-OG-3KW" id="wlN-YE-9Mf"/>
+                <outlet property="iconImageView" destination="lUJ-YG-Ndu" id="6iC-Hu-XAb"/>
                 <outlet property="mainBackgroundView" destination="640-bb-Tf1" id="Y6b-FA-ghN"/>
+                <outlet property="numberLabel" destination="4cA-56-YjP" id="d17-5b-SCD"/>
+                <outlet property="priceLabel" destination="T4n-OG-3KW" id="O0s-gx-QtO"/>
                 <outlet property="titleLabel" destination="Dnv-2Z-Kf1" id="FGC-tJ-e60"/>
-                <outlet property="videoView" destination="anP-ig-wYV" id="7He-ZO-w09"/>
             </connections>
             <point key="canvasLocation" x="-97.599999999999994" y="120.98950524737631"/>
         </collectionViewCell>

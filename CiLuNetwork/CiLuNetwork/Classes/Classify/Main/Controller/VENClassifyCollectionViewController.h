@@ -10,6 +10,7 @@
 
 typedef void (^collectionViewDidSelectBlock)(NSString *);
 @interface VENClassifyCollectionViewController : UICollectionViewController
+@property (nonatomic, copy) NSArray *lists_goods;
 @property (nonatomic, copy) collectionViewDidSelectBlock block;
 
 @end

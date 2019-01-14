@@ -11,11 +11,20 @@
 #import "VENClassifyDetailsPopupView.h"
 #import "VENClassifyDetailsToolBarView.h"
 #import "VENClassifyDetailsUserEvaluateViewController.h"
+#import "VENClassifyDetailsModel.h"
 
-@interface VENClassifyDetailsViewController () <UITableViewDelegate, SDCycleScrollViewDelegate>
+@interface VENClassifyDetailsViewController () <UITableViewDelegate, SDCycleScrollViewDelegate, UIWebViewDelegate>
 @property (nonatomic, strong) UIView *navigationBar;
 @property (nonatomic, strong) UIView *backgroundView;
 @property (nonatomic, strong) VENClassifyDetailsPopupView *popupView;
+
+@property (nonatomic, strong) VENClassifyDetailsModel *model;
+@property (nonatomic, copy) NSArray *albumsArr;
+@property (nonatomic, copy) NSDictionary *commentsDict;
+
+@property (nonatomic, strong) UITableView *tableView;
+@property (nonatomic, strong) UIView *headerView;
+@property (nonatomic, assign) CGFloat headerViewHeight;
 
 @end
 
@@ -39,9 +48,30 @@
     
     self.view.backgroundColor = [UIColor whiteColor];
     
-    [self setupTableView];
-    [self setupBottomToolBar];
-    [self setupNavigationBar];
+    [self loadData];
+}
+
+- (void)loadData {
+    [[VENNetworkTool sharedManager] requestWithMethod:HTTPMethodPost path:@"goods/detail" params:@{@"id" : self.goods_id} showLoading:YES successBlock:^(id response) {
+        
+        if ([response[@"status"] integerValue] == 0) {
+            
+            self.model = [VENClassifyDetailsModel yy_modelWithJSON:response[@"data"]];
+            self.albumsArr = response[@"data"][@"album"][@"albums"];
+            self.commentsDict = response[@"data"][@"comments"];
+            
+            [self setupTableView];
+            [self setupBottomToolBar];
+            [self setupNavigationBar];
+            
+        } else if ([response[@"status"] integerValue] == 90099){
+            [self.navigationController popViewControllerAnimated:YES];
+            [[VENMBProgressHUDManager sharedManager] showText:@"商品不存在/商品已下架"];
+        }
+        
+    } failureBlock:^(NSError *error) {
+        
+    }];
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
@@ -49,11 +79,22 @@
 }
 
 - (void)setupTableView {
-    UITableView *tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, -20, kMainScreenWidth, kMainScreenHeight - 48 + 20) style:UITableViewStylePlain];
+    UITableView *tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kMainScreenWidth, kMainScreenHeight - 48) style:UITableViewStylePlain];
     tableView.delegate = self;
+    tableView.showsVerticalScrollIndicator = NO;
     [self.view addSubview:tableView];
     
-    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kMainScreenWidth, 1000)];
+    if ([self labelHeightWith:self.model.name and:16.0f] > 20 && [self labelHeightWith:self.commentsDict[@"comment"][@"content"] and:14.0f] > 17) {
+        self.headerViewHeight = 363;
+    } else if ([self labelHeightWith:self.model.name and:16.0f] <= 20 && [self labelHeightWith:self.commentsDict[@"comment"][@"content"] and:14.0f] > 17) {
+        self.headerViewHeight = 343;
+    } else if ([self labelHeightWith:self.model.name and:16.0f] > 20 && [self labelHeightWith:self.commentsDict[@"comment"][@"content"] and:14.0f] <= 17) {
+        self.headerViewHeight = 346;
+    } else {
+        self.headerViewHeight = 327;
+    }
+    
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kMainScreenWidth, self.headerViewHeight + 375)];
     headerView.backgroundColor = [UIColor whiteColor];
     
     // 轮播图
@@ -61,7 +102,7 @@
     cycleScrollView.pageControlAliment = SDCycleScrollViewPageContolAlimentCenter;
     cycleScrollView.currentPageDotColor = [UIColor colorWithRed:26/255.0 green:26/255.0 blue:26/255.0 alpha:0.5];
     cycleScrollView.pageDotColor = [UIColor colorWithRed:26/255.0 green:26/255.0 blue:26/255.0 alpha:0.2];
-    cycleScrollView.imageURLStringsGroup = @[@"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1543947136429&di=325c21ef74d7e34d78a04d63de8dc54c&imgtype=0&src=http%3A%2F%2Fimg.zcool.cn%2Fcommunity%2F0106fd580ec6bda84a0d304f01333c.jpg", @"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1543947136429&di=325c21ef74d7e34d78a04d63de8dc54c&imgtype=0&src=http%3A%2F%2Fimg.zcool.cn%2Fcommunity%2F0106fd580ec6bda84a0d304f01333c.jpg", @"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1543947136429&di=325c21ef74d7e34d78a04d63de8dc54c&imgtype=0&src=http%3A%2F%2Fimg.zcool.cn%2Fcommunity%2F0106fd580ec6bda84a0d304f01333c.jpg"];
+    cycleScrollView.imageURLStringsGroup = self.albumsArr;
     cycleScrollView.autoScrollTimeInterval = 3;
     [headerView addSubview:cycleScrollView];
     
@@ -79,14 +120,47 @@
     
     // headerView
     VENClassifyDetailsHeaderView *detailsHeaderView = [[[NSBundle mainBundle] loadNibNamed:@"VENClassifyDetailsHeaderView" owner:nil options:nil] lastObject];
-    detailsHeaderView.frame = CGRectMake(0, 375, kMainScreenWidth, 369);
+    detailsHeaderView.frame = CGRectMake(0, 375, kMainScreenWidth, self.headerViewHeight);
     [detailsHeaderView.choiceButton addTarget:self action:@selector(choiceButtonClick) forControlEvents:UIControlEventTouchUpInside];
     [detailsHeaderView.evaluateButton addTarget:self action:@selector(evaluateButtonClick) forControlEvents:UIControlEventTouchUpInside];
     [headerView addSubview:detailsHeaderView];
     
+    detailsHeaderView.titleLabel.text = self.model.name;
+    detailsHeaderView.priceLabel.text = self.model.price;
+    detailsHeaderView.tokenLabel.hidden = [self.model.is_new integerValue] == 0 ? YES : NO;
+    detailsHeaderView.numberLabel.text = self.model.sales_volume;
+    detailsHeaderView.choiceLabel.text = self.model.spec;
+    
+    detailsHeaderView.evaluateNumberLabel.text = [NSString stringWithFormat:@"用户评价（%@）", self.commentsDict[@"count"]];
+    [detailsHeaderView.evaluateUserIconImageView sd_setImageWithURL:self.commentsDict[@"comment"][@"avatar"]];
+    detailsHeaderView.evaluateUserPhonenumberLabel.text = self.commentsDict[@"comment"][@"name"];
+    detailsHeaderView.evaluateDateLabel.text = self.commentsDict[@"comment"][@"commented_at"];
+    detailsHeaderView.evaluateContentLabel.text = self.commentsDict[@"comment"][@"content"];
+    
+    // 商品详情
+    UIWebView *webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, self.headerViewHeight + 375, kMainScreenWidth, 1)];
+    webView.delegate = self;
+    webView.scrollView.scrollEnabled = NO;
+    [webView loadHTMLString:self.model.content baseURL:nil];
+    [headerView addSubview:webView];
+
     tableView.tableHeaderView = headerView;
     
     tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+    
+    _tableView = tableView;
+    _headerView = headerView;
+}
+
+- (void)webViewDidFinishLoad:(UIWebView *)webView {
+    CGFloat webViewHeight = [webView.scrollView contentSize].height;
+    
+    CGRect newFrame = webView.frame;
+    newFrame.size.height = webViewHeight;
+    webView.frame = newFrame;
+    
+    self.tableView.tableHeaderView.frame = CGRectMake(0, 0, kMainScreenWidth, 375 + 360 +webViewHeight);
+    self.tableView.tableHeaderView = self.headerView;
 }
 
 - (void)backButtonClick {
@@ -192,6 +266,17 @@
     [navigationBar addSubview:collectionButton];
     
     _navigationBar = navigationBar;
+}
+
+- (CGFloat)labelHeightWith:(NSString *)text and:(CGFloat)fontSize {
+    
+    UILabel *label = [[UILabel alloc] init];
+    label.text = text;
+    label.font = [UIFont systemFontOfSize:fontSize];
+    
+    CGSize size = [label sizeThatFits:CGSizeMake(kMainScreenWidth - 30, CGFLOAT_MAX)];
+    
+    return size.height;
 }
 
 - (void)didReceiveMemoryWarning {

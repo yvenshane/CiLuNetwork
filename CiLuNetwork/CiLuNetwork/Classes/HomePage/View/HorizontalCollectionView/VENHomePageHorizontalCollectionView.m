@@ -8,6 +8,7 @@
 
 #import "VENHomePageHorizontalCollectionView.h"
 #import "VENHomePageHorizontalCollectionViewCell.h"
+#import "VENHomePageModel.h"
 
 @interface VENHomePageHorizontalCollectionView () <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout>
 
@@ -37,12 +38,17 @@
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return 10;
+    return self.categoriesModel.count;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     
+    VENHomePageModel *model = self.categoriesModel[indexPath.row];
+    
     VENHomePageHorizontalCollectionViewCell *cell = (VENHomePageHorizontalCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"cellIdentifier" forIndexPath:indexPath];
+    
+    [cell.iconImageView sd_setImageWithURL:[NSURL URLWithString:model.cate_icon] placeholderImage:[UIImage imageNamed:@"1"]];
+    cell.titleLabel.text = model.cate_name;
     
     return cell;
 }

@@ -9,6 +9,7 @@
 #import "VENClassifyCollectionViewController.h"
 #import "VENHomePageCollectionViewCell.h"
 #import "VENClassifyDetailsViewController.h"
+#import "VENClassifyModel.h"
 
 @interface VENClassifyCollectionViewController () <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout>
 @property (nonatomic, strong) NSMutableArray *dataSource;
@@ -27,12 +28,19 @@
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return 10;
+    return self.lists_goods.count;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     
     VENHomePageCollectionViewCell *cell = (VENHomePageCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"cellIdentifier" forIndexPath:indexPath];
+    
+    VENClassifyModel *model = self.lists_goods[indexPath.row];
+    
+    [cell.iconImageView sd_setImageWithURL:[NSURL URLWithString:model.goods_thumb] placeholderImage:[UIImage imageNamed:@"1"]];
+    cell.titleLabel.text = model.goods_name;
+    cell.priceLabel.text= model.goods_price;
+    cell.numberLabel.text= model.sale_status;
     
     return cell;
 }

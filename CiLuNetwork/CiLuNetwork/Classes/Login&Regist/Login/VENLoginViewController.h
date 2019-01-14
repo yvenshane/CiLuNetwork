@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+typedef void (^loginSuccessBlock)(NSString *);
 @interface VENLoginViewController : UIViewController
+@property (nonatomic, copy) loginSuccessBlock block;
 
 @end

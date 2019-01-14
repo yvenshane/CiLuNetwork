@@ -12,9 +12,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface VENHomePageCollectionViewCell : UICollectionViewCell
 @property (weak, nonatomic) IBOutlet UIView *mainBackgroundView;
-@property (weak, nonatomic) IBOutlet UIView *videoView;
+@property (weak, nonatomic) IBOutlet UIImageView *iconImageView;
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
-@property (weak, nonatomic) IBOutlet UILabel *dateLabel;
+@property (weak, nonatomic) IBOutlet UILabel *priceLabel;
+@property (weak, nonatomic) IBOutlet UILabel *numberLabel;
+
 
 @end
 

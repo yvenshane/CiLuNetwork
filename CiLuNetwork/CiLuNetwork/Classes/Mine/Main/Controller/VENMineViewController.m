@@ -15,8 +15,12 @@
 #import "VENMyOrderViewController.h"
 #import "VENMyBalanceViewController.h"
 #import "VENMyPointsViewController.h"
+#import "VENMineModel.h"
 
 @interface VENMineViewController () <UITableViewDelegate, UITableViewDataSource>
+@property (nonatomic, strong) UITableView *tableView;
+@property (nonatomic, strong) NSMutableArray *dataSourceMuArr;
+@property (nonatomic, strong) VENMineModel *model;
 
 @end
 
@@ -34,6 +38,23 @@ static NSString *cellIdentifier3 = @"cellIdentifier3";
     
     [self setupTableView];
     [self setupSettingButton];
+    
+    [self.tableView.mj_header beginRefreshing];
+}
+
+- (void)loadData {
+    [[VENNetworkTool sharedManager] requestWithMethod:HTTPMethodPost path:@"home/index" params:nil showLoading:YES successBlock:^(id response) {
+        
+        [self.tableView.mj_header endRefreshing];
+        
+        if ([response[@"status"] integerValue] == 0) {
+        
+            self.model = [VENMineModel yy_modelWithJSON:response[@"data"]];
+            [self.tableView reloadData];
+        }
+    } failureBlock:^(NSError *error) {
+        [self.tableView.mj_header endRefreshing];
+    }];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -53,6 +74,13 @@ static NSString *cellIdentifier3 = @"cellIdentifier3";
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
         VENMineTableViewCellStyleThree *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier3 forIndexPath:indexPath];
+        
+        [cell.iconButton setImage:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:self.model.avatar]]] forState:UIControlStateNormal];
+        [cell.nameButton setTitle:self.model.name forState:UIControlStateNormal];
+        [cell.otherButton setTitle:self.model.tag_name forState:UIControlStateNormal];
+        
+        [cell.nameButton addTarget:self action:@selector(nameButtonClick) forControlEvents:UIControlEventTouchUpInside];
+        
         cell.separatorInset = UIEdgeInsetsMake(0, kMainScreenWidth, 0, 0);
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         return cell;
@@ -97,74 +125,99 @@ static NSString *cellIdentifier3 = @"cellIdentifier3";
             }
         }
         
-        
         return cell;
+    }
+}
+
+// 登录注册 /
+- (void)nameButtonClick {
+    if (![[VENUserStatusManager sharedManager] isLogin]) {
+        VENLoginViewController *vc = [[VENLoginViewController alloc] init];
+        vc.block = ^(NSString *str) {
+            [self.tableView.mj_header beginRefreshing];
+        };
+        [self presentViewController:vc animated:YES completion:nil];
     }
 }
 
 - (void)waitingForShipmentButtonClick {
     NSLog(@"待发货");
     
-    VENMyOrderViewController *vc = [[VENMyOrderViewController alloc] init];
-    vc.pushIndexPath = 1;
-    vc.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:vc animated:YES];
+    if ([[VENUserStatusManager sharedManager] isLogin]) {
+        VENMyOrderViewController *vc = [[VENMyOrderViewController alloc] init];
+        vc.pushIndexPath = 1;
+        vc.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:vc animated:YES];
+    } else {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            VENLoginViewController *vc = [[VENLoginViewController alloc] init];
+            [self presentViewController:vc animated:YES completion:nil];
+        });
+    }
 }
 
 - (void)waitingForReceivingButtonClick {
     NSLog(@"待收货");
     
-    VENMyOrderViewController *vc = [[VENMyOrderViewController alloc] init];
-    vc.pushIndexPath = 2;
-    vc.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:vc animated:YES];
+    if ([[VENUserStatusManager sharedManager] isLogin]) {
+        VENMyOrderViewController *vc = [[VENMyOrderViewController alloc] init];
+        vc.pushIndexPath = 2;
+        vc.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:vc animated:YES];
+    } else {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            VENLoginViewController *vc = [[VENLoginViewController alloc] init];
+            [self presentViewController:vc animated:YES completion:nil];
+        });
+    }
 }
 
 - (void)waitingForEvaluationButtonClick {
     NSLog(@"待评价");
     
-    VENMyOrderViewController *vc = [[VENMyOrderViewController alloc] init];
-    vc.pushIndexPath = 3;
-    vc.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:vc animated:YES];
-}
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.section == 0) {
-        
+    if ([[VENUserStatusManager sharedManager] isLogin]) {
+        VENMyOrderViewController *vc = [[VENMyOrderViewController alloc] init];
+        vc.pushIndexPath = 3;
+        vc.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:vc animated:YES];
+    } else {
         dispatch_async(dispatch_get_main_queue(), ^{
             VENLoginViewController *vc = [[VENLoginViewController alloc] init];
             [self presentViewController:vc animated:YES completion:nil];
         });
+    }
+}
 
-        
-        
-
-        
-
-        
-        
-        
-        
-    } else if (indexPath.section == 1) {
-        NSLog(@"全部订单");
-        
-        VENMyOrderViewController *vc = [[VENMyOrderViewController alloc] init];
-        vc.hidesBottomBarWhenPushed = YES;
-        [self.navigationController pushViewController:vc animated:YES];
-    } else if (indexPath.section == 2) {
-        if (indexPath.row == 0) {
-            NSLog(@"我的余额");
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    if ([[VENUserStatusManager sharedManager] isLogin]) {
+       if (indexPath.section == 1) {
+            NSLog(@"全部订单");
             
-            VENMyBalanceViewController *vc = [[VENMyBalanceViewController alloc] init];
+            VENMyOrderViewController *vc = [[VENMyOrderViewController alloc] init];
             vc.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:vc animated:YES];
-        } else if (indexPath.row == 1) {
-            NSLog(@"我的积分");
-            
-            VENMyPointsViewController *vc = [[VENMyPointsViewController alloc] init];
-            vc.hidesBottomBarWhenPushed = YES;
-            [self.navigationController pushViewController:vc animated:YES];
+        } else if (indexPath.section == 2) {
+            if (indexPath.row == 0) {
+                NSLog(@"我的余额");
+                
+                VENMyBalanceViewController *vc = [[VENMyBalanceViewController alloc] init];
+                vc.hidesBottomBarWhenPushed = YES;
+                [self.navigationController pushViewController:vc animated:YES];
+            } else if (indexPath.row == 1) {
+                NSLog(@"我的积分");
+                
+                VENMyPointsViewController *vc = [[VENMyPointsViewController alloc] init];
+                vc.hidesBottomBarWhenPushed = YES;
+                [self.navigationController pushViewController:vc animated:YES];
+            }
+        }
+    } else {
+        if (indexPath.section != 0) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                VENLoginViewController *vc = [[VENLoginViewController alloc] init];
+                [self presentViewController:vc animated:YES completion:nil];
+            });
         }
     }
 }
@@ -221,6 +274,13 @@ static NSString *cellIdentifier3 = @"cellIdentifier3";
     [tableView registerNib:[UINib nibWithNibName:@"VENMineTableViewCellStyleTwo" bundle:nil] forCellReuseIdentifier:cellIdentifier2];
     [tableView registerNib:[UINib nibWithNibName:@"VENMineTableViewCellStyleThree" bundle:nil] forCellReuseIdentifier:cellIdentifier3];
     [self.view addSubview:tableView];
+    
+    tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        
+        [self loadData];
+    }];
+    
+    _tableView = tableView;
 }
 
 /*

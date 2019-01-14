@@ -12,6 +12,7 @@
 #import "VENClassifySearchViewController.h"
 #import "VENClassifyCollectionViewController.h"
 #import "VENClassifyDetailsViewController.h"
+#import "VENClassifyModel.h"
 
 @interface VENClassifyViewController () <JXCategoryViewDelegate, UITextFieldDelegate>
 @property (nonatomic, strong) JXCategoryTitleView *categoryView;
@@ -19,50 +20,99 @@
 @property (nonatomic, strong) NSMutableArray <VENClassifyCollectionViewController *> *listVCArray;
 @property (nonatomic, strong) JXCategoryListVCContainerView *listVCContainerView;
 
+@property (nonatomic, strong) VENFilterView *headerView;
+
+@property (nonatomic, copy) NSArray *categories;
+@property (nonatomic, copy) NSArray *current_conditions;
+@property (nonatomic, copy) NSArray *lists_goods;
+
 @end
 
 @implementation VENClassifyViewController
 
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    
-    // nav 黑线
-    [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
-    [self.navigationController.navigationBar setShadowImage:[UIImage new]];
-}
-
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-    
-    self.navigationController.interactivePopGestureRecognizer.enabled = (self.categoryView.selectedIndex == 0);
-}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    UITextField *searchTextField = [[UITextField alloc] initWithFrame:CGRectMake(15, 24, kMainScreenWidth - 30, 30)];
-    searchTextField.delegate = self;
-    searchTextField.font = [UIFont systemFontOfSize:12.0f];
-    searchTextField.backgroundColor = UIColorFromRGB(0xF1F1F1);
-    searchTextField.placeholder = @"请输入关键词搜索";
-    
-    searchTextField.layer.cornerRadius = 4.0f;
-    searchTextField.layer.masksToBounds = YES;
-    
-    UIView *leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 34, 30)];
-    
-    UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 30 / 2 - 14 / 2, 14, 14)];
-    imgView.image = [UIImage imageNamed:@"icon_search02"];
-    [leftView addSubview:imgView];
-    
-    searchTextField.leftView = leftView;
-    searchTextField.leftViewMode = UITextFieldViewModeAlways;
-    self.navigationItem.titleView = searchTextField;
-    
+
     self.view.backgroundColor = [UIColor whiteColor];
     self.edgesForExtendedLayout = UIRectEdgeNone;
     
-    NSArray *titles = [self getRandomTitles];
+    NSDictionary *params = @{@"cate_id" : @"0",
+                             @"page" : @"1",
+                             @"tag" : [[NSUserDefaults standardUserDefaults] objectForKey:@"tag"]};
+    [self loadDataWith:params];
+    
+    
+    [self setupSearchView];
+}
+
+- (void)loadDataWith:(NSDictionary *)params {
+    
+//    NSInteger cate_id = [params[@"cate_id"] integerValue];
+//    VENClassifyCollectionViewController *collectionView = self.listVCArray[cate_id];
+    
+    [[VENNetworkTool sharedManager] requestWithMethod:HTTPMethodPost path:@"goods/lists" params:params showLoading:YES successBlock:^(id response) {
+        
+//        [collectionView.collectionView.mj_header endRefreshing];
+        
+        if ([response[@"status"] integerValue] == 0) {
+            
+            NSArray *categories = [NSArray yy_modelArrayWithClass:[VENClassifyModel class] json:response[@"data"][@"categories"]];
+//            NSArray *current_conditions = [NSArray yy_modelArrayWithClass:[VENClassifyModel class] json:];
+            
+            NSArray *current_conditions = response[@"data"][@"current_conditions"];
+            
+            NSArray *lists_goods = [NSArray yy_modelArrayWithClass:[VENClassifyModel class] json:response[@"data"][@"lists"][@"goods"]];
+            
+            self.categories = categories;
+            self.current_conditions = current_conditions;
+            self.lists_goods = lists_goods;
+            
+            [self setupClassifyPage];
+            [self setupFilterView];
+            
+//            [collectionView.collectionView reloadData];
+        }
+
+    } failureBlock:^(NSError *error) {
+//        [collectionView.collectionView.mj_header endRefreshing];
+    }];
+}
+
+- (void)setupFilterView {
+    VENFilterView *headerView = [[VENFilterView alloc] initWithFrame:CGRectMake(0, 42, kMainScreenWidth, 36)];
+    [self.view addSubview:headerView];
+}
+
+#pragma mark - JXCategoryViewDelegate
+
+- (void)categoryView:(JXCategoryBaseView *)categoryView didSelectedItemAtIndex:(NSInteger)index {
+    //侧滑手势处理
+    self.navigationController.interactivePopGestureRecognizer.enabled = (index == 0);
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"categoryViewClick" object:[NSString stringWithFormat:@"%ld", (long)index]];
+}
+
+- (void)categoryView:(JXCategoryBaseView *)categoryView didClickSelectedItemAtIndex:(NSInteger)index {
+    
+}
+
+- (void)categoryView:(JXCategoryBaseView *)categoryView didScrollSelectedItemAtIndex:(NSInteger)index {
+    
+}
+
+- (void)categoryView:(JXCategoryBaseView *)categoryView scrollingFromLeftIndex:(NSInteger)leftIndex toRightIndex:(NSInteger)rightIndex ratio:(CGFloat)ratio {
+    
+}
+
+- (void)setupClassifyPage {
+    
+    NSMutableArray *titlesMuArr = [NSMutableArray array];
+    for (VENClassifyModel *model in self.categories) {
+        [titlesMuArr addObject:model.cate_name];
+    }
+    
+    NSArray *titles = titlesMuArr;
     NSUInteger count = titles.count;
     CGFloat categoryViewHeight = 50;
     CGFloat width = kMainScreenWidth;
@@ -70,7 +120,6 @@
     
     self.listVCArray = [NSMutableArray array];
     for (int i = 0; i < count; i ++) {
-        
         UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
         
         CGFloat itemWidth = (kMainScreenWidth - 3 * 10) / 2;
@@ -81,6 +130,10 @@
         layout.scrollDirection = UICollectionViewScrollDirectionVertical;
         
         VENClassifyCollectionViewController *listVC = [[VENClassifyCollectionViewController alloc] initWithCollectionViewLayout:layout];
+        
+        listVC.lists_goods = self.lists_goods;
+        
+        
         listVC.block = ^(NSString *str) {
             VENClassifyDetailsViewController *vc = [[VENClassifyDetailsViewController alloc] init];
             vc.hidesBottomBarWhenPushed = YES;
@@ -113,9 +166,32 @@
     }
     
     self.categoryView.contentScrollView = self.scrollView;
+}
 
-    VENFilterView *headerView = [[VENFilterView alloc] initWithFrame:CGRectMake(0, 42, kMainScreenWidth, 36)];
-    [self.view addSubview:headerView];
+//这句代码必须加上
+- (BOOL)shouldAutomaticallyForwardAppearanceMethods {
+    return NO;
+}
+
+- (void)setupSearchView {
+    UITextField *searchTextField = [[UITextField alloc] initWithFrame:CGRectMake(15, 24, kMainScreenWidth - 30, 30)];
+    searchTextField.delegate = self;
+    searchTextField.font = [UIFont systemFontOfSize:12.0f];
+    searchTextField.backgroundColor = UIColorFromRGB(0xF1F1F1);
+    searchTextField.placeholder = @"请输入关键词搜索";
+    
+    searchTextField.layer.cornerRadius = 4.0f;
+    searchTextField.layer.masksToBounds = YES;
+    
+    UIView *leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 34, 30)];
+    
+    UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 30 / 2 - 14 / 2, 14, 14)];
+    imgView.image = [UIImage imageNamed:@"icon_search02"];
+    [leftView addSubview:imgView];
+    
+    searchTextField.leftView = leftView;
+    searchTextField.leftViewMode = UITextFieldViewModeAlways;
+    self.navigationItem.titleView = searchTextField;
 }
 
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField{
@@ -125,9 +201,18 @@
     return NO;
 }
 
-//这句代码必须加上
-- (BOOL)shouldAutomaticallyForwardAppearanceMethods {
-    return NO;
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    // nav 黑线
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
+    [self.navigationController.navigationBar setShadowImage:[UIImage new]];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
+    self.navigationController.interactivePopGestureRecognizer.enabled = (self.categoryView.selectedIndex == 0);
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -140,39 +225,6 @@
 
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
-}
-
-- (NSArray <NSString *> *)getRandomTitles {
-    NSMutableArray *titles = @[@"红烧螃蟹", @"麻辣龙虾", @"美味苹果", @"胡萝卜", @"清甜葡萄", @"美味西瓜", @"美味香蕉", @"香甜菠萝", @"麻辣干锅", @"剁椒鱼头", @"鸳鸯火锅"].mutableCopy;
-    NSInteger randomMaxCount = arc4random()%6 + 5;
-    NSMutableArray *resultArray = [NSMutableArray array];
-    for (int i = 0; i < randomMaxCount; i++) {
-        NSInteger randomIndex = arc4random()%titles.count;
-        [resultArray addObject:titles[randomIndex]];
-        [titles removeObjectAtIndex:randomIndex];
-    }
-    return resultArray;
-}
-
-#pragma mark - JXCategoryViewDelegate
-
-- (void)categoryView:(JXCategoryBaseView *)categoryView didSelectedItemAtIndex:(NSInteger)index {
-    //侧滑手势处理
-    self.navigationController.interactivePopGestureRecognizer.enabled = (index == 0);
-    
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"categoryViewClick" object:[NSString stringWithFormat:@"%ld", (long)index]];
-}
-
-- (void)categoryView:(JXCategoryBaseView *)categoryView didClickSelectedItemAtIndex:(NSInteger)index {
-    
-}
-
-- (void)categoryView:(JXCategoryBaseView *)categoryView didScrollSelectedItemAtIndex:(NSInteger)index {
-    
-}
-
-- (void)categoryView:(JXCategoryBaseView *)categoryView scrollingFromLeftIndex:(NSInteger)leftIndex toRightIndex:(NSInteger)rightIndex ratio:(CGFloat)ratio {
-    
 }
 
 /*

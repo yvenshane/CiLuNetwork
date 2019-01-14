@@ -30,7 +30,11 @@ static dispatch_once_t onceToken;
         //request
         self.requestSerializer.timeoutInterval = 15;
         self.requestSerializer.cachePolicy = NSURLRequestReloadIgnoringLocalCacheData;
-//        [self.requestSerializer setValue:@"" forHTTPHeaderField:@""];
+        
+        NSString *token = [[NSUserDefaults standardUserDefaults] objectForKey:@"token"];
+        if (![[VENClassEmptyManager sharedManager] isEmptyString:token]) {
+            [self.requestSerializer setValue:token forHTTPHeaderField:@"Authorization"];
+        }
         self.requestSerializer.HTTPShouldHandleCookies = YES;
         
         //response

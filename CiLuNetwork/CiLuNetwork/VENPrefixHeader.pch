@@ -25,6 +25,7 @@
 #import "VENNetworkTool.h"
 #import "VENMBProgressHUDManager.h"
 #import "VENClassEmptyManager.h"
+#import "VENUserStatusManager.h"
 
 #define kMainScreenFrameRect [UIScreen mainScreen].bounds
 #define kMainScreenWidth kMainScreenFrameRect.size.width
