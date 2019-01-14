@@ -45,9 +45,20 @@
 - (void)loadData {
     
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    
+    
+    
+    
+    
+    
+    // 待删除
     if ([[VENClassEmptyManager sharedManager] isEmptyString:[userDefaults objectForKey:@"tag"]]) {
         [userDefaults setObject:@"1" forKey:@"tag"];
     }
+    
+    
+    
+    
     
     [[VENNetworkTool sharedManager] requestWithMethod:HTTPMethodPost path:@"goods/index" params:@{@"tag" : [userDefaults objectForKey:@"tag"]} showLoading:YES successBlock:^(id response) {
         
@@ -69,7 +80,7 @@
             [self setupHorizontalCollectionView];
             
             [self.collectionView reloadData];
-            self.collectionViewHeaderView2.frame = CGRectMake(0, 327 + ceilf(self.hotGoods.count / 2.0) * 248 + 20 + 10, kMainScreenWidth, 62);
+            self.collectionViewHeaderView2.frame = CGRectMake(0, 327 + ceilf(self.hotGoods.count / 2.0) * 248 + ceilf(self.hotGoods.count / 2.0) * 10,  kMainScreenWidth, 62);
         }
     } failureBlock:^(NSError *error) {
         [self.collectionView.mj_header endRefreshing];
@@ -150,13 +161,25 @@
     _collectionView = collectionView;
 }
 
+#pragma mark - 广告
+- (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index {
+    
+    VENHomePageModel *model = self.banners[index];
+    
+    if (model.is_link == YES) {
+        VENClassifyDetailsViewController *vc = [[VENClassifyDetailsViewController alloc] init];
+        vc.goods_id = model.link;
+        vc.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:vc animated:YES];
+    }
+}
+
 - (void)setupCycleScrollView {
 
     [self.cycleScrollView removeFromSuperview];
     self.cycleScrollView = nil;
     
     if (self.cycleScrollView == nil) {
-        // 广告
         SDCycleScrollView *cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, kMainScreenWidth, 160) delegate:self placeholderImage:[UIImage imageNamed:@"placeholder"]];
         cycleScrollView.pageControlAliment = SDCycleScrollViewPageContolAlimentCenter;
         cycleScrollView.currentPageDotColor = COLOR_THEME;
@@ -175,6 +198,7 @@
     }
 }
 
+#pragma mark - 分类
 - (void)setupHorizontalCollectionView {
 
     [self.horizontalCollectionView removeFromSuperview];

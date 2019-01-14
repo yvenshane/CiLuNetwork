@@ -23,8 +23,10 @@
 @property (nonatomic, strong) VENFilterView *headerView;
 
 @property (nonatomic, copy) NSArray *categories;
-@property (nonatomic, copy) NSArray *current_conditions;
+@property (nonatomic, strong) VENClassifyModel *current_conditionsModel;
 @property (nonatomic, copy) NSArray *lists_goods;
+
+@property (nonatomic, strong) NSMutableArray *selectedItemAtIndexMuArr;
 
 @end
 
@@ -37,46 +39,31 @@
     self.view.backgroundColor = [UIColor whiteColor];
     self.edgesForExtendedLayout = UIRectEdgeNone;
     
-    NSDictionary *params = @{@"cate_id" : @"0",
-                             @"page" : @"1",
-                             @"tag" : [[NSUserDefaults standardUserDefaults] objectForKey:@"tag"]};
-    [self loadDataWith:params];
-    
-    
-    [self setupSearchView];
-}
-
-- (void)loadDataWith:(NSDictionary *)params {
-    
-//    NSInteger cate_id = [params[@"cate_id"] integerValue];
-//    VENClassifyCollectionViewController *collectionView = self.listVCArray[cate_id];
+    NSDictionary *params = @{@"tag" : [[NSUserDefaults standardUserDefaults] objectForKey:@"tag"]};
     
     [[VENNetworkTool sharedManager] requestWithMethod:HTTPMethodPost path:@"goods/lists" params:params showLoading:YES successBlock:^(id response) {
-        
-//        [collectionView.collectionView.mj_header endRefreshing];
         
         if ([response[@"status"] integerValue] == 0) {
             
             NSArray *categories = [NSArray yy_modelArrayWithClass:[VENClassifyModel class] json:response[@"data"][@"categories"]];
-//            NSArray *current_conditions = [NSArray yy_modelArrayWithClass:[VENClassifyModel class] json:];
             
-            NSArray *current_conditions = response[@"data"][@"current_conditions"];
+            VENClassifyModel *current_conditionsModel = [VENClassifyModel yy_modelWithJSON:response[@"data"][@"current_conditions"]];
             
             NSArray *lists_goods = [NSArray yy_modelArrayWithClass:[VENClassifyModel class] json:response[@"data"][@"lists"][@"goods"]];
             
             self.categories = categories;
-            self.current_conditions = current_conditions;
+            self.current_conditionsModel = current_conditionsModel;
             self.lists_goods = lists_goods;
             
             [self setupClassifyPage];
             [self setupFilterView];
-            
-//            [collectionView.collectionView reloadData];
         }
-
+        
     } failureBlock:^(NSError *error) {
-//        [collectionView.collectionView.mj_header endRefreshing];
+        
     }];
+
+    [self setupSearchView];
 }
 
 - (void)setupFilterView {
@@ -91,6 +78,16 @@
     self.navigationController.interactivePopGestureRecognizer.enabled = (index == 0);
     
     [[NSNotificationCenter defaultCenter] postNotificationName:@"categoryViewClick" object:[NSString stringWithFormat:@"%ld", (long)index]];
+    
+    
+    if (![self.selectedItemAtIndexMuArr containsObject:[NSString stringWithFormat:@"%ld", (long)index]]) {
+        [self.listVCArray[index].collectionView.mj_header beginRefreshing];
+        [self.selectedItemAtIndexMuArr addObject:[NSString stringWithFormat:@"%ld", (long)index]];
+    }
+    
+
+    
+    
 }
 
 - (void)categoryView:(JXCategoryBaseView *)categoryView didClickSelectedItemAtIndex:(NSInteger)index {
@@ -131,15 +128,20 @@
         
         VENClassifyCollectionViewController *listVC = [[VENClassifyCollectionViewController alloc] initWithCollectionViewLayout:layout];
         
-        listVC.lists_goods = self.lists_goods;
-        
+//        listVC.lists_goods = self.lists_goods;
+        listVC.model = self.categories[i];
         
         listVC.block = ^(NSString *str) {
+            
+            VENClassifyModel *model = self.lists_goods[[str integerValue]];
+            
             VENClassifyDetailsViewController *vc = [[VENClassifyDetailsViewController alloc] init];
+            vc.goods_id = model.goods_id;
             vc.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:vc animated:YES];
         };
         listVC.view.frame = CGRectMake(i*width, 0, width, height - 36 - 50 + 9);
+        
         [self.listVCArray addObject:listVC];
     }
     
@@ -166,6 +168,8 @@
     }
     
     self.categoryView.contentScrollView = self.scrollView;
+    
+    
 }
 
 //这句代码必须加上
@@ -199,6 +203,13 @@
     [self presentViewController:vc animated:NO completion:nil];
     
     return NO;
+}
+
+- (NSMutableArray *)selectedItemAtIndexMuArr {
+    if (_selectedItemAtIndexMuArr == nil) {
+        _selectedItemAtIndexMuArr = [NSMutableArray arrayWithArray:@[@"0"]];
+    }
+    return _selectedItemAtIndexMuArr;
 }
 
 - (void)viewWillAppear:(BOOL)animated {

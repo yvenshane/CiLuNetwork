@@ -7,10 +7,13 @@
 //
 
 #import "VENBaseViewController.h"
+#import "VENClassifyModel.h"
 
 typedef void (^collectionViewDidSelectBlock)(NSString *);
 @interface VENClassifyCollectionViewController : UICollectionViewController
 @property (nonatomic, copy) NSArray *lists_goods;
+@property (nonatomic, strong) VENClassifyModel *model;
+
 @property (nonatomic, copy) collectionViewDidSelectBlock block;
 
 @end

@@ -25,6 +25,46 @@
     self.collectionView.backgroundColor = [UIColor whiteColor];
     
     [self.collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([VENHomePageCollectionViewCell class]) bundle:nil] forCellWithReuseIdentifier:@"cellIdentifier"];
+    
+    self.collectionView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        
+        NSDictionary *parmas = @{@"cate_id" : self.model.cate_id,
+                                 @"tag" : [[NSUserDefaults standardUserDefaults] objectForKey:@"tag"]};
+        [self loadDataWith:parmas];
+    }];
+    
+    self.collectionView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
+        
+    }];
+    
+    
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        [self.collectionView.mj_header beginRefreshing];
+    });
+}
+
+- (void)loadDataWith:(NSDictionary *)params {
+    
+    [[VENNetworkTool sharedManager] requestWithMethod:HTTPMethodPost path:@"goods/lists" params:params showLoading:YES successBlock:^(id response) {
+        
+        [self.collectionView.mj_header endRefreshing];
+        
+        if ([response[@"status"] integerValue] == 0) {
+            
+            VENClassifyModel *current_conditionsModel = [VENClassifyModel yy_modelWithJSON:response[@"data"][@"current_conditions"]];
+            
+            NSArray *lists_goods = [NSArray yy_modelArrayWithClass:[VENClassifyModel class] json:response[@"data"][@"lists"][@"goods"]];
+            
+            self.lists_goods = lists_goods;
+            self.model = current_conditionsModel;
+            
+            [self.collectionView reloadData];
+        }
+        
+    } failureBlock:^(NSError *error) {
+        [self.collectionView.mj_header endRefreshing];
+    }];
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
@@ -46,7 +86,7 @@
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    self.block([NSString stringWithFormat:@"%@", indexPath]);
+    self.block([NSString stringWithFormat:@"%ld", (long)indexPath.row]);
 }
 
 - (NSMutableArray *)dataSource {

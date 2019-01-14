@@ -19,7 +19,7 @@
 #import "SDCycleScrollView.h"
 #import "MBProgressHUD.h"
 #import "YYModel.h"
-#import "MJRefreshNormalHeader.h"
+#import "MJRefresh.h"
 #import "JXCategoryView.h"
 
 #import "VENNetworkTool.h"
