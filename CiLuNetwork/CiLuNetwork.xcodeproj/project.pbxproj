@@ -63,6 +63,7 @@
 		2C64986621C9F3E300F06CB7 /* VENClassifyDetailsPopupViewTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2C64986421C9F3E300F06CB7 /* VENClassifyDetailsPopupViewTableViewCell.xib */; };
 		2C720D2021EC2F9C0041AAD4 /* VENClassifyDetailsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C720D1F21EC2F9C0041AAD4 /* VENClassifyDetailsModel.m */; };
 		2C7A491121ED6DAA005C0014 /* VENPersonalSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C7A491021ED6DAA005C0014 /* VENPersonalSettingsViewController.m */; };
+		2C7A491421ED90C8005C0014 /* VENClassifyDetailsUserEvaluateModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C7A491321ED90C8005C0014 /* VENClassifyDetailsUserEvaluateModel.m */; };
 		2C9365F821CCE2AD002B0ED9 /* VENShoppingCartPlacingOrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9365F721CCE2AD002B0ED9 /* VENShoppingCartPlacingOrderViewController.m */; };
 		2C9365FB21CCE6EF002B0ED9 /* VENShoppingCartPlacingOrderHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9365FA21CCE6EF002B0ED9 /* VENShoppingCartPlacingOrderHeaderView.m */; };
 		2C9365FD21CCE6FF002B0ED9 /* VENShoppingCartPlacingOrderHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2C9365FC21CCE6FF002B0ED9 /* VENShoppingCartPlacingOrderHeaderView.xib */; };
@@ -358,6 +359,8 @@
 		2C720D1F21EC2F9C0041AAD4 /* VENClassifyDetailsModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VENClassifyDetailsModel.m; sourceTree = "<group>"; };
 		2C7A490F21ED6DAA005C0014 /* VENPersonalSettingsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VENPersonalSettingsViewController.h; sourceTree = "<group>"; };
 		2C7A491021ED6DAA005C0014 /* VENPersonalSettingsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VENPersonalSettingsViewController.m; sourceTree = "<group>"; };
+		2C7A491221ED90C8005C0014 /* VENClassifyDetailsUserEvaluateModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VENClassifyDetailsUserEvaluateModel.h; sourceTree = "<group>"; };
+		2C7A491321ED90C8005C0014 /* VENClassifyDetailsUserEvaluateModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VENClassifyDetailsUserEvaluateModel.m; sourceTree = "<group>"; };
 		2C9365F621CCE2AD002B0ED9 /* VENShoppingCartPlacingOrderViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VENShoppingCartPlacingOrderViewController.h; sourceTree = "<group>"; };
 		2C9365F721CCE2AD002B0ED9 /* VENShoppingCartPlacingOrderViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VENShoppingCartPlacingOrderViewController.m; sourceTree = "<group>"; };
 		2C9365F921CCE6EF002B0ED9 /* VENShoppingCartPlacingOrderHeaderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VENShoppingCartPlacingOrderHeaderView.h; sourceTree = "<group>"; };
@@ -2391,6 +2394,8 @@
 		2CF7EFB721CB779A0020A448 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				2C7A491221ED90C8005C0014 /* VENClassifyDetailsUserEvaluateModel.h */,
+				2C7A491321ED90C8005C0014 /* VENClassifyDetailsUserEvaluateModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -2624,6 +2629,7 @@
 				2CDFA05A21B5813500254B52 /* ViewController+MASAdditions.m in Sources */,
 				2CDFA09B21B5813500254B52 /* UIView+MJExtension.m in Sources */,
 				2CDFA08021B5813500254B52 /* SDWebImageDownloaderOperation.m in Sources */,
+				2C7A491421ED90C8005C0014 /* VENClassifyDetailsUserEvaluateModel.m in Sources */,
 				2CEB832721B819CE004A8629 /* JXCategoryDotCell.m in Sources */,
 				2CDFA06221B5813500254B52 /* MASViewAttribute.m in Sources */,
 				2CDFA06A21B5813500254B52 /* UIButton+AFNetworking.m in Sources */,

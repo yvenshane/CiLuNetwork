@@ -6,6 +6,7 @@
 //
 
 #import "VENNetworkTool.h"
+#import "VENLoginViewController.h"
 
 @interface VENNetworkTool ()
 @property (nonatomic, assign) BOOL isConnectInternet;
@@ -98,8 +99,16 @@ static dispatch_once_t onceToken;
                 
                 [[VENMBProgressHUDManager sharedManager] showText:responseObject[@"message"]];
                 
-                if ([responseObject[@"code"] integerValue] == 10099) {
+                if ([responseObject[@"status"] integerValue] == 10099) {
                     NSLog(@"10099");
+                    
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        VENLoginViewController *vc = [[VENLoginViewController alloc] init];
+                        vc.block = ^(NSString *str) {
+                            
+                        };
+                        [[self findCurrentViewController] presentViewController:vc animated:YES completion:nil];
+                    });
                 }
                 
                 success(responseObject);
@@ -173,6 +182,32 @@ static dispatch_once_t onceToken;
         //隐藏正在显示的loading
         [[VENMBProgressHUDManager sharedManager] removeLoading];
     }
+}
+
+- (UIViewController *)findCurrentViewController {
+    UIWindow *window = [[UIApplication sharedApplication].delegate window];
+    UIViewController *topViewController = [window rootViewController];
+    
+    while (true) {
+        
+        if (topViewController.presentedViewController) {
+            
+            topViewController = topViewController.presentedViewController;
+            
+        } else if ([topViewController isKindOfClass:[UINavigationController class]] && [(UINavigationController*)topViewController topViewController]) {
+            
+            topViewController = [(UINavigationController *)topViewController topViewController];
+            
+        } else if ([topViewController isKindOfClass:[UITabBarController class]]) {
+            
+            UITabBarController *tab = (UITabBarController *)topViewController;
+            topViewController = tab.selectedViewController;
+            
+        } else {
+            break;
+        }
+    }
+    return topViewController;
 }
 
 @end

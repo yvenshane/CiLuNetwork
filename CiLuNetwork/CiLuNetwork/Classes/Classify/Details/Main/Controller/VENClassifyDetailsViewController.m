@@ -26,6 +26,9 @@
 @property (nonatomic, strong) UIView *headerView;
 @property (nonatomic, assign) CGFloat headerViewHeight;
 
+@property (nonatomic, strong) UIButton *collectionButton;
+@property (nonatomic, strong) UIButton *collectionButton02;
+
 @end
 
 @implementation VENClassifyDetailsViewController
@@ -52,7 +55,7 @@
 }
 
 - (void)loadData {
-    [[VENNetworkTool sharedManager] requestWithMethod:HTTPMethodPost path:@"goods/detail" params:@{@"id" : self.goods_id} showLoading:YES successBlock:^(id response) {
+    [[VENNetworkTool sharedManager] requestWithMethod:HTTPMethodPost path:@"goods/detail" params:@{@"id" : self.goods_id} showLoading:YES successBlock:^ (id response) {
         
         if ([response[@"status"] integerValue] == 0) {
             
@@ -114,7 +117,7 @@
 
     // 收藏
     UIButton *collectionButton = [[UIButton alloc] initWithFrame:CGRectMake(kMainScreenWidth - 45, 25, 30, 30)];
-    [collectionButton setImage:[UIImage imageNamed:@"icon_collection"] forState:UIControlStateNormal];
+    [collectionButton setImage:[UIImage imageNamed:[self.model.is_mark integerValue] == 0 ? @"icon_collection" : @"icon_collection_active"] forState:UIControlStateNormal];
     [collectionButton addTarget:self action:@selector(collectionButtonClick) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:collectionButton];
     
@@ -150,6 +153,7 @@
     
     _tableView = tableView;
     _headerView = headerView;
+    _collectionButton = collectionButton;
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
@@ -167,18 +171,44 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
+#pragma mark - 收藏
 - (void)collectionButtonClick {
     NSLog(@"收藏");
+    
+    [[VENNetworkTool sharedManager] requestWithMethod:HTTPMethodPost path:@"collect/apply" params:@{@"goods_id" : self.goods_id} showLoading:YES successBlock:^(id response) {
+
+        if ([response[@"status"] integerValue] == 0) {
+            
+            if ([self.model.is_mark integerValue] == 0) {
+                
+                self.model.is_mark = @"1";
+                [self.collectionButton setImage:[UIImage imageNamed:@"icon_collection_active"] forState:UIControlStateNormal];
+                [self.collectionButton02 setImage:[UIImage imageNamed:@"icon_collection02_active"] forState:UIControlStateNormal];
+                
+            } else if ([self.model.is_mark integerValue] == 1) {
+                
+                self.model.is_mark = @"0";
+                [self.collectionButton setImage:[UIImage imageNamed:@"icon_collection"] forState:UIControlStateNormal];
+                [self.collectionButton02 setImage:[UIImage imageNamed:@"icon_collection02"] forState:UIControlStateNormal];
+            }
+            
+        }
+        
+    } failureBlock:^(NSError *error) {
+
+    }];
 }
 
 - (void)choiceButtonClick {
     NSLog(@"选择规格");
 }
 
+#pragma mark - 用户评价
 - (void)evaluateButtonClick {
     NSLog(@"用户评价");
     
     VENClassifyDetailsUserEvaluateViewController *vc = [[VENClassifyDetailsUserEvaluateViewController alloc] init];
+    vc.goods_id = self.goods_id;
     [self.navigationController pushViewController:vc animated:YES];
 }
 
@@ -261,11 +291,12 @@
     [navigationBar addSubview:backButton];
     
     UIButton *collectionButton = [[UIButton alloc] initWithFrame:CGRectMake(kMainScreenWidth - 8 - 44, 20, 44, 44)];
-    [collectionButton setImage:[UIImage imageNamed:@"icon_collection02"] forState:UIControlStateNormal];
+    [collectionButton setImage:[UIImage imageNamed:[self.model.is_mark integerValue] == 0 ? @"icon_collection02" : @"icon_collection02_active"] forState:UIControlStateNormal];
     [collectionButton addTarget:self action:@selector(collectionButtonClick) forControlEvents:UIControlEventTouchUpInside];
     [navigationBar addSubview:collectionButton];
     
     _navigationBar = navigationBar;
+    _collectionButton02 = collectionButton;
 }
 
 - (CGFloat)labelHeightWith:(NSString *)text and:(CGFloat)fontSize {

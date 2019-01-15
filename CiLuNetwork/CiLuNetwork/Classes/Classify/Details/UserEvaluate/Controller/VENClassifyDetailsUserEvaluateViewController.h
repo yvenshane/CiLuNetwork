@@ -9,5 +9,6 @@
 #import "VENBaseViewController.h"
 
 @interface VENClassifyDetailsUserEvaluateViewController : VENBaseViewController
+@property (nonatomic, copy) NSString *goods_id;
 
 @end
