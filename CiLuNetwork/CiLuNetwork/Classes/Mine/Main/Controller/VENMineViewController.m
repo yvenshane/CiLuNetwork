@@ -12,6 +12,7 @@
 #import "VENMineTableViewCellStyleThree.h"
 #import "VENLoginViewController.h"
 
+#import "VENPersonalSettingsViewController.h"
 #import "VENMyOrderViewController.h"
 #import "VENMyBalanceViewController.h"
 #import "VENMyPointsViewController.h"
@@ -132,11 +133,7 @@ static NSString *cellIdentifier3 = @"cellIdentifier3";
 // 登录注册 /
 - (void)nameButtonClick {
     if (![[VENUserStatusManager sharedManager] isLogin]) {
-        VENLoginViewController *vc = [[VENLoginViewController alloc] init];
-        vc.block = ^(NSString *str) {
-            [self.tableView.mj_header beginRefreshing];
-        };
-        [self presentViewController:vc animated:YES completion:nil];
+        [self pushToLoginView];
     }
 }
 
@@ -149,10 +146,7 @@ static NSString *cellIdentifier3 = @"cellIdentifier3";
         vc.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:vc animated:YES];
     } else {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            VENLoginViewController *vc = [[VENLoginViewController alloc] init];
-            [self presentViewController:vc animated:YES completion:nil];
-        });
+        [self pushToLoginView];
     }
 }
 
@@ -166,8 +160,7 @@ static NSString *cellIdentifier3 = @"cellIdentifier3";
         [self.navigationController pushViewController:vc animated:YES];
     } else {
         dispatch_async(dispatch_get_main_queue(), ^{
-            VENLoginViewController *vc = [[VENLoginViewController alloc] init];
-            [self presentViewController:vc animated:YES completion:nil];
+            [self pushToLoginView];
         });
     }
 }
@@ -181,11 +174,16 @@ static NSString *cellIdentifier3 = @"cellIdentifier3";
         vc.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:vc animated:YES];
     } else {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            VENLoginViewController *vc = [[VENLoginViewController alloc] init];
-            [self presentViewController:vc animated:YES completion:nil];
-        });
+
     }
+}
+
+- (void)pushToLoginView {
+    VENLoginViewController *vc = [[VENLoginViewController alloc] init];
+    vc.block = ^(NSString *str) {
+        [self.tableView.mj_header beginRefreshing];
+    };
+    [self presentViewController:vc animated:YES completion:nil];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -214,10 +212,7 @@ static NSString *cellIdentifier3 = @"cellIdentifier3";
         }
     } else {
         if (indexPath.section != 0) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                VENLoginViewController *vc = [[VENLoginViewController alloc] init];
-                [self presentViewController:vc animated:YES completion:nil];
-            });
+            [self pushToLoginView];
         }
     }
 }
@@ -252,8 +247,14 @@ static NSString *cellIdentifier3 = @"cellIdentifier3";
     return section == 3 ? 10 : 5;
 }
 
+#pragma mark - 个人设置
 - (void)settingButtonClick {
-    
+    VENPersonalSettingsViewController *vc = [[VENPersonalSettingsViewController alloc] init];
+    vc.hidesBottomBarWhenPushed = YES;
+    vc.block = ^(NSString * str) {
+        [self.tableView.mj_header beginRefreshing];
+    };
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)setupSettingButton {

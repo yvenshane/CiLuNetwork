@@ -55,6 +55,12 @@
     [[VENNetworkTool sharedManager] requestWithMethod:HTTPMethodPost path:@"auth/register" params:params showLoading:YES successBlock:^(id response) {
         
         if ([response[@"status"] integerValue] == 0) {
+            
+            NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+            [userDefaults setObject:@"1" forKey:@"tag"];
+            
+            NSLog(@"tag - %@", [userDefaults objectForKey:@"tag"]);
+
             [self.parentViewController.parentViewController dismissViewControllerAnimated:YES completion:nil];
         }
         

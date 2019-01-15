@@ -30,11 +30,6 @@ static dispatch_once_t onceToken;
         //request
         self.requestSerializer.timeoutInterval = 15;
         self.requestSerializer.cachePolicy = NSURLRequestReloadIgnoringLocalCacheData;
-        
-        NSString *token = [[NSUserDefaults standardUserDefaults] objectForKey:@"token"];
-        if (![[VENClassEmptyManager sharedManager] isEmptyString:token]) {
-            [self.requestSerializer setValue:token forHTTPHeaderField:@"Authorization"];
-        }
         self.requestSerializer.HTTPShouldHandleCookies = YES;
         
         //response
@@ -44,6 +39,9 @@ static dispatch_once_t onceToken;
 }
 
 - (void)requestWithMethod:(HTTPMethod)method path:(NSString *)path params:(NSDictionary *)params showLoading:(BOOL)isShow successBlock:(SuccessBlock)success failureBlock:(FailureBlock)failure {
+    
+    NSString *token = [[NSUserDefaults standardUserDefaults] objectForKey:@"token"];
+    [self.requestSerializer setValue:![[VENClassEmptyManager sharedManager] isEmptyString:token] ? token : @"" forHTTPHeaderField:@"Authorization"];
     
     path = [[path stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding] lowercaseString];
     NSLog(@"请求接口：%@", path);
