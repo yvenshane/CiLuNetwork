@@ -9,9 +9,11 @@
 #import <UIKit/UIKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
+typedef void (^pushToClassifyPageBlock)(NSString *);
 
 @interface VENHomePageHorizontalCollectionView : UIView
 @property (nonatomic, copy) NSArray *categoriesModel;
+@property (nonatomic, copy) pushToClassifyPageBlock block;
 
 @end
 

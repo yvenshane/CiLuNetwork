@@ -60,6 +60,13 @@
             self.model = current_conditionsModel;
             
             [self.collectionView reloadData];
+            
+            // 解决点击首页分类按钮 分类页面第一次不跳转到指定页面 BUG
+            if (![[VENClassEmptyManager sharedManager] isEmptyString:[[NSUserDefaults standardUserDefaults] objectForKey:@"FirstLoading"]]) {
+                
+                self.block1([[[NSUserDefaults standardUserDefaults] objectForKey:@"FirstLoading"] integerValue]);
+                [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"FirstLoading"];
+            }
         }
         
     } failureBlock:^(NSError *error) {

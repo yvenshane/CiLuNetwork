@@ -208,6 +208,9 @@
         // 分类图标
         VENHomePageHorizontalCollectionView *horizontalCollectionView = [[VENHomePageHorizontalCollectionView alloc] initWithFrame:CGRectMake(0, 160, kMainScreenWidth, 105)];
         horizontalCollectionView.categoriesModel = self.categories;
+        horizontalCollectionView.block = ^(NSString *str) {
+            self.tabBarController.selectedIndex = 1;
+        };
         [self.collectionView addSubview:horizontalCollectionView];
         
         _horizontalCollectionView = horizontalCollectionView;

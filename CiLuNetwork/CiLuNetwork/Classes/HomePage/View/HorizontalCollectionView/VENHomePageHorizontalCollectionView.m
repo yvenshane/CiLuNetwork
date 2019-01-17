@@ -54,7 +54,17 @@
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    NSLog(@"%ld", (long)indexPath.row);
     
+    
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        [[NSUserDefaults standardUserDefaults] setObject:[NSString stringWithFormat:@"%ld", (long)indexPath.row + 1] forKey:@"FirstLoading"];
+    });
+    
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"PushToClassifyPage" object:indexPath];
+    self.block(@"");
 }
 
 /*

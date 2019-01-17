@@ -478,9 +478,14 @@ static NSString *cellIdentifier = @"cellIdentifier";
     strollButton.layer.borderColor = UIColorFromRGB(0xCCCCCC).CGColor;
     strollButton.layer.cornerRadius = 4;
     strollButton.layer.masksToBounds = YES;
+    [strollButton addTarget:self action:@selector(strollButtonClick) forControlEvents:UIControlEventTouchUpInside];
     [placeholderBackgroundView addSubview:strollButton];
     
     _placeholderBackgroundView = placeholderBackgroundView;
+}
+
+- (void)strollButtonClick {
+    self.tabBarController.selectedIndex = 1;
 }
 
 - (CGFloat)label:(UILabel *)label setWidthToHeight:(CGFloat)Height {

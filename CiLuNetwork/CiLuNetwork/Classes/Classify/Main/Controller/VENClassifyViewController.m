@@ -57,6 +57,7 @@
             
             [self setupClassifyPage];
             [self setupFilterView];
+            
         }
         
     } failureBlock:^(NSError *error) {
@@ -64,6 +65,15 @@
     }];
 
     [self setupSearchView];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notification:) name:@"PushToClassifyPage" object:nil];
+}
+
+- (void)notification:(NSNotification *)noti {
+    
+    NSIndexPath *indexPath = noti.object;
+    
+    [self.categoryView selectItemAtIndex:indexPath.row + 1];
 }
 
 - (void)setupFilterView {
@@ -84,10 +94,6 @@
         [self.listVCArray[index].collectionView.mj_header beginRefreshing];
         [self.selectedItemAtIndexMuArr addObject:[NSString stringWithFormat:@"%ld", (long)index]];
     }
-    
-
-    
-    
 }
 
 - (void)categoryView:(JXCategoryBaseView *)categoryView didClickSelectedItemAtIndex:(NSInteger)index {
@@ -131,6 +137,10 @@
 //        listVC.lists_goods = self.lists_goods;
         listVC.model = self.categories[i];
         
+        listVC.block1 = ^(NSInteger i) {
+            [self.categoryView selectItemAtIndex:i];
+        };
+        
         listVC.block = ^(NSString *str) {
             
             VENClassifyModel *model = self.lists_goods[[str integerValue]];
@@ -150,7 +160,7 @@
     self.categoryView.delegate = self;
     self.categoryView.titles = titles;
     self.categoryView.titleFont = [UIFont systemFontOfSize:12.0f];
-    self.categoryView.titleSelectedColor =COLOR_THEME;
+    self.categoryView.titleSelectedColor = COLOR_THEME;
     JXCategoryIndicatorLineView *lineView = [[JXCategoryIndicatorLineView alloc] init];
     lineView.indicatorLineViewColor = COLOR_THEME;
     lineView.indicatorLineViewHeight = 2;
@@ -168,8 +178,6 @@
     }
     
     self.categoryView.contentScrollView = self.scrollView;
-    
-    
 }
 
 //这句代码必须加上
@@ -236,6 +244,10 @@
 
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
+}
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 /*
