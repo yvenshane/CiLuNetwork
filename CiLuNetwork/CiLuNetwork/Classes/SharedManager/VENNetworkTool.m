@@ -97,7 +97,9 @@ static dispatch_once_t onceToken;
                 
                 NSLog(@"%@", responseObject);
                 
-                [[VENMBProgressHUDManager sharedManager] showText:responseObject[@"message"]];
+                if (![responseObject[@"message"] isEqualToString:@"请求成功"]) {
+                    [[VENMBProgressHUDManager sharedManager] showText:responseObject[@"message"]];
+                }
                 
                 if ([responseObject[@"status"] integerValue] == 10099) {
                     NSLog(@"10099");

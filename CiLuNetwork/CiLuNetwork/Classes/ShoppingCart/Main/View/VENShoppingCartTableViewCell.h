@@ -16,6 +16,11 @@
 @property (weak, nonatomic) IBOutlet UILabel *priceLabel;
 @property (weak, nonatomic) IBOutlet UILabel *numberLabel;
 
+@property (weak, nonatomic) IBOutlet UIButton *deleteButton;
+@property (weak, nonatomic) IBOutlet UIButton *minusButton;
+@property (weak, nonatomic) IBOutlet UIButton *numberButton;
+@property (weak, nonatomic) IBOutlet UIButton *plusButton;
+
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *iconImageViewLayoutConstraint;
 
 @end

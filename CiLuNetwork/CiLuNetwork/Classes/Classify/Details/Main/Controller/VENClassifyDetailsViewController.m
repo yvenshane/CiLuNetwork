@@ -175,7 +175,7 @@
 - (void)collectionButtonClick {
     NSLog(@"收藏");
     
-    [[VENNetworkTool sharedManager] requestWithMethod:HTTPMethodPost path:@"collect/apply" params:@{@"goods_id" : self.goods_id} showLoading:YES successBlock:^(id response) {
+    [[VENNetworkTool sharedManager] requestWithMethod:HTTPMethodPost path:@"collect/apply" params:@{@"goods_id" : self.goods_id} showLoading:NO successBlock:^(id response) {
 
         if ([response[@"status"] integerValue] == 0) {
             
@@ -201,6 +201,9 @@
 
 - (void)choiceButtonClick {
     NSLog(@"选择规格");
+    
+//    [self backgroundView];
+//    [self popupView];
 }
 
 #pragma mark - 用户评价
@@ -230,14 +233,25 @@
     NSLog(@"购物车");
 }
 
+#pragma mark - 加入购物车
 - (void)addShoppingCartButtonClick {
     NSLog(@"加入购物车");
+    
+    [[VENNetworkTool sharedManager] requestWithMethod:HTTPMethodPost path:@"cart/add" params:@{@"id" : self.goods_id} showLoading:NO successBlock:^(id response) {
+        
+        if ([response[@"status"] integerValue] == 0) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"RefreshShoppingCart" object:nil];
+        }
+        
+    } failureBlock:^(NSError *error) {
+        
+    }];
+    
 }
 
 - (void)purchaseButtonClick {
     NSLog(@"立即购买");
-    [self backgroundView];
-    [self popupView];
+
 }
 
 - (UIView *)backgroundView {

@@ -13,6 +13,17 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
+    
+    [self.plusButton setTitleColor:UIColorFromRGB(0xB2B2B2) forState:UIControlStateNormal];
+    self.plusButton.layer.borderWidth = 1.0f;
+    self.plusButton.layer.borderColor = UIColorFromRGB(0xB2B2B2).CGColor;
+    
+    [self.minusButton setTitleColor:UIColorFromRGB(0xB2B2B2) forState:UIControlStateNormal];
+    self.minusButton.layer.borderWidth = 1.0f;
+    self.minusButton.layer.borderColor = UIColorFromRGB(0xB2B2B2).CGColor;
+    
+    self.numberButton.layer.borderWidth = 1.0f;
+    self.numberButton.layer.borderColor = UIColorFromRGB(0xB2B2B2).CGColor;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

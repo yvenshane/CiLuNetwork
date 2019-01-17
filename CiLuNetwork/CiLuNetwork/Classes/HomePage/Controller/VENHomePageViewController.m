@@ -34,7 +34,6 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    [self setupNavigationItemTitleView];
     [self setupNavigationItemLeftBarButtonItem];
     [self setupNavigationItemRightBarButtonItem];
     [self setupCollectionView];
@@ -78,6 +77,7 @@
             
             [self setupCycleScrollView];
             [self setupHorizontalCollectionView];
+            [self setupNavigationItemTitleView];
             
             [self.collectionView reloadData];
             self.collectionViewHeaderView2.frame = CGRectMake(0, 327 + ceilf(self.hotGoods.count / 2.0) * 248 + ceilf(self.hotGoods.count / 2.0) * 10,  kMainScreenWidth, 62);

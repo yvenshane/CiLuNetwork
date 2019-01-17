@@ -35,8 +35,6 @@
 		2C2D738321DDA58B006E417D /* VENMyPointsHeaderViewTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2C2D738121DDA58B006E417D /* VENMyPointsHeaderViewTableViewCell.xib */; };
 		2C2E2D8C21BFEAD700D44120 /* VENShoppingCartTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C2E2D8A21BFEAD700D44120 /* VENShoppingCartTableViewCell.m */; };
 		2C2E2D8D21BFEAD700D44120 /* VENShoppingCartTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2C2E2D8B21BFEAD700D44120 /* VENShoppingCartTableViewCell.xib */; };
-		2C2E2D9121C139B300D44120 /* VENShoppingCartEditTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C2E2D8F21C139B300D44120 /* VENShoppingCartEditTableViewCell.m */; };
-		2C2E2D9221C139B300D44120 /* VENShoppingCartEditTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2C2E2D9021C139B300D44120 /* VENShoppingCartEditTableViewCell.xib */; };
 		2C4208A321E6D1C70033E030 /* VENNetworkTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C4208A021E6D1C70033E030 /* VENNetworkTool.m */; };
 		2C4208A421E6D1C70033E030 /* VENMBProgressHUDManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C4208A121E6D1C70033E030 /* VENMBProgressHUDManager.m */; };
 		2C4E5B7D21BE933900A041B3 /* VENFilterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C4E5B7C21BE933900A041B3 /* VENFilterView.m */; };
@@ -255,6 +253,7 @@
 		2CEB833A21B819CE004A8629 /* JXCategoryBaseView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CEB831B21B819CE004A8629 /* JXCategoryBaseView.m */; };
 		2CEB833B21B819CE004A8629 /* JXCategoryBaseCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CEB831C21B819CE004A8629 /* JXCategoryBaseCell.m */; };
 		2CEB833C21B819CE004A8629 /* JXCategoryBaseCellModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CEB831D21B819CE004A8629 /* JXCategoryBaseCellModel.m */; };
+		2CEE5AC721EDBEDA003D208E /* VENShoppingCartModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CEE5AC621EDBEDA003D208E /* VENShoppingCartModel.m */; };
 		2CF7EFB021CB3B290020A448 /* VENClassifyDetailsHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF7EFAF21CB3B290020A448 /* VENClassifyDetailsHeaderView.m */; };
 		2CF7EFB221CB3B900020A448 /* VENClassifyDetailsHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2CF7EFB121CB3B900020A448 /* VENClassifyDetailsHeaderView.xib */; };
 		2CF7EFBD21CB782F0020A448 /* VENClassifyDetailsUserEvaluateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF7EFBC21CB782F0020A448 /* VENClassifyDetailsUserEvaluateViewController.m */; };
@@ -310,9 +309,6 @@
 		2C2E2D8921BFEAD700D44120 /* VENShoppingCartTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VENShoppingCartTableViewCell.h; sourceTree = "<group>"; };
 		2C2E2D8A21BFEAD700D44120 /* VENShoppingCartTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VENShoppingCartTableViewCell.m; sourceTree = "<group>"; };
 		2C2E2D8B21BFEAD700D44120 /* VENShoppingCartTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VENShoppingCartTableViewCell.xib; sourceTree = "<group>"; };
-		2C2E2D8E21C139B300D44120 /* VENShoppingCartEditTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VENShoppingCartEditTableViewCell.h; sourceTree = "<group>"; };
-		2C2E2D8F21C139B300D44120 /* VENShoppingCartEditTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VENShoppingCartEditTableViewCell.m; sourceTree = "<group>"; };
-		2C2E2D9021C139B300D44120 /* VENShoppingCartEditTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VENShoppingCartEditTableViewCell.xib; sourceTree = "<group>"; };
 		2C42089F21E6D1C70033E030 /* VENNetworkTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VENNetworkTool.h; sourceTree = "<group>"; };
 		2C4208A021E6D1C70033E030 /* VENNetworkTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VENNetworkTool.m; sourceTree = "<group>"; };
 		2C4208A121E6D1C70033E030 /* VENMBProgressHUDManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VENMBProgressHUDManager.m; sourceTree = "<group>"; };
@@ -744,6 +740,8 @@
 		2CEB831B21B819CE004A8629 /* JXCategoryBaseView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JXCategoryBaseView.m; sourceTree = "<group>"; };
 		2CEB831C21B819CE004A8629 /* JXCategoryBaseCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JXCategoryBaseCell.m; sourceTree = "<group>"; };
 		2CEB831D21B819CE004A8629 /* JXCategoryBaseCellModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JXCategoryBaseCellModel.m; sourceTree = "<group>"; };
+		2CEE5AC521EDBEDA003D208E /* VENShoppingCartModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VENShoppingCartModel.h; sourceTree = "<group>"; };
+		2CEE5AC621EDBEDA003D208E /* VENShoppingCartModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VENShoppingCartModel.m; sourceTree = "<group>"; };
 		2CF7EFAE21CB3B290020A448 /* VENClassifyDetailsHeaderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VENClassifyDetailsHeaderView.h; sourceTree = "<group>"; };
 		2CF7EFAF21CB3B290020A448 /* VENClassifyDetailsHeaderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VENClassifyDetailsHeaderView.m; sourceTree = "<group>"; };
 		2CF7EFB121CB3B900020A448 /* VENClassifyDetailsHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VENClassifyDetailsHeaderView.xib; sourceTree = "<group>"; };
@@ -1654,6 +1652,8 @@
 		2CDF9F5E21B5799300254B52 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				2CEE5AC521EDBEDA003D208E /* VENShoppingCartModel.h */,
+				2CEE5AC621EDBEDA003D208E /* VENShoppingCartModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1664,9 +1664,6 @@
 				2C2E2D8921BFEAD700D44120 /* VENShoppingCartTableViewCell.h */,
 				2C2E2D8A21BFEAD700D44120 /* VENShoppingCartTableViewCell.m */,
 				2C2E2D8B21BFEAD700D44120 /* VENShoppingCartTableViewCell.xib */,
-				2C2E2D8E21C139B300D44120 /* VENShoppingCartEditTableViewCell.h */,
-				2C2E2D8F21C139B300D44120 /* VENShoppingCartEditTableViewCell.m */,
-				2C2E2D9021C139B300D44120 /* VENShoppingCartEditTableViewCell.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -2462,7 +2459,6 @@
 				2CD4FF3721C782E500868525 /* VENLoginViewController.xib in Resources */,
 				2CDFA08D21B5813500254B52 /* IQKeyboardManager.bundle in Resources */,
 				2CD4FF4E21C797F700868525 /* VENRegistViewController.xib in Resources */,
-				2C2E2D9221C139B300D44120 /* VENShoppingCartEditTableViewCell.xib in Resources */,
 				2C93660221CCE9D6002B0ED9 /* VENShoppingCartPlacingOrderFooterView.xib in Resources */,
 				2C54DECE21DC507200E72241 /* VENMyBalanceTableViewCell.xib in Resources */,
 				2C1B7DFC21DCB7A40030532B /* VENMyBalanceWithdrawTableViewCell2.xib in Resources */,
@@ -2666,7 +2662,6 @@
 				2C0F65A021D369070093A6D0 /* VENMyOrderWaitingForReceivingViewController.m in Sources */,
 				2C94E27121E73715003F6595 /* LGPhotoPickerCustomToolBarView.m in Sources */,
 				2CB54FC321B65B93003AD4D8 /* VENHomePageNavigationItemTitleView.m in Sources */,
-				2C2E2D9121C139B300D44120 /* VENShoppingCartEditTableViewCell.m in Sources */,
 				2CDFA09C21B5813500254B52 /* MJRefreshBackGifFooter.m in Sources */,
 				2C94E27A21E73715003F6595 /* LGPhotoPickerDatas.m in Sources */,
 				2CDFA08821B5813500254B52 /* IQToolbar.m in Sources */,
@@ -2689,6 +2684,7 @@
 				2CDF9F5621B575FF00254B52 /* VENTabBarController.m in Sources */,
 				2C2D737E21DDA449006E417D /* VENMyPointsViewController.m in Sources */,
 				2CDFA09421B5813500254B52 /* IQKeyboardReturnKeyHandler.m in Sources */,
+				2CEE5AC721EDBEDA003D208E /* VENShoppingCartModel.m in Sources */,
 				2C1B7DFB21DCB7A40030532B /* VENMyBalanceWithdrawTableViewCell2.m in Sources */,
 				2C1B7E0421DCBC6B0030532B /* VENMyBalanceAddAccountViewController.m in Sources */,
 				2CDFA06D21B5813500254B52 /* AFAutoPurgingImageCache.m in Sources */,

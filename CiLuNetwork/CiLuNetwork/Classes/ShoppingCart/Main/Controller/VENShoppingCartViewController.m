@@ -8,25 +8,30 @@
 
 #import "VENShoppingCartViewController.h"
 #import "VENShoppingCartTableViewCell.h"
-#import "VENShoppingCartEditTableViewCell.h"
 #import "VENShoppingCartPlacingOrderViewController.h"
+#import "VENShoppingCartModel.h"
 
 @interface VENShoppingCartViewController () <UITableViewDelegate, UITableViewDataSource>
-@property (nonatomic, strong) NSMutableArray *dataSourceMuArr;
 @property (nonatomic, strong) UITableView *tableView;
-@property (nonatomic, assign) BOOL isEdit;
-@property (nonatomic, strong) UIButton *navigationRightButton;
+@property (nonatomic, strong) UIView *placeholderBackgroundView;
 
-@property (nonatomic, strong) UIButton *selectAllButton;
+@property (nonatomic, strong) UIButton *navigationRightButton; // 编辑 / 完成
+@property (nonatomic, assign) BOOL isEdit;
+
+@property (nonatomic, strong) UIView *shoppingBar;
 @property (nonatomic, strong) UILabel *priceLabel;
 @property (nonatomic, strong) UIButton *payButton;
+@property (nonatomic, strong) UIButton *selectAllButton;
+@property (nonatomic, assign) BOOL isSelectAll;
 
-@property (nonatomic, strong) NSMutableArray *choiceMuArr;
+@property (nonatomic, strong) NSMutableArray *listMuArr;
+@property (nonatomic, strong) NSMutableArray *choiceListMuArr;
+@property (nonatomic, strong) NSMutableArray <UIButton *>*choiceButtonsMuArr;
+@property (nonatomic, strong) NSMutableArray <UIButton *>*numberButtonsMuArr;
 
 @end
 
 static NSString *cellIdentifier = @"cellIdentifier";
-static NSString *cellIdentifier2 = @"cellIdentifier2";
 @implementation VENShoppingCartViewController
 
 - (void)viewDidLoad {
@@ -36,17 +41,64 @@ static NSString *cellIdentifier2 = @"cellIdentifier2";
     self.navigationItem.title = @"购物车";
     self.view.backgroundColor = UIColorFromRGB(0xF5F5F5);
     
-    if (self.dataSourceMuArr.count > 0) {
-        [self setupShoppingBar];
-        [self setupEditButton];
-        [self setupTableView];
-    } else {
-        [self setupPlaceholderStatus];
-    }
+    [self setupTableView];
+    
+    [_tableView.mj_header beginRefreshing];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notification:) name:@"RefreshShoppingCart" object:nil];
+}
+
+- (void)notification:(NSNotification *)noti {
+    [self loadDta];
+}
+
+- (void)loadDta {
+    [[VENNetworkTool sharedManager] requestWithMethod:HTTPMethodPost path:@"cart/lists" params:nil showLoading:NO successBlock:^(id response) {
+        
+        [self.tableView.mj_header endRefreshing];
+        
+        if ([response[@"data"][@"status"] integerValue] == 0) {
+            self.listMuArr = [NSArray yy_modelArrayWithClass:[VENShoppingCartModel class] json:response[@"data"][@"list"]].mutableCopy;
+
+            if (self.listMuArr.count > 0) {
+                
+                [self.choiceListMuArr removeAllObjects];
+                self.isSelectAll = NO;
+                self.isEdit = NO;
+                
+                [self.shoppingBar removeFromSuperview];
+                self.shoppingBar = nil;
+                if (self.shoppingBar == nil) {
+                    [self setupShoppingBar];
+                }
+                
+                // 右上角 编辑按钮
+                self.navigationItem.rightBarButtonItem = nil;
+                [self setupEditButton];
+                
+                [self.placeholderBackgroundView removeFromSuperview];
+                self.placeholderBackgroundView = nil;
+                
+                [self.tableView reloadData];
+                
+            } else {
+                
+                [self.placeholderBackgroundView removeFromSuperview];
+                self.placeholderBackgroundView = nil;
+                
+                if (self.placeholderBackgroundView == nil) {
+                    [self setupPlaceholderStatus];
+                }
+            }
+        }
+        
+    } failureBlock:^(NSError *error) {
+        [self.tableView.mj_header endRefreshing];
+    }];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return self.dataSourceMuArr.count;
+    return self.listMuArr.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -54,54 +106,154 @@ static NSString *cellIdentifier2 = @"cellIdentifier2";
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (self.isEdit) {
-        VENShoppingCartEditTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier2 forIndexPath:indexPath];
-        cell.iconImageView.backgroundColor = [UIColor colorWithRed:arc4random_uniform(255)/255.0 green:arc4random_uniform(255)/255.0 blue:arc4random_uniform(255)/255.0 alpha:1];
-        
-        [cell.choiceButton addTarget:self action:@selector(choiceButtonClick:) forControlEvents:UIControlEventTouchUpInside];
-        
-        cell.choiceButton.tag = 998 + indexPath.section;
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        return cell;
-    } else {
-        VENShoppingCartTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
-        cell.iconImageView.backgroundColor = [UIColor colorWithRed:arc4random_uniform(255)/255.0 green:arc4random_uniform(255)/255.0 blue:arc4random_uniform(255)/255.0 alpha:1];
-        
-        
-        [cell.choiceButton addTarget:self action:@selector(choiceButtonClick:) forControlEvents:UIControlEventTouchUpInside];
-        cell.choiceButton.tag = 998 + indexPath.section;
-        
-        for (NSString *str in self.choiceMuArr) {
-            cell.choiceButton.selected = [[NSString stringWithFormat:@"%ld", (long)cell.choiceButton.tag - 998] isEqualToString:str] ? YES : NO;
+    
+    VENShoppingCartModel *model = self.listMuArr[indexPath.section];
+
+    VENShoppingCartTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    
+    [cell.iconImageView sd_setImageWithURL:[NSURL URLWithString:model.goods_thumb]];
+    
+    cell.titleLabel.hidden = self.isEdit ? YES : NO;
+    cell.numberLabel.hidden = self.isEdit ? YES : NO;
+    cell.titleLabel.text = model.goods_name;
+    cell.numberLabel.text = [NSString stringWithFormat:@"x%ld", (long)model.number];
+
+    cell.plusButton.hidden = self.isEdit ? NO : YES;
+    cell.plusButton.tag = 998 + indexPath.section;
+    [cell.plusButton addTarget:self action:@selector(plusButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+    
+    cell.minusButton.hidden = self.isEdit ? NO : YES;
+    cell.minusButton.tag = 998 + indexPath.section;
+    [cell.minusButton addTarget:self action:@selector(minusButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+    
+    cell.deleteButton.hidden = self.isEdit ? NO : YES;
+    cell.deleteButton.tag = 998 + indexPath.section;
+    [cell.deleteButton addTarget:self action:@selector(deleteButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+    
+    cell.numberButton.hidden = self.isEdit ? NO : YES;
+    [cell.numberButton setTitle:[NSString stringWithFormat:@"%ld", (long)model.number] forState:normal];
+
+    cell.otherLabel.text = [NSString stringWithFormat:@"规格：%@", model.spec];
+    cell.priceLabel.text = model.price_formatted;
+    
+    cell.choiceButton.tag = 998 + indexPath.section;
+    [cell.choiceButton addTarget:self action:@selector(choiceButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+    cell.choiceButton.selected = model.isChoice == YES ? YES : NO;
+
+    if (indexPath.section == 0) {
+        [self.choiceButtonsMuArr removeAllObjects];
+        [self.numberButtonsMuArr removeAllObjects];
+    }
+
+    [self.choiceButtonsMuArr addObject:cell.choiceButton];
+    [self.numberButtonsMuArr addObject:cell.numberButton];
+    
+    return cell;
+}
+
+#pragma mark - 编辑 增加
+- (void)plusButtonClick:(UIButton *)button {
+    
+    for (NSInteger i = 0; i < self.choiceButtonsMuArr.count; i++) {
+        if (button.tag == self.choiceButtonsMuArr[i].tag) {
+            VENShoppingCartModel *model = self.listMuArr[i];
+            NSInteger tempNumber = model.number;
+            
+            NSDictionary *params = @{@"id" : model.shoppingCartID,
+                                     @"number" : [NSString stringWithFormat:@"%ld", (long)tempNumber + 1]};
+            
+            [[VENNetworkTool sharedManager] requestWithMethod:HTTPMethodPost path:@"cart/modify" params:params showLoading:YES successBlock:^(id response) {
+                
+                if ([response[@"status"] integerValue] == 0) {
+                    model.number++;
+                    [self.numberButtonsMuArr[i] setTitle:[NSString stringWithFormat:@"%ld", (long)model.number] forState:normal];
+                    [self computedPrice];
+                }
+                
+            } failureBlock:^(NSError *error) {
+                
+            }];
         }
-        
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        return cell;
     }
 }
 
-- (void)choiceButtonClick:(UIButton *)button {
-    button.selected = !button.selected;
+#pragma mark - 编辑 减少
+- (void)minusButtonClick:(UIButton *)button {
     
+    for (NSInteger i = 0; i < self.choiceButtonsMuArr.count; i++) {
+        if (button.tag == self.choiceButtonsMuArr[i].tag) {
+            VENShoppingCartModel *model = self.listMuArr[i];
+            NSInteger tempNumber = model.number;
+            
+            NSDictionary *params = @{@"id" : model.shoppingCartID,
+                                     @"number" : [NSString stringWithFormat:@"%ld", (long)tempNumber - 1]};
+            
+            [[VENNetworkTool sharedManager] requestWithMethod:HTTPMethodPost path:@"cart/modify" params:params showLoading:YES successBlock:^(id response) {
+                
+                if ([response[@"status"] integerValue] == 0) {
+                    model.number--;
+                    [self.numberButtonsMuArr[i] setTitle:[NSString stringWithFormat:@"%ld", (long)model.number] forState:normal];
+                    [self computedPrice];
+                }
+                
+            } failureBlock:^(NSError *error) {
+                
+            }];
+        }
+    }
+}
+
+#pragma mark - 编辑 删除
+- (void)deleteButtonClick:(UIButton *)button {
     
-    if (button.selected == YES) {
-        [self.choiceMuArr addObject:[NSString stringWithFormat:@"%ld", (long)button.tag - 998]];
-    } else {
+    for (NSInteger i = 0; i < self.choiceButtonsMuArr.count; i++) {
         
-        
-        for (NSString *str in self.choiceMuArr) {
-            if ([[NSString stringWithFormat:@"%ld", (long)button.tag - 998] isEqualToString:str]) {
-                [self.choiceMuArr removeObject:str];
-                break;
-            }
+        if (button.tag == self.choiceButtonsMuArr[i].tag) {
+            VENShoppingCartModel *model = self.listMuArr[i];
+            
+            NSDictionary *params = @{@"ids" : model.shoppingCartID};
+            
+            [[VENNetworkTool sharedManager] requestWithMethod:HTTPMethodPost path:@"cart/remove" params:params showLoading:YES successBlock:^(id response) {
+                
+                if ([response[@"status"] integerValue] == 0) {
+                    
+                    if (self.choiceListMuArr.count > 0) {
+                        [self.choiceListMuArr removeObject:model];
+                    }
+                    
+                    if (self.listMuArr.count > 0) {
+                        [self.listMuArr removeObject:model];
+                    }
+
+                    if (self.choiceButtonsMuArr.count > 0) {
+                        [self.choiceButtonsMuArr removeObjectAtIndex:i];
+                    }
+                    
+                    if (self.numberButtonsMuArr.count > 0) {
+                        [self.numberButtonsMuArr removeObjectAtIndex:i];
+                    }
+                    
+                    [self computedPrice];
+                    [self.tableView reloadData];
+                    
+                    if (self.listMuArr.count < 1) {
+                        [self.shoppingBar removeFromSuperview];
+                        self.shoppingBar = nil;
+                        self.isEdit = NO;
+                        self.navigationItem.rightBarButtonItem = nil;
+                        [self loadDta];
+                    }
+                    
+                }
+                
+                
+            } failureBlock:^(NSError *error) {
+                
+            }];
         }
     }
     
-    [self.payButton setTitle:[NSString stringWithFormat:@"结算(%lu)", (unsigned long)self.choiceMuArr.count] forState:UIControlStateNormal];
-    
-    self.payButton.backgroundColor = self.choiceMuArr.count > 0 ? COLOR_THEME : UIColorFromRGB(0xCCCCCC);
-    
-    NSLog(@"%@", _choiceMuArr);
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
@@ -121,9 +273,31 @@ static NSString *cellIdentifier2 = @"cellIdentifier2";
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
-    return section == self.dataSourceMuArr.count - 1 ? 10 : 5;
+    return section == self.listMuArr.count - 1 ? 10 : 5;
 }
 
+- (void)setupTableView {
+    UITableView *tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kMainScreenWidth, kMainScreenHeight - 44 - statusNavHeight - tabBarHeight) style:UITableViewStyleGrouped];
+    tableView.delegate = self;
+    tableView.dataSource = self;
+    tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    tableView.backgroundColor = UIColorFromRGB(0xF5F5F5);
+    tableView.rowHeight = 100;
+    [tableView registerNib:[UINib nibWithNibName:@"VENShoppingCartTableViewCell" bundle:nil] forCellReuseIdentifier:cellIdentifier];
+    [self.view addSubview:tableView];
+    
+    tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        [self loadDta];
+    }];
+    
+//    tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
+//
+//    }];
+    
+    _tableView = tableView;
+}
+
+#pragma mark - 编辑/完成
 - (void)setupEditButton {
     UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 44, 44)];
     [button setTitle:@"编辑" forState:UIControlStateNormal];
@@ -137,25 +311,13 @@ static NSString *cellIdentifier2 = @"cellIdentifier2";
 }
 
 - (void)editButtonClick {
-    self.isEdit = self.isEdit ? NO : YES;
+    self.isEdit = self.isEdit == YES ? NO : YES;
     [self.navigationRightButton setTitle:self.isEdit ? @"完成" : @"编辑" forState:UIControlStateNormal];
+    [self.payButton setTitle:self.isEdit ? [NSString stringWithFormat:@"删除(%lu)", (unsigned long)self.choiceListMuArr.count] : [NSString stringWithFormat:@"结算(%lu)", (unsigned long)self.choiceListMuArr.count] forState: UIControlStateNormal];
     [self.tableView reloadData];
 }
 
-- (void)setupTableView {
-    UITableView *tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kMainScreenWidth, kMainScreenHeight - 44 - statusNavHeight - tabBarHeight) style:UITableViewStyleGrouped];
-    tableView.delegate = self;
-    tableView.dataSource = self;
-    tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    tableView.backgroundColor = UIColorFromRGB(0xF5F5F5);
-    tableView.rowHeight = 100;
-    [tableView registerNib:[UINib nibWithNibName:@"VENShoppingCartTableViewCell" bundle:nil] forCellReuseIdentifier:cellIdentifier];
-    [tableView registerNib:[UINib nibWithNibName:@"VENShoppingCartEditTableViewCell" bundle:nil] forCellReuseIdentifier:cellIdentifier2];
-    [self.view addSubview:tableView];
-    
-    _tableView = tableView;
-}
-
+#pragma mark - 底部 toolBar
 - (void)setupShoppingBar {
     UIView *shoppingBar = [[UIView alloc] initWithFrame:CGRectMake(0, kMainScreenHeight - statusNavHeight - 44 - 49, kMainScreenWidth, 44)];
     shoppingBar.backgroundColor = [UIColor whiteColor];
@@ -164,21 +326,21 @@ static NSString *cellIdentifier2 = @"cellIdentifier2";
     UIButton *selectAllButton = [[UIButton alloc] initWithFrame:CGRectMake(-6, 0, 100, 44)];
     selectAllButton.backgroundColor = [UIColor whiteColor];
     [selectAllButton setImage:[UIImage imageNamed:@"icon_selecte_not"] forState:UIControlStateNormal];
+    [selectAllButton setImage:[UIImage imageNamed:@"icon_selecte"] forState:UIControlStateSelected];
     [selectAllButton setTitle:@"   全选" forState:UIControlStateNormal];
     [selectAllButton setTitleColor:UIColorFromRGB(0x1A1A1A) forState:UIControlStateNormal];
     selectAllButton.titleLabel.font = [UIFont systemFontOfSize:14.0f];
-    [selectAllButton addTarget:self action:@selector(selectAllButtonClick) forControlEvents:UIControlEventTouchUpInside];
+    [selectAllButton addTarget:self action:@selector(selectAllButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     [shoppingBar addSubview:selectAllButton];
     
-    NSString *tempStr = @"56.00";
+    NSString *priceStr = @"0.00";
     
-    UILabel *priceLabel = [[UILabel alloc] init];
-    NSMutableAttributedString *attributedStr = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"合计：¥%@", tempStr]];
-    [attributedStr addAttribute:NSForegroundColorAttributeName value:UIColorFromRGB(0xD0021B) range:NSMakeRange(3, tempStr.length + 1)];
+    UILabel *priceLabel = [[UILabel alloc] initWithFrame:CGRectMake(100 , 44 / 2 - 20 / 2, kMainScreenWidth - 220, 20)];
+    NSMutableAttributedString *attributedStr = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"合计：¥%@", priceStr]];
+    [attributedStr addAttribute:NSForegroundColorAttributeName value:UIColorFromRGB(0xD0021B) range:NSMakeRange(3, priceStr.length + 1)];
     priceLabel.attributedText = attributedStr;
     priceLabel.font = [UIFont systemFontOfSize:14.0f];
-    CGFloat priceLabelWidth = [self label:priceLabel setWidthToHeight:20];
-    priceLabel.frame = CGRectMake(kMainScreenWidth - 100 - 20 - priceLabelWidth, 44 / 2 - 20 / 2, priceLabelWidth, 20);
+    priceLabel.textAlignment = NSTextAlignmentRight;
     [shoppingBar addSubview:priceLabel];
 
     UIButton *payButton = [[UIButton alloc] initWithFrame:CGRectMake(kMainScreenWidth - 100, 0, 100, 44)];
@@ -192,34 +354,113 @@ static NSString *cellIdentifier2 = @"cellIdentifier2";
     lineView.backgroundColor = UIColorFromRGB(0xE8E8E8);
     [shoppingBar addSubview:lineView];
     
+    _shoppingBar = shoppingBar;
     _selectAllButton = selectAllButton;
     _priceLabel = priceLabel;
     _payButton = payButton;
 }
 
-- (void)selectAllButtonClick {
-    NSLog(@"全选");
-    
-}
-
 - (void)payButtonClick {
-    if (self.choiceMuArr.count > 0) {
-        NSLog(@"结算/删除");
-        VENShoppingCartPlacingOrderViewController *vc = [[VENShoppingCartPlacingOrderViewController alloc] init];
-        vc.hidesBottomBarWhenPushed = YES;
-        [self.navigationController pushViewController:vc animated:YES];
+//    if (self.choiceIndexMuArr.count > 0) {
+//        NSLog(@"结算/删除");
+//        VENShoppingCartPlacingOrderViewController *vc = [[VENShoppingCartPlacingOrderViewController alloc] init];
+//        vc.hidesBottomBarWhenPushed = YES;
+//        [self.navigationController pushViewController:vc animated:YES];
+//    }
+    
+    if (self.isEdit == YES) {
+        NSLog(@"删除");
+    } else {
+        NSLog(@"结算");
     }
+    
+    NSLog(@"choiceListMuArr - %@", self.choiceListMuArr);
 }
 
+#pragma mark - 全选
+- (void)selectAllButtonClick:(UIButton *)button {
+    button.selected = !button.selected;
+    
+    for (UIButton *choiceButton in self.choiceButtonsMuArr) {
+        VENShoppingCartModel *model = self.listMuArr[choiceButton.tag - 998];
+        
+        if (button.selected == YES) {
+            choiceButton.selected = YES;
+            self.isSelectAll = YES;
+            model.isChoice = YES;
+            
+            if (![self.choiceListMuArr containsObject:model]) {
+                [self.choiceListMuArr addObject:model];
+            }
+        } else {
+            choiceButton.selected = NO;
+            self.isSelectAll = NO;
+            model.isChoice = NO;
+            
+            [self.choiceListMuArr removeAllObjects];
+        }
+    }
+    
+    [self computedPrice];
+}
+
+#pragma mark - 单选 cell
+- (void)choiceButtonClick:(UIButton *)button {
+    button.selected = !button.selected;
+    
+    VENShoppingCartModel *model = self.listMuArr[button.tag - 998];
+    
+    if (button.selected == YES) {
+        [self.choiceListMuArr addObject:model];
+        model.isChoice = YES;
+        
+        if (self.choiceListMuArr.count == self.listMuArr.count) {
+            self.isSelectAll = YES;
+            self.selectAllButton.selected = YES;
+        }
+        
+    } else {
+        [self.choiceListMuArr removeObject:model];
+        model.isChoice = NO;
+        
+        if (self.choiceListMuArr.count != self.listMuArr.count) {
+            self.isSelectAll = NO;
+            self.selectAllButton.selected = NO;
+        }
+    }
+    
+    [self computedPrice];
+}
+
+#pragma mark - 计算价格
+- (void)computedPrice {
+    CGFloat totalPrice = 0;
+    for (VENShoppingCartModel *model in self.choiceListMuArr) {
+        CGFloat tempTotalPrice = model.price * model.number;
+        totalPrice +=tempTotalPrice;
+    }
+    
+    [self.payButton setTitle:self.isEdit ? [NSString stringWithFormat:@"删除(%lu)", (unsigned long)self.choiceListMuArr.count] : [NSString stringWithFormat:@"结算(%lu)", (unsigned long)self.choiceListMuArr.count] forState: UIControlStateNormal];
+
+    self.payButton.backgroundColor = self.choiceListMuArr.count > 0 ? COLOR_THEME : UIColorFromRGB(0xCCCCCC);
+    
+    NSString *totalPriceStr = [NSString stringWithFormat:@"合计：¥%.2f", totalPrice];
+    
+    NSMutableAttributedString *attributedStr = [[NSMutableAttributedString alloc] initWithString:totalPriceStr];
+    [attributedStr addAttribute:NSForegroundColorAttributeName value:UIColorFromRGB(0xD0021B) range:NSMakeRange(3, totalPriceStr.length - 3)];
+    self.priceLabel.attributedText = attributedStr;
+}
+
+#pragma mark - 占位页面
 - (void)setupPlaceholderStatus {
     
     CGFloat backgroundViewWidth = kMainScreenWidth - 64;
-    UIView *backgroundView = [[UIView alloc] initWithFrame:CGRectMake(32, (kMainScreenHeight - statusNavHeight - tabBarHeight) / 2 - (81 + 19 + 20 + 30 + 40) / 2, kMainScreenWidth - 64, 81 + 19 + 20 + 30 + 40)];
-    [self.view addSubview:backgroundView];
+    UIView *placeholderBackgroundView = [[UIView alloc] initWithFrame:CGRectMake(32, (kMainScreenHeight - statusNavHeight - tabBarHeight) / 2 - (81 + 19 + 20 + 30 + 40) / 2, kMainScreenWidth - 64, 81 + 19 + 20 + 30 + 40)];
+    [self.view addSubview:placeholderBackgroundView];
     
     UIImageView *iconImageView = [[UIImageView alloc] initWithFrame:CGRectMake(backgroundViewWidth / 2 - 129 / 2, 0, 129, 81)];
     iconImageView.image = [UIImage imageNamed:@"icon_shopping_cart_empty"];
-    [backgroundView addSubview:iconImageView];
+    [placeholderBackgroundView addSubview:iconImageView];
     
     UILabel *messageLabel = [[UILabel alloc] init];
     messageLabel.text = @"购物车是空的哦";
@@ -227,7 +468,7 @@ static NSString *cellIdentifier2 = @"cellIdentifier2";
     messageLabel.font = [UIFont systemFontOfSize:16.0f];
     CGFloat messageLabelWidth = [self label:messageLabel setWidthToHeight:20];
     messageLabel.frame = CGRectMake(backgroundViewWidth / 2 - messageLabelWidth / 2, 81 + 19, messageLabelWidth, 20);
-    [backgroundView addSubview:messageLabel];
+    [placeholderBackgroundView addSubview:messageLabel];
     
     UIButton *strollButton = [[UIButton alloc] initWithFrame:CGRectMake(backgroundViewWidth / 2 - 86 / 2, 81 + 19 + 20 + 30, 86, 40)];
     [strollButton setTitle:@"去逛逛" forState:UIControlStateNormal];
@@ -237,12 +478,9 @@ static NSString *cellIdentifier2 = @"cellIdentifier2";
     strollButton.layer.borderColor = UIColorFromRGB(0xCCCCCC).CGColor;
     strollButton.layer.cornerRadius = 4;
     strollButton.layer.masksToBounds = YES;
-    [backgroundView addSubview:strollButton];
-}
-
-- (CGFloat)label:(UILabel *)label setHeightToWidth:(CGFloat)width {
-    CGSize size = [label sizeThatFits:CGSizeMake(width, CGFLOAT_MAX)];
-    return size.height;
+    [placeholderBackgroundView addSubview:strollButton];
+    
+    _placeholderBackgroundView = placeholderBackgroundView;
 }
 
 - (CGFloat)label:(UILabel *)label setWidthToHeight:(CGFloat)Height {
@@ -250,19 +488,36 @@ static NSString *cellIdentifier2 = @"cellIdentifier2";
     return size.width;
 }
 
-- (NSMutableArray *)choiceMuArr {
-    if (_choiceMuArr == nil) {
-        _choiceMuArr = [NSMutableArray array];
+- (NSMutableArray *)listMuArr {
+    if (_listMuArr == nil) {
+        _listMuArr = [NSMutableArray array];
     }
-    return _choiceMuArr;
+    return _listMuArr;
 }
 
-- (NSMutableArray *)dataSourceMuArr {
-    if (_dataSourceMuArr == nil) {
-        _dataSourceMuArr = [NSMutableArray arrayWithArray:@[@"1", @"1", @"1", @"1", @"1", @"1", @"1", @"1", @"1", @"1"]];
-//        _dataSourceMuArr = [NSMutableArray array];
+- (NSMutableArray *)choiceListMuArr {
+    if (_choiceListMuArr == nil) {
+        _choiceListMuArr = [NSMutableArray array];
     }
-    return _dataSourceMuArr;
+    return _choiceListMuArr;
+}
+
+- (NSMutableArray *)choiceButtonsMuArr {
+    if (_choiceButtonsMuArr == nil) {
+        _choiceButtonsMuArr = [NSMutableArray array];
+    }
+    return _choiceButtonsMuArr;
+}
+
+- (NSMutableArray *)numberButtonsMuArr {
+    if (_numberButtonsMuArr == nil) {
+        _numberButtonsMuArr = [NSMutableArray array];
+    }
+    return _numberButtonsMuArr;
+}
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 /*
