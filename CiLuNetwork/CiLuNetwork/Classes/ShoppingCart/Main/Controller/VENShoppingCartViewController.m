@@ -360,20 +360,31 @@ static NSString *cellIdentifier = @"cellIdentifier";
     _payButton = payButton;
 }
 
+#pragma mark - 结算 / 删除
 - (void)payButtonClick {
-//    if (self.choiceIndexMuArr.count > 0) {
-//        NSLog(@"结算/删除");
-//        VENShoppingCartPlacingOrderViewController *vc = [[VENShoppingCartPlacingOrderViewController alloc] init];
-//        vc.hidesBottomBarWhenPushed = YES;
-//        [self.navigationController pushViewController:vc animated:YES];
-//    }
-    
-    if (self.isEdit == YES) {
-        NSLog(@"删除");
-    } else {
-        NSLog(@"结算");
+    if (self.choiceListMuArr.count > 0) {
+        if (self.isEdit == YES) {
+            NSLog(@"删除");
+        } else {
+            NSLog(@"结算");
+            
+            NSMutableArray *tempMuArr = [NSMutableArray array];
+            for (VENShoppingCartModel *model in self.choiceListMuArr) {
+                [tempMuArr addObject:model.shoppingCartID];
+            }
+            
+            [[VENNetworkTool sharedManager] requestWithMethod:HTTPMethodPost path:@"cart/check" params:@{@"ids" : [tempMuArr componentsJoinedByString:@","]} showLoading:YES successBlock:^(id response) {
+                
+                if ([response[@"status"] integerValue] == 0) {
+                    VENShoppingCartPlacingOrderViewController *vc = [[VENShoppingCartPlacingOrderViewController alloc] init];
+                    vc.hidesBottomBarWhenPushed = YES;
+                    [self.navigationController pushViewController:vc animated:YES];
+                }
+            } failureBlock:^(NSError *error) {
+                
+            }];
+        }
     }
-    
     NSLog(@"choiceListMuArr - %@", self.choiceListMuArr);
 }
 
