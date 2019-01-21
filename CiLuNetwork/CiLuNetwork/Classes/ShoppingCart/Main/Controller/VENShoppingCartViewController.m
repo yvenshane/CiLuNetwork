@@ -371,6 +371,7 @@ static NSString *cellIdentifier = @"cellIdentifier";
             NSMutableArray *tempMuArr = [NSMutableArray array];
             for (VENShoppingCartModel *model in self.choiceListMuArr) {
                 [tempMuArr addObject:model.shoppingCartID];
+                
             }
             
             [[VENNetworkTool sharedManager] requestWithMethod:HTTPMethodPost path:@"cart/check" params:@{@"ids" : [tempMuArr componentsJoinedByString:@","]} showLoading:YES successBlock:^(id response) {
@@ -385,7 +386,6 @@ static NSString *cellIdentifier = @"cellIdentifier";
             }];
         }
     }
-    NSLog(@"choiceListMuArr - %@", self.choiceListMuArr);
 }
 
 #pragma mark - 全选

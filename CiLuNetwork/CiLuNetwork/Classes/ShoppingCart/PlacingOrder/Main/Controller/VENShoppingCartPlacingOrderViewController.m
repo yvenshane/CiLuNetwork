@@ -12,8 +12,11 @@
 #import "VENShoppingCartPlacingOrderFooterView.h"
 #import "VENShoppingCartPlacingOrderReceivingAddressViewController.h"
 #import "VENShoppingCartPlacingOrderPaymentOrderViewController.h"
+#import "VENShoppingCartModel.h"
 
 @interface VENShoppingCartPlacingOrderViewController () <UITableViewDelegate, UITableViewDataSource>
+@property (nonatomic, copy) NSArray *goods_listArr;
+@property (nonatomic, strong) VENShoppingCartModel *goods_countModel;
 
 @end
 
@@ -26,23 +29,48 @@ static NSString *cellIdentifier = @"cellIdentifier";
     
     self.navigationItem.title = @"提交订单";
     
-    [self setupTableView];
-    [self setupBottomToolBar];
+    [self loadData];
+}
+
+- (void)loadData {
+    [[VENNetworkTool sharedManager] requestWithMethod:HTTPMethodPost path:@"order/preApply" params:nil showLoading:YES successBlock:^(id response) {
+        
+        NSArray *goods_listArr = [NSArray yy_modelArrayWithClass:[VENShoppingCartModel class] json:response[@"data"][@"goods_list"]];
+        self.goods_listArr = goods_listArr;
+        
+        
+        VENShoppingCartModel *goods_countModel = [VENShoppingCartModel yy_modelWithJSON:response[@"data"][@"goods_count"]];
+        self.goods_countModel = goods_countModel;
+        
+        [self setupTableView];
+        [self setupBottomToolBar];
+        
+    } failureBlock:^(NSError *error) {
+        
+    }];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 1;
+    return self.goods_listArr.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     VENShoppingCartTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
-    cell.iconImageView.backgroundColor = [UIColor colorWithRed:arc4random_uniform(255)/255.0 green:arc4random_uniform(255)/255.0 blue:arc4random_uniform(255)/255.0 alpha:1];
-    
     cell.priceLabel.textColor = UIColorFromRGB(0x1A1A1A);
     cell.iconImageViewLayoutConstraint.constant = -33.0f;
     cell.choiceButton.hidden = YES;
+    
+    VENShoppingCartModel *model = self.goods_listArr[indexPath.row];
+    
+    
+    [cell.iconImageView sd_setImageWithURL:[NSURL URLWithString:model.goods_thumb]];
+    cell.titleLabel.text = model.goods_name;
+    cell.otherLabel.text = [NSString stringWithFormat:@"规格：%@", model.spec];
+    cell.priceLabel.text = [NSString stringWithFormat:@"%.2f", model.price];
+    cell.numberLabel.text = [NSString stringWithFormat:@"%ld", (long)model.number];
+    
     
     return cell;
 }
@@ -54,7 +82,7 @@ static NSString *cellIdentifier = @"cellIdentifier";
     
     UILabel *wordLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 48 / 2 - 17 / 2, kMainScreenWidth / 3 * 2 - 30, 17)];
     wordLabel.font = [UIFont systemFontOfSize:14.0f];
-    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:@"总计：¥58.00"];
+    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"总计：%@", _goods_countModel.price_count_formatted]];
     [attributedString addAttributes:@{NSForegroundColorAttributeName : UIColorFromRGB(0xD0021B)} range:NSMakeRange(3, attributedString.length - 3)];
     [attributedString addAttributes:@{NSFontAttributeName : [UIFont fontWithName:@"Helvetica-Bold" size:18.0f]} range:NSMakeRange(4, attributedString.length - 4)];
     wordLabel.attributedText = attributedString;
@@ -102,9 +130,11 @@ static NSString *cellIdentifier = @"cellIdentifier";
     
     VENShoppingCartPlacingOrderFooterView *footerView = [[[NSBundle mainBundle] loadNibNamed:@"VENShoppingCartPlacingOrderFooterView" owner:nil options:nil] lastObject];
     
-    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:@"小计 ¥400.00"];
+    footerView.totalLabel.text = [NSString stringWithFormat:@"共计%ld件商品", (long)_goods_countModel.number];
+    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"小计 %@", _goods_countModel.price_count_formatted]];
     [attributedString addAttributes:@{NSForegroundColorAttributeName : UIColorFromRGB(0xD0021B), NSFontAttributeName : [UIFont fontWithName:@"Helvetica-Bold" size:14.0f]} range:NSMakeRange(3, attributedString.length - 3)];
     footerView.totalPriceLabel.attributedText = attributedString;
+    
     tableView.tableFooterView = footerView;
 }
 

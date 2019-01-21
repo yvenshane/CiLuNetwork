@@ -22,6 +22,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, assign) BOOL isChoice;
 
+@property (nonatomic, copy) NSString *price_count_formatted;
+
 @end
 
 NS_ASSUME_NONNULL_END

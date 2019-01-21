@@ -9,11 +9,13 @@
 #import "VENShoppingCartPlacingOrderReceivingAddressViewController.h"
 #import "VENShoppingCartPlacingOrderReceivingAddressTableViewCell.h"
 #import "VENShoppingCartPlacingOrderAddReceivingAddressViewController.h"
+#import "VENShoppingCartPlacingOrderReceivingAddressModel.h"
 
 @interface VENShoppingCartPlacingOrderReceivingAddressViewController () <UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, assign) BOOL isManage;
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) UIButton *navigationRightButton;
+@property (nonatomic, strong) NSMutableArray *dataArr;
 
 @end
 
@@ -26,44 +28,121 @@ static NSString *cellIdentifier = @"cellIdentifier";
     
     self.navigationItem.title = @"收货地址";
     
-    [self setupManageButton];
+    [self loadData];
+    
     [self setupTableView];
+    [self setupManageButton];
     [self setupAddReceivingAddressButton];
 }
 
+- (void)loadData {
+    [[VENNetworkTool sharedManager] requestWithMethod:HTTPMethodPost path:@"address/lists" params:nil showLoading:YES successBlock:^(id response) {
+        
+        self.dataArr = [NSArray yy_modelArrayWithClass:[VENShoppingCartPlacingOrderReceivingAddressModel class] json:response[@"data"][@"lists"]].mutableCopy;
+        
+        [self.tableView reloadData];
+        
+    } failureBlock:^(NSError *error) {
+        
+    }];
+}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 10;
+    return self.dataArr.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     VENShoppingCartPlacingOrderReceivingAddressTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-
-    cell.leftLabel.hidden = indexPath.row == 0 ? NO : YES;
-    cell.addressLabelLayoutConstraint.constant = indexPath.row == 0 ? 75 : 15;
-    cell.defaultAddressButton.selected = indexPath.row == 0 ? YES : NO;
+    
+    VENShoppingCartPlacingOrderReceivingAddressModel *model = self.dataArr[indexPath.row];
+    
+    cell.nameLabel.text = model.username;
+    cell.phoneLabel.text = model.mobile;
+    cell.addressLabel.text = model.detail;
+    cell.leftLabel.hidden = [model.is_default integerValue] == 1 ? NO : YES;
+    cell.addressLabelLayoutConstraint.constant = [model.is_default integerValue] == 1 ? 75 : 15;
+    
+    [cell.defaultAddressButton addTarget:self action:@selector(defaultAddressButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+    
+    cell.defaultAddressButton.tag = indexPath.row;
+    cell.defaultAddressButton.selected = [model.is_default integerValue] == 1 ? YES : NO;
+//    if (self.isManage) {
+//         if (![self.defaultAddressButtonsMuArr containsObject:cell.defaultAddressButton]) {
+//             [self.defaultAddressButtonsMuArr addObject:cell.defaultAddressButton];
+//         }
+//        NSLog(@"%@", self.defaultAddressButtonsMuArr);
+//    }
     
     cell.lineView.hidden = self.isManage ? NO : YES;
     cell.defaultAddressButton.hidden = self.isManage ? NO : YES;
     cell.editButton.hidden = self.isManage ? NO : YES;
     cell.deleteButton.hidden = self.isManage ? NO : YES;
     
-    [cell.editButton addTarget:self action:@selector(editButtonClick) forControlEvents:UIControlEventTouchUpInside];
-    [cell.deleteButton addTarget:self action:@selector(deleteButtonClick) forControlEvents:UIControlEventTouchUpInside];
+    cell.editButton.tag = indexPath.row;
+    [cell.editButton addTarget:self action:@selector(editButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+    
+    cell.deleteButton.tag = indexPath.row;
+    [cell.deleteButton addTarget:self action:@selector(deleteButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     
     return cell;
 }
 
-- (void)editButtonClick {
-    NSLog(@"编辑");
+#pragma mark - 选择默认地址
+- (void)defaultAddressButtonClick:(UIButton *)button {
+    
+    VENShoppingCartPlacingOrderReceivingAddressModel *model = self.dataArr[button.tag];
+    
+    NSDictionary *params = @{@"address_id" : model.address_id,
+                             @"status" : @"1"};
+    
+    [[VENNetworkTool sharedManager] requestWithMethod:HTTPMethodPost path:@"address/setDefault" params:params showLoading:YES successBlock:^(id response) {
+        
+        if ([response[@"status"] integerValue] == 0) {
+            for (VENShoppingCartPlacingOrderReceivingAddressModel *model in self.dataArr) {
+                model.is_default = @"0";
+            }
+            
+            model.is_default = @"1";
+            [self.tableView reloadData];
+        }
+    } failureBlock:^(NSError *error) {
+        
+    }];
+}
+
+#pragma mark - 管理收货地址 / 编辑
+- (void)editButtonClick:(UIButton *)button {
+    
+    VENShoppingCartPlacingOrderReceivingAddressModel *model = self.dataArr[button.tag];
     
     VENShoppingCartPlacingOrderAddReceivingAddressViewController *vc = [[VENShoppingCartPlacingOrderAddReceivingAddressViewController alloc] init];
+    vc.block = ^(NSString *str) {
+        [self loadData];
+    };
+    vc.model = model;
     vc.isEdit = YES;
+    
     [self.navigationController pushViewController:vc animated:YES];
 }
 
-- (void)deleteButtonClick {
-    NSLog(@"删除");
+#pragma mark - 管理收货地址 / 删除
+- (void)deleteButtonClick:(UIButton *)button {
+    
+    VENShoppingCartPlacingOrderReceivingAddressModel *model = self.dataArr[button.tag];
+    
+    NSDictionary *params = @{@"address_id" : model.address_id};
+    
+    [[VENNetworkTool sharedManager] requestWithMethod:HTTPMethodPost path:@"address/remove" params:params showLoading:YES successBlock:^(id response) {
+        
+        if ([response[@"status"] integerValue] == 0) {
+            
+            [self.dataArr removeObject:model];
+            [self.tableView reloadData];
+        }
+    } failureBlock:^(NSError *error) {
+        
+    }];
     
 }
 
@@ -93,8 +172,12 @@ static NSString *cellIdentifier = @"cellIdentifier";
     [self.view addSubview:addReceivingAddressButton];
 }
 
+#pragma mark - 新增收货地址
 - (void)addReceivingAddressButtonClick {
     VENShoppingCartPlacingOrderAddReceivingAddressViewController *vc = [[VENShoppingCartPlacingOrderAddReceivingAddressViewController alloc] init];
+    vc.block = ^(NSString *str) {
+        [self loadData];
+    };
     [self.navigationController pushViewController:vc animated:YES];
 }
 
@@ -116,6 +199,13 @@ static NSString *cellIdentifier = @"cellIdentifier";
     [self.navigationRightButton setTitle:self.isManage ? @"完成" : @"管理" forState:UIControlStateNormal];
     self.navigationItem.title = self.isManage ? @"管理收货地址" : @"收货地址";
     [self.tableView reloadData];
+}
+
+- (NSMutableArray *)dataArr {
+    if (_dataArr == nil) {
+        _dataArr = [NSMutableArray array];
+    }
+    return _dataArr;
 }
 
 - (void)didReceiveMemoryWarning {

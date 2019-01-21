@@ -7,8 +7,12 @@
 //
 
 #import "VENBaseViewController.h"
+@class VENShoppingCartPlacingOrderReceivingAddressModel;
 
+typedef void (^refreshPageBlock)(NSString *);
 @interface VENShoppingCartPlacingOrderAddReceivingAddressViewController : VENBaseViewController
 @property (nonatomic, assign) BOOL isEdit;
+@property (nonatomic, copy) refreshPageBlock block;
+@property (nonatomic, strong) VENShoppingCartPlacingOrderReceivingAddressModel *model;
 
 @end
