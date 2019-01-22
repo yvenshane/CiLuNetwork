@@ -181,8 +181,16 @@ static NSString *cellIdentifier = @"cellIdentifier";
         
         if ([response[@"status"] integerValue] == 0) {
             
+            //应用注册scheme,在AliSDKDemo-Info.plist定义URL types
+            NSString *appScheme = @"CiluNetworkAlipay";
             
+            // NOTE: 将签名成功字符串格式化为订单字符串,请严格按照该格式
+            NSString *orderString = response[@"data"][@"sign_data"][@"sign"];
             
+            // NOTE: 调用支付结果开始支付
+            [[AlipaySDK defaultService] payOrder:orderString fromScheme:appScheme callback:^(NSDictionary *resultDic) {
+                NSLog(@"reslut = %@",resultDic);
+            }];
         }
         
     } failureBlock:^(NSError *error) {
