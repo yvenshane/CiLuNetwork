@@ -7,6 +7,7 @@
 //
 
 #import "VENShoppingCartPlacingOrderSuccessViewController.h"
+#import "VENMyOrderOrderDetailsViewController.h"
 
 @interface VENShoppingCartPlacingOrderSuccessViewController ()
 @property (weak, nonatomic) IBOutlet UIButton *viewOrderButton;
@@ -33,6 +34,21 @@
     self.continueBuyButton.layer.borderColor = UIColorFromRGB(0xCCCCCC).CGColor;
     
     [self setupFinishButton];
+    [self setupNavigationItemLeftBarButtonItem];
+}
+
+#pragma marl - 查看订单
+- (IBAction)checkOrderButtonClick:(id)sender {
+    VENMyOrderOrderDetailsViewController *vc = [[VENMyOrderOrderDetailsViewController alloc] init];
+    vc.statusStyle = VENMyOrderStatusStyleWaitingForShipment;
+    vc.order_id = self.order_id;
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
+#pragma marl - 继续逛逛
+- (IBAction)continueShopping:(id)sender {
+    [self.navigationController popToRootViewControllerAnimated:YES];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"RefreshShoppingCart" object:@"pushToClassify"];
 }
 
 - (void)setupFinishButton {
@@ -45,10 +61,20 @@
     self.navigationItem.rightBarButtonItem = barButton;
 }
 
-- (void)backButtonClick {
-    int index = (int)[[self.navigationController viewControllers]indexOfObject:self];
+- (void)setupNavigationItemLeftBarButtonItem {
+    UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 44, 44)];
+    button.contentEdgeInsets = UIEdgeInsetsMake(0, -20, 0, 0);
+    [button setImage:[UIImage imageNamed:@"icon_back"] forState:UIControlStateNormal];
+    [button addTarget:self action:@selector(backButtonClick) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithCustomView:button];
+    self.navigationItem.leftBarButtonItem = barButton;
     
-    [self.navigationController popToViewController:[self.navigationController.viewControllers objectAtIndex:(index - 3)] animated:YES];
+    self.navigationController.interactivePopGestureRecognizer.enabled = NO;
+}
+
+- (void)backButtonClick {
+    [self.navigationController popToRootViewControllerAnimated:YES];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"RefreshShoppingCart" object:nil];
 }
 
 - (void)didReceiveMemoryWarning {

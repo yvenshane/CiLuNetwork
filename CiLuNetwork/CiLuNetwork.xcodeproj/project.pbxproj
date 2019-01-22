@@ -273,6 +273,7 @@
 		2CEF611321F71139009B5EC8 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CEF611221F71139009B5EC8 /* CoreMotion.framework */; };
 		2CEF611921F71797009B5EC8 /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CEF611821F71797009B5EC8 /* libWeChatSDK.a */; };
 		2CEF611B21F72C6A009B5EC8 /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CEF611A21F72C6A009B5EC8 /* libsqlite3.0.tbd */; };
+		2CEF612A21F741A7009B5EC8 /* VENMyOrderOrderDetailsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CEF612921F741A7009B5EC8 /* VENMyOrderOrderDetailsModel.m */; };
 		2CF7EFB021CB3B290020A448 /* VENClassifyDetailsHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF7EFAF21CB3B290020A448 /* VENClassifyDetailsHeaderView.m */; };
 		2CF7EFB221CB3B900020A448 /* VENClassifyDetailsHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2CF7EFB121CB3B900020A448 /* VENClassifyDetailsHeaderView.xib */; };
 		2CF7EFBD21CB782F0020A448 /* VENClassifyDetailsUserEvaluateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF7EFBC21CB782F0020A448 /* VENClassifyDetailsUserEvaluateViewController.m */; };
@@ -787,6 +788,8 @@
 		2CEF611721F71797009B5EC8 /* WechatAuthSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WechatAuthSDK.h; sourceTree = "<group>"; };
 		2CEF611821F71797009B5EC8 /* libWeChatSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libWeChatSDK.a; sourceTree = "<group>"; };
 		2CEF611A21F72C6A009B5EC8 /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
+		2CEF612821F741A7009B5EC8 /* VENMyOrderOrderDetailsModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VENMyOrderOrderDetailsModel.h; sourceTree = "<group>"; };
+		2CEF612921F741A7009B5EC8 /* VENMyOrderOrderDetailsModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VENMyOrderOrderDetailsModel.m; sourceTree = "<group>"; };
 		2CF7EFAE21CB3B290020A448 /* VENClassifyDetailsHeaderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VENClassifyDetailsHeaderView.h; sourceTree = "<group>"; };
 		2CF7EFAF21CB3B290020A448 /* VENClassifyDetailsHeaderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VENClassifyDetailsHeaderView.m; sourceTree = "<group>"; };
 		2CF7EFB121CB3B900020A448 /* VENClassifyDetailsHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VENClassifyDetailsHeaderView.xib; sourceTree = "<group>"; };
@@ -1530,6 +1533,8 @@
 		2CC4FEC721D4C2F200E9DC20 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				2CEF612821F741A7009B5EC8 /* VENMyOrderOrderDetailsModel.h */,
+				2CEF612921F741A7009B5EC8 /* VENMyOrderOrderDetailsModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -2752,6 +2757,7 @@
 				2C94E27F21E73715003F6595 /* LGPhotoPickerAssetsViewController.m in Sources */,
 				2CDFA0B321B5813500254B52 /* TADotView.m in Sources */,
 				2CDFA06121B5813500254B52 /* MASViewConstraint.m in Sources */,
+				2CEF612A21F741A7009B5EC8 /* VENMyOrderOrderDetailsModel.m in Sources */,
 				2C64986121C9EC3F00F06CB7 /* VENClassifyDetailsPopupView.m in Sources */,
 				2C94E27521E73715003F6595 /* ZLCameraViewController.m in Sources */,
 				2CEB832921B819CE004A8629 /* JXCategoryDotCellModel.m in Sources */,

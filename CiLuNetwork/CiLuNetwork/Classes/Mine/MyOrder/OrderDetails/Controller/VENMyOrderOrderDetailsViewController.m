@@ -12,8 +12,14 @@
 #import "VENMyOrderOrderDetailsFooterView.h"
 #import "VENMyOrderOrderDetailsHeaderView.h"
 #import "VENMyOrderOrderDetailsOrderEvaluationViewController.h"
+#import "VENMyOrderOrderDetailsModel.h"
 
 @interface VENMyOrderOrderDetailsViewController () <UITableViewDelegate, UITableViewDataSource>
+@property (nonatomic, strong) UITableView *tableView;
+@property (nonatomic, strong) VENMyOrderOrderDetailsModel *addressModel;
+@property (nonatomic, strong) VENMyOrderOrderDetailsModel *order_infoModel;
+@property (nonatomic, strong) VENMyOrderOrderDetailsModel *expressModel;
+@property (nonatomic, copy) NSArray *goods_listArr;
 
 @end
 
@@ -32,6 +38,30 @@ static NSString *cellIdentifier2 = @"cellIdentifier2";
     if (self.statusStyle != VENMyOrderStatusStyleWaitingForShipment && self.statusStyle != VENMyOrderStatusStyleCompleted) {
         [self setupBottomToolBar];
     }
+    
+    [self loadData];
+}
+
+- (void)loadData {
+    NSDictionary *params = @{@"order_id" : self.order_id};
+    
+    [[VENNetworkTool sharedManager] requestWithMethod:HTTPMethodPost path:@"order/detail" params:params showLoading:YES successBlock:^(id response) {
+        
+        if ([response[@"status"] integerValue] == 0) {
+            self.addressModel = [VENMyOrderOrderDetailsModel yy_modelWithJSON:response[@"data"][@"address"]];
+            
+            self.order_infoModel = [VENMyOrderOrderDetailsModel yy_modelWithJSON:response[@"data"][@"order_info"]];
+            
+            self.expressModel = [VENMyOrderOrderDetailsModel yy_modelWithJSON:response[@"data"][@"express"]];
+
+            self.goods_listArr = [NSArray yy_modelArrayWithClass:[VENMyOrderOrderDetailsModel class] json:response[@"data"][@"goods_list"]];
+            
+            [self.tableView reloadData];
+        }
+        
+    } failureBlock:^(NSError *error) {
+        
+    }];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -40,7 +70,7 @@ static NSString *cellIdentifier2 = @"cellIdentifier2";
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (section == 0) {
-        return 1;
+        return self.goods_listArr.count;
     } else if (section == 1) {
         return 4;
     } else {
@@ -53,7 +83,14 @@ static NSString *cellIdentifier2 = @"cellIdentifier2";
         VENShoppingCartTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
-        cell.iconImageView.backgroundColor = [UIColor colorWithRed:arc4random_uniform(255)/255.0 green:arc4random_uniform(255)/255.0 blue:arc4random_uniform(255)/255.0 alpha:1];
+        VENMyOrderOrderDetailsModel *model = self.goods_listArr[indexPath.row];
+        
+        [cell.iconImageView sd_setImageWithURL:[NSURL URLWithString:model.goods_thumb]];
+        cell.titleLabel.text = model.goods_name;
+        cell.otherLabel.text = [NSString stringWithFormat:@"规格：%@", model.spec];
+        cell.priceLabel.text = model.goods_price;
+        cell.numberLabel.text = [NSString stringWithFormat:@"x%@", model.number];
+        
         cell.priceLabel.textColor = UIColorFromRGB(0x1A1A1A);
         cell.iconImageViewLayoutConstraint.constant = -33.0f;
         cell.choiceButton.hidden = YES;
@@ -64,6 +101,24 @@ static NSString *cellIdentifier2 = @"cellIdentifier2";
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
         cell.leftLabel.text = indexPath.section == 1 ? @[@"订单编号：", @"下单时间：", @"支付方式：", @"留言备注："][indexPath.row] : @[@"快递名称：", @"快递单号："][indexPath.row];
+        
+        if (indexPath.section == 1) {
+            if (indexPath.row == 0) {
+                cell.rightLabel.text = self.order_infoModel.order_sn;
+            } else if (indexPath.row == 1) {
+                cell.rightLabel.text = self.order_infoModel.add_time;
+            } else if (indexPath.row == 2) {
+                cell.rightLabel.text = self.order_infoModel.pay_type;
+            } else {
+                cell.rightLabel.text = self.order_infoModel.comment;
+            }
+        } else {
+            if (indexPath.row == 0) {
+                cell.rightLabel.text = self.expressModel.name;
+            } else {
+                cell.rightLabel.text = self.expressModel.number;
+            }
+        }
         
         return cell;
     }
@@ -99,6 +154,9 @@ static NSString *cellIdentifier2 = @"cellIdentifier2";
         headerView.titleLabel.text = titleStr;
         headerView.contentLabel.text = contentStr;
         
+        headerView.informationLabel.text = [NSString stringWithFormat:@"%@    %@", self.addressModel.username, self.addressModel.mobile];
+        headerView.addressLabel.text = [NSString stringWithFormat:@"%@%@%@%@", self.addressModel.province_name, self.addressModel.city_name, self.addressModel.district_name, self.addressModel.address];
+        
         return headerView;
     } else if (section == 2) {
         UIView *headerView = [[UIView alloc] init];
@@ -126,7 +184,12 @@ static NSString *cellIdentifier2 = @"cellIdentifier2";
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     if (section == 0) {
-        return 208;
+        UILabel *label = [[UILabel alloc] init];
+        label.text = [NSString stringWithFormat:@"%@%@%@%@", self.addressModel.province_name, self.addressModel.city_name, self.addressModel.district_name, self.addressModel.address];
+        label.font = [UIFont systemFontOfSize:14.0f];
+        
+        CGFloat height = [self label:label setHeightToWidth:kMainScreenWidth - 15 - 19 -15];
+        return 174 + height;
     } else if (section == 2) {
         return 54;
     } else {
@@ -138,7 +201,9 @@ static NSString *cellIdentifier2 = @"cellIdentifier2";
     if (section == 0) {
         VENMyOrderOrderDetailsFooterView *footerView = [[[NSBundle mainBundle] loadNibNamed:@"VENMyOrderOrderDetailsFooterView" owner:nil options:nil] lastObject];
         
-        NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:@"实付 ¥400.00"];
+        footerView.totalNumberLabel.text = [NSString stringWithFormat:@"共计%@件商品", self.order_infoModel.goods_count];
+        
+        NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"实付 %@", self.order_infoModel.price]];
         [attributedString addAttributes:@{NSForegroundColorAttributeName : UIColorFromRGB(0xD0021B), NSFontAttributeName : [UIFont fontWithName:@"Helvetica-Bold" size:14.0f]} range:NSMakeRange(3, attributedString.length - 3)];
         footerView.totalPriceLabel.attributedText = attributedString;
         
@@ -165,6 +230,8 @@ static NSString *cellIdentifier2 = @"cellIdentifier2";
     [tableView registerNib:[UINib nibWithNibName:@"VENShoppingCartTableViewCell" bundle:nil] forCellReuseIdentifier:cellIdentifier];
     [tableView registerNib:[UINib nibWithNibName:@"VENMyOrderOrderDetailsTableViewCell" bundle:nil] forCellReuseIdentifier:cellIdentifier2];
     [self.view addSubview:tableView];
+    
+    _tableView = tableView;
 }
 
 - (void)setupBottomToolBar {
@@ -214,6 +281,11 @@ static NSString *cellIdentifier2 = @"cellIdentifier2";
         VENMyOrderOrderDetailsOrderEvaluationViewController *vc = [[VENMyOrderOrderDetailsOrderEvaluationViewController alloc] init];
         [self.navigationController pushViewController:vc animated:YES];
     }
+}
+
+- (CGFloat)label:(UILabel *)label setHeightToWidth:(CGFloat)width {
+    CGSize size = [label sizeThatFits:CGSizeMake(width, CGFLOAT_MAX)];
+    return size.height;
 }
 
 - (void)didReceiveMemoryWarning {

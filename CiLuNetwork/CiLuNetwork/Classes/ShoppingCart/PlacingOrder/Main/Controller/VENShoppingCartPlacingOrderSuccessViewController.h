@@ -6,8 +6,9 @@
 //  Copyright © 2018年 Hefei Haiba Network Technology Co., Ltd. All rights reserved.
 //
 
-#import "VENBaseViewController.h"
+#import <UIKit/UIKit.h>
 
-@interface VENShoppingCartPlacingOrderSuccessViewController : VENBaseViewController
+@interface VENShoppingCartPlacingOrderSuccessViewController : UIViewController
+@property (nonatomic, copy) NSString *order_id;
 
 @end

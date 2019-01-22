@@ -74,6 +74,8 @@
         //跳转支付宝钱包进行支付，处理支付结果
         [[AlipaySDK defaultService] processOrderWithPaymentResult:url standbyCallback:^(NSDictionary *resultDic) {
             NSLog(@"result = %@",resultDic);
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"ALIPAY_RESULTDIC" object:resultDic];
         }];
     } else {
         return [WXApi handleOpenURL:url delegate:self];
@@ -88,6 +90,8 @@
         //跳转支付宝钱包进行支付，处理支付结果
         [[AlipaySDK defaultService] processOrderWithPaymentResult:url standbyCallback:^(NSDictionary *resultDic) {
             NSLog(@"result = %@",resultDic);
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"ALIPAY_RESULTDIC" object:resultDic];
         }];
     } else {
         return [WXApi handleOpenURL:url delegate:self];

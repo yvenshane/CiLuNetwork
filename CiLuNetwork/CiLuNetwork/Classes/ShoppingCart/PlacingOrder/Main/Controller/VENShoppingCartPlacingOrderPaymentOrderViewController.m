@@ -32,6 +32,16 @@ static NSString *cellIdentifier = @"cellIdentifier";
     
     [self setupNavigationItemLeftBarButtonItem];
     [self handleData];
+    
+#pragma mark - 微信&支付宝 回调
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notificationCenter:) name:@"ALIPAY_RESULTDIC" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notificationCenter:) name:@"WX_RESULTDIC" object:nil];
+}
+
+- (void)notificationCenter:(NSNotification *)noti {
+    VENShoppingCartPlacingOrderSuccessViewController *vc = [[VENShoppingCartPlacingOrderSuccessViewController alloc] init];
+    vc.order_id = self.model.order_id;
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)handleData {
@@ -207,10 +217,6 @@ static NSString *cellIdentifier = @"cellIdentifier";
     } failureBlock:^(NSError *error) {
         
     }];
-    
-    
-//    VENShoppingCartPlacingOrderSuccessViewController *vc = [[VENShoppingCartPlacingOrderSuccessViewController alloc] init];
-//    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)setupNavigationItemLeftBarButtonItem {
@@ -232,6 +238,10 @@ static NSString *cellIdentifier = @"cellIdentifier";
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 /*

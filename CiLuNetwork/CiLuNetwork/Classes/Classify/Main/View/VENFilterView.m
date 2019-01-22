@@ -201,7 +201,7 @@
     return size.width;
 }
 
-- (NSMutableArray *)selecteIndexMuDict {
+- (NSMutableDictionary *)selecteIndexMuDict {
     if (_selecteIndexMuDict == nil) {
         _selecteIndexMuDict = [NSMutableDictionary dictionary];
     }

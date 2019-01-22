@@ -18,5 +18,6 @@ typedef NS_ENUM(NSInteger, VENMyOrderStatusStyle) {
 
 @interface VENMyOrderOrderDetailsViewController : VENBaseViewController
 @property (nonatomic) VENMyOrderStatusStyle statusStyle;
+@property (nonatomic, copy) NSString *order_id;
 
 @end
