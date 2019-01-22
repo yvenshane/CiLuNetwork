@@ -271,6 +271,8 @@
 		2CEF610F21F71129009B5EC8 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CEF610E21F71129009B5EC8 /* Foundation.framework */; };
 		2CEF611121F7112F009B5EC8 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CEF611021F7112F009B5EC8 /* CFNetwork.framework */; };
 		2CEF611321F71139009B5EC8 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CEF611221F71139009B5EC8 /* CoreMotion.framework */; };
+		2CEF611921F71797009B5EC8 /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CEF611821F71797009B5EC8 /* libWeChatSDK.a */; };
+		2CEF611B21F72C6A009B5EC8 /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CEF611A21F72C6A009B5EC8 /* libsqlite3.0.tbd */; };
 		2CF7EFB021CB3B290020A448 /* VENClassifyDetailsHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF7EFAF21CB3B290020A448 /* VENClassifyDetailsHeaderView.m */; };
 		2CF7EFB221CB3B900020A448 /* VENClassifyDetailsHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2CF7EFB121CB3B900020A448 /* VENClassifyDetailsHeaderView.xib */; };
 		2CF7EFBD21CB782F0020A448 /* VENClassifyDetailsUserEvaluateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF7EFBC21CB782F0020A448 /* VENClassifyDetailsUserEvaluateViewController.m */; };
@@ -780,6 +782,11 @@
 		2CEF610E21F71129009B5EC8 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		2CEF611021F7112F009B5EC8 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		2CEF611221F71139009B5EC8 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
+		2CEF611521F71797009B5EC8 /* WXApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApi.h; sourceTree = "<group>"; };
+		2CEF611621F71797009B5EC8 /* WXApiObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiObject.h; sourceTree = "<group>"; };
+		2CEF611721F71797009B5EC8 /* WechatAuthSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WechatAuthSDK.h; sourceTree = "<group>"; };
+		2CEF611821F71797009B5EC8 /* libWeChatSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libWeChatSDK.a; sourceTree = "<group>"; };
+		2CEF611A21F72C6A009B5EC8 /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
 		2CF7EFAE21CB3B290020A448 /* VENClassifyDetailsHeaderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VENClassifyDetailsHeaderView.h; sourceTree = "<group>"; };
 		2CF7EFAF21CB3B290020A448 /* VENClassifyDetailsHeaderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VENClassifyDetailsHeaderView.m; sourceTree = "<group>"; };
 		2CF7EFB121CB3B900020A448 /* VENClassifyDetailsHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VENClassifyDetailsHeaderView.xib; sourceTree = "<group>"; };
@@ -797,10 +804,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2CEF611B21F72C6A009B5EC8 /* libsqlite3.0.tbd in Frameworks */,
 				2CEF611321F71139009B5EC8 /* CoreMotion.framework in Frameworks */,
 				2CEF611121F7112F009B5EC8 /* CFNetwork.framework in Frameworks */,
 				2CEF610F21F71129009B5EC8 /* Foundation.framework in Frameworks */,
 				2CEF610D21F7111F009B5EC8 /* UIKit.framework in Frameworks */,
+				2CEF611921F71797009B5EC8 /* libWeChatSDK.a in Frameworks */,
 				2CEF610B21F71119009B5EC8 /* CoreGraphics.framework in Frameworks */,
 				2CEF610921F71109009B5EC8 /* CoreText.framework in Frameworks */,
 				2CEF610721F710FE009B5EC8 /* QuartzCore.framework in Frameworks */,
@@ -2402,6 +2411,7 @@
 		2CEF60F021F70D68009B5EC8 /* Pay */ = {
 			isa = PBXGroup;
 			children = (
+				2CEF611421F71797009B5EC8 /* WXPay */,
 				2CEF60F121F70D68009B5EC8 /* AliPay */,
 			);
 			path = Pay;
@@ -2419,6 +2429,7 @@
 		2CEF60FC21F710A2009B5EC8 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2CEF611A21F72C6A009B5EC8 /* libsqlite3.0.tbd */,
 				2CEF611221F71139009B5EC8 /* CoreMotion.framework */,
 				2CEF611021F7112F009B5EC8 /* CFNetwork.framework */,
 				2CEF610E21F71129009B5EC8 /* Foundation.framework */,
@@ -2432,6 +2443,17 @@
 				2CEF60FE21F710CB009B5EC8 /* libc++.tbd */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		2CEF611421F71797009B5EC8 /* WXPay */ = {
+			isa = PBXGroup;
+			children = (
+				2CEF611521F71797009B5EC8 /* WXApi.h */,
+				2CEF611621F71797009B5EC8 /* WXApiObject.h */,
+				2CEF611721F71797009B5EC8 /* WechatAuthSDK.h */,
+				2CEF611821F71797009B5EC8 /* libWeChatSDK.a */,
+			);
+			path = WXPay;
 			sourceTree = "<group>";
 		};
 		2CF7EFAD21CB3B0E0020A448 /* HeaderView */ = {
