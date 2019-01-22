@@ -7,7 +7,10 @@
 //
 
 #import "VENBaseViewController.h"
+@class VENShoppingCartPlacingOrderReceivingAddressModel;
 
+typedef void (^choiceAddressBlock)(VENShoppingCartPlacingOrderReceivingAddressModel *);
 @interface VENShoppingCartPlacingOrderReceivingAddressViewController : VENBaseViewController
+@property (nonatomic, copy) choiceAddressBlock block;
 
 @end

@@ -24,6 +24,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, copy) NSString *price_count_formatted;
 
+@property (nonatomic, copy) NSString *address_id;
+@property (nonatomic, copy) NSString *detail;
+@property (nonatomic, copy) NSString *mobile;
+@property (nonatomic, copy) NSString *username;
+
 @end
 
 NS_ASSUME_NONNULL_END

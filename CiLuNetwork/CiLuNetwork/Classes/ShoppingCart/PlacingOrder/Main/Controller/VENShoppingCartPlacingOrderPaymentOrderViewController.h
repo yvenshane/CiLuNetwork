@@ -6,8 +6,9 @@
 //  Copyright © 2018年 Hefei Haiba Network Technology Co., Ltd. All rights reserved.
 //
 
-#import "VENBaseViewController.h"
+#import <UIKit/UIKit.h>
 
-@interface VENShoppingCartPlacingOrderPaymentOrderViewController : VENBaseViewController
+@interface VENShoppingCartPlacingOrderPaymentOrderViewController : UIViewController
+@property (nonatomic, copy) NSDictionary *dataDict;
 
 @end

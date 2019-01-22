@@ -88,6 +88,13 @@ static NSString *cellIdentifier = @"cellIdentifier";
     return cell;
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    VENShoppingCartPlacingOrderReceivingAddressModel *model = self.dataArr[indexPath.row];
+    self.block(model);
+    [self. navigationController popViewControllerAnimated:YES];
+}
+
 #pragma mark - 选择默认地址
 - (void)defaultAddressButtonClick:(UIButton *)button {
     

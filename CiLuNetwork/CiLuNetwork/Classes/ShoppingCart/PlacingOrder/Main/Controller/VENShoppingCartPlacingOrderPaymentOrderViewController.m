@@ -9,8 +9,15 @@
 #import "VENShoppingCartPlacingOrderPaymentOrderViewController.h"
 #import "VENShoppingCartPlacingOrderPaymentOrderTableViewCell.h"
 #import "VENShoppingCartPlacingOrderSuccessViewController.h"
+#import "VENShoppingCartPlacingOrderPaymentOrderModel.h"
+#import "VENShoppingCartPlacingOrderPaymentOrderPayTypeModel.h"
 
 @interface VENShoppingCartPlacingOrderPaymentOrderViewController () <UITableViewDelegate, UITableViewDataSource>
+@property (nonatomic, strong) UITableView *tableView;
+@property (nonatomic, strong) VENShoppingCartPlacingOrderPaymentOrderModel *model;
+@property (nonatomic, copy) NSArray *pay_typeArr;
+@property (nonatomic, assign) BOOL isFirst;
+
 
 @end
 
@@ -23,47 +30,89 @@ static NSString *cellIdentifier = @"cellIdentifier";
     
     self.navigationItem.title = @"支付订单";
     
+    [self setupNavigationItemLeftBarButtonItem];
+    [self handleData];
+}
+
+- (void)handleData {
+    self.model = [VENShoppingCartPlacingOrderPaymentOrderModel yy_modelWithJSON:self.dataDict];
+    self.pay_typeArr = [NSArray yy_modelArrayWithClass:[VENShoppingCartPlacingOrderPaymentOrderPayTypeModel class] json:self.dataDict[@"pay_type"]];
+    
     [self setupTableView];
     [self setupBottomToolBarButton];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 4;
+    return self.pay_typeArr.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     VENShoppingCartPlacingOrderPaymentOrderTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
-    if (indexPath.row == 0) {
-        cell.leftImageView.image = [UIImage imageNamed:@"icon_pay_01"];
-        cell.titleLabel.text = @"微信支付";
-    } else if (indexPath.row == 1) {
-        cell.leftImageView.image = [UIImage imageNamed:@"icon_pay_02"];
-        cell.titleLabel.text = @"支付宝";
-    } else if (indexPath.row == 2) {
-        cell.leftImageView.image = [UIImage imageNamed:@"icon_pay_03"];
-        cell.titleLabel.text = @"银联支付";
-    } else if (indexPath.row == 3) {
-        cell.leftImageView.image = [UIImage imageNamed:@"icon_pay_04"];
+    VENShoppingCartPlacingOrderPaymentOrderPayTypeModel *model = self.pay_typeArr[indexPath.row];
+    
+    [cell.leftImageView sd_setImageWithURL:[NSURL URLWithString:model.icon]];
+    
+    if ([[VENClassEmptyManager sharedManager] isEmptyString:model.price]) {
+        cell.titleLabel.text = model.name;
+        cell.errorLabel.hidden = YES;
         
-        NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:@"余额支付（¥39.00）"];
+        if (self.isFirst == NO) {
+            if ([self.model.is_balance_pay integerValue] == 0) {
+                if (indexPath.row == 0) {
+                    model.isChoice = YES;
+                    
+                    self.isFirst = YES;
+                }
+            }
+        }
+
+    } else {
+        NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"余额支付%@", model.price]];
         [attributedString setAttributes:@{NSForegroundColorAttributeName : UIColorFromRGB(0xCCCCCC)} range:NSMakeRange(4, attributedString.length - 4)];
         cell.titleLabel.attributedText = attributedString;
+        
+        cell.errorLabel.hidden = [[VENClassEmptyManager sharedManager] isEmptyString:model.tip] ? YES : NO;
+        cell.errorLabel.text = model.tip;
+        
+        if ([self.model.is_balance_pay integerValue] == 1) {
+            model.isChoice = YES;
+        }
     }
     
-    cell.errorLabel.hidden = indexPath.row == 3 ? NO : YES;
+    cell.choiceButton.selected = model.isChoice;
+    cell.choiceButton.tag = indexPath.row;
+    [cell.choiceButton addTarget:self action:@selector(choiceButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     
     return cell;
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+- (void)choiceButtonClick:(UIButton *)button {
+    VENShoppingCartPlacingOrderPaymentOrderPayTypeModel *model = self.pay_typeArr[button.tag];
     
+    if ([self.model.is_balance_pay integerValue] == 0) {
+        if ([[VENClassEmptyManager sharedManager] isEmptyString:model.price]) {
+            button.userInteractionEnabled = YES;
+        } else {
+            button.userInteractionEnabled = NO;
+            return;
+        }
+    } else {
+        button.userInteractionEnabled = YES;
+    }
+
+    for (VENShoppingCartPlacingOrderPaymentOrderPayTypeModel *model1 in self.pay_typeArr) {
+        model1.isChoice = NO;
+    }
+    
+    model.isChoice = YES;
+    [self.tableView reloadData];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return indexPath.row == 3 ? 70 : 54;
-    
+    VENShoppingCartPlacingOrderPaymentOrderPayTypeModel *model = self.pay_typeArr[indexPath.row];
+    return [[VENClassEmptyManager sharedManager] isEmptyString:model.tip] ? 54 : 70;
 }
 
 - (void)setupTableView {
@@ -90,7 +139,7 @@ static NSString *cellIdentifier = @"cellIdentifier";
     UILabel *priceLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 15 + 15 + 15, kMainScreenWidth, 24)];
     priceLabel.textColor = UIColorFromRGB(0x1A1A1A);
     priceLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:30.0f];
-    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:@"¥39.00"];
+    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:self.model.total_price_formatted];
     [attributedString setAttributes:@{NSFontAttributeName : [UIFont systemFontOfSize:20.0f]} range:NSMakeRange(0, 1)];
     priceLabel.attributedText = attributedString;
     priceLabel.textAlignment = NSTextAlignmentCenter;
@@ -99,6 +148,8 @@ static NSString *cellIdentifier = @"cellIdentifier";
     UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 90, kMainScreenWidth, 10)];
     lineView.backgroundColor = UIColorFromRGB(0xF5F5F5);
     [headerView addSubview:lineView];
+    
+    _tableView = tableView;
 }
 
 - (void)setupBottomToolBarButton {
@@ -106,18 +157,57 @@ static NSString *cellIdentifier = @"cellIdentifier";
     bottomToolBarButton.backgroundColor = COLOR_THEME;
     bottomToolBarButton.titleLabel.font = [UIFont systemFontOfSize:16.0f];
     bottomToolBarButton.titleLabel.textColor = [UIColor whiteColor];
-    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:@"确认支付¥39.00"];
+    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"确认支付%@", self.model.total_price_formatted]];
     [attributedString setAttributes:@{NSFontAttributeName : [UIFont systemFontOfSize:20.0f]} range:NSMakeRange(5, attributedString.length - 5)];
     [bottomToolBarButton setAttributedTitle:attributedString forState:UIControlStateNormal];
     [bottomToolBarButton addTarget:self action:@selector(bottomToolBarButtonClick) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:bottomToolBarButton];
 }
 
+#pragma mark - 确认支付
 - (void)bottomToolBarButtonClick {
-    NSLog(@"确认支付");
     
-    VENShoppingCartPlacingOrderSuccessViewController *vc = [[VENShoppingCartPlacingOrderSuccessViewController alloc] init];
-    [self.navigationController pushViewController:vc animated:YES];
+    NSString *type = @"";
+    for (VENShoppingCartPlacingOrderPaymentOrderPayTypeModel *model in self.pay_typeArr) {
+        if (model.isChoice == YES) {
+            type = model.payID;
+        }
+    }
+    
+    NSDictionary *params = @{@"type" : type,
+                             @"order_id" : self.model.order_id};
+    
+    [[VENNetworkTool sharedManager] requestWithMethod:HTTPMethodPost path:@"order/pay" params:params showLoading:YES successBlock:^(id response) {
+        
+        if ([response[@"status"] integerValue] == 0) {
+            
+            
+            
+        }
+        
+    } failureBlock:^(NSError *error) {
+        
+    }];
+    
+    
+//    VENShoppingCartPlacingOrderSuccessViewController *vc = [[VENShoppingCartPlacingOrderSuccessViewController alloc] init];
+//    [self.navigationController pushViewController:vc animated:YES];
+}
+
+- (void)setupNavigationItemLeftBarButtonItem {
+    UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 44, 44)];
+    button.contentEdgeInsets = UIEdgeInsetsMake(0, -20, 0, 0);
+    [button setImage:[UIImage imageNamed:@"icon_back"] forState:UIControlStateNormal];
+    [button addTarget:self action:@selector(backButtonClick) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithCustomView:button];
+    self.navigationItem.leftBarButtonItem = barButton;
+    
+    self.navigationController.interactivePopGestureRecognizer.enabled = NO;
+}
+
+- (void)backButtonClick {
+    [self.navigationController popToRootViewControllerAnimated:YES];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"RefreshShoppingCart" object:nil];
 }
 
 - (void)didReceiveMemoryWarning {

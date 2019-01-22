@@ -79,9 +79,16 @@ static NSString *cellIdentifier = @"cellIdentifier";
                 [self.placeholderBackgroundView removeFromSuperview];
                 self.placeholderBackgroundView = nil;
                 
-                [self.tableView reloadData];
-                
             } else {
+                
+                [self.choiceListMuArr removeAllObjects];
+                self.isSelectAll = NO;
+                self.isEdit = NO;
+                
+                [self.shoppingBar removeFromSuperview];
+                self.shoppingBar = nil;
+                
+                self.navigationItem.rightBarButtonItem = nil;
                 
                 [self.placeholderBackgroundView removeFromSuperview];
                 self.placeholderBackgroundView = nil;
@@ -90,6 +97,8 @@ static NSString *cellIdentifier = @"cellIdentifier";
                     [self setupPlaceholderStatus];
                 }
             }
+            
+             [self.tableView reloadData];
         }
         
     } failureBlock:^(NSError *error) {

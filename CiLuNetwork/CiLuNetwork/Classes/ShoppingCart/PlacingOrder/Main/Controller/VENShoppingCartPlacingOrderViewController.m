@@ -13,10 +13,16 @@
 #import "VENShoppingCartPlacingOrderReceivingAddressViewController.h"
 #import "VENShoppingCartPlacingOrderPaymentOrderViewController.h"
 #import "VENShoppingCartModel.h"
+#import "VENShoppingCartPlacingOrderReceivingAddressModel.h"
 
 @interface VENShoppingCartPlacingOrderViewController () <UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, copy) NSArray *goods_listArr;
 @property (nonatomic, strong) VENShoppingCartModel *goods_countModel;
+@property (nonatomic, strong) VENShoppingCartModel *addressModel;
+
+@property (nonatomic, strong) VENShoppingCartPlacingOrderHeaderView *headerView;
+@property (nonatomic, copy) NSString *address_id;
+@property (nonatomic, strong) UITextField *leavingMessageTextField;
 
 @end
 
@@ -36,10 +42,10 @@ static NSString *cellIdentifier = @"cellIdentifier";
     [[VENNetworkTool sharedManager] requestWithMethod:HTTPMethodPost path:@"order/preApply" params:nil showLoading:YES successBlock:^(id response) {
         
         NSArray *goods_listArr = [NSArray yy_modelArrayWithClass:[VENShoppingCartModel class] json:response[@"data"][@"goods_list"]];
-        self.goods_listArr = goods_listArr;
-        
-        
         VENShoppingCartModel *goods_countModel = [VENShoppingCartModel yy_modelWithJSON:response[@"data"][@"goods_count"]];
+        self.addressModel = [VENShoppingCartModel yy_modelWithJSON:response[@"data"][@"address"]];
+        
+        self.goods_listArr = goods_listArr;
         self.goods_countModel = goods_countModel;
         
         [self setupTableView];
@@ -69,8 +75,7 @@ static NSString *cellIdentifier = @"cellIdentifier";
     cell.titleLabel.text = model.goods_name;
     cell.otherLabel.text = [NSString stringWithFormat:@"规格：%@", model.spec];
     cell.priceLabel.text = [NSString stringWithFormat:@"%.2f", model.price];
-    cell.numberLabel.text = [NSString stringWithFormat:@"%ld", (long)model.number];
-    
+    cell.numberLabel.text = [NSString stringWithFormat:@"x%ld", (long)model.number];
     
     return cell;
 }
@@ -98,11 +103,28 @@ static NSString *cellIdentifier = @"cellIdentifier";
     [bottomToolBar addSubview:commitButton];
 }
 
+#pragma mark - 提交订单
 - (void)commitButtonClick {
-    NSLog(@"提交订单");
     
-    VENShoppingCartPlacingOrderPaymentOrderViewController *vc = [[VENShoppingCartPlacingOrderPaymentOrderViewController alloc] init];
-    [self.navigationController pushViewController:vc animated:YES];
+    if ([[VENClassEmptyManager sharedManager] isEmptyString:self.address_id]) {
+        [[VENMBProgressHUDManager sharedManager] showText:@"请添加收货地址"];
+        return;
+    }
+    
+    NSDictionary *params = @{@"address_id" : self.address_id,
+                             @"comment" : [[VENClassEmptyManager sharedManager] isEmptyString:self.leavingMessageTextField.text] ? @"" : self.leavingMessageTextField.text};
+    
+    [[VENNetworkTool sharedManager] requestWithMethod:HTTPMethodPost path:@"order/apply" params:params showLoading:YES successBlock:^(id response) {
+        
+        if ([response[@"response"] integerValue] == 0) {
+            VENShoppingCartPlacingOrderPaymentOrderViewController *vc = [[VENShoppingCartPlacingOrderPaymentOrderViewController alloc] init];
+            vc.dataDict = response[@"data"];
+            [self.navigationController pushViewController:vc animated:YES];
+        }
+        
+    } failureBlock:^(NSError *error) {
+        
+    }];
 }
 
 - (void)setupTableView {
@@ -120,6 +142,26 @@ static NSString *cellIdentifier = @"cellIdentifier";
      */
     VENShoppingCartPlacingOrderHeaderView *headerView = [[[NSBundle mainBundle] loadNibNamed:@"VENShoppingCartPlacingOrderHeaderView" owner:nil options:nil] lastObject];
     [headerView.addReceivingAddressButton addTarget:self action:@selector(addReceivingAddressButtonClick) forControlEvents:UIControlEventTouchUpInside];
+    
+    if (self.addressModel != nil) {
+        [headerView.addReceivingAddressButton setTitle:@"" forState:UIControlStateNormal];
+        [headerView.addReceivingAddressButton setImage:[UIImage imageNamed:@""] forState:UIControlStateNormal];
+        headerView.topLabel.hidden = NO;
+        headerView.bottomLabel.hidden = NO;
+        headerView.locationImageView.hidden = NO;
+        headerView.rightImageView.hidden = NO;
+        headerView.topLabel.text = [NSString stringWithFormat:@"%@    %@", self.addressModel.username, self.addressModel.mobile];
+        headerView.bottomLabel.text = self.addressModel.detail;
+        self.address_id = self.addressModel.address_id;
+    } else {
+        [headerView.addReceivingAddressButton setTitle:@"  添加收货地址" forState:UIControlStateNormal];
+        [headerView.addReceivingAddressButton setImage:[UIImage imageNamed:@"icon_add02"] forState:UIControlStateNormal];
+        headerView.topLabel.hidden = YES;
+        headerView.bottomLabel.hidden = YES;
+        headerView.locationImageView.hidden = YES;
+        headerView.rightImageView.hidden = YES;
+    }
+    
     tableView.tableHeaderView = headerView;
     
     /**
@@ -135,13 +177,28 @@ static NSString *cellIdentifier = @"cellIdentifier";
     [attributedString addAttributes:@{NSForegroundColorAttributeName : UIColorFromRGB(0xD0021B), NSFontAttributeName : [UIFont fontWithName:@"Helvetica-Bold" size:14.0f]} range:NSMakeRange(3, attributedString.length - 3)];
     footerView.totalPriceLabel.attributedText = attributedString;
     
+    
     tableView.tableFooterView = footerView;
+    
+    _headerView = headerView;
+    _leavingMessageTextField = footerView.leavingMessageTextField;
 }
 
 - (void)addReceivingAddressButtonClick {
     NSLog(@"添加收货地址");
     
     VENShoppingCartPlacingOrderReceivingAddressViewController *vc = [[VENShoppingCartPlacingOrderReceivingAddressViewController alloc] init];
+    vc.block = ^(VENShoppingCartPlacingOrderReceivingAddressModel *model) {
+        [self.headerView.addReceivingAddressButton setTitle:@"" forState:UIControlStateNormal];
+        [self.headerView.addReceivingAddressButton setImage:[UIImage imageNamed:@""] forState:UIControlStateNormal];
+        self.headerView.topLabel.hidden = NO;
+        self.headerView.bottomLabel.hidden = NO;
+        self.headerView.locationImageView.hidden = NO;
+        self.headerView.rightImageView.hidden = NO;
+        self.headerView.topLabel.text = [NSString stringWithFormat:@"%@    %@", model.username, model.mobile];
+        self.headerView.bottomLabel.text = model.detail;
+        self.address_id = model.address_id;
+    };
     [self.navigationController pushViewController:vc animated:YES];
 }
 

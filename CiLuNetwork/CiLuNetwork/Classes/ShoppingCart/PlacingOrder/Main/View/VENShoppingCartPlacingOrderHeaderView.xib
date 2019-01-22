@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment version="2304" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -34,6 +34,10 @@
                 </view>
                 <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_address" translatesAutoresizingMaskIntoConstraints="NO" id="3vb-rA-Vpt">
                     <rect key="frame" x="15" y="27.5" width="19" height="24"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="19" id="JNB-DH-EvD"/>
+                        <constraint firstAttribute="height" constant="24" id="wkp-gh-hkn"/>
+                    </constraints>
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mHB-IY-sJx">
                     <rect key="frame" x="15" y="103" width="56" height="20"/>
@@ -55,13 +59,19 @@
                     </constraints>
                 </view>
                 <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="大老刘          153****1233" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Shq-gX-WRd">
-                    <rect key="frame" x="46" y="15" width="314" height="17"/>
+                    <rect key="frame" x="46" y="16" width="314" height="20"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="20" id="vFT-nY-jHl"/>
+                    </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <color key="textColor" red="0.10196078431372549" green="0.10196078431372549" blue="0.10196078431372549" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="安徽省合肥市蜀山区望江西路西湖国际广场 XXXX 室" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aaV-lq-xhF">
-                    <rect key="frame" x="46" y="40" width="314" height="17"/>
+                    <rect key="frame" x="46" y="44" width="314" height="20"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="20" id="KDq-Zv-4LH"/>
+                    </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
@@ -93,7 +103,7 @@
                 <constraint firstItem="hFS-1j-tcC" firstAttribute="trailing" secondItem="Shq-gX-WRd" secondAttribute="trailing" constant="15" id="gtq-Sd-rUV"/>
                 <constraint firstItem="Shq-gX-WRd" firstAttribute="leading" secondItem="3vb-rA-Vpt" secondAttribute="trailing" constant="12" id="mZB-0X-3IE"/>
                 <constraint firstItem="aaV-lq-xhF" firstAttribute="leading" secondItem="3vb-rA-Vpt" secondAttribute="trailing" constant="12" id="nR0-uu-hDW"/>
-                <constraint firstItem="Shq-gX-WRd" firstAttribute="top" secondItem="hFS-1j-tcC" secondAttribute="top" constant="15" id="urv-Km-9LG"/>
+                <constraint firstItem="Shq-gX-WRd" firstAttribute="top" secondItem="hFS-1j-tcC" secondAttribute="top" constant="16" id="urv-Km-9LG"/>
                 <constraint firstItem="hFS-1j-tcC" firstAttribute="trailing" secondItem="7Ph-9q-oNd" secondAttribute="trailing" id="wdF-Hp-8D3"/>
                 <constraint firstItem="7Ph-9q-oNd" firstAttribute="leading" secondItem="hFS-1j-tcC" secondAttribute="leading" constant="15" id="wkU-wm-pve"/>
                 <constraint firstItem="mHB-IY-sJx" firstAttribute="leading" secondItem="hFS-1j-tcC" secondAttribute="leading" constant="15" id="ypt-rw-FVj"/>
