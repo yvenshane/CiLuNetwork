@@ -1,5 +1,5 @@
 //
-//  VENMyOrderWaitingForShipmentViewController.h
+//  VENMyOrderAllOrdersViewController.h
 //  CiLuNetwork
 //
 //  Created by YVEN on 2018/12/26.
@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface VENMyOrderWaitingForShipmentViewController : UIViewController
+@interface VENMyOrderAllOrdersViewController : UIViewController
+@property (nonatomic, strong) UITableView *tableView;
 
 @end

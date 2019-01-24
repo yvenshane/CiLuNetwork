@@ -10,5 +10,8 @@
 
 @interface VENShoppingCartPlacingOrderPaymentOrderViewController : UIViewController
 @property (nonatomic, copy) NSDictionary *dataDict;
+@property (nonatomic, assign) BOOL isMyOrder;
+@property (nonatomic, assign) NSInteger index;
+@property (nonatomic, assign) BOOL isMyOrderDetail;
 
 @end

@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface VENMyOrderWaitingForReceivingViewController : UIViewController
+@property (nonatomic, strong) UITableView *tableView;
 
 @end

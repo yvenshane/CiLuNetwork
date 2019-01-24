@@ -26,7 +26,7 @@
 #pragma mark - 请求公共数据
     [[VENNetworkTool sharedManager] requestWithMethod:HTTPMethodPost path:@"app/metaData" params:nil showLoading:NO successBlock:^(id response) {
         
-        if ([response[@"data"][@"status"] integerValue] == 0) {
+        if ([response[@"status"] integerValue] == 0) {
             NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
             [userDefaults setObject:response[@"data"] forKey:@"metaData"];
         }

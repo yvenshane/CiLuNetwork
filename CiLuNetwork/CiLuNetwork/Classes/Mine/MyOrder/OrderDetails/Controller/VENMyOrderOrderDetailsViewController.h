@@ -8,16 +8,9 @@
 
 #import "VENBaseViewController.h"
 
-typedef NS_ENUM(NSInteger, VENMyOrderStatusStyle) {
-    VENMyOrderStatusStyleWaitingForPayment,
-    VENMyOrderStatusStyleWaitingForShipment,
-    VENMyOrderStatusStyleWaitingForReceiving,
-    VENMyOrderStatusStyleWaitingForEvaluation,
-    VENMyOrderStatusStyleCompleted
-};
-
 @interface VENMyOrderOrderDetailsViewController : VENBaseViewController
-@property (nonatomic) VENMyOrderStatusStyle statusStyle;
 @property (nonatomic, copy) NSString *order_id;
+@property (nonatomic, assign) BOOL isMyOrder;
+@property (nonatomic, assign) NSInteger index;
 
 @end

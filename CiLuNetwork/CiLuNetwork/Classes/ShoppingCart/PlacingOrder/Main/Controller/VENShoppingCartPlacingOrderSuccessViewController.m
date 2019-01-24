@@ -40,15 +40,28 @@
 #pragma marl - 查看订单
 - (IBAction)checkOrderButtonClick:(id)sender {
     VENMyOrderOrderDetailsViewController *vc = [[VENMyOrderOrderDetailsViewController alloc] init];
-    vc.statusStyle = VENMyOrderStatusStyleWaitingForShipment;
     vc.order_id = self.order_id;
     [self.navigationController pushViewController:vc animated:YES];
 }
 
 #pragma marl - 继续逛逛
 - (IBAction)continueShopping:(id)sender {
-    [self.navigationController popToRootViewControllerAnimated:YES];
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"RefreshShoppingCart" object:@"pushToClassify"];
+    if (self.isMyOrder) {
+
+        NSDictionary *dict = @{@"status" : @"2",
+                               @"status_text" : @"待发货",
+                               @"index" : [NSString stringWithFormat:@"%ld", (long)self.index]};
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"RefreshMyOrder" object:dict];
+        
+        if (self.isMyOrderDetail) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"RefreshMyOrderDetail" object:nil];
+        }
+        
+        [self.navigationController popToViewController:[self.navigationController.viewControllers objectAtIndex:((int)[[self.navigationController viewControllers]indexOfObject:self] -2)] animated:YES];
+    } else {
+        [self.navigationController popToRootViewControllerAnimated:YES];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"RefreshShoppingCart" object:@"pushToClassify"];
+    }
 }
 
 - (void)setupFinishButton {
@@ -73,8 +86,23 @@
 }
 
 - (void)backButtonClick {
-    [self.navigationController popToRootViewControllerAnimated:YES];
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"RefreshShoppingCart" object:nil];
+    if (self.isMyOrder) {
+        
+        NSDictionary *dict = @{@"status" : @"2",
+                               @"status_text" : @"待发货",
+                               @"index" : [NSString stringWithFormat:@"%ld", self.index]};
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"RefreshMyOrder" object:dict];
+        
+        if (self.isMyOrderDetail) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"RefreshMyOrderDetail" object:nil];
+        }
+        
+        [self.navigationController popToViewController:[self.navigationController.viewControllers objectAtIndex:((int)[[self.navigationController viewControllers]indexOfObject:self] -2)] animated:YES];
+            
+    } else {
+        [self.navigationController popToRootViewControllerAnimated:YES];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"RefreshShoppingCart" object:nil];
+    }
 }
 
 - (void)didReceiveMemoryWarning {

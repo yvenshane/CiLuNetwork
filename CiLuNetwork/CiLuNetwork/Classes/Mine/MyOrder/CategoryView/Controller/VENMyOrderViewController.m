@@ -20,6 +20,11 @@
 
 @property (nonatomic, assign) BOOL scrollAnimated;
 
+@property (nonatomic, assign) BOOL refreshPageOne;
+@property (nonatomic, assign) BOOL refreshPageTwo;
+@property (nonatomic, assign) BOOL refreshPageThree;
+@property (nonatomic, assign) BOOL refreshPageFour;
+
 @end
 
 @implementation VENMyOrderViewController
@@ -54,6 +59,39 @@
         [self.categoryView.btnsArr[self.pushIndexPath] sendActionsForControlEvents:UIControlEventTouchUpInside];
         self.scrollAnimated = YES;
     });
+    
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notificationCenter:) name:@"GoodsReceived" object:nil];
+}
+
+#pragma mark - 确认收货
+- (void)notificationCenter:(NSNotification *)noti {
+    
+    if ([noti.object isEqualToString:@"All"]) {
+        self.refreshPageThree = NO;
+        self.refreshPageFour = NO;
+    } else if ([noti.object isEqualToString:@"WaitingForReceiving"]) {
+        self.refreshPageOne = NO;
+        self.refreshPageFour = NO;
+    } else if ([noti.object isEqualToString:@"WaitingForEvaluation"]) {
+        self.refreshPageOne = NO;
+    } else {
+        
+        if (_pageIdx == 0) {
+            [self pushToMyOrderAllOrdersViewController];
+            self.refreshPageThree = NO;
+            self.refreshPageFour = NO;
+        } else if (_pageIdx == 2) {
+            [self pushToMyOrderWaitingForReceivingViewController];
+            self.refreshPageOne = NO;
+            self.refreshPageFour = NO;
+        }  else if (_pageIdx == 3) {
+            [self pushToMyOrderWaitingForEvaluationViewController];
+            self.refreshPageOne = NO;
+        }
+        
+        self.refreshPageFour = NO;
+    }
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
@@ -74,6 +112,29 @@
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
     CGFloat offsetX = scrollView.contentOffset.x;
     _pageIdx = offsetX / kMainScreenWidth;
+    
+    // 滚动 加载数据
+    if (_pageIdx == 0) {
+        if (!self.refreshPageOne) {
+            self.refreshPageOne = YES;
+            [self pushToMyOrderAllOrdersViewController];
+        }
+    } else if (_pageIdx == 1) {
+        if (!self.refreshPageTwo) {
+            self.refreshPageTwo = YES;
+            [self pushToMyOrderWaitingForShipmentViewController];
+        }
+    } else if (_pageIdx == 2) {
+        if (!self.refreshPageThree) {
+            self.refreshPageThree = YES;
+            [self pushToMyOrderWaitingForReceivingViewController];
+        }
+    } else if (_pageIdx == 3) {
+        if (!self.refreshPageFour) {
+            self.refreshPageFour = YES;
+            [self pushToMyOrderWaitingForEvaluationViewController];
+        }
+    }
 }
 
 - (void)categoryViewValueChanged:(VENMyOrderCategoryView *)sender {
@@ -84,6 +145,29 @@
     // 2.让scrollView滚动
     CGRect rect = CGRectMake(_scrollView.bounds.size.width * pageNumber, 0, _scrollView.bounds.size.width, _scrollView.bounds.size.height);
     [_scrollView scrollRectToVisible:rect animated:_scrollAnimated];
+    
+    // 点击 加载数据
+    if (_pageIdx == 0) {
+        if (!self.refreshPageOne) {
+            self.refreshPageOne = YES;
+            [self pushToMyOrderAllOrdersViewController];
+        }
+    } else if (_pageIdx == 1) {
+        if (!self.refreshPageTwo) {
+            self.refreshPageTwo = YES;
+            [self pushToMyOrderWaitingForShipmentViewController];
+        }
+    } else if (_pageIdx == 2) {
+        if (!self.refreshPageThree) {
+            self.refreshPageThree = YES;
+            [self pushToMyOrderWaitingForReceivingViewController];
+        }
+    } else if (_pageIdx == 3) {
+        if (!self.refreshPageFour) {
+            self.refreshPageFour = YES;
+            [self pushToMyOrderWaitingForEvaluationViewController];
+        }
+    }
 }
 
 - (void)setupUI {
@@ -162,6 +246,56 @@
     
     // 完成子控制器的添加
     [childController didMoveToParentViewController:self];
+}
+
+#pragma mark - pushToSubviews
+- (void)pushToMyOrderAllOrdersViewController {
+    NSString *classNameString = @"VENMyOrderAllOrdersViewController";
+    Class cls = NSClassFromString(classNameString);
+    for (UIViewController *vc in self.childViewControllers) {
+        if ([vc isKindOfClass:cls]) {
+            VENMyOrderAllOrdersViewController *vcc = (VENMyOrderAllOrdersViewController *)vc;
+            [vcc.tableView.mj_header beginRefreshing];
+        }
+    }
+}
+
+- (void)pushToMyOrderWaitingForShipmentViewController {
+    NSString *classNameString = @"VENMyOrderWaitingForShipmentViewController";
+    Class cls = NSClassFromString(classNameString);
+    for (UIViewController *vc in self.childViewControllers) {
+        if ([vc isKindOfClass:cls]) {
+            VENMyOrderWaitingForShipmentViewController *vcc = (VENMyOrderWaitingForShipmentViewController *)vc;
+            [vcc.tableView.mj_header beginRefreshing];
+        }
+    }
+}
+
+- (void)pushToMyOrderWaitingForReceivingViewController {
+    NSString *classNameString = @"VENMyOrderWaitingForReceivingViewController";
+    Class cls = NSClassFromString(classNameString);
+    for (UIViewController *vc in self.childViewControllers) {
+        if ([vc isKindOfClass:cls]) {
+            VENMyOrderWaitingForReceivingViewController *vcc = (VENMyOrderWaitingForReceivingViewController *)vc;
+            [vcc.tableView.mj_header beginRefreshing];
+        }
+    }
+}
+
+- (void)pushToMyOrderWaitingForEvaluationViewController {
+    NSString *classNameString = @"VENMyOrderWaitingForEvaluationViewController";
+    Class cls = NSClassFromString(classNameString);
+    for (UIViewController *vc in self.childViewControllers) {
+        if ([vc isKindOfClass:cls]) {
+            VENMyOrderWaitingForEvaluationViewController *vcc = (VENMyOrderWaitingForEvaluationViewController *)vc;
+            [vcc.tableView.mj_header beginRefreshing];
+            
+        }
+    }
+}
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)didReceiveMemoryWarning {

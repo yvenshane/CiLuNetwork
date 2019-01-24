@@ -10,5 +10,8 @@
 
 @interface VENShoppingCartPlacingOrderSuccessViewController : UIViewController
 @property (nonatomic, copy) NSString *order_id;
+@property (nonatomic, assign) BOOL isMyOrder;
+@property (nonatomic, assign) NSInteger index;
+@property (nonatomic, assign) BOOL isMyOrderDetail;
 
 @end

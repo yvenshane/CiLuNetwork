@@ -17,7 +17,7 @@
 @property (nonatomic, strong) VENShoppingCartPlacingOrderPaymentOrderModel *model;
 @property (nonatomic, copy) NSArray *pay_typeArr;
 @property (nonatomic, assign) BOOL isFirst;
-
+@property (nonatomic, assign) BOOL isFirst2;
 
 @end
 
@@ -41,6 +41,9 @@ static NSString *cellIdentifier = @"cellIdentifier";
 - (void)notificationCenter:(NSNotification *)noti {
     VENShoppingCartPlacingOrderSuccessViewController *vc = [[VENShoppingCartPlacingOrderSuccessViewController alloc] init];
     vc.order_id = self.model.order_id;
+    vc.isMyOrder = self.isMyOrder;
+    vc.isMyOrderDetail = self.isMyOrderDetail;
+    vc.index = self.index;
     [self.navigationController pushViewController:vc animated:YES];
 }
 
@@ -86,8 +89,13 @@ static NSString *cellIdentifier = @"cellIdentifier";
         cell.errorLabel.hidden = [[VENClassEmptyManager sharedManager] isEmptyString:model.tip] ? YES : NO;
         cell.errorLabel.text = model.tip;
         
-        if ([self.model.is_balance_pay integerValue] == 1) {
-            model.isChoice = YES;
+        
+        if (self.isFirst == NO) {
+            if ([self.model.is_balance_pay integerValue] == 1) {
+                model.isChoice = YES;
+                
+                self.isFirst = YES;
+            }
         }
     }
     
@@ -114,6 +122,7 @@ static NSString *cellIdentifier = @"cellIdentifier";
 
     for (VENShoppingCartPlacingOrderPaymentOrderPayTypeModel *model1 in self.pay_typeArr) {
         model1.isChoice = NO;
+        
     }
     
     model.isChoice = YES;
@@ -226,13 +235,18 @@ static NSString *cellIdentifier = @"cellIdentifier";
     [button addTarget:self action:@selector(backButtonClick) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithCustomView:button];
     self.navigationItem.leftBarButtonItem = barButton;
-    
-    self.navigationController.interactivePopGestureRecognizer.enabled = NO;
 }
 
 - (void)backButtonClick {
-    [self.navigationController popToRootViewControllerAnimated:YES];
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"RefreshShoppingCart" object:nil];
+    if (self.isMyOrder) {
+        // 防止返回手势失效
+        self.navigationController.interactivePopGestureRecognizer.delegate = (id<UIGestureRecognizerDelegate>)self;
+        [self.navigationController popViewControllerAnimated:YES];
+    } else {
+        self.navigationController.interactivePopGestureRecognizer.enabled = NO;
+        [self.navigationController popToRootViewControllerAnimated:YES];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"RefreshShoppingCart" object:nil];
+    }
 }
 
 - (void)didReceiveMemoryWarning {

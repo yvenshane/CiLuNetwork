@@ -60,7 +60,34 @@
 }
 
 - (void)commitButtonClick {
-    NSLog(@"提交");
+    if ([[VENClassEmptyManager sharedManager] isEmptyString:self.contentTextView.text]) {
+        [[VENMBProgressHUDManager sharedManager] showText:@"本次购物您满意吗，还有什么想说的～"];
+        return;
+    }
+    
+    NSDictionary *params = @{@"order_id" : self.order_id,
+                             @"comment" : self.contentTextView.text};
+    
+    [[VENNetworkTool sharedManager] requestWithMethod:HTTPMethodPost path:@"home/applyComment" params:params showLoading:YES successBlock:^(id response) {
+        
+        if ([response[@"response"] integerValue] == 0) {
+            if ([self.pushFrom isEqualToString:@"列表页"]) {
+                NSDictionary *dict = @{@"status" : @"20",
+                                       @"status_text" : @"已完成",
+                                       @"index" : [NSString stringWithFormat:@"%ld", self.index]};
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"RefreshMyOrder" object:dict];
+            } else if ([self.pushFrom isEqualToString:@"详情页"]) {
+                self.block(@"");
+            } else if ([self.pushFrom isEqualToString:@"待评价"]) {
+                self.block(@"");
+            }
+            
+            [self.navigationController popViewControllerAnimated:YES];
+        }
+        
+    } failureBlock:^(NSError *error) {
+        
+    }];
 }
 
 - (void)didReceiveMemoryWarning {

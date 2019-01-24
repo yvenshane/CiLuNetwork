@@ -13,6 +13,7 @@
 #import "VENMyOrderOrderDetailsHeaderView.h"
 #import "VENMyOrderOrderDetailsOrderEvaluationViewController.h"
 #import "VENMyOrderOrderDetailsModel.h"
+#import "VENShoppingCartPlacingOrderPaymentOrderViewController.h"
 
 @interface VENMyOrderOrderDetailsViewController () <UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong) UITableView *tableView;
@@ -20,6 +21,7 @@
 @property (nonatomic, strong) VENMyOrderOrderDetailsModel *order_infoModel;
 @property (nonatomic, strong) VENMyOrderOrderDetailsModel *expressModel;
 @property (nonatomic, copy) NSArray *goods_listArr;
+@property (nonatomic, strong) UIView *bottomToolBar;
 
 @end
 
@@ -34,11 +36,12 @@ static NSString *cellIdentifier2 = @"cellIdentifier2";
     self.navigationItem.title = @"订单详情";
 
     [self setupTableView];
+    [self loadData];
     
-    if (self.statusStyle != VENMyOrderStatusStyleWaitingForShipment && self.statusStyle != VENMyOrderStatusStyleCompleted) {
-        [self setupBottomToolBar];
-    }
-    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notificationCenter:) name:@"RefreshMyOrderDetail" object:nil];
+}
+
+- (void)notificationCenter:(NSNotification *)noti {
     [self loadData];
 }
 
@@ -56,6 +59,22 @@ static NSString *cellIdentifier2 = @"cellIdentifier2";
 
             self.goods_listArr = [NSArray yy_modelArrayWithClass:[VENMyOrderOrderDetailsModel class] json:response[@"data"][@"goods_list"]];
             
+            
+            if ([self.order_infoModel.status integerValue] == 1 || [self.order_infoModel.status integerValue] == 3 || [self.order_infoModel.status integerValue] == 30) {
+                
+                [self.bottomToolBar removeFromSuperview];
+                self.bottomToolBar = nil;
+                [self setupBottomToolBar];
+                
+                self.tableView.frame = CGRectMake(0, 0, kMainScreenWidth, kMainScreenHeight - statusNavHeight - 48);
+            } else if ([self.order_infoModel.status integerValue] == 2 || [self.order_infoModel.status integerValue] == 10 || [self.order_infoModel.status integerValue] == 20) {
+                
+                [self.bottomToolBar removeFromSuperview];
+                self.bottomToolBar = nil;
+                
+                self.tableView.frame = CGRectMake(0, 0, kMainScreenWidth, kMainScreenHeight - statusNavHeight);
+            }
+            
             [self.tableView reloadData];
         }
         
@@ -65,7 +84,7 @@ static NSString *cellIdentifier2 = @"cellIdentifier2";
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return self.statusStyle == VENMyOrderStatusStyleWaitingForReceiving || self.statusStyle == VENMyOrderStatusStyleWaitingForEvaluation ? 3 : 2;
+    return [self.expressModel.is_show integerValue] == 1 ? 3 : 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -134,21 +153,24 @@ static NSString *cellIdentifier2 = @"cellIdentifier2";
         
         NSString *titleStr = @"";
         NSString *contentStr = @"";
-        if (self.statusStyle == VENMyOrderStatusStyleWaitingForPayment) {
+        if ([self.order_infoModel.status integerValue] == 1) {
             titleStr = @"订单待支付";
             contentStr = @"当前订单未支付，请您尽快支付订单";
-        } else if (self.statusStyle == VENMyOrderStatusStyleWaitingForShipment) {
+        } else if ([self.order_infoModel.status integerValue] == 2) {
             titleStr = @"订单待发货";
             contentStr = @"订单已支付，等待商家发货";
-        } else if (self.statusStyle == VENMyOrderStatusStyleWaitingForReceiving) {
+        } else if ([self.order_infoModel.status integerValue] == 3) {
             titleStr = @"订单待收货";
             contentStr = @"商家已发货，请注意查收";
-        } else if (self.statusStyle == VENMyOrderStatusStyleWaitingForEvaluation) {
+        } else if ([self.order_infoModel.status integerValue] == 30) {
             titleStr = @"订单待评价";
             contentStr = @"您已收货，给我们一个评价吧";
-        } else if (self.statusStyle == VENMyOrderStatusStyleCompleted) {
+        } else if ([self.order_infoModel.status integerValue] == 20) {
             titleStr = @"订单已完成";
             contentStr = @"您已评价，订单已完成";
+        } else if ([self.order_infoModel.status integerValue] == 10) {
+            titleStr = @"订单已取消";
+            contentStr = @"您已取消订单";
         }
         
         headerView.titleLabel.text = titleStr;
@@ -187,8 +209,9 @@ static NSString *cellIdentifier2 = @"cellIdentifier2";
         UILabel *label = [[UILabel alloc] init];
         label.text = [NSString stringWithFormat:@"%@%@%@%@", self.addressModel.province_name, self.addressModel.city_name, self.addressModel.district_name, self.addressModel.address];
         label.font = [UIFont systemFontOfSize:14.0f];
+        label.numberOfLines = 0;
+        CGFloat height = [self label:label setHeightToWidth:kMainScreenWidth - 15 - 19 - 15 - 15];
         
-        CGFloat height = [self label:label setHeightToWidth:kMainScreenWidth - 15 - 19 -15];
         return 174 + height;
     } else if (section == 2) {
         return 54;
@@ -218,11 +241,7 @@ static NSString *cellIdentifier2 = @"cellIdentifier2";
 }
 
 - (void)setupTableView {
-    
-    CGFloat height = self.statusStyle != VENMyOrderStatusStyleWaitingForShipment && self.statusStyle != VENMyOrderStatusStyleCompleted ? kMainScreenHeight - statusNavHeight - 48 : kMainScreenHeight - statusNavHeight;
-    
-    UITableView *tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kMainScreenWidth, height) style:UITableViewStyleGrouped];
-
+    UITableView *tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kMainScreenWidth, kMainScreenHeight - statusNavHeight) style:UITableViewStyleGrouped];
     tableView.backgroundColor = UIColorFromRGB(0xF5F5F5);
     tableView.delegate = self;
     tableView.dataSource = self;
@@ -239,27 +258,28 @@ static NSString *cellIdentifier2 = @"cellIdentifier2";
     bottomToolBar.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:bottomToolBar];
     
-    if (self.statusStyle == VENMyOrderStatusStyleWaitingForPayment) {
+    if ([self.order_infoModel.status integerValue] == 1) {
         UIButton *leftButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, kMainScreenWidth / 2, 48)];
         [leftButton setTitle:@"取消订单" forState:UIControlStateNormal];
         [leftButton setTitleColor:UIColorFromRGB(0x1A1A1A) forState:UIControlStateNormal];
         leftButton.titleLabel.font = [UIFont systemFontOfSize:16.0f];
+        [leftButton addTarget:self action:@selector(leftButtonClick) forControlEvents:UIControlEventTouchUpInside];
         [bottomToolBar addSubview:leftButton];
     }
     
-    CGFloat x = self.statusStyle == VENMyOrderStatusStyleWaitingForReceiving || self.statusStyle == VENMyOrderStatusStyleWaitingForEvaluation ? 0 : kMainScreenWidth / 2;
+    CGFloat x = [self.order_infoModel.status integerValue] == 3 || [self.order_infoModel.status integerValue] == 30 ? 0 : kMainScreenWidth / 2;
     
-    CGFloat width = self.statusStyle == VENMyOrderStatusStyleWaitingForReceiving || self.statusStyle == VENMyOrderStatusStyleWaitingForEvaluation ? kMainScreenWidth : kMainScreenWidth / 2;
+    CGFloat width = [self.order_infoModel.status integerValue] == 3 || [self.order_infoModel.status integerValue] == 30 ? kMainScreenWidth : kMainScreenWidth / 2;
     
     UIButton *rightButton = [[UIButton alloc] initWithFrame:CGRectMake(x, 0, width, 48)];
     rightButton.backgroundColor = UIColorFromRGB(0xC7974F);
     
     NSString *titelStr = @"";
-    if (self.statusStyle == VENMyOrderStatusStyleWaitingForPayment) {
+    if ([self.order_infoModel.status integerValue] == 1) {
         titelStr = @"去支付";
-    } else if (self.statusStyle == VENMyOrderStatusStyleWaitingForReceiving) {
+    } else if ([self.order_infoModel.status integerValue] == 3) {
         titelStr = @"确认收货";
-    } else if (self.statusStyle == VENMyOrderStatusStyleWaitingForEvaluation) {
+    } else if ([self.order_infoModel.status integerValue] == 30) {
         titelStr = @"评价";
     }
     
@@ -271,14 +291,79 @@ static NSString *cellIdentifier2 = @"cellIdentifier2";
     
     UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kMainScreenWidth / 2, 1)];
     lineView.backgroundColor = UIColorFromRGB(0xE8E8E8);
-    if (self.statusStyle != VENMyOrderStatusStyleWaitingForReceiving && self.statusStyle != VENMyOrderStatusStyleWaitingForEvaluation) {
+    if ([self.order_infoModel.status integerValue] == 1) {
         [bottomToolBar addSubview:lineView];
     }
+    
+    _bottomToolBar = bottomToolBar;
+}
+
+#pragma mark - 取消订单
+- (void)leftButtonClick {
+    NSDictionary *params = @{@"order_id" : self.order_id,
+                             @"status" : @"1"};
+    
+    [[VENNetworkTool sharedManager] requestWithMethod:HTTPMethodPost path:@"order/setOrderStatus" params:params showLoading:YES successBlock:^(id response) {
+        
+        if ([response[@"status"] integerValue] == 0) {
+            
+            NSDictionary *dict = @{@"status" : @"10",
+                                   @"status_text" : @"已取消",
+                                   @"index" : [NSString stringWithFormat:@"%ld", (long)self.index]};
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"RefreshMyOrder" object:dict];
+            
+            [self loadData];
+        }
+    } failureBlock:^(NSError *error) {
+        
+    }];
 }
 
 - (void)rightButtonClick {
-    if (self.statusStyle == VENMyOrderStatusStyleWaitingForEvaluation) {
+#pragma mark - 去支付
+    if ([self.order_infoModel.status integerValue] == 1) {
+        NSDictionary *params = @{@"order_id" : self.order_id};
+        
+        [[VENNetworkTool sharedManager] requestWithMethod:HTTPMethodPost path:@"order/continuePay" params:params showLoading:YES successBlock:^(id response) {
+            
+            if ([response[@"response"] integerValue] == 0) {
+                VENShoppingCartPlacingOrderPaymentOrderViewController *vc = [[VENShoppingCartPlacingOrderPaymentOrderViewController alloc] init];
+                vc.dataDict = response[@"data"];
+                vc.isMyOrder = self.isMyOrder;
+                vc.index = self.index;
+                vc.isMyOrderDetail = YES;
+                [self.navigationController pushViewController:vc animated:YES];
+            }
+            
+        } failureBlock:^(NSError *error) {
+            
+        }];
+#pragma mark - 确认收货
+    } else if ([self.order_infoModel.status integerValue] == 3) {
+    
+        NSDictionary *params = @{@"order_id" : self.order_id,
+                                 @"status" : @"2"};
+        
+        [[VENNetworkTool sharedManager] requestWithMethod:HTTPMethodPost path:@"order/setOrderStatus" params:params showLoading:YES successBlock:^(id response) {
+            
+            if ([response[@"status"] integerValue] == 0) {
+                [self loadData];
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"GoodsReceived" object:nil];
+            }
+            
+        } failureBlock:^(NSError *error) {
+            
+        }];
+        
+#pragma mark - 评价
+    } else if ([self.order_infoModel.status integerValue] == 30) {
         VENMyOrderOrderDetailsOrderEvaluationViewController *vc = [[VENMyOrderOrderDetailsOrderEvaluationViewController alloc] init];
+        vc.block = ^(NSString *str) {
+            [self loadData];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"GoodsReceived" object:nil];
+        };
+        vc.order_id = self.order_id;
+        vc.pushFrom = @"详情页";
         [self.navigationController pushViewController:vc animated:YES];
     }
 }

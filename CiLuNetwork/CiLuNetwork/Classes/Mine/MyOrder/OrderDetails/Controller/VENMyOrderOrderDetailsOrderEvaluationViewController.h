@@ -8,6 +8,13 @@
 
 #import "VENBaseViewController.h"
 
+typedef void (^refreshOrderDetailshBlock)(NSString *);
 @interface VENMyOrderOrderDetailsOrderEvaluationViewController : VENBaseViewController
+@property (nonatomic, copy) NSString *order_id;
+@property (nonatomic, assign) NSInteger index;
+@property (nonatomic, copy) NSString *pushFrom;
+@property (nonatomic, copy) refreshOrderDetailshBlock block;
+
+
 
 @end

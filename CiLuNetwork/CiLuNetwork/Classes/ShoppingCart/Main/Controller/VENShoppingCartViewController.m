@@ -63,7 +63,7 @@ static NSString *cellIdentifier = @"cellIdentifier";
         
         [self.tableView.mj_header endRefreshing];
         
-        if ([response[@"data"][@"status"] integerValue] == 0) {
+        if ([response[@"status"] integerValue] == 0) {
             self.listMuArr = [NSArray yy_modelArrayWithClass:[VENShoppingCartModel class] json:response[@"data"][@"list"]].mutableCopy;
 
             if (self.listMuArr.count > 0) {
