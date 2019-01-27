@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment version="2304" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -59,12 +59,23 @@
                         </state>
                     </button>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BfC-5o-su0">
-                        <rect key="frame" x="0.0" y="182" width="320" height="10"/>
+                        <rect key="frame" x="0.0" y="182.5" width="320" height="10"/>
                         <color key="backgroundColor" red="0.96078431372549022" green="0.96078431372549022" blue="0.96078431372549022" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="10" id="oda-FU-pq5"/>
                         </constraints>
                     </view>
+                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qsJ-Hl-Z5p">
+                        <rect key="frame" x="100" y="117" width="120" height="40"/>
+                        <color key="backgroundColor" red="0.78039215689999997" green="0.59215686270000001" blue="0.30980392159999998" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="40" id="Nzq-vC-Xmj"/>
+                            <constraint firstAttribute="width" constant="120" id="Zrt-fW-vVl"/>
+                        </constraints>
+                        <state key="normal" title="提现到余额">
+                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </state>
+                    </button>
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="trailing" secondItem="Q1m-6A-obo" secondAttribute="trailing" constant="15" id="0ZK-07-fjE"/>
@@ -73,6 +84,8 @@
                     <constraint firstItem="dZ4-TX-5eE" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="Bv9-xZ-XXu"/>
                     <constraint firstAttribute="bottom" secondItem="BfC-5o-su0" secondAttribute="bottom" id="DyO-Bk-Gpr"/>
                     <constraint firstItem="6cR-k2-7Al" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" constant="-57.5" id="HXH-mx-Z8u"/>
+                    <constraint firstItem="qsJ-Hl-Z5p" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="N5N-2V-tun"/>
+                    <constraint firstItem="qsJ-Hl-Z5p" firstAttribute="top" secondItem="Q1m-6A-obo" secondAttribute="bottom" constant="22" id="SP6-ph-a2a"/>
                     <constraint firstItem="BfC-5o-su0" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="WRP-h7-KdM"/>
                     <constraint firstItem="dZ4-TX-5eE" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="20" id="aYd-V7-qQx"/>
                     <constraint firstItem="Q1m-6A-obo" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="bdB-Sv-Ggk"/>
@@ -85,8 +98,10 @@
             <viewLayoutGuide key="safeArea" id="aW0-zy-SZf"/>
             <connections>
                 <outlet property="leftButton" destination="6cR-k2-7Al" id="4wZ-DZ-4Ca"/>
+                <outlet property="middleButton" destination="qsJ-Hl-Z5p" id="B7G-DK-edR"/>
                 <outlet property="priceLabel" destination="Q1m-6A-obo" id="xKD-82-9r4"/>
                 <outlet property="rightButton" destination="xMc-nm-dcP" id="IvC-1O-jqA"/>
+                <outlet property="titleLabel" destination="dZ4-TX-5eE" id="sBR-0E-tgN"/>
             </connections>
             <point key="canvasLocation" x="34" y="149.5"/>
         </tableViewCell>

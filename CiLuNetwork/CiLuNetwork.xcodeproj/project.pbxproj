@@ -281,6 +281,7 @@
 		2CF7EFC121CB7A2A0020A448 /* VENClassifyDetailsUserEvaluateTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF7EFBF21CB7A2A0020A448 /* VENClassifyDetailsUserEvaluateTableViewCell.m */; };
 		2CF7EFC221CB7A2A0020A448 /* VENClassifyDetailsUserEvaluateTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2CF7EFC021CB7A2A0020A448 /* VENClassifyDetailsUserEvaluateTableViewCell.xib */; };
 		2CFDDA4721BFB77F00275DA3 /* VENClassifySearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CFDDA4621BFB77F00275DA3 /* VENClassifySearchViewController.m */; };
+		2CFE0FA521FDC3A5002C85C2 /* VENMyCommissionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CFE0FA421FDC3A5002C85C2 /* VENMyCommissionViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -803,6 +804,8 @@
 		2CF7EFC021CB7A2A0020A448 /* VENClassifyDetailsUserEvaluateTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VENClassifyDetailsUserEvaluateTableViewCell.xib; sourceTree = "<group>"; };
 		2CFDDA4521BFB77F00275DA3 /* VENClassifySearchViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VENClassifySearchViewController.h; sourceTree = "<group>"; };
 		2CFDDA4621BFB77F00275DA3 /* VENClassifySearchViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VENClassifySearchViewController.m; sourceTree = "<group>"; };
+		2CFE0FA321FDC3A5002C85C2 /* VENMyCommissionViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VENMyCommissionViewController.h; sourceTree = "<group>"; };
+		2CFE0FA421FDC3A5002C85C2 /* VENMyCommissionViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VENMyCommissionViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1747,6 +1750,7 @@
 				2C0F658521D365920093A6D0 /* MyOrder */,
 				2C54DEC321DC4FB900E72241 /* MyBalance */,
 				2C2D737521DDA394006E417D /* MyPoints */,
+				2CFE0FA021FDC273002C85C2 /* MyCommission */,
 			);
 			path = Mine;
 			sourceTree = "<group>";
@@ -2548,6 +2552,31 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		2CFE0FA021FDC273002C85C2 /* MyCommission */ = {
+			isa = PBXGroup;
+			children = (
+				2CFE0FA221FDC28C002C85C2 /* Model */,
+				2CFE0FA121FDC285002C85C2 /* Controller */,
+			);
+			path = MyCommission;
+			sourceTree = "<group>";
+		};
+		2CFE0FA121FDC285002C85C2 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				2CFE0FA321FDC3A5002C85C2 /* VENMyCommissionViewController.h */,
+				2CFE0FA421FDC3A5002C85C2 /* VENMyCommissionViewController.m */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		2CFE0FA221FDC28C002C85C2 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -2691,6 +2720,7 @@
 				2CDFA0A521B5813500254B52 /* MJRefreshFooter.m in Sources */,
 				2CDFA08C21B5813500254B52 /* IQPreviousNextView.m in Sources */,
 				2C0F65A321D369140093A6D0 /* VENMyOrderWaitingForEvaluationViewController.m in Sources */,
+				2CFE0FA521FDC3A5002C85C2 /* VENMyCommissionViewController.m in Sources */,
 				2C275AFE21C1F50800E6719E /* VENMineTableViewCellStyleTwo.m in Sources */,
 				2C0F659121D366810093A6D0 /* VENMyOrderViewController.m in Sources */,
 				2CDFA06921B5813500254B52 /* UIImageView+AFNetworking.m in Sources */,
@@ -3008,6 +3038,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = Y99CH2YM5T;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -3028,6 +3059,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.ahaiba.CiLuNetwork;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -3036,6 +3068,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = Y99CH2YM5T;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -3056,6 +3089,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.ahaiba.CiLuNetwork;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;

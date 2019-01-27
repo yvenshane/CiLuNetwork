@@ -16,6 +16,8 @@
 #import "VENMyOrderViewController.h"
 #import "VENMyBalanceViewController.h"
 #import "VENMyPointsViewController.h"
+#import "VENMyCommissionViewController.h"
+
 #import "VENMineModel.h"
 
 @interface VENMineViewController () <UITableViewDelegate, UITableViewDataSource>
@@ -208,7 +210,14 @@ static NSString *cellIdentifier3 = @"cellIdentifier3";
                 VENMyPointsViewController *vc = [[VENMyPointsViewController alloc] init];
                 vc.hidesBottomBarWhenPushed = YES;
                 [self.navigationController pushViewController:vc animated:YES];
+            } else if (indexPath.row == 2) {
+                NSLog(@"佣金管理");
+                
+                VENMyCommissionViewController *vc = [[VENMyCommissionViewController alloc] init];
+                vc.hidesBottomBarWhenPushed = YES;
+                [self.navigationController pushViewController:vc animated:YES];
             }
+            
         }
     } else {
         if (indexPath.section != 0) {

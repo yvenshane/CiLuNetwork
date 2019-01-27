@@ -23,7 +23,6 @@ static NSString *cellIdentifier = @"cellIdentifier";
     self.navigationItem.title = @"个人设置";
     
     [self setupTableView];
-    
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -38,7 +37,18 @@ static NSString *cellIdentifier = @"cellIdentifier";
     VENMineTableViewCellStyleOne *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
+    NSArray *titleArr = @[@[@"个人资料", @"修改密码"], @[@"加入优势", @"关于我们"], @[@"在线留言", @"清除缓存"]];
+    cell.leftLabel.text = titleArr[indexPath.section][indexPath.row];
+    
     return cell;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return section == 0 ? 10 : 5;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    return 5;
 }
 
 - (void)setupTableView {
@@ -47,6 +57,7 @@ static NSString *cellIdentifier = @"cellIdentifier";
     tableView.delegate = self;
     tableView.dataSource = self;
     [tableView registerNib:[UINib nibWithNibName:@"VENMineTableViewCellStyleOne" bundle:nil] forCellReuseIdentifier:cellIdentifier];
+    tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.view addSubview:tableView];
     
     UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kMainScreenWidth, 48 + 18)];

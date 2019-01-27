@@ -21,6 +21,9 @@
     
     self.rightButton.layer.cornerRadius = 4.0f;
     self.rightButton.layer.masksToBounds = YES;
+    
+    self.middleButton.layer.cornerRadius = 4.0f;
+    self.middleButton.layer.masksToBounds = YES;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

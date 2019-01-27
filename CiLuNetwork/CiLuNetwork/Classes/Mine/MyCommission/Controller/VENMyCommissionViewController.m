@@ -1,22 +1,25 @@
 //
-//  VENMyPointsViewController.m
+//  VENMyCommissionViewController.m
 //  CiLuNetwork
 //
-//  Created by YVEN on 2019/1/3.
+//  Created by YVEN on 2019/1/27.
 //  Copyright © 2019年 Hefei Haiba Network Technology Co., Ltd. All rights reserved.
 //
 
-#import "VENMyPointsViewController.h"
-#import "VENMyPointsHeaderViewTableViewCell.h"
+#import "VENMyCommissionViewController.h"
+#import "VENMyBalanceHeaderViewTableViewCell.h"
 #import "VENMyBalanceTableViewCell.h"
 
-@interface VENMyPointsViewController () <UITableViewDelegate, UITableViewDataSource>
+#import "VENMyBalanceRechargeViewController.h"
+#import "VENMyBalanceWithdrawViewController.h"
+
+@interface VENMyCommissionViewController () <UITableViewDelegate, UITableViewDataSource>
 
 @end
 
 static NSString *cellIdentifier = @"cellIdentifier";
 static NSString *cellIdentifier2 = @"cellIdentifier2";
-@implementation VENMyPointsViewController
+@implementation VENMyCommissionViewController
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
@@ -38,18 +41,15 @@ static NSString *cellIdentifier2 = @"cellIdentifier2";
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    self.navigationItem.title = @"我的积分";
+    self.navigationItem.title = @"佣金管理";
     
     [self setupTableView];
     
-    
-    NSDictionary *params = @{@"page" : @"0",
-                             @"page_size" : @"20"};
-    [self loadDataWithParams:params];
+    [self loadData];
 }
 
-- (void)loadDataWithParams:(NSDictionary *)params {
-    [[VENNetworkTool sharedManager] requestWithMethod:HTTPMethodPost path:@"home/scores" params:params showLoading:YES successBlock:^(id response) {
+- (void)loadData {
+    [[VENNetworkTool sharedManager] requestWithMethod:HTTPMethodPost path:@"home/commissions" params:nil showLoading:YES successBlock:^(id response) {
         
     } failureBlock:^(NSError *error) {
         
@@ -67,12 +67,18 @@ static NSString *cellIdentifier2 = @"cellIdentifier2";
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     if (indexPath.section == 0) {
-        VENMyPointsHeaderViewTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
+        VENMyBalanceHeaderViewTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier2 forIndexPath:indexPath];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        
+        cell.titleLabel.text = @"当前佣金（元）";
+        cell.leftButton.hidden = YES;
+        cell.rightButton.hidden = YES;
+        cell.middleButton.hidden = NO;
+
         
         return cell;
     } else {
-        VENMyBalanceTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier2 forIndexPath:indexPath];
+        VENMyBalanceTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
         
@@ -81,7 +87,7 @@ static NSString *cellIdentifier2 = @"cellIdentifier2";
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return indexPath.section == 0 ? 135 : 64;
+    return indexPath.section == 0 ? 192 : 64;
 }
 
 - (void)setupTableView {
@@ -90,8 +96,8 @@ static NSString *cellIdentifier2 = @"cellIdentifier2";
     tableView.delegate = self;
     tableView.dataSource = self;
     tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    [tableView registerNib:[UINib nibWithNibName:@"VENMyPointsHeaderViewTableViewCell" bundle:nil] forCellReuseIdentifier:cellIdentifier];
-    [tableView registerNib:[UINib nibWithNibName:@"VENMyBalanceTableViewCell" bundle:nil] forCellReuseIdentifier:cellIdentifier2];
+    [tableView registerNib:[UINib nibWithNibName:@"VENMyBalanceTableViewCell" bundle:nil] forCellReuseIdentifier:cellIdentifier];
+    [tableView registerNib:[UINib nibWithNibName:@"VENMyBalanceHeaderViewTableViewCell" bundle:nil] forCellReuseIdentifier:cellIdentifier2];
     [self.view addSubview:tableView];
 }
 

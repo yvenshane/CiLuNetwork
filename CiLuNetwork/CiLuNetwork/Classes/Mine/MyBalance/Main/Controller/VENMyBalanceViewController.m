@@ -44,6 +44,16 @@ static NSString *cellIdentifier2 = @"cellIdentifier2";
     self.navigationItem.title = @"我的余额";
     
     [self setupTableView];
+    
+    [self loadData];
+}
+
+- (void)loadData {
+    [[VENNetworkTool sharedManager] requestWithMethod:HTTPMethodPost path:@"balance/info" params:nil showLoading:YES successBlock:^(id response) {
+        
+    } failureBlock:^(NSError *error) {
+        
+    }];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
