@@ -18,6 +18,8 @@
 #import "VENMyPointsViewController.h"
 #import "VENMyCommissionViewController.h"
 #import "VENMyTeamViewController.h"
+#import "VENShoppingCartPlacingOrderReceivingAddressViewController.h"
+#import "VENMyCollectionViewController.h"
 
 #import "VENMineModel.h"
 
@@ -224,6 +226,24 @@ static NSString *cellIdentifier3 = @"cellIdentifier3";
                 vc.hidesBottomBarWhenPushed = YES;
                 [self.navigationController pushViewController:vc animated:YES];
             }
+        } else if (indexPath.section == 3) {
+            if (indexPath.row == 0) {
+                NSLog(@"地址管理");
+                
+                VENShoppingCartPlacingOrderReceivingAddressViewController *vc = [[VENShoppingCartPlacingOrderReceivingAddressViewController alloc] init];
+                vc.hidesBottomBarWhenPushed = YES;
+                [self.navigationController pushViewController:vc animated:YES];
+            } else if (indexPath.row == 1) {
+                NSLog(@"我的收藏");
+                
+                VENMyCollectionViewController *vc = [[VENMyCollectionViewController alloc] init];
+                vc.hidesBottomBarWhenPushed = YES;
+                [self.navigationController pushViewController:vc animated:YES];
+            } else if (indexPath.row == 2) {
+                NSLog(@"我的评价");
+                
+            }
+            
         }
     } else {
         if (indexPath.section != 0) {

@@ -22,5 +22,6 @@
 @property (weak, nonatomic) IBOutlet UIButton *plusButton;
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *iconImageViewLayoutConstraint;
+@property (weak, nonatomic) IBOutlet UIImageView *lineImageView;
 
 @end

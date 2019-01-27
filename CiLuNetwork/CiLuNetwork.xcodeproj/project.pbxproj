@@ -287,6 +287,7 @@
 		2CFE0FB721FDCBD7002C85C2 /* VENMyTeamSubviewsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CFE0FB621FDCBD7002C85C2 /* VENMyTeamSubviewsController.m */; };
 		2CFE0FBB21FDCD9D002C85C2 /* VENMyTeamSubviewsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CFE0FB921FDCD9D002C85C2 /* VENMyTeamSubviewsTableViewCell.m */; };
 		2CFE0FBC21FDCD9D002C85C2 /* VENMyTeamSubviewsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2CFE0FBA21FDCD9D002C85C2 /* VENMyTeamSubviewsTableViewCell.xib */; };
+		2CFE0FC121FDD904002C85C2 /* VENMyCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CFE0FC021FDD904002C85C2 /* VENMyCollectionViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -820,6 +821,8 @@
 		2CFE0FB821FDCD9D002C85C2 /* VENMyTeamSubviewsTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VENMyTeamSubviewsTableViewCell.h; sourceTree = "<group>"; };
 		2CFE0FB921FDCD9D002C85C2 /* VENMyTeamSubviewsTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VENMyTeamSubviewsTableViewCell.m; sourceTree = "<group>"; };
 		2CFE0FBA21FDCD9D002C85C2 /* VENMyTeamSubviewsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VENMyTeamSubviewsTableViewCell.xib; sourceTree = "<group>"; };
+		2CFE0FBF21FDD904002C85C2 /* VENMyCollectionViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VENMyCollectionViewController.h; sourceTree = "<group>"; };
+		2CFE0FC021FDD904002C85C2 /* VENMyCollectionViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VENMyCollectionViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1766,6 +1769,7 @@
 				2C2D737521DDA394006E417D /* MyPoints */,
 				2CFE0FA021FDC273002C85C2 /* MyCommission */,
 				2CFE0FA621FDC77F002C85C2 /* MyTeam */,
+				2CFE0FBD21FDD88E002C85C2 /* MyCollection */,
 			);
 			path = Mine;
 			sourceTree = "<group>";
@@ -2664,6 +2668,23 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		2CFE0FBD21FDD88E002C85C2 /* MyCollection */ = {
+			isa = PBXGroup;
+			children = (
+				2CFE0FBE21FDD8D5002C85C2 /* Controller */,
+			);
+			path = MyCollection;
+			sourceTree = "<group>";
+		};
+		2CFE0FBE21FDD8D5002C85C2 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				2CFE0FBF21FDD904002C85C2 /* VENMyCollectionViewController.h */,
+				2CFE0FC021FDD904002C85C2 /* VENMyCollectionViewController.m */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -2790,6 +2811,7 @@
 				2CB54FDA21B7B081003AD4D8 /* VENHomePageHorizontalCollectionViewCell.m in Sources */,
 				2CDFA0B021B5813500254B52 /* SDCycleScrollView.m in Sources */,
 				2CEB833A21B819CE004A8629 /* JXCategoryBaseView.m in Sources */,
+				2CFE0FC121FDD904002C85C2 /* VENMyCollectionViewController.m in Sources */,
 				2CB54FD621B7AF03003AD4D8 /* VENHomePageHorizontalCollectionView.m in Sources */,
 				2CEB833921B819CE004A8629 /* UIColor+JXAdd.m in Sources */,
 				2CDF9F7621B57BD400254B52 /* VENBaseViewController.m in Sources */,

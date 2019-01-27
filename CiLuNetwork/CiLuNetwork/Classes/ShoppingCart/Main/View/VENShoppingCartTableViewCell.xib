@@ -94,16 +94,25 @@
                             <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </state>
                     </button>
+                    <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="xzs-N0-7Iw">
+                        <rect key="frame" x="15" y="91.5" width="385" height="1"/>
+                        <color key="backgroundColor" red="0.90980392156862744" green="0.90980392156862744" blue="0.90980392156862744" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="1" id="zQK-fL-Zuu"/>
+                        </constraints>
+                    </imageView>
                 </subviews>
                 <constraints>
                     <constraint firstItem="n8c-Hw-Aam" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="15" id="0LD-LH-lPC"/>
                     <constraint firstItem="I9F-ge-hxb" firstAttribute="centerY" secondItem="fHF-xJ-Z3a" secondAttribute="centerY" id="2kF-Kl-aVc"/>
+                    <constraint firstAttribute="trailing" secondItem="xzs-N0-7Iw" secondAttribute="trailing" id="30F-DX-Fcw"/>
                     <constraint firstItem="fHF-xJ-Z3a" firstAttribute="leading" secondItem="bbT-IW-wpA" secondAttribute="trailing" constant="15" id="6DC-vf-gii"/>
                     <constraint firstAttribute="trailing" secondItem="I9F-ge-hxb" secondAttribute="trailing" constant="15" id="Gvu-xq-n2H"/>
                     <constraint firstItem="b7r-q0-yg6" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="15" id="Gw7-xc-xma"/>
                     <constraint firstItem="Cqp-3E-NIJ" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="15" id="IJa-kc-6Yw"/>
                     <constraint firstItem="H7X-AS-Isw" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="15" id="Ieg-tg-Zta"/>
                     <constraint firstItem="Cqp-3E-NIJ" firstAttribute="leading" secondItem="H7X-AS-Isw" secondAttribute="trailing" constant="-1" id="MZW-86-fR5"/>
+                    <constraint firstAttribute="bottom" secondItem="xzs-N0-7Iw" secondAttribute="bottom" id="QxB-KK-b4t"/>
                     <constraint firstItem="9pd-wx-zQO" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="Uz6-69-pwG"/>
                     <constraint firstItem="n8c-Hw-Aam" firstAttribute="leading" secondItem="bbT-IW-wpA" secondAttribute="trailing" constant="15" id="VLB-ST-iSB"/>
                     <constraint firstItem="H7X-AS-Isw" firstAttribute="leading" secondItem="n8c-Hw-Aam" secondAttribute="trailing" constant="-1" id="Wnw-DR-3Fo"/>
@@ -115,6 +124,7 @@
                     <constraint firstItem="I9F-ge-hxb" firstAttribute="leading" secondItem="fHF-xJ-Z3a" secondAttribute="trailing" constant="8" id="hzI-zg-zhI"/>
                     <constraint firstItem="7b0-79-Nuy" firstAttribute="centerY" secondItem="fHF-xJ-Z3a" secondAttribute="centerY" id="mj2-cU-qUI"/>
                     <constraint firstItem="Lh7-wl-yL0" firstAttribute="leading" secondItem="b7r-q0-yg6" secondAttribute="trailing" constant="16" id="oU1-OD-COQ"/>
+                    <constraint firstItem="xzs-N0-7Iw" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="piY-yW-sG8"/>
                     <constraint firstAttribute="bottom" secondItem="fHF-xJ-Z3a" secondAttribute="bottom" constant="26" id="px6-3D-iz7"/>
                     <constraint firstItem="b7r-q0-yg6" firstAttribute="leading" secondItem="bbT-IW-wpA" secondAttribute="trailing" constant="15" id="qmO-tH-OLQ"/>
                     <constraint firstAttribute="trailing" secondItem="Lh7-wl-yL0" secondAttribute="trailing" constant="15" id="wQV-GO-h2v"/>
@@ -126,6 +136,7 @@
                 <outlet property="deleteButton" destination="7b0-79-Nuy" id="DHC-so-cRb"/>
                 <outlet property="iconImageView" destination="bbT-IW-wpA" id="o9L-pR-AFN"/>
                 <outlet property="iconImageViewLayoutConstraint" destination="Znj-lX-IA1" id="yBu-sb-H67"/>
+                <outlet property="lineImageView" destination="xzs-N0-7Iw" id="0GX-2c-7ZG"/>
                 <outlet property="minusButton" destination="n8c-Hw-Aam" id="04D-SH-Zcf"/>
                 <outlet property="numberButton" destination="H7X-AS-Isw" id="m8l-YT-EAZ"/>
                 <outlet property="numberLabel" destination="I9F-ge-hxb" id="f4p-Dj-4Ci"/>
