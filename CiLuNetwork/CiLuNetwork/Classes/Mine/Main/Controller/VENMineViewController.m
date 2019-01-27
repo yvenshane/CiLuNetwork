@@ -20,6 +20,7 @@
 #import "VENMyTeamViewController.h"
 #import "VENShoppingCartPlacingOrderReceivingAddressViewController.h"
 #import "VENMyCollectionViewController.h"
+#import "VENMyEvaluationViewController.h"
 
 #import "VENMineModel.h"
 
@@ -242,6 +243,9 @@ static NSString *cellIdentifier3 = @"cellIdentifier3";
             } else if (indexPath.row == 2) {
                 NSLog(@"我的评价");
                 
+                VENMyEvaluationViewController *vc = [[VENMyEvaluationViewController alloc] init];
+                vc.hidesBottomBarWhenPushed = YES;
+                [self.navigationController pushViewController:vc animated:YES];
             }
             
         }
