@@ -17,6 +17,7 @@
 #import "VENMyBalanceViewController.h"
 #import "VENMyPointsViewController.h"
 #import "VENMyCommissionViewController.h"
+#import "VENMyTeamViewController.h"
 
 #import "VENMineModel.h"
 
@@ -216,8 +217,13 @@ static NSString *cellIdentifier3 = @"cellIdentifier3";
                 VENMyCommissionViewController *vc = [[VENMyCommissionViewController alloc] init];
                 vc.hidesBottomBarWhenPushed = YES;
                 [self.navigationController pushViewController:vc animated:YES];
+            } else if (indexPath.row == 3) {
+                NSLog(@"我的团队");
+                
+                VENMyTeamViewController *vc = [[VENMyTeamViewController alloc] init];
+                vc.hidesBottomBarWhenPushed = YES;
+                [self.navigationController pushViewController:vc animated:YES];
             }
-            
         }
     } else {
         if (indexPath.section != 0) {

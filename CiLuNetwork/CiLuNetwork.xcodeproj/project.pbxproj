@@ -282,6 +282,11 @@
 		2CF7EFC221CB7A2A0020A448 /* VENClassifyDetailsUserEvaluateTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2CF7EFC021CB7A2A0020A448 /* VENClassifyDetailsUserEvaluateTableViewCell.xib */; };
 		2CFDDA4721BFB77F00275DA3 /* VENClassifySearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CFDDA4621BFB77F00275DA3 /* VENClassifySearchViewController.m */; };
 		2CFE0FA521FDC3A5002C85C2 /* VENMyCommissionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CFE0FA421FDC3A5002C85C2 /* VENMyCommissionViewController.m */; };
+		2CFE0FAC21FDC803002C85C2 /* VENMyTeamCategoryView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CFE0FAB21FDC803002C85C2 /* VENMyTeamCategoryView.m */; };
+		2CFE0FAF21FDC84A002C85C2 /* VENMyTeamViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CFE0FAE21FDC84A002C85C2 /* VENMyTeamViewController.m */; };
+		2CFE0FB721FDCBD7002C85C2 /* VENMyTeamSubviewsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CFE0FB621FDCBD7002C85C2 /* VENMyTeamSubviewsController.m */; };
+		2CFE0FBB21FDCD9D002C85C2 /* VENMyTeamSubviewsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CFE0FB921FDCD9D002C85C2 /* VENMyTeamSubviewsTableViewCell.m */; };
+		2CFE0FBC21FDCD9D002C85C2 /* VENMyTeamSubviewsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2CFE0FBA21FDCD9D002C85C2 /* VENMyTeamSubviewsTableViewCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -806,6 +811,15 @@
 		2CFDDA4621BFB77F00275DA3 /* VENClassifySearchViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VENClassifySearchViewController.m; sourceTree = "<group>"; };
 		2CFE0FA321FDC3A5002C85C2 /* VENMyCommissionViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VENMyCommissionViewController.h; sourceTree = "<group>"; };
 		2CFE0FA421FDC3A5002C85C2 /* VENMyCommissionViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VENMyCommissionViewController.m; sourceTree = "<group>"; };
+		2CFE0FAA21FDC803002C85C2 /* VENMyTeamCategoryView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VENMyTeamCategoryView.h; sourceTree = "<group>"; };
+		2CFE0FAB21FDC803002C85C2 /* VENMyTeamCategoryView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VENMyTeamCategoryView.m; sourceTree = "<group>"; };
+		2CFE0FAD21FDC84A002C85C2 /* VENMyTeamViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VENMyTeamViewController.h; sourceTree = "<group>"; };
+		2CFE0FAE21FDC84A002C85C2 /* VENMyTeamViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VENMyTeamViewController.m; sourceTree = "<group>"; };
+		2CFE0FB521FDCBD7002C85C2 /* VENMyTeamSubviewsController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VENMyTeamSubviewsController.h; sourceTree = "<group>"; };
+		2CFE0FB621FDCBD7002C85C2 /* VENMyTeamSubviewsController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VENMyTeamSubviewsController.m; sourceTree = "<group>"; };
+		2CFE0FB821FDCD9D002C85C2 /* VENMyTeamSubviewsTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VENMyTeamSubviewsTableViewCell.h; sourceTree = "<group>"; };
+		2CFE0FB921FDCD9D002C85C2 /* VENMyTeamSubviewsTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VENMyTeamSubviewsTableViewCell.m; sourceTree = "<group>"; };
+		2CFE0FBA21FDCD9D002C85C2 /* VENMyTeamSubviewsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VENMyTeamSubviewsTableViewCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1751,6 +1765,7 @@
 				2C54DEC321DC4FB900E72241 /* MyBalance */,
 				2C2D737521DDA394006E417D /* MyPoints */,
 				2CFE0FA021FDC273002C85C2 /* MyCommission */,
+				2CFE0FA621FDC77F002C85C2 /* MyTeam */,
 			);
 			path = Mine;
 			sourceTree = "<group>";
@@ -2577,6 +2592,78 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		2CFE0FA621FDC77F002C85C2 /* MyTeam */ = {
+			isa = PBXGroup;
+			children = (
+				2CFE0FA721FDC7A2002C85C2 /* CategoryView */,
+				2CFE0FB021FDC957002C85C2 /* Main */,
+			);
+			path = MyTeam;
+			sourceTree = "<group>";
+		};
+		2CFE0FA721FDC7A2002C85C2 /* CategoryView */ = {
+			isa = PBXGroup;
+			children = (
+				2CFE0FA821FDC7B5002C85C2 /* View */,
+				2CFE0FA921FDC7B8002C85C2 /* Controller */,
+			);
+			path = CategoryView;
+			sourceTree = "<group>";
+		};
+		2CFE0FA821FDC7B5002C85C2 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				2CFE0FAA21FDC803002C85C2 /* VENMyTeamCategoryView.h */,
+				2CFE0FAB21FDC803002C85C2 /* VENMyTeamCategoryView.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		2CFE0FA921FDC7B8002C85C2 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				2CFE0FAD21FDC84A002C85C2 /* VENMyTeamViewController.h */,
+				2CFE0FAE21FDC84A002C85C2 /* VENMyTeamViewController.m */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		2CFE0FB021FDC957002C85C2 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				2CFE0FB321FDC969002C85C2 /* Model */,
+				2CFE0FB221FDC966002C85C2 /* View */,
+				2CFE0FB121FDC960002C85C2 /* Controller */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		2CFE0FB121FDC960002C85C2 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				2CFE0FB521FDCBD7002C85C2 /* VENMyTeamSubviewsController.h */,
+				2CFE0FB621FDCBD7002C85C2 /* VENMyTeamSubviewsController.m */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		2CFE0FB221FDC966002C85C2 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				2CFE0FB821FDCD9D002C85C2 /* VENMyTeamSubviewsTableViewCell.h */,
+				2CFE0FB921FDCD9D002C85C2 /* VENMyTeamSubviewsTableViewCell.m */,
+				2CFE0FBA21FDCD9D002C85C2 /* VENMyTeamSubviewsTableViewCell.xib */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		2CFE0FB321FDC969002C85C2 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -2646,6 +2733,7 @@
 				2CD4FF3C21C78BB200868525 /* VENVerificationOfPhoneNumberViewController.xib in Resources */,
 				2C5FCB4221D0DE1D004A2C31 /* VENShoppingCartPlacingOrderReceivingAddAddressTableViewCell.xib in Resources */,
 				2C0F658321D35D3D0093A6D0 /* VENShoppingCartPlacingOrderSuccessViewController.xib in Resources */,
+				2CFE0FBC21FDCD9D002C85C2 /* VENMyTeamSubviewsTableViewCell.xib in Resources */,
 				2CC4FEC421D4AF7C00E9DC20 /* VENMyOrderTableViewCell.xib in Resources */,
 				2C275AFF21C1F50800E6719E /* VENMineTableViewCellStyleTwo.xib in Resources */,
 				2CD4FF4121C78FCF00868525 /* VENFillInInformationViewController.xib in Resources */,
@@ -2752,6 +2840,7 @@
 				2CEB832521B819CE004A8629 /* JXCategoryIndicatorCell.m in Sources */,
 				2CC4FECA21D4C32600E9DC20 /* VENMyOrderOrderDetailsViewController.m in Sources */,
 				2C94E27621E73715003F6595 /* ZLCameraImageView.m in Sources */,
+				2CFE0FB721FDCBD7002C85C2 /* VENMyTeamSubviewsController.m in Sources */,
 				2CC4FECE21D4D46800E9DC20 /* VENMyOrderOrderDetailsFooterView.m in Sources */,
 				2CDFA0B621B5813500254B52 /* TAAbstractDotView.m in Sources */,
 				2CDFA05921B5813500254B52 /* NSLayoutConstraint+MASDebugAdditions.m in Sources */,
@@ -2761,6 +2850,7 @@
 				2C54DED321DC549300E72241 /* VENMyBalanceHeaderViewTableViewCell.m in Sources */,
 				2C94E27321E73715003F6595 /* LGImagePickerSelectView.m in Sources */,
 				2CB54FC721B67A84003AD4D8 /* VENHomePageCollectionViewCell.m in Sources */,
+				2CFE0FBB21FDCD9D002C85C2 /* VENMyTeamSubviewsTableViewCell.m in Sources */,
 				2C720D2021EC2F9C0041AAD4 /* VENClassifyDetailsModel.m in Sources */,
 				2CEF612D21F75EC0009B5EC8 /* VENMyOrderAllOrdersModel.m in Sources */,
 				2C7A491121ED6DAA005C0014 /* VENPersonalSettingsViewController.m in Sources */,
@@ -2779,6 +2869,7 @@
 				2CEB833721B819CE004A8629 /* JXCategoryFactory.m in Sources */,
 				2CDFA07121B5813500254B52 /* AFURLSessionManager.m in Sources */,
 				2C275AF921C1F2C600E6719E /* VENMineTableViewCellStyleOne.m in Sources */,
+				2CFE0FAC21FDC803002C85C2 /* VENMyTeamCategoryView.m in Sources */,
 				2CD4FF4521C793B400868525 /* VENSetPasswordViewController.m in Sources */,
 				2CEB832F21B819CE004A8629 /* JXCategoryTitleView.m in Sources */,
 				2CDFA06721B5813500254B52 /* UIRefreshControl+AFNetworking.m in Sources */,
@@ -2881,6 +2972,7 @@
 				2CDFA07021B5813500254B52 /* AFHTTPSessionManager.m in Sources */,
 				2CDFA08721B5813500254B52 /* IQTextView.m in Sources */,
 				2CDFA06021B5813500254B52 /* MASConstraint.m in Sources */,
+				2CFE0FAF21FDC84A002C85C2 /* VENMyTeamViewController.m in Sources */,
 				2CDFA08121B5813500254B52 /* NSData+ImageContentType.m in Sources */,
 				2CDFA0A921B5813500254B52 /* MJRefreshComponent.m in Sources */,
 				2CEB833321B819CE004A8629 /* JXCategoryNumberView.m in Sources */,
