@@ -43,8 +43,7 @@ static NSString *cellIdentifier2 = @"cellIdentifier2";
     [self setupTableView];
     
     
-    NSDictionary *params = @{@"page" : @"0",
-                             @"page_size" : @"20"};
+    NSDictionary *params = @{@"page" : @"0"};
     [self loadDataWithParams:params];
 }
 

@@ -46,8 +46,7 @@ static NSString *cellIdentifier = @"cellIdentifier";
 - (void)loadDataWithPage:(NSString *)page {
     
     NSDictionary *params = @{@"status" : @"0",
-                             @"page" : page,
-                             @"page_size" : @"20"};
+                             @"page" : page};
     
     [[VENNetworkTool sharedManager] requestWithMethod:HTTPMethodPost path:@"order/lists" params:params showLoading:YES successBlock:^(id response) {
         [self.tableView.mj_header endRefreshing];

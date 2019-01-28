@@ -1,46 +1,90 @@
 //
-//  VENPersonalSettingsViewController.m
+//  VENPersonalDataViewController.m
 //  CiLuNetwork
 //
-//  Created by YVEN on 2019/1/15.
+//  Created by YVEN on 2019/1/28.
 //  Copyright © 2019年 Hefei Haiba Network Technology Co., Ltd. All rights reserved.
 //
 
-#import "VENPersonalSettingsViewController.h"
+#import "VENPersonalDataViewController.h"
 #import "VENMineTableViewCellStyleOne.h"
+#import "VENPersonalDataNamePageViewController.h"
 
-@interface VENPersonalSettingsViewController () <UITableViewDelegate, UITableViewDataSource>
+@interface VENPersonalDataViewController () <UITableViewDelegate, UITableViewDataSource>
 
 @end
 
 static NSString *cellIdentifier = @"cellIdentifier";
-@implementation VENPersonalSettingsViewController
+@implementation VENPersonalDataViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    self.navigationItem.title = @"个人设置";
+    self.navigationItem.title = @"个人资料";
     
     [self setupTableView];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 3;
+    return 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 2;
+    return section == 0 ? 3 : 2;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     VENMineTableViewCellStyleOne *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
-    NSArray *titleArr = @[@[@"个人资料", @"修改密码"], @[@"加入优势", @"关于我们"], @[@"在线留言", @"清除缓存"]];
+    NSArray *titleArr = @[@[@"头像", @"姓名", @"手机号码"], @[@"邀请码", @"我的邀请码"]];
     cell.leftLabel.text = titleArr[indexPath.section][indexPath.row];
     
+    cell.iconImageView.hidden = YES;
+    cell.rightLabel.hidden = YES;
+    cell.rightButton.hidden = YES;
+    cell.rightLabel2.hidden = YES;
+    
+    if (indexPath.section == 0) {
+        if (indexPath.row == 0) {
+            cell.iconImageView.hidden = NO;
+            [cell.iconImageView sd_setImageWithURL:[NSURL URLWithString:@""] placeholderImage:[UIImage imageNamed:@"icon_default_head_big"]];
+        } else if (indexPath.row == 1){
+            cell.rightLabel.hidden = NO;
+            cell.rightLabel.text = @"姓名姓名姓名";
+            cell.rightLabel.textColor = UIColorFromRGB(0x1A1A1A);
+        } else {
+            cell.rightLabel.hidden = NO;
+            cell.rightLabel.text = @"13333333333";
+            cell.rightLabel.textColor = UIColorFromRGB(0xCCCCCC);
+        }
+    } else if (indexPath.section == 1) {
+        if (indexPath.row == 1) {
+            cell.rightButton.hidden = NO;
+            cell.rightLabel2.hidden = NO;
+        }
+    }
+    
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.section == 0) {
+        if (indexPath.row == 1) {
+            VENPersonalDataNamePageViewController *vc = [[VENPersonalDataNamePageViewController alloc] init];
+            [self.navigationController pushViewController:vc animated:YES];
+        }
+    }
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.section == 0) {
+        if (indexPath.row == 0) {
+            return 60;
+        }
+    }
+    return 48;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
@@ -59,28 +103,6 @@ static NSString *cellIdentifier = @"cellIdentifier";
     [tableView registerNib:[UINib nibWithNibName:@"VENMineTableViewCellStyleOne" bundle:nil] forCellReuseIdentifier:cellIdentifier];
     tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.view addSubview:tableView];
-    
-    UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kMainScreenWidth, 48 + 18)];
-    tableView.tableFooterView = footerView;
-    
-    UIButton *loginoutButton = [[UIButton alloc] initWithFrame:CGRectMake(15, 18, kMainScreenWidth - 30, 48)];
-    loginoutButton.backgroundColor = [UIColor whiteColor];
-    [loginoutButton setTitle:@"退出登录" forState:UIControlStateNormal];
-    [loginoutButton setTitleColor:UIColorFromRGB(0xD0021B) forState:UIControlStateNormal];
-    [loginoutButton addTarget:self action:@selector(loginoutButtonClick) forControlEvents:UIControlEventTouchUpInside];
-    loginoutButton.layer.cornerRadius = 4.0f;
-    loginoutButton.layer.masksToBounds = YES;
-    loginoutButton.layer.borderWidth = 1.0f;
-    loginoutButton.layer.borderColor = UIColorFromRGB(0xD0021B).CGColor;
-    [footerView addSubview:loginoutButton];
-}
-
-- (void)loginoutButtonClick {
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    [userDefaults removeObjectForKey:@"token"];
-    
-    [self.navigationController popViewControllerAnimated:YES];
-    self.block(@"loginoutSuccess");
 }
 
 /*
