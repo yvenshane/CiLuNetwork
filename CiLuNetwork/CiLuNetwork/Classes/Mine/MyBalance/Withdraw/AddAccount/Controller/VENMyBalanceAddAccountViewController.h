@@ -7,12 +7,11 @@
 //
 
 #import "VENBaseViewController.h"
+@class VENMyBalanceWithdrawModel;
 
-typedef NS_ENUM(NSInteger, VENMyBalanceWithdrawAccountStyle) {
-    VENMyBalanceWithdrawAccountStyleAliPay,
-    VENMyBalanceWithdrawAccountStyleBankCard
-};
+typedef void (^saveSuccessfullyBlock)(NSString *);
 @interface VENMyBalanceAddAccountViewController : VENBaseViewController
-@property (nonatomic) VENMyBalanceWithdrawAccountStyle withdrawAccountStyle;
+@property (nonatomic, strong) VENMyBalanceWithdrawModel *model;
+@property (nonatomic, copy) saveSuccessfullyBlock block;
 
 @end

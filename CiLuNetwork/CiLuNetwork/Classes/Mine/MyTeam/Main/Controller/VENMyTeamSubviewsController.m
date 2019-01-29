@@ -10,6 +10,7 @@
 #import "VENMyTeamSubviewsTableViewCell.h"
 
 @interface VENMyTeamSubviewsController () <UITableViewDelegate, UITableViewDataSource>
+@property (nonatomic, assign) NSInteger page;
 
 @end
 
@@ -29,17 +30,14 @@ static NSString *cellIdentifier = @"cellIdentifier";
                              @"page" : page};
     
     [[VENNetworkTool sharedManager] requestWithMethod:HTTPMethodPost path:@"order/lists" params:params showLoading:YES successBlock:^(id response) {
-        [self.tableView.mj_header endRefreshing];
-        
         if ([response[@"status"] integerValue] == 0) {
-            
             if ([page integerValue] == 1) {
-                
+                [self.tableView.mj_header endRefreshing];
 //                self.responseMuArr = [NSMutableArray arrayWithArray:response[@"data"][@"lists"]];
 //                self.listsMuArr = [NSMutableArray arrayWithArray:[NSArray yy_modelArrayWithClass:[VENMyOrderAllOrdersModel class] json:response[@"data"][@"lists"]]];
-                
-                [self.tableView.mj_footer endRefreshingWithNoMoreData];
+                self.page = 1;
             } else {
+                [self.tableView.mj_footer endRefreshing];
                 
 //                [self.responseMuArr addObjectsFromArray:response[@"data"][@"lists"]];
 //
@@ -48,8 +46,6 @@ static NSString *cellIdentifier = @"cellIdentifier";
             
             if ([response[@"data"][@"hasNext"] integerValue] == 0) {
                 [self.tableView.mj_footer endRefreshingWithNoMoreData];
-            } else {
-                [self.tableView.mj_footer endRefreshing];
             }
             
             [self.tableView reloadData];
@@ -95,14 +91,12 @@ static NSString *cellIdentifier = @"cellIdentifier";
     UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kMainScreenWidth, 10)];
     tableView.tableHeaderView = headerView;
     
-    __block NSInteger page = 1;
-    
     tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         [self loadDataWithPage:@"1"];
     }];
     
     tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
-        [self loadDataWithPage:[NSString stringWithFormat:@"%ld", ++page]];
+        [self loadDataWithPage:[NSString stringWithFormat:@"%ld", ++self.page]];
     }];
     
     _tableView = tableView;

@@ -8,6 +8,8 @@
 
 #import "VENBaseViewController.h"
 
+typedef void (^successfulPaymentBlock)(NSString *);
 @interface VENMyBalanceRechargeViewController : VENBaseViewController
+@property (nonatomic, copy) successfulPaymentBlock block;
 
 @end

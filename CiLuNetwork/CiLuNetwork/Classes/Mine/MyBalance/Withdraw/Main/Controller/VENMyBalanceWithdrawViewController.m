@@ -10,14 +10,15 @@
 #import "VENMyBalanceWithdrawTableViewCell.h"
 #import "VENMyBalanceWithdrawTableViewCell2.h"
 #import "VENMyBalanceAddAccountViewController.h"
+#import "VENMyBalanceWithdrawModel.h"
 
-typedef NS_ENUM(NSInteger, VENMyBalanceWithdrawStyle) {
-    VENMyBalanceWithdrawStyleAliPay,
-    VENMyBalanceWithdrawStyleBankCard
-};
 @interface VENMyBalanceWithdrawViewController () <UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong) UITableView *tableView;
-@property (nonatomic) VENMyBalanceWithdrawStyle withdrawStyle;
+
+@property (nonatomic, copy) NSString *balance;
+@property (nonatomic, copy) NSArray *account_listArr;
+
+@property (nonatomic, copy) NSString *type;
 
 @end
 
@@ -31,9 +32,27 @@ static NSString *cellIdentifier2 = @"cellIdentifier2";
     
     self.navigationItem.title = @"提现";
     
-    self.withdrawStyle = VENMyBalanceWithdrawStyleAliPay;
-    
+    [self loadData];
     [self setupTableView];
+}
+
+- (void)loadData {
+    [[VENNetworkTool sharedManager] requestWithMethod:HTTPMethodPost path:@"balance/preWithdraw" params:nil showLoading:YES successBlock:^(id response) {
+        
+        if ([response[@"status"] integerValue] == 0) {
+            self.balance = response[@"data"][@"balance"];
+            self.account_listArr = [NSArray yy_modelArrayWithClass:[VENMyBalanceWithdrawModel class] json:response[@"data"][@"account_list"]];
+            
+            VENMyBalanceWithdrawModel *model = self.account_listArr[0];
+            model.isChoise = YES;
+            self.type = model.type;
+            
+            [self.tableView reloadData];
+        }
+        
+    } failureBlock:^(NSError *error) {
+        
+    }];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -41,7 +60,7 @@ static NSString *cellIdentifier2 = @"cellIdentifier2";
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return section == 0 ? 1 : 2;
+    return section == 0 ? 1 : self.account_listArr.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -50,17 +69,31 @@ static NSString *cellIdentifier2 = @"cellIdentifier2";
         VENMyBalanceWithdrawTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
+        cell.priceLabel.text = [NSString stringWithFormat:@"可提现金额：¥%@", self.balance];
         cell.priceTextField.keyboardType = UIKeyboardTypeDecimalPad;
+        
+        // 全部提现
+        [cell.allWithdrawButton addTarget:self action:@selector(allWithdrawButtonClick) forControlEvents:UIControlEventTouchUpInside];
         
         return cell;
     } else {
         VENMyBalanceWithdrawTableViewCell2 *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier2 forIndexPath:indexPath];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
-        cell.leftLabel.text = indexPath.row == 0 ? @"支付宝" : @"银行卡";
+        VENMyBalanceWithdrawModel *model = self.account_listArr[indexPath.row];
+        
+        cell.leftLabel.text = model.name;
+        
+        if ([[VENClassEmptyManager sharedManager] isEmptyString:model.username]) {
+            cell.rightLabel.text = @"未设置";
+            cell.rightLabel.textColor = UIColorFromRGB(0xB2B2B2);
+        } else {
+            cell.rightLabel.text = model.username;
+            cell.rightLabel.textColor = [UIColor blackColor];
+        }
         
         cell.choiceButton.tag = indexPath.row;
-        cell.choiceButton.selected = self.withdrawStyle == VENMyBalanceWithdrawStyleAliPay ? indexPath.row == 0 ? YES : NO : indexPath.row == 0 ? NO : YES;
+        cell.choiceButton.selected = model.isChoise;
         [cell.choiceButton addTarget:self action:@selector(choiceButtonClick:) forControlEvents:UIControlEventTouchUpInside];
         
         return cell;
@@ -68,14 +101,26 @@ static NSString *cellIdentifier2 = @"cellIdentifier2";
 }
 
 - (void)choiceButtonClick:(UIButton *)button {
-    self.withdrawStyle = button.tag == 0 ? VENMyBalanceWithdrawStyleAliPay : VENMyBalanceWithdrawStyleBankCard;
+    for (VENMyBalanceWithdrawModel *model in self.account_listArr) {
+        model.isChoise = NO;
+    }
+    
+    VENMyBalanceWithdrawModel *model = self.account_listArr[button.tag];
+    model.isChoise = YES;
+    self.type = model.type;
+    
     [_tableView reloadData];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 1) {
+        VENMyBalanceWithdrawModel *model = self.account_listArr[indexPath.row];
+        
         VENMyBalanceAddAccountViewController *vc = [[VENMyBalanceAddAccountViewController alloc] init];
-        vc.withdrawAccountStyle = indexPath.row == 0 ? VENMyBalanceWithdrawAccountStyleAliPay : VENMyBalanceWithdrawAccountStyleBankCard;
+        vc.block = ^(NSString *name) {
+            [self loadData];
+        };
+        vc.model = model;
         [self.navigationController pushViewController:vc animated:YES];
     }
 }
@@ -115,7 +160,29 @@ static NSString *cellIdentifier2 = @"cellIdentifier2";
 }
 
 - (void)confirmButtonClick {
+    VENMyBalanceWithdrawTableViewCell *cell = (VENMyBalanceWithdrawTableViewCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+    if ([[VENClassEmptyManager sharedManager] isEmptyString:cell.priceTextField.text]) {
+        [[VENMBProgressHUDManager sharedManager] showText:@"请输入提现金额"];
+        return;
+    }
     
+    NSDictionary *params = @{@"amount" : cell.priceTextField.text,
+                             @"type" : self.type};
+
+    [[VENNetworkTool sharedManager] requestWithMethod:HTTPMethodPost path:@"balance/withdraw" params:params showLoading:YES successBlock:^(id response) {
+        
+        if ([response[@"status"] integerValue] == 0) {
+            [self loadData];
+        }
+        
+    } failureBlock:^(NSError *error) {
+        
+    }];
+}
+
+- (void)allWithdrawButtonClick {
+    VENMyBalanceWithdrawTableViewCell *cell = (VENMyBalanceWithdrawTableViewCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+    cell.priceTextField.text = [NSString stringWithFormat:@"%@", self.balance];
 }
 
 - (void)didReceiveMemoryWarning {
