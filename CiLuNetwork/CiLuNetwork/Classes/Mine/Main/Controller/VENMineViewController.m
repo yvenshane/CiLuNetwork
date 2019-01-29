@@ -28,6 +28,7 @@
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray *dataSourceMuArr;
 @property (nonatomic, strong) VENMineModel *model;
+@property (nonatomic, strong) VENMineModel *order_infoModel;
 
 @end
 
@@ -57,6 +58,8 @@ static NSString *cellIdentifier3 = @"cellIdentifier3";
         if ([response[@"status"] integerValue] == 0) {
         
             self.model = [VENMineModel yy_modelWithJSON:response[@"data"]];
+            self.order_infoModel = [VENMineModel yy_modelWithJSON:response[@"data"][@"order_info"]];
+            
             [self.tableView reloadData];
         }
     } failureBlock:^(NSError *error) {
@@ -86,6 +89,14 @@ static NSString *cellIdentifier3 = @"cellIdentifier3";
         [cell.nameButton setTitle:self.model.name forState:UIControlStateNormal];
         [cell.otherButton setTitle:self.model.tag_name forState:UIControlStateNormal];
         
+        if ([self.model.tag_name isEqualToString:@"游客"]) {
+            cell.otherButton.layer.borderColor = UIColorFromRGB(0xE8E8E8).CGColor;
+            [cell.otherButton setTitleColor:UIColorFromRGB(0xCCCCCC) forState:UIControlStateNormal];
+        } else {
+            cell.otherButton.layer.borderColor = UIColorFromRGB(0xC7974F).CGColor;
+            [cell.otherButton setTitleColor:UIColorFromRGB(0xC7974F) forState:UIControlStateNormal];
+        }
+        
         [cell.nameButton addTarget:self action:@selector(nameButtonClick) forControlEvents:UIControlEventTouchUpInside];
         
         cell.separatorInset = UIEdgeInsetsMake(0, kMainScreenWidth, 0, 0);
@@ -94,6 +105,27 @@ static NSString *cellIdentifier3 = @"cellIdentifier3";
     } else if (indexPath.section == 1) {
         VENMineTableViewCellStyleTwo *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier2 forIndexPath:indexPath];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        
+        if ([self.order_infoModel.shipping_count integerValue] > 0) {
+            cell.shippingCountLabel.hidden = NO;
+            cell.shippingCountLabel.text = self.order_infoModel.shipping_count;
+        } else {
+            cell.shippingCountLabel.hidden = YES;
+        }
+        
+        if ([self.order_infoModel.receiving_count integerValue] > 0) {
+            cell.receivingCountLabel.hidden = NO;
+            cell.receivingCountLabel.text = self.order_infoModel.receiving_count;
+        } else {
+            cell.receivingCountLabel.hidden = YES;
+        }
+        
+        if ([self.order_infoModel.comment_count integerValue] > 0) {
+            cell.commentCountLabel.hidden = NO;
+            cell.commentCountLabel.text = self.order_infoModel.comment_count;
+        } else {
+            cell.commentCountLabel.hidden = YES;
+        }
         
         [cell.waitingForShipmentButton addTarget:self action:@selector(waitingForShipmentButtonClick) forControlEvents:UIControlEventTouchUpInside];
         [cell.waitingForReceivingButton addTarget:self action:@selector(waitingForReceivingButtonClick) forControlEvents:UIControlEventTouchUpInside];
@@ -108,7 +140,7 @@ static NSString *cellIdentifier3 = @"cellIdentifier3";
             if (indexPath.row == 0) {
                 cell.leftLabel.text = @"我的余额";
                 cell.rightLabel.hidden = NO;
-                cell.rightLabel.text = @"0元";
+                cell.rightLabel.text = [NSString stringWithFormat:@"%@元", self.model.balance];
             } else {
                 cell.rightLabel.hidden = YES;
                 

@@ -13,6 +13,15 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
+    
+    self.shippingCountLabel.layer.cornerRadius = 8.0f;
+    self.shippingCountLabel.layer.masksToBounds = YES;
+    
+    self.receivingCountLabel.layer.cornerRadius = 8.0f;
+    self.receivingCountLabel.layer.masksToBounds = YES;
+    
+    self.commentCountLabel.layer.cornerRadius = 8.0f;
+    self.commentCountLabel.layer.masksToBounds = YES;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

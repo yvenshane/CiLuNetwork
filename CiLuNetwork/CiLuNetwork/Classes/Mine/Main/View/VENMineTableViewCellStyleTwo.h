@@ -13,4 +13,8 @@
 @property (weak, nonatomic) IBOutlet UIButton *waitingForReceivingButton;
 @property (weak, nonatomic) IBOutlet UIButton *waitingForEvaluationButton;
 
+@property (weak, nonatomic) IBOutlet UILabel *shippingCountLabel;
+@property (weak, nonatomic) IBOutlet UILabel *receivingCountLabel;
+@property (weak, nonatomic) IBOutlet UILabel *commentCountLabel;
+
 @end

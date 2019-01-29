@@ -14,6 +14,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy) NSString *tag_name;
 @property (nonatomic, copy) NSString *name;
 @property (nonatomic, copy) NSString *avatar;
+@property (nonatomic, copy) NSString *balance;
+
+@property (nonatomic, copy) NSString *shipping_count;
+@property (nonatomic, copy) NSString *receiving_count;
+@property (nonatomic, copy) NSString *comment_count;
 
 @end
 
