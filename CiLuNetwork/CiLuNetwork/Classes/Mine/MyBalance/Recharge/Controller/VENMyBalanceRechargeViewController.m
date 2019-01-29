@@ -40,8 +40,9 @@ static NSString *cellIdentifier2 = @"cellIdentifier2";
 }
 
 - (void)notificationCenter:(NSNotification *)noti {
-    [self.navigationController popViewControllerAnimated:YES];
     self.block(@"");
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"RefreshMinePage" object:nil];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {

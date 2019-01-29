@@ -6,6 +6,9 @@
 //
 
 #import "VENNetworkTool.h"
+#import <ifaddrs.h>
+#import <arpa/inet.h>
+#import <AdSupport/AdSupport.h>
 #import "VENLoginViewController.h"
 
 @interface VENNetworkTool ()
@@ -31,6 +34,7 @@ static dispatch_once_t onceToken;
         //request
         self.requestSerializer.timeoutInterval = 15;
         self.requestSerializer.cachePolicy = NSURLRequestReloadIgnoringLocalCacheData;
+        [self.requestSerializer setValue:[[NSUserDefaults standardUserDefaults] objectForKey:@"Login"][@"userid"] forHTTPHeaderField:@"userid"];
         self.requestSerializer.HTTPShouldHandleCookies = YES;
         
         //response
@@ -80,9 +84,7 @@ static dispatch_once_t onceToken;
             [self showLoading:isShow];
             [self GET:path parameters:mutableParams progress:nil success:^(NSURLSessionTask *task, id responseObject) {
                 [self hideLoading:isShow];
-                
                 NSLog(@"%@", responseObject);
-                
                 success(responseObject);
             } failure:^(NSURLSessionTask *operation, NSError *error) {
                 [self hideLoading:isShow];
@@ -116,7 +118,6 @@ static dispatch_once_t onceToken;
                 success(responseObject);
             } failure:^(NSURLSessionTask *operation, NSError *error) {
                 [self hideLoading:isShow];
-                
                 failure(error);
             }];
             break;
@@ -184,6 +185,87 @@ static dispatch_once_t onceToken;
         //隐藏正在显示的loading
         [[VENMBProgressHUDManager sharedManager] removeLoading];
     }
+}
+
+- (NSString *)getIPAddress {
+    NSString *address = @"error";
+    struct ifaddrs *interfaces = NULL;
+    struct ifaddrs *temp_addr = NULL;
+    int success = 0;
+    // 检索当前接口,在成功时,返回0
+    success = getifaddrs(&interfaces);
+    if (success == 0) {
+        // 循环链表的接口
+        temp_addr = interfaces;
+        while(temp_addr != NULL) {
+            if(temp_addr->ifa_addr->sa_family == AF_INET) {
+                // 检查接口是否en0 wifi连接在iPhone上
+                if([[NSString stringWithUTF8String:temp_addr->ifa_name] isEqualToString:@"en0"]) {
+                    // 得到NSString从C字符串
+                    address = [NSString stringWithUTF8String:inet_ntoa(((struct sockaddr_in *)temp_addr->ifa_addr)->sin_addr)];
+                }
+            }
+            temp_addr = temp_addr->ifa_next;
+        }
+    }
+    // 释放内存
+    freeifaddrs(interfaces);
+    return address;
+}
+
+- (NSString *)getIDFA {
+    return [[[ASIdentifierManager sharedManager] advertisingIdentifier] UUIDString];
+}
+
+#pragma mark 上传单张图片
+- (void)uploadImageWithPath:(NSString *)path image:(UIImage *)image params:(NSDictionary *)params success:(SuccessBlock)success failure:(FailureBlock)failure {
+    
+    NSArray *array;
+    if (image == nil) {
+        array = @[];
+    } else {
+        array = [NSArray arrayWithObject:image];
+    }
+    
+    [self uploadImageWithPath:path photos:array params:params success:success failure:failure];
+}
+
+#pragma mark 上传图片
+- (void)uploadImageWithPath:(NSString *)path photos:(NSArray *)photos params:(NSDictionary *)params success:(SuccessBlock)success failure:(FailureBlock)failure {
+    
+    path = [[path stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding] lowercaseString];
+    
+    NSLog(@"请求接口：%@", path);
+    
+    if (params == nil) {
+        params = @{};
+    }
+    
+    NSLog(@"请求参数：%@", params);
+    
+    NSLog(@"photos：%@", photos);
+    
+    [self POST:path parameters:params constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
+        for (int i = 0; i < photos.count; i ++) {
+            NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+            formatter.dateFormat = @"yyyyMMddHHmmss";
+            NSString *str = [formatter stringFromDate:[NSDate date]];
+            NSString *fileName = [NSString stringWithFormat:@"%@.jpg",str];
+
+            UIImage *image = photos[i];
+            NSData *imageData = UIImageJPEGRepresentation(image, 0.28);
+
+            [formData appendPartWithFileData:imageData name:@"avatar" fileName:fileName mimeType:@"image/jpeg"];
+        }
+    } progress:^(NSProgress * _Nonnull uploadProgress) {
+
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        NSLog(@"%@", responseObject);
+        [[VENMBProgressHUDManager sharedManager] showText:responseObject[@"message"]];
+        success(responseObject);
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        failure(error);
+    }];
 }
 
 - (UIViewController *)findCurrentViewController {

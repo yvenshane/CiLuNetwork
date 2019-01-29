@@ -68,7 +68,6 @@
     [alert addAction:cancelAction];
     
     [self presentViewController:alert animated:YES completion:nil];
-    
 }
 
 - (IBAction)nextButtonClick:(id)sender {

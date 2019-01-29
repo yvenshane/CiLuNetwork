@@ -137,6 +137,9 @@ static NSString *cellIdentifier2 = @"cellIdentifier2";
     NSLog(@"提现");
     
     VENMyBalanceWithdrawViewController *vc = [[VENMyBalanceWithdrawViewController alloc] init];
+    vc.block = ^(NSString *str) {
+        [self.tableView.mj_header beginRefreshing];
+    };
     [self.navigationController pushViewController:vc animated:YES];
 }
 

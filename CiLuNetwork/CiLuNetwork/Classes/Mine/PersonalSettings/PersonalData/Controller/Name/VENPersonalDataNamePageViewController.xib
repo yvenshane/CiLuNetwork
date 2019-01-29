@@ -12,6 +12,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="VENPersonalDataNamePageViewController">
             <connections>
+                <outlet property="nameTextField" destination="l1R-33-Opq" id="phA-jm-D5p"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>

@@ -9,6 +9,7 @@
 #import "VENPersonalDataNamePageViewController.h"
 
 @interface VENPersonalDataNamePageViewController ()
+@property (weak, nonatomic) IBOutlet UITextField *nameTextField;
 
 @end
 
@@ -19,6 +20,7 @@
     // Do any additional setup after loading the view from its nib.
     
     self.navigationItem.title = @"姓名";
+    self.nameTextField.text = [NSString stringWithFormat:@"%@", self.name];
     
     [self setupSaveButton];
 }
@@ -35,6 +37,24 @@
 
 - (void)saveButtonClick {
     
+    if ([[VENClassEmptyManager sharedManager] isEmptyString:self.nameTextField.text]) {
+        [[VENMBProgressHUDManager sharedManager] showText:@"请输入姓名"];
+        return;
+    }
+    
+    NSDictionary *params = @{@"username" : self.nameTextField.text};
+    
+    [[VENNetworkTool sharedManager] requestWithMethod:HTTPMethodPost path:@"setting/modifyUsername" params:params showLoading:YES successBlock:^(id response) {
+        
+        if ([response[@"status"] integerValue] == 0) {
+            self.block(@"");
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"RefreshMinePage" object:nil];
+            [self.navigationController popViewControllerAnimated:YES];
+        }
+        
+    } failureBlock:^(NSError *error) {
+        
+    }];
 }
 
 /*

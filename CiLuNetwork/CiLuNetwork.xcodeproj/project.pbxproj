@@ -38,7 +38,6 @@
 		2C30BC5A21F17A7D001A4CB2 /* VENCityPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C30BC5821F17A7C001A4CB2 /* VENCityPickerView.m */; };
 		2C30BC5D21F486DB001A4CB2 /* VENShoppingCartPlacingOrderReceivingAddressModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C30BC5C21F486DB001A4CB2 /* VENShoppingCartPlacingOrderReceivingAddressModel.m */; };
 		2C40EE7921F6F52300EC21FA /* VENShoppingCartPlacingOrderPaymentOrderPayTypeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C40EE7821F6F52300EC21FA /* VENShoppingCartPlacingOrderPaymentOrderPayTypeModel.m */; };
-		2C4208A321E6D1C70033E030 /* VENNetworkTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C4208A021E6D1C70033E030 /* VENNetworkTool.m */; };
 		2C4208A421E6D1C70033E030 /* VENMBProgressHUDManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C4208A121E6D1C70033E030 /* VENMBProgressHUDManager.m */; };
 		2C4E5B7D21BE933900A041B3 /* VENFilterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C4E5B7C21BE933900A041B3 /* VENFilterView.m */; };
 		2C54DEC921DC504C00E72241 /* VENMyBalanceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C54DEC821DC504C00E72241 /* VENMyBalanceViewController.m */; };
@@ -68,6 +67,10 @@
 		2C720D2021EC2F9C0041AAD4 /* VENClassifyDetailsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C720D1F21EC2F9C0041AAD4 /* VENClassifyDetailsModel.m */; };
 		2C78042121FED3B100EBD7C8 /* VENMyBalanceModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C78042021FED3B100EBD7C8 /* VENMyBalanceModel.m */; };
 		2C78042421FEEE6C00EBD7C8 /* VENMyBalanceWithdrawModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C78042321FEEE6C00EBD7C8 /* VENMyBalanceWithdrawModel.m */; };
+		2C78042A21FFFF2300EBD7C8 /* VENPersonalDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C78042921FFFF2300EBD7C8 /* VENPersonalDataModel.m */; };
+		2C78042D22003DA300EBD7C8 /* VENNetworkTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C78042C22003DA300EBD7C8 /* VENNetworkTool.m */; };
+		2C780434220046DC00EBD7C8 /* VENPersonalDataInvitationCodePageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C780432220046DC00EBD7C8 /* VENPersonalDataInvitationCodePageViewController.m */; };
+		2C780435220046DC00EBD7C8 /* VENPersonalDataInvitationCodePageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2C780433220046DC00EBD7C8 /* VENPersonalDataInvitationCodePageViewController.xib */; };
 		2C7A491121ED6DAA005C0014 /* VENPersonalSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C7A491021ED6DAA005C0014 /* VENPersonalSettingsViewController.m */; };
 		2C7A491421ED90C8005C0014 /* VENClassifyDetailsUserEvaluateModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C7A491321ED90C8005C0014 /* VENClassifyDetailsUserEvaluateModel.m */; };
 		2C9365F821CCE2AD002B0ED9 /* VENShoppingCartPlacingOrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9365F721CCE2AD002B0ED9 /* VENShoppingCartPlacingOrderViewController.m */; };
@@ -351,8 +354,6 @@
 		2C30BC5C21F486DB001A4CB2 /* VENShoppingCartPlacingOrderReceivingAddressModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VENShoppingCartPlacingOrderReceivingAddressModel.m; sourceTree = "<group>"; };
 		2C40EE7721F6F52300EC21FA /* VENShoppingCartPlacingOrderPaymentOrderPayTypeModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VENShoppingCartPlacingOrderPaymentOrderPayTypeModel.h; sourceTree = "<group>"; };
 		2C40EE7821F6F52300EC21FA /* VENShoppingCartPlacingOrderPaymentOrderPayTypeModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VENShoppingCartPlacingOrderPaymentOrderPayTypeModel.m; sourceTree = "<group>"; };
-		2C42089F21E6D1C70033E030 /* VENNetworkTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VENNetworkTool.h; sourceTree = "<group>"; };
-		2C4208A021E6D1C70033E030 /* VENNetworkTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VENNetworkTool.m; sourceTree = "<group>"; };
 		2C4208A121E6D1C70033E030 /* VENMBProgressHUDManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VENMBProgressHUDManager.m; sourceTree = "<group>"; };
 		2C4208A221E6D1C70033E030 /* VENMBProgressHUDManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VENMBProgressHUDManager.h; sourceTree = "<group>"; };
 		2C4E5B7B21BE933900A041B3 /* VENFilterView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VENFilterView.h; sourceTree = "<group>"; };
@@ -404,6 +405,13 @@
 		2C78042021FED3B100EBD7C8 /* VENMyBalanceModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VENMyBalanceModel.m; sourceTree = "<group>"; };
 		2C78042221FEEE6C00EBD7C8 /* VENMyBalanceWithdrawModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VENMyBalanceWithdrawModel.h; sourceTree = "<group>"; };
 		2C78042321FEEE6C00EBD7C8 /* VENMyBalanceWithdrawModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VENMyBalanceWithdrawModel.m; sourceTree = "<group>"; };
+		2C78042821FFFF2300EBD7C8 /* VENPersonalDataModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VENPersonalDataModel.h; sourceTree = "<group>"; };
+		2C78042921FFFF2300EBD7C8 /* VENPersonalDataModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VENPersonalDataModel.m; sourceTree = "<group>"; };
+		2C78042B22003DA300EBD7C8 /* VENNetworkTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VENNetworkTool.h; sourceTree = "<group>"; };
+		2C78042C22003DA300EBD7C8 /* VENNetworkTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VENNetworkTool.m; sourceTree = "<group>"; };
+		2C780431220046DC00EBD7C8 /* VENPersonalDataInvitationCodePageViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VENPersonalDataInvitationCodePageViewController.h; sourceTree = "<group>"; };
+		2C780432220046DC00EBD7C8 /* VENPersonalDataInvitationCodePageViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VENPersonalDataInvitationCodePageViewController.m; sourceTree = "<group>"; };
+		2C780433220046DC00EBD7C8 /* VENPersonalDataInvitationCodePageViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VENPersonalDataInvitationCodePageViewController.xib; sourceTree = "<group>"; };
 		2C7A490F21ED6DAA005C0014 /* VENPersonalSettingsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VENPersonalSettingsViewController.h; sourceTree = "<group>"; };
 		2C7A491021ED6DAA005C0014 /* VENPersonalSettingsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VENPersonalSettingsViewController.m; sourceTree = "<group>"; };
 		2C7A491221ED90C8005C0014 /* VENClassifyDetailsUserEvaluateModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VENClassifyDetailsUserEvaluateModel.h; sourceTree = "<group>"; };
@@ -1291,13 +1299,58 @@
 		2C6BC96E21FE8DBD006752A8 /* PersonalData */ = {
 			isa = PBXGroup;
 			children = (
+				2C78042521FFFEF200EBD7C8 /* Model */,
+				2C78042621FFFEFB00EBD7C8 /* Controller */,
+			);
+			path = PersonalData;
+			sourceTree = "<group>";
+		};
+		2C78042521FFFEF200EBD7C8 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				2C78042821FFFF2300EBD7C8 /* VENPersonalDataModel.h */,
+				2C78042921FFFF2300EBD7C8 /* VENPersonalDataModel.m */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		2C78042621FFFEFB00EBD7C8 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				2C78042E220045A200EBD7C8 /* Main */,
+				2C78042F2200463600EBD7C8 /* Name */,
+				2C7804302200465000EBD7C8 /* InvitationCode */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		2C78042E220045A200EBD7C8 /* Main */ = {
+			isa = PBXGroup;
+			children = (
 				2C6BC96F21FE8DF3006752A8 /* VENPersonalDataViewController.h */,
 				2C6BC97021FE8DF3006752A8 /* VENPersonalDataViewController.m */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		2C78042F2200463600EBD7C8 /* Name */ = {
+			isa = PBXGroup;
+			children = (
 				2C6BC97221FEAE39006752A8 /* VENPersonalDataNamePageViewController.h */,
 				2C6BC97321FEAE39006752A8 /* VENPersonalDataNamePageViewController.m */,
 				2C6BC97421FEAE39006752A8 /* VENPersonalDataNamePageViewController.xib */,
 			);
-			path = PersonalData;
+			path = Name;
+			sourceTree = "<group>";
+		};
+		2C7804302200465000EBD7C8 /* InvitationCode */ = {
+			isa = PBXGroup;
+			children = (
+				2C780431220046DC00EBD7C8 /* VENPersonalDataInvitationCodePageViewController.h */,
+				2C780432220046DC00EBD7C8 /* VENPersonalDataInvitationCodePageViewController.m */,
+				2C780433220046DC00EBD7C8 /* VENPersonalDataInvitationCodePageViewController.xib */,
+			);
+			path = InvitationCode;
 			sourceTree = "<group>";
 		};
 		2C7A490D21ED6D5E005C0014 /* PersonalSettings */ = {
@@ -1888,8 +1941,8 @@
 				2CDFA0BE21B582D600254B52 /* VENClassEmptyManager.m */,
 				2C4208A221E6D1C70033E030 /* VENMBProgressHUDManager.h */,
 				2C4208A121E6D1C70033E030 /* VENMBProgressHUDManager.m */,
-				2C42089F21E6D1C70033E030 /* VENNetworkTool.h */,
-				2C4208A021E6D1C70033E030 /* VENNetworkTool.m */,
+				2C78042B22003DA300EBD7C8 /* VENNetworkTool.h */,
+				2C78042C22003DA300EBD7C8 /* VENNetworkTool.m */,
 				2C94E29D21E77291003F6595 /* VENUserStatusManager.h */,
 				2C94E29E21E77291003F6595 /* VENUserStatusManager.m */,
 			);
@@ -2813,6 +2866,7 @@
 				2C1B7DFC21DCB7A40030532B /* VENMyBalanceWithdrawTableViewCell2.xib in Resources */,
 				2CD4FF3C21C78BB200868525 /* VENVerificationOfPhoneNumberViewController.xib in Resources */,
 				2C5FCB4221D0DE1D004A2C31 /* VENShoppingCartPlacingOrderReceivingAddAddressTableViewCell.xib in Resources */,
+				2C780435220046DC00EBD7C8 /* VENPersonalDataInvitationCodePageViewController.xib in Resources */,
 				2C0F658321D35D3D0093A6D0 /* VENShoppingCartPlacingOrderSuccessViewController.xib in Resources */,
 				2CFE0FBC21FDCD9D002C85C2 /* VENMyTeamSubviewsTableViewCell.xib in Resources */,
 				2CC4FEC421D4AF7C00E9DC20 /* VENMyOrderTableViewCell.xib in Resources */,
@@ -2892,6 +2946,7 @@
 				2CD4FF4021C78FCF00868525 /* VENFillInInformationViewController.m in Sources */,
 				2CDFA0A521B5813500254B52 /* MJRefreshFooter.m in Sources */,
 				2CDFA08C21B5813500254B52 /* IQPreviousNextView.m in Sources */,
+				2C780434220046DC00EBD7C8 /* VENPersonalDataInvitationCodePageViewController.m in Sources */,
 				2C0F65A321D369140093A6D0 /* VENMyOrderWaitingForEvaluationViewController.m in Sources */,
 				2CFE0FA521FDC3A5002C85C2 /* VENMyCommissionViewController.m in Sources */,
 				2C275AFE21C1F50800E6719E /* VENMineTableViewCellStyleTwo.m in Sources */,
@@ -2919,7 +2974,6 @@
 				2CF7EFBD21CB782F0020A448 /* VENClassifyDetailsUserEvaluateViewController.m in Sources */,
 				2CDFA09E21B5813500254B52 /* MJRefreshBackNormalFooter.m in Sources */,
 				2C94E28021E73715003F6595 /* LGPhotoPickerFooterCollectionReusableView.m in Sources */,
-				2C4208A321E6D1C70033E030 /* VENNetworkTool.m in Sources */,
 				2C40EE7921F6F52300EC21FA /* VENShoppingCartPlacingOrderPaymentOrderPayTypeModel.m in Sources */,
 				2CDFA0B221B5813500254B52 /* SDCollectionViewCell.m in Sources */,
 				2CEB832521B819CE004A8629 /* JXCategoryIndicatorCell.m in Sources */,
@@ -2975,6 +3029,7 @@
 				2C94E27821E73715003F6595 /* LGCameraImageView.m in Sources */,
 				2CEB832421B819CE004A8629 /* JXCategoryIndicatorCellModel.m in Sources */,
 				2CDFA09A21B5813500254B52 /* NSBundle+MJRefresh.m in Sources */,
+				2C78042A21FFFF2300EBD7C8 /* VENPersonalDataModel.m in Sources */,
 				2C1B7E0821DCBF000030532B /* VENMyBalanceAddAccountTableViewCell.m in Sources */,
 				2C0F658E21D366660093A6D0 /* VENMyOrderCategoryView.m in Sources */,
 				2C94E27021E73715003F6595 /* LGPhotoPickerBrowserPhotoScrollView.m in Sources */,
@@ -3001,6 +3056,7 @@
 				2C94E27521E73715003F6595 /* ZLCameraViewController.m in Sources */,
 				2CEB832921B819CE004A8629 /* JXCategoryDotCellModel.m in Sources */,
 				2C2E2D8C21BFEAD700D44120 /* VENShoppingCartTableViewCell.m in Sources */,
+				2C78042D22003DA300EBD7C8 /* VENNetworkTool.m in Sources */,
 				2C1B7DF121DC97E70030532B /* VENMyBalanceRechargeTableViewCell.m in Sources */,
 				2CDFA0C121B582D600254B52 /* VENClassEmptyManager.m in Sources */,
 				2CDFA06F21B5813500254B52 /* AFURLResponseSerialization.m in Sources */,

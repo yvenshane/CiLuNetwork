@@ -48,6 +48,12 @@ static NSString *cellIdentifier3 = @"cellIdentifier3";
     [self setupSettingButton];
     
     [self.tableView.mj_header beginRefreshing];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notificationCenter:) name:@"RefreshMinePage" object:nil];
+}
+
+- (void)notificationCenter:(NSNotification *)noti {
+    [self.tableView.mj_header beginRefreshing];
 }
 
 - (void)loadData {

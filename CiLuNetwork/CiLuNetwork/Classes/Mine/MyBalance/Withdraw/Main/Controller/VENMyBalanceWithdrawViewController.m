@@ -173,6 +173,8 @@ static NSString *cellIdentifier2 = @"cellIdentifier2";
         
         if ([response[@"status"] integerValue] == 0) {
             [self loadData];
+            self.block(@"");
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"RefreshMinePage" object:nil];
         }
         
     } failureBlock:^(NSError *error) {

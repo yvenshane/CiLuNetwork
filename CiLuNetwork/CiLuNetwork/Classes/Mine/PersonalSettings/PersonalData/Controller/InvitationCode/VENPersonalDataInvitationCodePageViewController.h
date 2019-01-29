@@ -1,8 +1,8 @@
 //
-//  VENPersonalDataNamePageViewController.h
+//  VENPersonalDataInvitationCodePageViewController.h
 //  CiLuNetwork
 //
-//  Created by YVEN on 2019/1/28.
+//  Created by YVEN on 2019/1/29.
 //  Copyright © 2019年 Hefei Haiba Network Technology Co., Ltd. All rights reserved.
 //
 
@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface VENPersonalDataNamePageViewController : VENBaseViewController
+@interface VENPersonalDataInvitationCodePageViewController : VENBaseViewController
 
 @end
 

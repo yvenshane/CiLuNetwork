@@ -14,5 +14,6 @@
 @property (weak, nonatomic) IBOutlet UIImageView *iconImageView;
 @property (weak, nonatomic) IBOutlet UIButton *rightButton;
 @property (weak, nonatomic) IBOutlet UILabel *rightLabel2;
+@property (weak, nonatomic) IBOutlet UIImageView *rightImageView;
 
 @end

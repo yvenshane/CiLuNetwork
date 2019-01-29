@@ -8,6 +8,8 @@
 
 #import "VENBaseViewController.h"
 
+typedef void (^successfulWithdrawalsBlock)(NSString *);
 @interface VENMyBalanceWithdrawViewController : VENBaseViewController
+@property (nonatomic, copy) successfulWithdrawalsBlock block;
 
 @end
