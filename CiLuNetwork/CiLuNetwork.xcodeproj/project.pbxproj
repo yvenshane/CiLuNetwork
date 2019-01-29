@@ -71,6 +71,8 @@
 		2C78042D22003DA300EBD7C8 /* VENNetworkTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C78042C22003DA300EBD7C8 /* VENNetworkTool.m */; };
 		2C780434220046DC00EBD7C8 /* VENPersonalDataInvitationCodePageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C780432220046DC00EBD7C8 /* VENPersonalDataInvitationCodePageViewController.m */; };
 		2C780435220046DC00EBD7C8 /* VENPersonalDataInvitationCodePageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2C780433220046DC00EBD7C8 /* VENPersonalDataInvitationCodePageViewController.xib */; };
+		2C78043A22004BFC00EBD7C8 /* VENResetPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C78043822004BFC00EBD7C8 /* VENResetPasswordViewController.m */; };
+		2C78043B22004BFC00EBD7C8 /* VENResetPasswordViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2C78043922004BFC00EBD7C8 /* VENResetPasswordViewController.xib */; };
 		2C7A491121ED6DAA005C0014 /* VENPersonalSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C7A491021ED6DAA005C0014 /* VENPersonalSettingsViewController.m */; };
 		2C7A491421ED90C8005C0014 /* VENClassifyDetailsUserEvaluateModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C7A491321ED90C8005C0014 /* VENClassifyDetailsUserEvaluateModel.m */; };
 		2C9365F821CCE2AD002B0ED9 /* VENShoppingCartPlacingOrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9365F721CCE2AD002B0ED9 /* VENShoppingCartPlacingOrderViewController.m */; };
@@ -412,6 +414,9 @@
 		2C780431220046DC00EBD7C8 /* VENPersonalDataInvitationCodePageViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VENPersonalDataInvitationCodePageViewController.h; sourceTree = "<group>"; };
 		2C780432220046DC00EBD7C8 /* VENPersonalDataInvitationCodePageViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VENPersonalDataInvitationCodePageViewController.m; sourceTree = "<group>"; };
 		2C780433220046DC00EBD7C8 /* VENPersonalDataInvitationCodePageViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VENPersonalDataInvitationCodePageViewController.xib; sourceTree = "<group>"; };
+		2C78043722004BFC00EBD7C8 /* VENResetPasswordViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VENResetPasswordViewController.h; sourceTree = "<group>"; };
+		2C78043822004BFC00EBD7C8 /* VENResetPasswordViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VENResetPasswordViewController.m; sourceTree = "<group>"; };
+		2C78043922004BFC00EBD7C8 /* VENResetPasswordViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VENResetPasswordViewController.xib; sourceTree = "<group>"; };
 		2C7A490F21ED6DAA005C0014 /* VENPersonalSettingsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VENPersonalSettingsViewController.h; sourceTree = "<group>"; };
 		2C7A491021ED6DAA005C0014 /* VENPersonalSettingsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VENPersonalSettingsViewController.m; sourceTree = "<group>"; };
 		2C7A491221ED90C8005C0014 /* VENClassifyDetailsUserEvaluateModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VENClassifyDetailsUserEvaluateModel.h; sourceTree = "<group>"; };
@@ -1353,11 +1358,22 @@
 			path = InvitationCode;
 			sourceTree = "<group>";
 		};
+		2C78043622004B0700EBD7C8 /* ResetPassword */ = {
+			isa = PBXGroup;
+			children = (
+				2C78043722004BFC00EBD7C8 /* VENResetPasswordViewController.h */,
+				2C78043822004BFC00EBD7C8 /* VENResetPasswordViewController.m */,
+				2C78043922004BFC00EBD7C8 /* VENResetPasswordViewController.xib */,
+			);
+			path = ResetPassword;
+			sourceTree = "<group>";
+		};
 		2C7A490D21ED6D5E005C0014 /* PersonalSettings */ = {
 			isa = PBXGroup;
 			children = (
 				2C6BC96D21FE8DAF006752A8 /* Main */,
 				2C6BC96E21FE8DBD006752A8 /* PersonalData */,
+				2C78043622004B0700EBD7C8 /* ResetPassword */,
 			);
 			path = PersonalSettings;
 			sourceTree = "<group>";
@@ -2865,6 +2881,7 @@
 				2C54DECE21DC507200E72241 /* VENMyBalanceTableViewCell.xib in Resources */,
 				2C1B7DFC21DCB7A40030532B /* VENMyBalanceWithdrawTableViewCell2.xib in Resources */,
 				2CD4FF3C21C78BB200868525 /* VENVerificationOfPhoneNumberViewController.xib in Resources */,
+				2C78043B22004BFC00EBD7C8 /* VENResetPasswordViewController.xib in Resources */,
 				2C5FCB4221D0DE1D004A2C31 /* VENShoppingCartPlacingOrderReceivingAddAddressTableViewCell.xib in Resources */,
 				2C780435220046DC00EBD7C8 /* VENPersonalDataInvitationCodePageViewController.xib in Resources */,
 				2C0F658321D35D3D0093A6D0 /* VENShoppingCartPlacingOrderSuccessViewController.xib in Resources */,
@@ -3012,6 +3029,7 @@
 				2CFE0FAC21FDC803002C85C2 /* VENMyTeamCategoryView.m in Sources */,
 				2CD4FF4521C793B400868525 /* VENSetPasswordViewController.m in Sources */,
 				2CEB832F21B819CE004A8629 /* JXCategoryTitleView.m in Sources */,
+				2C78043A22004BFC00EBD7C8 /* VENResetPasswordViewController.m in Sources */,
 				2CDFA06721B5813500254B52 /* UIRefreshControl+AFNetworking.m in Sources */,
 				2CDF9F5721B575FF00254B52 /* VENNavigationController.m in Sources */,
 				2CDFA07821B5813500254B52 /* SDWebImageDecoder.m in Sources */,

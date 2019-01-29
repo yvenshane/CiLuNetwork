@@ -326,12 +326,16 @@ static NSString *cellIdentifier3 = @"cellIdentifier3";
 
 #pragma mark - 个人设置
 - (void)settingButtonClick {
-    VENPersonalSettingsViewController *vc = [[VENPersonalSettingsViewController alloc] init];
-    vc.hidesBottomBarWhenPushed = YES;
-    vc.block = ^(NSString * str) {
-        [self.tableView.mj_header beginRefreshing];
-    };
-    [self.navigationController pushViewController:vc animated:YES];
+    if ([[VENUserStatusManager sharedManager] isLogin]) {
+        VENPersonalSettingsViewController *vc = [[VENPersonalSettingsViewController alloc] init];
+        vc.hidesBottomBarWhenPushed = YES;
+        vc.block = ^(NSString * str) {
+            [self.tableView.mj_header beginRefreshing];
+        };
+        [self.navigationController pushViewController:vc animated:YES];
+    } else {
+        [self pushToLoginView];
+    }
 }
 
 - (void)setupSettingButton {

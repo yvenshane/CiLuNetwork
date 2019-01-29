@@ -8,7 +8,9 @@
 
 #import "VENPersonalSettingsViewController.h"
 #import "VENMineTableViewCellStyleOne.h"
+
 #import "VENPersonalDataViewController.h"
+#import "VENResetPasswordViewController.h"
 
 @interface VENPersonalSettingsViewController () <UITableViewDelegate, UITableViewDataSource>
 
@@ -48,6 +50,9 @@ static NSString *cellIdentifier = @"cellIdentifier";
     if (indexPath.section == 0) {
         if (indexPath.row == 0) {
             VENPersonalDataViewController *vc = [[VENPersonalDataViewController alloc] init];
+            [self.navigationController pushViewController:vc animated:YES];
+        } else if (indexPath.row == 1) {
+            VENResetPasswordViewController *vc = [[VENResetPasswordViewController alloc] init];
             [self.navigationController pushViewController:vc animated:YES];
         }
     }
