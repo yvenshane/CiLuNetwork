@@ -9,11 +9,13 @@
 #import "VENMyCommissionViewController.h"
 #import "VENMyBalanceHeaderViewTableViewCell.h"
 #import "VENMyBalanceTableViewCell.h"
-
-#import "VENMyBalanceRechargeViewController.h"
-#import "VENMyBalanceWithdrawViewController.h"
+#import "VENMyCommissionModel.h"
 
 @interface VENMyCommissionViewController () <UITableViewDelegate, UITableViewDataSource>
+@property (nonatomic, strong) UITableView *tableView;
+@property (nonatomic, copy) NSString *total_commission;
+@property (nonatomic, strong) NSMutableArray *listsMuArr;
+@property (nonatomic, assign) NSInteger page;
 
 @end
 
@@ -45,14 +47,42 @@ static NSString *cellIdentifier2 = @"cellIdentifier2";
     
     [self setupTableView];
     
-    [self loadData];
+    [self.tableView.mj_header beginRefreshing];
 }
 
-- (void)loadData {
-    [[VENNetworkTool sharedManager] requestWithMethod:HTTPMethodPost path:@"home/commissions" params:nil showLoading:YES successBlock:^(id response) {
+- (void)loadDataWithPage:(NSString *)page {
+    
+    [[VENNetworkTool sharedManager] requestWithMethod:HTTPMethodPost path:@"home/commissions" params:@{@"page" : page} showLoading:YES successBlock:^(id response) {
+        
+        if ([response[@"status"] integerValue] == 0) {
+            
+            if ([page integerValue] == 1) {
+                [self.tableView.mj_header endRefreshing];
+                
+                self.total_commission = response[@"data"][@"total_commission"];
+                self.listsMuArr = [NSMutableArray arrayWithArray:[NSArray yy_modelArrayWithClass:[VENMyCommissionModel class] json:response[@"data"][@"lists"]]];
+                self.page = 1;
+            } else {
+                [self.tableView.mj_footer endRefreshing];
+                
+                [self.listsMuArr addObjectsFromArray:[NSArray yy_modelArrayWithClass:[VENMyCommissionModel class] json:response[@"data"][@"lists"]]];
+            }
+            
+            if ([response[@"data"][@"hasNext"] integerValue] == 0) {
+                [self.tableView.mj_footer endRefreshingWithNoMoreData];
+            } else {
+                [self.tableView.mj_footer endRefreshing];
+            }
+            
+            [self.tableView reloadData];
+        }
         
     } failureBlock:^(NSError *error) {
-        
+        if ([page integerValue] == 1) {
+            [self.tableView.mj_header endRefreshing];
+        }else {
+            [self.tableView.mj_footer endRefreshing];
+        }
     }];
 }
 
@@ -61,7 +91,7 @@ static NSString *cellIdentifier2 = @"cellIdentifier2";
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return section == 0 ? 1 : 10;
+    return section == 0 ? 1 : self.listsMuArr.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -75,15 +105,38 @@ static NSString *cellIdentifier2 = @"cellIdentifier2";
         cell.rightButton.hidden = YES;
         cell.middleButton.hidden = NO;
 
+        cell.priceLabel.text = self.total_commission;
+        
+        
+        [cell.middleButton addTarget:self action:@selector(middleButtonClick) forControlEvents:UIControlEventTouchUpInside];
         
         return cell;
     } else {
         VENMyBalanceTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
+        VENMyCommissionModel *model = self.listsMuArr[indexPath.row];
+        
+        cell.topLabel.text = model.action_name;
+        cell.bottomLabel.text = model.add_time;
+        cell.rightLabel.text = model.money;
         
         return cell;
     }
+}
+
+- (void)middleButtonClick {
+    NSLog(@"提现");
+    
+    [[VENNetworkTool sharedManager] requestWithMethod:HTTPMethodPost path:@"home/withdraw" params:nil showLoading:YES successBlock:^(id response) {
+        
+        if ([response[@"status"] integerValue] == 0) {
+            [self.tableView.mj_header beginRefreshing];
+        }
+        
+    } failureBlock:^(NSError *error) {
+        
+    }];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -99,6 +152,16 @@ static NSString *cellIdentifier2 = @"cellIdentifier2";
     [tableView registerNib:[UINib nibWithNibName:@"VENMyBalanceTableViewCell" bundle:nil] forCellReuseIdentifier:cellIdentifier];
     [tableView registerNib:[UINib nibWithNibName:@"VENMyBalanceHeaderViewTableViewCell" bundle:nil] forCellReuseIdentifier:cellIdentifier2];
     [self.view addSubview:tableView];
+    
+    tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        [self loadDataWithPage:@"1"];
+    }];
+    
+    tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
+        [self loadDataWithPage:[NSString stringWithFormat:@"%ld", ++self.page]];
+    }];
+    
+    _tableView = tableView;
 }
 
 - (void)didReceiveMemoryWarning {

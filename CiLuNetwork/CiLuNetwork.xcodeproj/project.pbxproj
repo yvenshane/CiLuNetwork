@@ -144,6 +144,7 @@
 		2CDAD387220184FC00D6FE34 /* VENOnlineMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CDAD385220184FC00D6FE34 /* VENOnlineMessageViewController.m */; };
 		2CDAD388220184FC00D6FE34 /* VENOnlineMessageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2CDAD386220184FC00D6FE34 /* VENOnlineMessageViewController.xib */; };
 		2CDAD38B22018C1100D6FE34 /* VENMyPointsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CDAD38A22018C1100D6FE34 /* VENMyPointsModel.m */; };
+		2CDAD38E2201909F00D6FE34 /* VENMyCommissionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CDAD38D2201909F00D6FE34 /* VENMyCommissionModel.m */; };
 		2CDF9F3B21B5724B00254B52 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CDF9F3A21B5724B00254B52 /* AppDelegate.m */; };
 		2CDF9F4321B5724D00254B52 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2CDF9F4221B5724D00254B52 /* Assets.xcassets */; };
 		2CDF9F4621B5724D00254B52 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2CDF9F4421B5724D00254B52 /* LaunchScreen.storyboard */; };
@@ -551,6 +552,8 @@
 		2CDAD386220184FC00D6FE34 /* VENOnlineMessageViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VENOnlineMessageViewController.xib; sourceTree = "<group>"; };
 		2CDAD38922018C1100D6FE34 /* VENMyPointsModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VENMyPointsModel.h; sourceTree = "<group>"; };
 		2CDAD38A22018C1100D6FE34 /* VENMyPointsModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VENMyPointsModel.m; sourceTree = "<group>"; };
+		2CDAD38C2201909F00D6FE34 /* VENMyCommissionModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VENMyCommissionModel.h; sourceTree = "<group>"; };
+		2CDAD38D2201909F00D6FE34 /* VENMyCommissionModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VENMyCommissionModel.m; sourceTree = "<group>"; };
 		2CDF9F3621B5724B00254B52 /* CiLuNetwork.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CiLuNetwork.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CDF9F3921B5724B00254B52 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		2CDF9F3A21B5724B00254B52 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -2727,6 +2730,8 @@
 		2CFE0FA221FDC28C002C85C2 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				2CDAD38C2201909F00D6FE34 /* VENMyCommissionModel.h */,
+				2CDAD38D2201909F00D6FE34 /* VENMyCommissionModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -2978,6 +2983,7 @@
 				2CDFA06B21B5813500254B52 /* UIActivityIndicatorView+AFNetworking.m in Sources */,
 				2CEB833B21B819CE004A8629 /* JXCategoryBaseCell.m in Sources */,
 				2CB54FDA21B7B081003AD4D8 /* VENHomePageHorizontalCollectionViewCell.m in Sources */,
+				2CDAD38E2201909F00D6FE34 /* VENMyCommissionModel.m in Sources */,
 				2CDAD387220184FC00D6FE34 /* VENOnlineMessageViewController.m in Sources */,
 				2CDFA0B021B5813500254B52 /* SDCycleScrollView.m in Sources */,
 				2CEB833A21B819CE004A8629 /* JXCategoryBaseView.m in Sources */,
