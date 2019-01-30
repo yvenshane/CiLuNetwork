@@ -11,6 +11,7 @@
 
 #import "VENPersonalDataViewController.h"
 #import "VENResetPasswordViewController.h"
+#import "VENAboutUsViewController.h"
 
 @interface VENPersonalSettingsViewController () <UITableViewDelegate, UITableViewDataSource>
 
@@ -48,13 +49,16 @@ static NSString *cellIdentifier = @"cellIdentifier";
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
-        if (indexPath.row == 0) {
+        if (indexPath.row == 0) { // 个人资料
             VENPersonalDataViewController *vc = [[VENPersonalDataViewController alloc] init];
             [self.navigationController pushViewController:vc animated:YES];
-        } else if (indexPath.row == 1) {
+        } else if (indexPath.row == 1) { // 修改密码
             VENResetPasswordViewController *vc = [[VENResetPasswordViewController alloc] init];
             [self.navigationController pushViewController:vc animated:YES];
         }
+    } else if (indexPath.section == 1) {
+        VENAboutUsViewController *vc = [[VENAboutUsViewController alloc] init];
+        [self.navigationController pushViewController:vc animated:YES];
     }
 }
 
