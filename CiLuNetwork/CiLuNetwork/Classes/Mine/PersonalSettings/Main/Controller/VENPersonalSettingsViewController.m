@@ -12,6 +12,7 @@
 #import "VENPersonalDataViewController.h"
 #import "VENResetPasswordViewController.h"
 #import "VENAboutUsViewController.h"
+#import "VENOnlineMessageViewController.h"
 
 @interface VENPersonalSettingsViewController () <UITableViewDelegate, UITableViewDataSource>
 
@@ -57,8 +58,23 @@ static NSString *cellIdentifier = @"cellIdentifier";
             [self.navigationController pushViewController:vc animated:YES];
         }
     } else if (indexPath.section == 1) {
-        VENAboutUsViewController *vc = [[VENAboutUsViewController alloc] init];
-        [self.navigationController pushViewController:vc animated:YES];
+        NSDictionary *metaData = [[NSUserDefaults standardUserDefaults] objectForKey:@"metaData"];
+        if (indexPath.row == 0) {
+            VENAboutUsViewController *vc = [[VENAboutUsViewController alloc] init];
+            vc.navigationItem.title = @"加入优势";
+            vc.HTMLString = metaData[@"join_advantage"];
+            [self.navigationController pushViewController:vc animated:YES];
+        } else {
+            VENAboutUsViewController *vc = [[VENAboutUsViewController alloc] init];
+            vc.navigationItem.title = @"关于我们";
+            vc.HTMLString = metaData[@"about_us"];
+            [self.navigationController pushViewController:vc animated:YES];
+        }
+    } else {
+        if (indexPath.row == 0) {
+            VENOnlineMessageViewController *vc = [[VENOnlineMessageViewController alloc] init];
+            [self.navigationController pushViewController:vc animated:YES];
+        }
     }
 }
 

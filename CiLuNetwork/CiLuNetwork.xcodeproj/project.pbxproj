@@ -141,6 +141,8 @@
 		2CD4FF4E21C797F700868525 /* VENRegistViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2CD4FF4C21C797F700868525 /* VENRegistViewController.xib */; };
 		2CD4FF5821C79D3600868525 /* VENRegistSetPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD4FF5621C79D3600868525 /* VENRegistSetPasswordViewController.m */; };
 		2CD4FF5921C79D3600868525 /* VENRegistSetPasswordViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2CD4FF5721C79D3600868525 /* VENRegistSetPasswordViewController.xib */; };
+		2CDAD387220184FC00D6FE34 /* VENOnlineMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CDAD385220184FC00D6FE34 /* VENOnlineMessageViewController.m */; };
+		2CDAD388220184FC00D6FE34 /* VENOnlineMessageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2CDAD386220184FC00D6FE34 /* VENOnlineMessageViewController.xib */; };
 		2CDF9F3B21B5724B00254B52 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CDF9F3A21B5724B00254B52 /* AppDelegate.m */; };
 		2CDF9F4321B5724D00254B52 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2CDF9F4221B5724D00254B52 /* Assets.xcassets */; };
 		2CDF9F4621B5724D00254B52 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2CDF9F4421B5724D00254B52 /* LaunchScreen.storyboard */; };
@@ -543,6 +545,9 @@
 		2CD4FF5521C79D3600868525 /* VENRegistSetPasswordViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VENRegistSetPasswordViewController.h; sourceTree = "<group>"; };
 		2CD4FF5621C79D3600868525 /* VENRegistSetPasswordViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VENRegistSetPasswordViewController.m; sourceTree = "<group>"; };
 		2CD4FF5721C79D3600868525 /* VENRegistSetPasswordViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VENRegistSetPasswordViewController.xib; sourceTree = "<group>"; };
+		2CDAD384220184FC00D6FE34 /* VENOnlineMessageViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VENOnlineMessageViewController.h; sourceTree = "<group>"; };
+		2CDAD385220184FC00D6FE34 /* VENOnlineMessageViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VENOnlineMessageViewController.m; sourceTree = "<group>"; };
+		2CDAD386220184FC00D6FE34 /* VENOnlineMessageViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VENOnlineMessageViewController.xib; sourceTree = "<group>"; };
 		2CDF9F3621B5724B00254B52 /* CiLuNetwork.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CiLuNetwork.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CDF9F3921B5724B00254B52 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		2CDF9F3A21B5724B00254B52 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -1387,6 +1392,7 @@
 				2C6BC96E21FE8DBD006752A8 /* PersonalData */,
 				2C78043622004B0700EBD7C8 /* ResetPassword */,
 				2C78043C2200514800EBD7C8 /* AboutUs */,
+				2CDAD383220184D100D6FE34 /* OnlineMessage */,
 			);
 			path = PersonalSettings;
 			sourceTree = "<group>";
@@ -1732,6 +1738,16 @@
 				2CD4FF4421C793B400868525 /* VENSetPasswordViewController.xib */,
 			);
 			path = VerificationOfPhoneNumber;
+			sourceTree = "<group>";
+		};
+		2CDAD383220184D100D6FE34 /* OnlineMessage */ = {
+			isa = PBXGroup;
+			children = (
+				2CDAD384220184FC00D6FE34 /* VENOnlineMessageViewController.h */,
+				2CDAD385220184FC00D6FE34 /* VENOnlineMessageViewController.m */,
+				2CDAD386220184FC00D6FE34 /* VENOnlineMessageViewController.xib */,
+			);
+			path = OnlineMessage;
 			sourceTree = "<group>";
 		};
 		2CDF9F2D21B5724B00254B52 = {
@@ -2905,6 +2921,7 @@
 				2CC4FED021D4D47000E9DC20 /* VENMyOrderOrderDetailsFooterView.xib in Resources */,
 				2CB54FDB21B7B081003AD4D8 /* VENHomePageHorizontalCollectionViewCell.xib in Resources */,
 				2C1B7DF721DCB1E40030532B /* VENMyBalanceWithdrawTableViewCell.xib in Resources */,
+				2CDAD388220184FC00D6FE34 /* VENOnlineMessageViewController.xib in Resources */,
 				2C5FCB4A21D20EC6004A2C31 /* VENShoppingCartPlacingOrderPaymentOrderTableViewCell.xib in Resources */,
 				2CDF9F4621B5724D00254B52 /* LaunchScreen.storyboard in Resources */,
 				2C1B7DF221DC97E70030532B /* VENMyBalanceRechargeTableViewCell.xib in Resources */,
@@ -2956,6 +2973,7 @@
 				2CDFA06B21B5813500254B52 /* UIActivityIndicatorView+AFNetworking.m in Sources */,
 				2CEB833B21B819CE004A8629 /* JXCategoryBaseCell.m in Sources */,
 				2CB54FDA21B7B081003AD4D8 /* VENHomePageHorizontalCollectionViewCell.m in Sources */,
+				2CDAD387220184FC00D6FE34 /* VENOnlineMessageViewController.m in Sources */,
 				2CDFA0B021B5813500254B52 /* SDCycleScrollView.m in Sources */,
 				2CEB833A21B819CE004A8629 /* JXCategoryBaseView.m in Sources */,
 				2CFE0FC121FDD904002C85C2 /* VENMyCollectionViewController.m in Sources */,

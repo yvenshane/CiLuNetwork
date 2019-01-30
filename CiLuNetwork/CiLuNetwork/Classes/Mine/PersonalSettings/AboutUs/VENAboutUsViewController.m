@@ -25,8 +25,6 @@ static NSString *cellIdentifier = @"cellIdentifier";
     
     self.view.backgroundColor = [UIColor whiteColor];
     
-    self.navigationItem.title = @"关于我们";
-    
     [self setupTableView];
 }
 
@@ -49,9 +47,7 @@ static NSString *cellIdentifier = @"cellIdentifier";
     webView.delegate = self;
     webView.scrollView.scrollEnabled = NO;
     
-    NSDictionary *metaData = [[NSUserDefaults standardUserDefaults] objectForKey:@"metaData"];
-    
-    [webView loadHTMLString:metaData[@"about_us"] baseURL:nil];
+    [webView loadHTMLString:self.HTMLString baseURL:nil];
     [headerView addSubview:webView];
     
     self.tableView = tableView;
