@@ -8,7 +8,7 @@
 
 #import "VENMyCollectionViewController.h"
 #import "VENShoppingCartTableViewCell.h"
-#import "VENShoppingCartModel.h"
+#import "VENMyCollectionModel.h"
 
 @interface VENMyCollectionViewController () <UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong) UITableView *tableView;
@@ -17,9 +17,13 @@
 @property (nonatomic, assign) BOOL isManage;
 
 @property (nonatomic, strong) UIView *shoppingBar;
-@property (nonatomic, strong) UIButton *payButton;
+@property (nonatomic, strong) UIButton *deleteButton;
 @property (nonatomic, strong) UIButton *selectAllButton;
-@property (nonatomic, assign) BOOL isSelectAll;
+//@property (nonatomic, assign) BOOL isSelectAll;
+
+@property (nonatomic, strong) NSMutableArray *listsMuArr;
+@property (nonatomic, assign) NSInteger page;
+@property (nonatomic, strong) NSMutableArray *IDsMuArr;
 
 @end
 
@@ -35,16 +39,64 @@ static NSString *cellIdentifier = @"cellIdentifier";
     
     [self setupTableView];
     [self setupManagementCollectionButton];
+    
+    [self.tableView.mj_header beginRefreshing];
+}
+
+- (void)loadDataWithPage:(NSString *)page {
+    
+    [[VENNetworkTool sharedManager] requestWithMethod:HTTPMethodPost path:@"collect/lists" params:@{@"page" : page} showLoading:YES successBlock:^(id response) {
+        
+        if ([response[@"status"] integerValue] == 0) {
+            
+            if ([page integerValue] == 1) {
+                [self.tableView.mj_header endRefreshing];
+                
+                self.listsMuArr = [NSMutableArray arrayWithArray:[NSArray yy_modelArrayWithClass:[VENMyCollectionModel class] json:response[@"data"][@"lists"]]];
+                self.page = 1;
+                
+                [self.shoppingBar removeFromSuperview];
+                self.shoppingBar = nil;
+                if (self.isManage) {
+                    [self setupShoppingBar];
+                }
+                
+                if (self.listsMuArr.count < 1) {
+                    [self.shoppingBar removeFromSuperview];
+                    self.shoppingBar = nil;
+                    self.isManage = NO;
+                    [self.navigationRightButton setTitle:@"管理收藏" forState:UIControlStateNormal];
+                    self.tableView.frame = CGRectMake(0, 0, kMainScreenWidth, kMainScreenHeight - statusNavHeight);
+                }
+            } else {
+                [self.tableView.mj_footer endRefreshing];
+                
+                [self.listsMuArr addObjectsFromArray:[NSArray yy_modelArrayWithClass:[VENMyCollectionModel class] json:response[@"data"][@"lists"]]];
+            }
+            
+            if ([response[@"data"][@"hasNext"] integerValue] == 0) {
+                [self.tableView.mj_footer endRefreshingWithNoMoreData];
+            } else {
+                [self.tableView.mj_footer endRefreshing];
+            }
+            
+            [self.tableView reloadData];
+        }
+        
+    } failureBlock:^(NSError *error) {
+        if ([page integerValue] == 1) {
+            [self.tableView.mj_header endRefreshing];
+        }else {
+            [self.tableView.mj_footer endRefreshing];
+        }
+    }];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 10;
+    return self.listsMuArr.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-//    VENShoppingCartModel *model = self.listMuArr[indexPath.section];
-    
     VENShoppingCartTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
@@ -56,42 +108,15 @@ static NSString *cellIdentifier = @"cellIdentifier";
     cell.otherLabel.textColor = UIColorFromRGB(0x1A1A1A);
     cell.lineImageView.hidden = NO;
     
-    cell.iconImageView.backgroundColor = [UIColor colorWithRed:arc4random_uniform(255)/255.0 green:arc4random_uniform(255)/255.0 blue:arc4random_uniform(255)/255.0 alpha:1];
-//
-//    cell.titleLabel.hidden = self.isEdit ? YES : NO;
-//    cell.numberLabel.hidden = self.isEdit ? YES : NO;
-//    cell.titleLabel.text = model.goods_name;
-//    cell.numberLabel.text = [NSString stringWithFormat:@"x%ld", (long)model.number];
-//
-//    cell.plusButton.hidden = self.isEdit ? NO : YES;
-//    cell.plusButton.tag = 998 + indexPath.section;
-//    [cell.plusButton addTarget:self action:@selector(plusButtonClick:) forControlEvents:UIControlEventTouchUpInside];
-//
-//    cell.minusButton.hidden = self.isEdit ? NO : YES;
-//    cell.minusButton.tag = 998 + indexPath.section;
-//    [cell.minusButton addTarget:self action:@selector(minusButtonClick:) forControlEvents:UIControlEventTouchUpInside];
-//
-//    cell.deleteButton.hidden = self.isEdit ? NO : YES;
-//    cell.deleteButton.tag = 998 + indexPath.section;
-//    [cell.deleteButton addTarget:self action:@selector(deleteButtonClick:) forControlEvents:UIControlEventTouchUpInside];
-//
-//    cell.numberButton.hidden = self.isEdit ? NO : YES;
-//    [cell.numberButton setTitle:[NSString stringWithFormat:@"%ld", (long)model.number] forState:normal];
-//
-//    cell.otherLabel.text = [NSString stringWithFormat:@"规格：%@", model.spec];
-//    cell.priceLabel.text = model.price_formatted;
-//
-//    cell.choiceButton.tag = 998 + indexPath.section;
-//    [cell.choiceButton addTarget:self action:@selector(choiceButtonClick:) forControlEvents:UIControlEventTouchUpInside];
-//    cell.choiceButton.selected = model.isChoice == YES ? YES : NO;
-//
-//    if (indexPath.section == 0) {
-//        [self.choiceButtonsMuArr removeAllObjects];
-//        [self.numberButtonsMuArr removeAllObjects];
-//    }
-//
-//    [self.choiceButtonsMuArr addObject:cell.choiceButton];
-//    [self.numberButtonsMuArr addObject:cell.numberButton];
+    VENMyCollectionModel *model = self.listsMuArr[indexPath.row];
+    
+    [cell.iconImageView sd_setImageWithURL:[NSURL URLWithString:model.goods_thumb]];
+    cell.titleLabel.text = model.goods_name;
+    cell.otherLabel.text = model.goods_price;
+    
+    cell.choiceButton.tag = indexPath.row;
+    cell.choiceButton.selected = model.isChoise;
+    [cell.choiceButton addTarget:self action:@selector(choiceButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     
     return cell;
 }
@@ -107,12 +132,12 @@ static NSString *cellIdentifier = @"cellIdentifier";
     [self.view addSubview:tableView];
     
     tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-//        [self loadDta];
+        [self loadDataWithPage:@"1"];
     }];
     
-    //    tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
-    //
-    //    }];
+    tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
+        [self loadDataWithPage:[NSString stringWithFormat:@"%ld", ++self.page]];
+    }];
     
     _tableView = tableView;
 }
@@ -130,23 +155,88 @@ static NSString *cellIdentifier = @"cellIdentifier";
     [selectAllButton setTitle:@"   全选" forState:UIControlStateNormal];
     [selectAllButton setTitleColor:UIColorFromRGB(0x1A1A1A) forState:UIControlStateNormal];
     selectAllButton.titleLabel.font = [UIFont systemFontOfSize:14.0f];
-//    [selectAllButton addTarget:self action:@selector(selectAllButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+    [selectAllButton addTarget:self action:@selector(selectAllButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     [shoppingBar addSubview:selectAllButton];
     
-    UIButton *payButton = [[UIButton alloc] initWithFrame:CGRectMake(kMainScreenWidth - 100, 0, 100, 44)];
-    payButton.backgroundColor = UIColorFromRGB(0xCCCCCC);
-    [payButton setTitle:@"删除" forState:UIControlStateNormal];
-    payButton.titleLabel.font = [UIFont systemFontOfSize:16.0f];
-//    [payButton addTarget:self action:@selector(payButtonClick) forControlEvents:UIControlEventTouchUpInside];
-    [shoppingBar addSubview:payButton];
+    UIButton *deleteButton = [[UIButton alloc] initWithFrame:CGRectMake(kMainScreenWidth - 100, 0, 100, 44)];
+    deleteButton.backgroundColor = UIColorFromRGB(0xCCCCCC);
+    [deleteButton setTitle:@"删除" forState:UIControlStateNormal];
+    deleteButton.titleLabel.font = [UIFont systemFontOfSize:16.0f];
+    deleteButton.userInteractionEnabled = NO;
+    [deleteButton addTarget:self action:@selector(deleteButtonClick) forControlEvents:UIControlEventTouchUpInside];
+    [shoppingBar addSubview:deleteButton];
     
     UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kMainScreenWidth, 1)];
     lineView.backgroundColor = UIColorFromRGB(0xE8E8E8);
     [shoppingBar addSubview:lineView];
     
     _shoppingBar = shoppingBar;
-    _payButton = payButton;
+    _deleteButton = deleteButton;
     _selectAllButton = selectAllButton;
+}
+
+#pragma mark - 单选
+- (void)choiceButtonClick:(UIButton *)button {
+    button.selected = !button.selected;
+    VENMyCollectionModel *model = self.listsMuArr[button.tag];
+    
+    if (button.selected == YES) {
+        model.isChoise = YES;
+        if (![self.IDsMuArr containsObject:model.collectionID]) {
+            [self.IDsMuArr addObject:model.collectionID];
+        }
+    } else {
+        model.isChoise = NO;
+        if ([self.IDsMuArr containsObject:model.collectionID]) {
+            [self.IDsMuArr removeObject:model.collectionID];
+        }
+    }
+    
+    self.selectAllButton.selected = self.IDsMuArr.count == self.listsMuArr.count ? YES : NO;
+    self.deleteButton.backgroundColor = self.IDsMuArr.count > 0 ? UIColorFromRGB(0xC7974F) : UIColorFromRGB(0xCCCCCC);
+    self.deleteButton.userInteractionEnabled = self.IDsMuArr.count > 0 ? YES : NO;
+    
+    [self.tableView reloadData];
+    
+    NSLog(@"%@", self.IDsMuArr);
+}
+
+#pragma mark - 全选
+- (void)selectAllButtonClick:(UIButton *)button {
+    button.selected = !button.selected;
+    
+    [self.IDsMuArr removeAllObjects];
+    if (button.selected) {
+        for (VENMyCollectionModel *model in self.listsMuArr) {
+            model.isChoise = YES;
+            [self.IDsMuArr addObject:model.collectionID];
+        }
+    } else {
+        for (VENMyCollectionModel *model in self.listsMuArr) {
+            model.isChoise = NO;
+        }
+    }
+    
+    self.deleteButton.backgroundColor = self.IDsMuArr.count > 0 ? UIColorFromRGB(0xC7974F) : UIColorFromRGB(0xCCCCCC);
+    self.deleteButton.userInteractionEnabled = self.IDsMuArr.count > 0 ? YES : NO;
+    
+    [self.tableView reloadData];
+    
+    NSLog(@"%@", self.IDsMuArr);
+}
+
+#pragma mark - 删除
+- (void)deleteButtonClick {
+    [[VENNetworkTool sharedManager] requestWithMethod:HTTPMethodPost path:@"collect/remove" params:@{@"ids" : [self.IDsMuArr componentsJoinedByString:@","]} showLoading:YES successBlock:^(id response) {
+        
+        if ([response[@"status"] integerValue] == 0) {
+            [self.IDsMuArr removeAllObjects];
+            [self.tableView.mj_header beginRefreshing];
+        }
+        
+    } failureBlock:^(NSError *error) {
+        
+    }];
 }
 
 #pragma mark - 管理收藏
@@ -174,9 +264,14 @@ static NSString *cellIdentifier = @"cellIdentifier";
         [self setupShoppingBar];
     }
     
-
-    
     [self.tableView reloadData];
+}
+
+- (NSMutableArray *)IDsMuArr {
+    if (_IDsMuArr == nil) {
+        _IDsMuArr = [NSMutableArray array];
+    }
+    return _IDsMuArr;
 }
 
 /*
