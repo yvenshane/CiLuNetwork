@@ -8,8 +8,12 @@
 
 #import "VENMyEvaluationViewController.h"
 #import "VENMyEvaluationTableViewCell.h"
+#import "VENMyEvaluationModel.h"
 
 @interface VENMyEvaluationViewController () <UITableViewDelegate, UITableViewDataSource>
+@property (nonatomic, strong) UITableView *tableView;
+@property (nonatomic, strong) NSMutableArray *listsMuArr;
+@property (nonatomic, assign) NSInteger page;
 
 @end
 
@@ -40,19 +44,46 @@ static NSString *cellIdentifier = @"cellIdentifier";
     
     [self setupTableView];
     
-    [self loadData];
+    [self.tableView.mj_header beginRefreshing];
 }
 
-- (void)loadData {
-//    [[VENNetworkTool sharedManager] requestWithMethod:HTTPMethodPost path:@"home/commissions" params:nil showLoading:YES successBlock:^(id response) {
-//
-//    } failureBlock:^(NSError *error) {
-//
-//    }];
+- (void)loadDataWithPage:(NSString *)page {
+    
+    [[VENNetworkTool sharedManager] requestWithMethod:HTTPMethodPost path:@"home/comments" params:@{@"page" : page} showLoading:YES successBlock:^(id response) {
+        
+        if ([response[@"status"] integerValue] == 0) {
+            
+            if ([page integerValue] == 1) {
+                [self.tableView.mj_header endRefreshing];
+                
+                self.listsMuArr = [NSMutableArray arrayWithArray:[NSArray yy_modelArrayWithClass:[VENMyEvaluationModel class] json:response[@"data"][@"lists"]]];
+                self.page = 1;
+            } else {
+                [self.tableView.mj_footer endRefreshing];
+                
+                [self.listsMuArr addObjectsFromArray:[NSArray yy_modelArrayWithClass:[VENMyEvaluationModel class] json:response[@"data"][@"lists"]]];
+            }
+            
+            if ([response[@"data"][@"hasNext"] integerValue] == 0) {
+                [self.tableView.mj_footer endRefreshingWithNoMoreData];
+            } else {
+                [self.tableView.mj_footer endRefreshing];
+            }
+            
+            [self.tableView reloadData];
+        }
+        
+    } failureBlock:^(NSError *error) {
+        if ([page integerValue] == 1) {
+            [self.tableView.mj_header endRefreshing];
+        }else {
+            [self.tableView.mj_footer endRefreshing];
+        }
+    }];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 10;
+    return self.listsMuArr.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -70,6 +101,16 @@ static NSString *cellIdentifier = @"cellIdentifier";
     tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [tableView registerNib:[UINib nibWithNibName:@"VENMyEvaluationTableViewCell" bundle:nil] forCellReuseIdentifier:cellIdentifier];
     [self.view addSubview:tableView];
+    
+    tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        [self loadDataWithPage:@"1"];
+    }];
+    
+    tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
+        [self loadDataWithPage:[NSString stringWithFormat:@"%ld", ++self.page]];
+    }];
+    
+    _tableView = tableView;
 }
 
 - (void)didReceiveMemoryWarning {

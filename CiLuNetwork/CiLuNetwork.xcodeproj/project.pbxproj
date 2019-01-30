@@ -147,6 +147,7 @@
 		2CDAD38E2201909F00D6FE34 /* VENMyCommissionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CDAD38D2201909F00D6FE34 /* VENMyCommissionModel.m */; };
 		2CDAD39122019BBB00D6FE34 /* VENMyTeamModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CDAD39022019BBB00D6FE34 /* VENMyTeamModel.m */; };
 		2CDAD3942201CD7400D6FE34 /* VENMyCollectionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CDAD3932201CD7400D6FE34 /* VENMyCollectionModel.m */; };
+		2CDAD3992201DCD900D6FE34 /* VENMyEvaluationModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CDAD3982201DCD900D6FE34 /* VENMyEvaluationModel.m */; };
 		2CDF9F3B21B5724B00254B52 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CDF9F3A21B5724B00254B52 /* AppDelegate.m */; };
 		2CDF9F4321B5724D00254B52 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2CDF9F4221B5724D00254B52 /* Assets.xcassets */; };
 		2CDF9F4621B5724D00254B52 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2CDF9F4421B5724D00254B52 /* LaunchScreen.storyboard */; };
@@ -560,6 +561,8 @@
 		2CDAD39022019BBB00D6FE34 /* VENMyTeamModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VENMyTeamModel.m; sourceTree = "<group>"; };
 		2CDAD3922201CD7400D6FE34 /* VENMyCollectionModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VENMyCollectionModel.h; sourceTree = "<group>"; };
 		2CDAD3932201CD7400D6FE34 /* VENMyCollectionModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VENMyCollectionModel.m; sourceTree = "<group>"; };
+		2CDAD3972201DCD900D6FE34 /* VENMyEvaluationModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VENMyEvaluationModel.h; sourceTree = "<group>"; };
+		2CDAD3982201DCD900D6FE34 /* VENMyEvaluationModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VENMyEvaluationModel.m; sourceTree = "<group>"; };
 		2CDF9F3621B5724B00254B52 /* CiLuNetwork.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CiLuNetwork.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CDF9F3921B5724B00254B52 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		2CDF9F3A21B5724B00254B52 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -1773,6 +1776,15 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		2CDAD3962201DCCC00D6FE34 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				2CDAD3972201DCD900D6FE34 /* VENMyEvaluationModel.h */,
+				2CDAD3982201DCD900D6FE34 /* VENMyEvaluationModel.m */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		2CDF9F2D21B5724B00254B52 = {
 			isa = PBXGroup;
 			children = (
@@ -2846,6 +2858,7 @@
 		2CFE0FC221FDE75F002C85C2 /* MyEvaluation */ = {
 			isa = PBXGroup;
 			children = (
+				2CDAD3962201DCCC00D6FE34 /* Model */,
 				2CFE0FC721FDE848002C85C2 /* View */,
 				2CFE0FC321FDE777002C85C2 /* Controller */,
 			);
@@ -3127,6 +3140,7 @@
 				2CEB832721B819CE004A8629 /* JXCategoryDotCell.m in Sources */,
 				2CDFA06221B5813500254B52 /* MASViewAttribute.m in Sources */,
 				2CDAD3942201CD7400D6FE34 /* VENMyCollectionModel.m in Sources */,
+				2CDAD3992201DCD900D6FE34 /* VENMyEvaluationModel.m in Sources */,
 				2CDFA06A21B5813500254B52 /* UIButton+AFNetworking.m in Sources */,
 				2C94E27F21E73715003F6595 /* LGPhotoPickerAssetsViewController.m in Sources */,
 				2CDFA0B321B5813500254B52 /* TADotView.m in Sources */,
