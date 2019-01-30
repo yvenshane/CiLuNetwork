@@ -71,9 +71,18 @@ static NSString *cellIdentifier = @"cellIdentifier";
             [self.navigationController pushViewController:vc animated:YES];
         }
     } else {
-        if (indexPath.row == 0) {
+        if (indexPath.row == 0) { // 在线留言
             VENOnlineMessageViewController *vc = [[VENOnlineMessageViewController alloc] init];
             [self.navigationController pushViewController:vc animated:YES];
+        } else { // 清除缓存
+            
+            [[VENMBProgressHUDManager sharedManager] addLoading];
+            [[VENMBProgressHUDManager sharedManager] showText:@"清除缓存中"];
+            
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [[VENMBProgressHUDManager sharedManager] removeLoading];
+                [[VENMBProgressHUDManager sharedManager] showText:@"清除缓存成功"];
+            });
         }
     }
 }

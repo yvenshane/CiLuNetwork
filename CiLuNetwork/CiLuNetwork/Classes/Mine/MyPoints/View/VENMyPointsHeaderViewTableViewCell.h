@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface VENMyPointsHeaderViewTableViewCell : UITableViewCell
+@property (weak, nonatomic) IBOutlet UILabel *pointLabel;
 
 @end
