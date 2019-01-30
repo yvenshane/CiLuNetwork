@@ -8,9 +8,11 @@
 
 #import "VENMyTeamSubviewsController.h"
 #import "VENMyTeamSubviewsTableViewCell.h"
+#import "VENMyTeamModel.h"
 
 @interface VENMyTeamSubviewsController () <UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, assign) NSInteger page;
+@property (nonatomic, copy) NSArray *dataArr;
 
 @end
 
@@ -22,57 +24,30 @@ static NSString *cellIdentifier = @"cellIdentifier";
     // Do any additional setup after loading the view.
     
     [self setupTableView];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notificationCenter:) name:@"childrenArr" object:nil];
 }
 
-- (void)loadDataWithPage:(NSString *)page {
-    
-    NSDictionary *params = @{@"status" : @"2",
-                             @"page" : page};
-    
-    [[VENNetworkTool sharedManager] requestWithMethod:HTTPMethodPost path:@"order/lists" params:params showLoading:YES successBlock:^(id response) {
-        if ([response[@"status"] integerValue] == 0) {
-            if ([page integerValue] == 1) {
-                [self.tableView.mj_header endRefreshing];
-//                self.responseMuArr = [NSMutableArray arrayWithArray:response[@"data"][@"lists"]];
-//                self.listsMuArr = [NSMutableArray arrayWithArray:[NSArray yy_modelArrayWithClass:[VENMyOrderAllOrdersModel class] json:response[@"data"][@"lists"]]];
-                self.page = 1;
-            } else {
-                [self.tableView.mj_footer endRefreshing];
-                
-//                [self.responseMuArr addObjectsFromArray:response[@"data"][@"lists"]];
-//
-//                [self.listsMuArr addObjectsFromArray:[NSArray yy_modelArrayWithClass:[VENMyOrderAllOrdersModel class] json:response[@"data"][@"lists"]]];
-            }
-            
-            if ([response[@"data"][@"hasNext"] integerValue] == 0) {
-                [self.tableView.mj_footer endRefreshingWithNoMoreData];
-            }
-            
-            [self.tableView reloadData];
-        }
-        
-    } failureBlock:^(NSError *error) {
-        if ([page integerValue] == 1) {
-            [self.tableView.mj_header endRefreshing];
-        }else {
-            [self.tableView.mj_footer endRefreshing];
-        }
-    }];
+- (void)notificationCenter:(NSNotification *)noti {
+    self.dataArr = noti.object;
+    [self.tableView reloadData];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 10;
+    return self.dataArr.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     VENMyTeamSubviewsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
+    VENMyTeamModel *model = self.dataArr[indexPath.row];
+    
+    [cell.iconImageView sd_setImageWithURL:[NSURL URLWithString:model.avatar]];
+    cell.nameLabel.text = model.name;
+    cell.otherLabel.text = model.tag_name;
+    
     return cell;
-}
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -90,14 +65,6 @@ static NSString *cellIdentifier = @"cellIdentifier";
     
     UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kMainScreenWidth, 10)];
     tableView.tableHeaderView = headerView;
-    
-    tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-        [self loadDataWithPage:@"1"];
-    }];
-    
-    tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
-        [self loadDataWithPage:[NSString stringWithFormat:@"%ld", ++self.page]];
-    }];
     
     _tableView = tableView;
 }

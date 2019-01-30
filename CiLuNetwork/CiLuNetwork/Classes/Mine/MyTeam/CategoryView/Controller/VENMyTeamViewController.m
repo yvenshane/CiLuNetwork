@@ -9,17 +9,16 @@
 #import "VENMyTeamViewController.h"
 #import "VENMyTeamCategoryView.h"
 #import "VENMyTeamSubviewsController.h"
+#import "VENMyTeamModel.h"
 
 @interface VENMyTeamViewController () <UIScrollViewDelegate>
 @property (nonatomic, weak) VENMyTeamCategoryView *categoryView;
 @property (nonatomic, weak) UIScrollView *scrollView;
 @property (nonatomic, assign) NSInteger pageIdx;
 
-@property (nonatomic, assign) BOOL scrollAnimated;
-
-@property (nonatomic, assign) BOOL refreshPageOne;
-@property (nonatomic, assign) BOOL refreshPageTwo;
-@property (nonatomic, assign) BOOL refreshPageThree;
+@property (nonatomic, copy) NSArray *levelOneArr;
+@property (nonatomic, copy) NSArray *levelTwoArr;
+@property (nonatomic, copy) NSArray *levelThreeArr;
 
 @end
 
@@ -50,11 +49,27 @@
     self.navigationController.navigationBar.translucent = NO;
     
     [self setupUI];
+
     
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [self.categoryView.btnsArr[self.pushIndexPath] sendActionsForControlEvents:UIControlEventTouchUpInside];
-        self.scrollAnimated = YES;
-    });
+    [[VENNetworkTool sharedManager] requestWithMethod:HTTPMethodPost path:@"home/teams" params:nil showLoading:YES successBlock:^(id response) {
+        
+        if ([response[@"status"] integerValue] == 0) {
+            for (NSDictionary *dict in response[@"data"][@"list"]) {
+                if ([dict[@"level"] integerValue] == 1) {
+                    self.levelOneArr = [NSArray yy_modelArrayWithClass:[VENMyTeamModel class] json:dict[@"children"]];
+                } else if ([dict[@"level"] integerValue] == 2) {
+                    self.levelTwoArr = [NSArray yy_modelArrayWithClass:[VENMyTeamModel class] json:dict[@"children"]];
+                } else if ([dict[@"level"] integerValue] == 3) {
+                    self.levelThreeArr = [NSArray yy_modelArrayWithClass:[VENMyTeamModel class] json:dict[@"children"]];
+                }
+            }
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"childrenArr" object:self.levelOneArr];
+        }
+        
+    } failureBlock:^(NSError *error) {
+        
+    }];
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
@@ -77,22 +92,13 @@
     _pageIdx = offsetX / kMainScreenWidth;
     
     // 滚动 加载数据
-//    if (_pageIdx == 0) {
-//        if (!self.refreshPageOne) {
-//            self.refreshPageOne = YES;
-//            [self pushToMyOrderAllOrdersViewController];
-//        }
-//    } else if (_pageIdx == 1) {
-//        if (!self.refreshPageTwo) {
-//            self.refreshPageTwo = YES;
-//            [self pushToMyOrderWaitingForShipmentViewController];
-//        }
-//    } else if (_pageIdx == 2) {
-//        if (!self.refreshPageThree) {
-//            self.refreshPageThree = YES;
-//            [self pushToMyOrderWaitingForReceivingViewController];
-//        }
-//    }
+    if (_pageIdx == 0) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"childrenArr" object:self.levelOneArr];
+    } else if (_pageIdx == 1) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"childrenArr" object:self.levelTwoArr];
+    } else if (_pageIdx == 2) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"childrenArr" object:self.levelThreeArr];
+    }
 }
 
 - (void)categoryViewValueChanged:(VENMyTeamCategoryView *)sender {
@@ -102,25 +108,15 @@
     _pageIdx = pageNumber;
     // 2.让scrollView滚动
     CGRect rect = CGRectMake(_scrollView.bounds.size.width * pageNumber, 0, _scrollView.bounds.size.width, _scrollView.bounds.size.height);
-    [_scrollView scrollRectToVisible:rect animated:_scrollAnimated];
     
     // 点击 加载数据
-//    if (_pageIdx == 0) {
-//        if (!self.refreshPageOne) {
-//            self.refreshPageOne = YES;
-//            [self pushToMyOrderAllOrdersViewController];
-//        }
-//    } else if (_pageIdx == 1) {
-//        if (!self.refreshPageTwo) {
-//            self.refreshPageTwo = YES;
-//            [self pushToMyOrderWaitingForShipmentViewController];
-//        }
-//    } else if (_pageIdx == 2) {
-//        if (!self.refreshPageThree) {
-//            self.refreshPageThree = YES;
-//            [self pushToMyOrderWaitingForReceivingViewController];
-//        }
-//    }
+    if (_pageIdx == 0) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"childrenArr" object:self.levelOneArr];
+    } else if (_pageIdx == 1) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"childrenArr" object:self.levelTwoArr];
+    } else if (_pageIdx == 2) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"childrenArr" object:self.levelThreeArr];
+    }
 }
 
 - (void)setupUI {
@@ -201,17 +197,17 @@
     [childController didMoveToParentViewController:self];
 }
 
-- (void)pushToMyTeamSubviewsControllerWithTag:(NSString *)tag {
-    NSString *classNameString = @"VENMyTeamSubviewsController";
-    Class cls = NSClassFromString(classNameString);
-    for (UIViewController *vc in self.childViewControllers) {
-        if ([vc isKindOfClass:cls]) {
-            VENMyTeamSubviewsController *vcc = (VENMyTeamSubviewsController *)vc;
-            vcc.pushTag = tag;
-            [vcc.tableView.mj_header beginRefreshing];
-        }
-    }
-}
+//- (void)pushToMyTeamSubviewsControllerWithTag:(NSString *)tag {
+//    NSString *classNameString = @"VENMyTeamSubviewsController";
+//    Class cls = NSClassFromString(classNameString);
+//    for (UIViewController *vc in self.childViewControllers) {
+//        if ([vc isKindOfClass:cls]) {
+//            VENMyTeamSubviewsController *vcc = (VENMyTeamSubviewsController *)vc;
+//            vcc.pushTag = tag;
+//            [vcc.tableView.mj_header beginRefreshing];
+//        }
+//    }
+//}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
