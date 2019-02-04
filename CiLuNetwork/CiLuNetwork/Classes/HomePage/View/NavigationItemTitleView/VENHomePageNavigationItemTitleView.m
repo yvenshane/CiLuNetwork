@@ -24,8 +24,6 @@
         NSDictionary *metaData = [[NSUserDefaults standardUserDefaults] objectForKey:@"metaData"];
         
         UIButton *leftButton = [[UIButton alloc] init];
-        leftButton.selected = YES;
-        leftButton.userInteractionEnabled = NO;
         [leftButton setTitle:metaData[@"tag_list"][0][@"name"] forState:UIControlStateNormal];
         [leftButton setTitleColor:COLOR_THEME forState:UIControlStateSelected];
         [leftButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
@@ -49,6 +47,9 @@
         rightView.hidden = YES;
         rightView.backgroundColor = COLOR_THEME;
         [self addSubview:rightView];
+        
+        leftButton.selected = YES;
+        leftButton.userInteractionEnabled = NO;
         
         self.leftButton = leftButton;
         self.rightButton = rightButton;

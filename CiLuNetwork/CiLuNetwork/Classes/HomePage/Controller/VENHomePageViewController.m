@@ -43,23 +43,12 @@
 
 - (void)loadData {
     
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    
-    
-    
-    
-    
-    
-    // 待删除
-    if ([[VENClassEmptyManager sharedManager] isEmptyString:[userDefaults objectForKey:@"tag"]]) {
-        [userDefaults setObject:@"1" forKey:@"tag"];
+    NSString *tag = [NSString stringWithFormat:@"%@", [[NSUserDefaults standardUserDefaults] objectForKey:@"tag"]];
+    if ([[VENClassEmptyManager sharedManager] isEmptyString:tag]) {
+        tag = @"1";
     }
     
-    
-    
-    
-    
-    [[VENNetworkTool sharedManager] requestWithMethod:HTTPMethodPost path:@"goods/index" params:@{@"tag" : [userDefaults objectForKey:@"tag"]} showLoading:YES successBlock:^(id response) {
+    [[VENNetworkTool sharedManager] requestWithMethod:HTTPMethodPost path:@"goods/index" params:@{@"tag" : tag} showLoading:YES successBlock:^(id response) {
         
         [self.collectionView.mj_header endRefreshing];
         
@@ -77,7 +66,11 @@
             
             [self setupCycleScrollView];
             [self setupHorizontalCollectionView];
-            [self setupNavigationItemTitleView];
+            
+            static dispatch_once_t onceToken;
+            dispatch_once(&onceToken, ^{
+                [self setupNavigationItemTitleView];
+            });
             
             [self.collectionView reloadData];
             self.collectionViewHeaderView2.frame = CGRectMake(0, 327 + ceilf(self.hotGoods.count / 2.0) * 248 + ceilf(self.hotGoods.count / 2.0) * 10,  kMainScreenWidth, 62);
