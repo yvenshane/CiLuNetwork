@@ -38,10 +38,10 @@
 #define kMainScreenWidth kMainScreenFrameRect.size.width
 #define kMainScreenHeight kMainScreenFrameRect.size.height
 
-#define Height_StatusBar [[UIApplication sharedApplication] statusBarFrame].size.height
-#define statusNavHeight (Height_StatusBar + 44)
-#define tabBarHeight (Height_StatusBar == 20 ? 49 : 83)
-#define isIPhoneX (Height_StatusBar == 20 ? NO : YES)
+#define statusBarHeight [[UIApplication sharedApplication] statusBarFrame].size.height
+#define statusNavHeight (statusBarHeight + 44)
+#define tabBarHeight (statusBarHeight == 20 ? 49 : 83)
+#define isIPhoneX (statusBarHeight == 20 ? NO : YES)
 
 #define UIColorMake(r, g, b) [UIColor colorWithRed:r/255.0 green:g/255.0 blue:b/255.0 alpha:1.0]
 #define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]

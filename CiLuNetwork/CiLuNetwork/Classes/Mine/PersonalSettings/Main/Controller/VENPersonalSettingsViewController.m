@@ -61,11 +61,13 @@ static NSString *cellIdentifier = @"cellIdentifier";
         NSDictionary *metaData = [[NSUserDefaults standardUserDefaults] objectForKey:@"metaData"];
         if (indexPath.row == 0) {
             VENAboutUsViewController *vc = [[VENAboutUsViewController alloc] init];
+            vc.isPush = YES;
             vc.navigationItem.title = @"加入优势";
             vc.HTMLString = metaData[@"join_advantage"];
             [self.navigationController pushViewController:vc animated:YES];
         } else {
             VENAboutUsViewController *vc = [[VENAboutUsViewController alloc] init];
+            vc.isPush = YES;
             vc.navigationItem.title = @"关于我们";
             vc.HTMLString = metaData[@"about_us"];
             [self.navigationController pushViewController:vc animated:YES];

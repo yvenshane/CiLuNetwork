@@ -12,6 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface VENAboutUsViewController : VENBaseViewController
 @property (nonatomic, copy) NSString *HTMLString;
+@property (nonatomic, assign) BOOL isPush;
 
 @end
 

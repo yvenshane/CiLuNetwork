@@ -8,6 +8,7 @@
 
 #import "VENSetPasswordViewController.h"
 #import "VENLoginViewController.h"
+#import "VENAboutUsViewController.h"
 
 @interface VENSetPasswordViewController ()
 @property (weak, nonatomic) IBOutlet UITextField *setPasswordTextField;
@@ -15,6 +16,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *rightButton;
 @property (weak, nonatomic) IBOutlet UIButton *registButton;
 @property (weak, nonatomic) IBOutlet UIButton *otherButton;
+@property (weak, nonatomic) IBOutlet UILabel *otherLabel;
 
 @property (nonatomic, assign) BOOL setPasswordTextFieldStatus;
 
@@ -31,10 +33,14 @@
     NSLog(@"mobile - %@", self.id_card);
     NSLog(@"mobile - %@", self.invitation_code);
     
-    [self.setPasswordTextField addTarget:self action:@selector(setPasswordTextFieldChanged:) forControlEvents:UIControlEventEditingChanged];
-    
     self.registButton.layer.cornerRadius = 4.0f;
     self.registButton.layer.masksToBounds = YES;
+    
+    NSMutableAttributedString *attributedStr = [[NSMutableAttributedString alloc] initWithString:@"点击立即注册代表您同意《用户注册服务协议》"];
+    [attributedStr addAttribute:NSForegroundColorAttributeName value:COLOR_THEME range:NSMakeRange(attributedStr.length - 10, 10)];
+    self.otherLabel.attributedText = attributedStr;
+    
+    [self.setPasswordTextField addTarget:self action:@selector(setPasswordTextFieldChanged:) forControlEvents:UIControlEventEditingChanged];
 }
 
 - (void)setPasswordTextFieldChanged:(UITextField*)textField {
@@ -108,6 +114,18 @@
 - (IBAction)closeButtonClick:(id)sender {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
+
+#pragma mark - 用户注册协议
+- (IBAction)otherButtonClick:(id)sender {
+    NSDictionary *metaData = [[NSUserDefaults standardUserDefaults] objectForKey:@"metaData"];
+    
+    VENAboutUsViewController *vc = [[VENAboutUsViewController alloc] init];
+    vc.isPush = NO;
+    vc.navigationItem.title = @"用户注册服务协议";
+    vc.HTMLString = metaData[@"user_licence"];
+    [self presentViewController:vc animated:YES completion:nil];
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

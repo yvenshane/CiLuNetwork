@@ -39,7 +39,12 @@
     self.view.backgroundColor = [UIColor whiteColor];
     self.edgesForExtendedLayout = UIRectEdgeNone;
     
-    NSDictionary *params = @{@"tag" : [[NSUserDefaults standardUserDefaults] objectForKey:@"tag"]};
+    NSString *tag = [[NSUserDefaults standardUserDefaults] objectForKey:@"tag"];
+    if ([[VENClassEmptyManager sharedManager] isEmptyString:tag]) {
+        tag = @"1";
+    }
+    
+    NSDictionary *params = @{@"tag" : tag};
     
     [[VENNetworkTool sharedManager] requestWithMethod:HTTPMethodPost path:@"goods/lists" params:params showLoading:YES successBlock:^(id response) {
         

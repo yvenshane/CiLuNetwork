@@ -14,6 +14,9 @@
 #import "VENHomePageModel.h"
 #import "VENClassifyDetailsViewController.h"
 
+
+#import "VENSetPasswordViewController.h"
+
 @interface VENHomePageViewController () <SDCycleScrollViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout>
 @property (nonatomic, strong) UICollectionView *collectionView;
 
@@ -43,7 +46,7 @@
 
 - (void)loadData {
     
-    NSString *tag = [NSString stringWithFormat:@"%@", [[NSUserDefaults standardUserDefaults] objectForKey:@"tag"]];
+    NSString *tag = [[NSUserDefaults standardUserDefaults] objectForKey:@"tag"];
     if ([[VENClassEmptyManager sharedManager] isEmptyString:tag]) {
         tag = @"1";
     }
@@ -234,6 +237,9 @@
 
 - (void)leftButtonClick {
     NSLog(@"左边");
+    
+    VENSetPasswordViewController *vc = [[VENSetPasswordViewController alloc] init];
+    [self presentViewController:vc animated:YES completion:nil];
 }
 
 - (void)setupNavigationItemTitleView {

@@ -28,8 +28,13 @@
     
     self.collectionView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         
+        NSString *tag = [[NSUserDefaults standardUserDefaults] objectForKey:@"tag"];
+        if ([[VENClassEmptyManager sharedManager] isEmptyString:tag]) {
+            tag = @"1";
+        }
+        
         NSDictionary *parmas = @{@"cate_id" : self.model.cate_id,
-                                 @"tag" : [[NSUserDefaults standardUserDefaults] objectForKey:@"tag"]};
+                                 @"tag" : tag};
         [self loadDataWith:parmas];
     }];
     

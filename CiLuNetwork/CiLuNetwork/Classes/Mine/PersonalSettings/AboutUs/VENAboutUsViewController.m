@@ -25,6 +25,10 @@ static NSString *cellIdentifier = @"cellIdentifier";
     
     self.view.backgroundColor = [UIColor whiteColor];
     
+    if (!self.isPush) {
+        [self setupNavigationBar];
+    }
+    
     [self setupTableView];
 }
 
@@ -33,7 +37,10 @@ static NSString *cellIdentifier = @"cellIdentifier";
 }
 
 - (void)setupTableView {
-    UITableView *tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kMainScreenWidth, kMainScreenHeight - statusNavHeight) style:UITableViewStylePlain];
+    
+    CGFloat y = self.isPush ? 0 : statusNavHeight;
+    
+    UITableView *tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, y, kMainScreenWidth, kMainScreenHeight - statusNavHeight) style:UITableViewStylePlain];
     tableView.delegate = self;
     tableView.showsVerticalScrollIndicator = NO;
     tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -63,6 +70,34 @@ static NSString *cellIdentifier = @"cellIdentifier";
     
     self.tableView.tableHeaderView.frame = CGRectMake(0, 0, kMainScreenWidth, webViewHeight + self.height);
     self.tableView.tableHeaderView = self.headerView;
+}
+
+- (void)setupNavigationBar {
+    UIView *navigationBar = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kMainScreenWidth, statusNavHeight)];
+    navigationBar.backgroundColor = [UIColor whiteColor];
+    [self.view addSubview:navigationBar];
+    
+    UIButton *closeButton = [[UIButton alloc] initWithFrame:CGRectMake(10, statusBarHeight, 44, 44)];
+    [closeButton setImage:[UIImage imageNamed:@"icon_close"] forState:UIControlStateNormal];
+    [closeButton addTarget:self action:@selector(closeButtonClick) forControlEvents:UIControlEventTouchUpInside];
+    [navigationBar addSubview:closeButton];
+    
+    UILabel *titleLabel = [[UILabel alloc] init];
+    titleLabel.text = @"用户注册服务协议";
+    titleLabel.font = [UIFont systemFontOfSize:16.0f];
+    titleLabel.textColor = UIColorFromRGB(0x1A1A1A);
+    CGFloat width = [self label:titleLabel setWidthToHeight:22.0f];
+    titleLabel.frame = CGRectMake(kMainScreenWidth / 2 - width / 2, statusBarHeight + 22 / 2, width, 22);
+    [navigationBar addSubview:titleLabel];
+}
+
+- (void)closeButtonClick {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (CGFloat)label:(UILabel *)label setWidthToHeight:(CGFloat)Height {
+    CGSize size = [label sizeThatFits:CGSizeMake(CGFLOAT_MAX, Height)];
+    return size.width;
 }
 
 /*
