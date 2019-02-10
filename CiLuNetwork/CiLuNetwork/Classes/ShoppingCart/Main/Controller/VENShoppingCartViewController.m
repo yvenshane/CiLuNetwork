@@ -46,6 +46,7 @@ static NSString *cellIdentifier = @"cellIdentifier";
     [_tableView.mj_header beginRefreshing];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notification:) name:@"RefreshShoppingCart" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notification2:) name:@"Logout" object:nil];
 }
 
 - (void)notification:(NSNotification *)noti {
@@ -56,6 +57,28 @@ static NSString *cellIdentifier = @"cellIdentifier";
             self.tabBarController.selectedIndex = 1;
         });
     }
+}
+
+- (void)notification2:(NSNotification *)noti {
+    [self.listMuArr removeAllObjects];
+    
+    [self.choiceListMuArr removeAllObjects];
+    self.isSelectAll = NO;
+    self.isEdit = NO;
+    
+    [self.shoppingBar removeFromSuperview];
+    self.shoppingBar = nil;
+    
+    self.navigationItem.rightBarButtonItem = nil;
+    
+    [self.placeholderBackgroundView removeFromSuperview];
+    self.placeholderBackgroundView = nil;
+    
+    if (self.placeholderBackgroundView == nil) {
+        [self setupPlaceholderStatus];
+    }
+    
+    [self.tableView reloadData];
 }
 
 - (void)loadDta {

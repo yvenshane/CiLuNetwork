@@ -39,7 +39,7 @@
     self.view.backgroundColor = [UIColor whiteColor];
     self.edgesForExtendedLayout = UIRectEdgeNone;
     
-    NSString *tag = [[NSUserDefaults standardUserDefaults] objectForKey:@"tag"];
+    NSString *tag = [[[NSUserDefaults standardUserDefaults] objectForKey:@"tag"] stringValue];
     if ([[VENClassEmptyManager sharedManager] isEmptyString:tag]) {
         tag = @"1";
     }
@@ -93,7 +93,6 @@
     self.navigationController.interactivePopGestureRecognizer.enabled = (index == 0);
     
     [[NSNotificationCenter defaultCenter] postNotificationName:@"categoryViewClick" object:[NSString stringWithFormat:@"%ld", (long)index]];
-    
     
     if (![self.selectedItemAtIndexMuArr containsObject:[NSString stringWithFormat:@"%ld", (long)index]]) {
         [self.listVCArray[index].collectionView.mj_header beginRefreshing];

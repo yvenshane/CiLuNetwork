@@ -26,6 +26,15 @@ static dispatch_once_t onceToken;
     if ([string isKindOfClass:[NSNull class]]) {
         return YES;
     }
+    if (!string.length) {
+        return YES;
+    }
+    NSCharacterSet *set = [NSCharacterSet whitespaceAndNewlineCharacterSet];
+    NSString *trimmedStr = [string stringByTrimmingCharactersInSet:set];
+    if (!trimmedStr.length) {
+        return YES;
+    }
+    
     return NO;
 }
 

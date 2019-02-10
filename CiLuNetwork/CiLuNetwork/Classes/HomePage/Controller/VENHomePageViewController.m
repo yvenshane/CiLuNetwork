@@ -43,7 +43,7 @@
 
 - (void)loadData {
     
-    NSString *tag = [[NSUserDefaults standardUserDefaults] objectForKey:@"tag"];
+    NSString *tag = [[[NSUserDefaults standardUserDefaults] objectForKey:@"tag"] stringValue];
     if ([[VENClassEmptyManager sharedManager] isEmptyString:tag]) {
         tag = @"1";
     }

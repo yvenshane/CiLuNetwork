@@ -136,8 +136,10 @@ static NSString *cellIdentifier = @"cellIdentifier";
     [userDefaults removeObjectForKey:@"openid"];
     [userDefaults removeObjectForKey:@"refresh_token"];
 
-    [self.navigationController popViewControllerAnimated:YES];
     self.block(@"loginoutSuccess");
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"Logout" object:nil];
+    
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 /*

@@ -97,6 +97,7 @@
         
         if ([response[@"status"] integerValue] == 0) {
             [[NSNotificationCenter defaultCenter] postNotificationName:@"WechatLoggedInSuccessfully" object:response[@"data"][@"token"]];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"RefreshShoppingCart" object:nil];
         }
         
     } failureBlock:^(NSError *error) {
@@ -159,6 +160,7 @@
                             if ([response[@"status"] integerValue] == 0) {
                                 NSLog(@"微信登录成功");
                                 [[NSNotificationCenter defaultCenter] postNotificationName:@"WechatLoggedInSuccessfully" object:response[@"data"][@"token"]];
+                                [[NSNotificationCenter defaultCenter] postNotificationName:@"RefreshShoppingCart" object:nil];
                             } else if ([response[@"status"] integerValue] == 10090) {
                                 NSLog(@"微信登录绑定");
                                 [[NSNotificationCenter defaultCenter] postNotificationName:@"VerificationOfPhoneNumber" object:responseObject[@"unionid"]];
@@ -196,6 +198,10 @@
         [alert addAction:actionConfirm];
         [self presentViewController:alert animated:YES completion:nil];
     }
+}
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)didReceiveMemoryWarning {

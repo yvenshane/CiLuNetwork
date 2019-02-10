@@ -12,7 +12,7 @@
 typedef void (^collectionViewDidSelectBlock)(NSString *);
 typedef void (^titleDidSelectBlock)(NSInteger);
 @interface VENClassifyCollectionViewController : UICollectionViewController
-@property (nonatomic, copy) NSArray *lists_goods;
+@property (nonatomic, strong) NSMutableArray *lists_goods;
 @property (nonatomic, strong) VENClassifyModel *model;
 
 @property (nonatomic, copy) collectionViewDidSelectBlock block;

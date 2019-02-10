@@ -365,6 +365,10 @@ static NSString *cellIdentifier3 = @"cellIdentifier3";
     _tableView = tableView;
 }
 
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 /*
 #pragma mark - Navigation
 

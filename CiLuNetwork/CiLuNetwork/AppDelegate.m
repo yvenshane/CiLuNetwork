@@ -164,6 +164,7 @@
                     
                     if ([response[@"status"] integerValue] == 0) {
                         [[NSNotificationCenter defaultCenter] postNotificationName:@"WechatLoggedInSuccessfully" object:response[@"data"][@"token"]];
+                        [[NSNotificationCenter defaultCenter] postNotificationName:@"RefreshShoppingCart" object:nil];
                         NSLog(@"微信登录成功");
                     } else if ([response[@"status"] integerValue] == 10090) {
                         [[NSNotificationCenter defaultCenter] postNotificationName:@"VerificationOfPhoneNumber" object:responseObject[@"unionid"]];

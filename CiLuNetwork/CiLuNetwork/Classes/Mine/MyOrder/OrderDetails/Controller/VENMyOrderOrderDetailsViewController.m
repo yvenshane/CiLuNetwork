@@ -373,6 +373,10 @@ static NSString *cellIdentifier2 = @"cellIdentifier2";
     return size.height;
 }
 
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
