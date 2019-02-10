@@ -10,5 +10,6 @@
 
 @interface VENClassifyDetailsViewController : VENBaseViewController
 @property (nonatomic, copy) NSString *goods_id;
+@property (nonatomic, assign) BOOL isBug;
 
 @end

@@ -28,6 +28,8 @@
     if (self = [super initWithFrame:frame]) {
 
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notification:) name:@"categoryViewClick" object:nil];
+       
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notification2:) name:@"RemoveFilterView" object:nil];
         
         UIView *lineView = [[UIView alloc] init];
         lineView.backgroundColor = UIColorFromRGB(0xF1F1F1);
@@ -233,6 +235,7 @@
     self.backgroundView2 = nil;
 }
 
+#pragma mark - 点击/侧滑 移除 UI 并且记录当前 index
 - (void)notification:(NSNotification *)noti {
     self.pageIndex = noti.object;
     
@@ -254,6 +257,23 @@
         self.categoryIndex = [noti.object integerValue];
         self.categoryIndex2 = [noti.object integerValue];
     }
+}
+
+#pragma mark - 点击顶部搜索框 移除 UI
+- (void)notification2:(NSNotification *)noti {
+    
+    self.leftButton.selected = NO;
+    self.rightButton.selected = NO;
+    
+    self.leftLabel.textColor = UIColorFromRGB(0x1A1A1A);
+    self.leftImageView.image = [UIImage imageNamed:@"icon_down02"];
+    self.rightLabel.textColor = UIColorFromRGB(0x1A1A1A);
+    self.rightImageView.image = [UIImage imageNamed:@"icon_down02"];
+    
+    [self.backgroundView removeFromSuperview];
+    self.backgroundView = nil;
+    [self.backgroundView2 removeFromSuperview];
+    self.backgroundView2 = nil;
 }
 
 - (void)buttonClick:(UIButton *)button {

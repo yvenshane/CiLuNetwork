@@ -44,7 +44,9 @@
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     
-    [self.navigationController setNavigationBarHidden:NO animated:animated];
+    if (!self.isBug) {
+        [self.navigationController setNavigationBarHidden:NO animated:animated];
+    }
 }
 
 - (void)viewDidLoad {
@@ -225,20 +227,22 @@
         VENClassifyDetailsToolBarView *bottomToolBarView = [[VENClassifyDetailsToolBarView alloc] initWithFrame:CGRectMake(0, kMainScreenHeight - 48, kMainScreenWidth, 48)];
         [self.view addSubview:bottomToolBarView];
         
-        [[VENNetworkTool sharedManager] requestWithMethod:HTTPMethodPost path:@"cart/lists" params:nil showLoading:NO successBlock:^(id response) {
-            
-            if ([response[@"status"] integerValue] == 0) {
-                if ([response[@"data"][@"count"] integerValue] > 0) {
-                    bottomToolBarView.redDotLabel.hidden = NO;
-                    bottomToolBarView.redDotLabel.text = [NSString stringWithFormat:@"%@", response[@"data"][@"count"]];
-                } else {
-                    bottomToolBarView.redDotLabel.hidden = YES;
+        if ([[VENUserStatusManager sharedManager] isLogin]) {
+            [[VENNetworkTool sharedManager] requestWithMethod:HTTPMethodPost path:@"cart/lists" params:nil showLoading:NO successBlock:^(id response) {
+                
+                if ([response[@"status"] integerValue] == 0) {
+                    if ([response[@"data"][@"count"] integerValue] > 0) {
+                        bottomToolBarView.redDotLabel.hidden = NO;
+                        bottomToolBarView.redDotLabel.text = [NSString stringWithFormat:@"%@", response[@"data"][@"count"]];
+                    } else {
+                        bottomToolBarView.redDotLabel.hidden = YES;
+                    }
                 }
-            }
-            
-        } failureBlock:^(NSError *error) {
-            
-        }];
+                
+            } failureBlock:^(NSError *error) {
+                
+            }];
+        }
         
         [bottomToolBarView.customerServiceButton addTarget:self action:@selector(customerServiceButtonClick) forControlEvents:UIControlEventTouchUpInside];
         [bottomToolBarView.shoppingCartButton addTarget:self action:@selector(shoppingCartButtonClick) forControlEvents:UIControlEventTouchUpInside];

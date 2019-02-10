@@ -1000,6 +1000,15 @@
 			path = AllOrders;
 			sourceTree = "<group>";
 		};
+		2C15199C22104BC200B3272E /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				2CFDDA4521BFB77F00275DA3 /* VENClassifySearchViewController.h */,
+				2CFDDA4621BFB77F00275DA3 /* VENClassifySearchViewController.m */,
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
 		2C1B7DFD21DCBC260030532B /* Main */ = {
 			isa = PBXGroup;
 			children = (
@@ -1862,8 +1871,7 @@
 				2CDF9F6C21B57A0900254B52 /* VENClassifyViewController.m */,
 				2CC8078C21C38A2200B65C88 /* VENClassifyCollectionViewController.h */,
 				2CC8078D21C38A2200B65C88 /* VENClassifyCollectionViewController.m */,
-				2CFDDA4521BFB77F00275DA3 /* VENClassifySearchViewController.h */,
-				2CFDDA4621BFB77F00275DA3 /* VENClassifySearchViewController.m */,
+				2C15199C22104BC200B3272E /* Search */,
 			);
 			path = Controller;
 			sourceTree = "<group>";

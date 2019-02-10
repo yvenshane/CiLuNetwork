@@ -210,9 +210,12 @@
     self.navigationItem.titleView = searchTextField;
 }
 
-- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField{
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"RemoveFilterView" object:nil];
+    
     VENClassifySearchViewController *vc = [[VENClassifySearchViewController alloc] init];
-    [self presentViewController:vc animated:NO completion:nil];
+    vc.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:vc animated:YES];
     
     return NO;
 }
