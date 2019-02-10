@@ -112,6 +112,7 @@
         vc.phoneCode = self.phoneTextField.text;
         vc.verificationCode = self.verificationCodeTextField.text;
         vc.invitationCode = self.invitationCodeTextField.text;
+        vc.union_id = self.union_id;
         [self presentViewController:vc animated:YES completion:nil];
         
     } failureBlock:^(NSError *error) {

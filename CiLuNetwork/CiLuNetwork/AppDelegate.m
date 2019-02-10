@@ -35,7 +35,7 @@
         
     }];
     
-    // 注册微信支付 APPID
+    // 注册微信 APPID
     [WXApi registerApp:@"wx6132aa5b6edb38e6" enableMTA:NO];
     
     return YES;
@@ -101,7 +101,7 @@
 }
 
 - (void)onResp:(BaseResp *)resp {
-    if ([resp isKindOfClass:[PayResp class]]) {
+    if ([resp isKindOfClass:[PayResp class]]) {// 微信支付
         PayResp *response = (PayResp *)resp;
         switch (response.errCode) {
             case WXSuccess:
@@ -113,6 +113,74 @@
                 NSLog(@"支付失败，retcode=%d", resp.errCode);
                 break;
         }
+    } else if ([resp isKindOfClass:[SendAuthResp class]]) {// 微信登录
+        SendAuthResp *rep = (SendAuthResp *)resp;
+        
+        /**
+         ERR_OK = 0(用户同意)
+         ERR_AUTH_DENIED = -4（用户拒绝授权）
+         ERR_USER_CANCEL = -2（用户取消）
+         */
+        
+        AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+        manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/plain"];
+
+        NSString *accessUrlStr = [NSString stringWithFormat:@"%@/oauth2/access_token?appid=%@&secret=%@&code=%@&grant_type=authorization_code", WeChat_Url, WeChat_AppID, WeChat_AppSecret, rep.code];
+        
+        [manager GET:accessUrlStr parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+            
+            NSLog(@"%@", responseObject);
+            
+            /**
+             "access_token" = "18_LoQiMvHQWcE960iJahqyeh1pCeL7_zYtFvCI3dbRTor-WmMz4iBPeJ4yXOjEG7A8g_mEkzCeKan_13wnW8CL6c8-o8IuoAqXHKs2npoPPpk";
+             "expires_in" = 7200;
+             openid = ohzja5tvZzXZfMCnxNJXAYdmr4Vg;
+             "refresh_token" = "18_P4quxWt4SUrloDv5a0mvY2giqGPRzHMKG6DzQtvLtKEigxmmrYJWXgqvF_cg4iaSM1qhVkcYckPVKPYX6mdOMUEgGkzwWRgu8Utkajfcmbk";
+             scope = "snsapi_userinfo";
+             unionid = "o-90H594QFXz6vHdtxnOZ9jlmMmQ";
+             */
+            
+            NSDictionary *tempDict = responseObject;
+            
+            if (![[VENClassEmptyManager sharedManager] isEmptyString:tempDict[@"access_token"]] &&
+                ![[VENClassEmptyManager sharedManager] isEmptyString:tempDict[@"openid"]]) {
+                
+                [[NSUserDefaults standardUserDefaults] setObject:tempDict[@"access_token"] forKey:@"access_token"];
+                [[NSUserDefaults standardUserDefaults] setObject:tempDict[@"openid"] forKey:@"openid"];
+                [[NSUserDefaults standardUserDefaults] setObject:tempDict[@"refresh_token"] forKey:@"refresh_token"];
+            }
+            
+            // 获取用户个人信息
+            NSString *access_token = [[NSUserDefaults standardUserDefaults] objectForKey:@"access_token"];
+            NSString *openid = [[NSUserDefaults standardUserDefaults] objectForKey:@"openid"];
+            NSString *url = [NSString stringWithFormat:@"%@/userinfo?access_token=%@&openid=%@", WeChat_Url, access_token, openid];
+            
+            [manager GET:url parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+                NSLog(@"请求用户信息的response = %@", responseObject);
+                
+                NSDictionary *params = @{@"union_id" : responseObject[@"unionid"]};
+                
+                [[VENNetworkTool sharedManager] requestWithMethod:HTTPMethodPost path:@"auth/wechatLogin" params:params showLoading:NO successBlock:^(id response) {
+                    
+                    if ([response[@"status"] integerValue] == 0) {
+                        [[NSNotificationCenter defaultCenter] postNotificationName:@"WechatLoggedInSuccessfully" object:response[@"data"][@"token"]];
+                        NSLog(@"微信登录成功");
+                    } else if ([response[@"status"] integerValue] == 10090) {
+                        [[NSNotificationCenter defaultCenter] postNotificationName:@"VerificationOfPhoneNumber" object:responseObject[@"unionid"]];
+                        NSLog(@"微信登录绑定");
+                    }
+                    
+                } failureBlock:^(NSError *error) {
+                    
+                }];
+                
+            } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+                NSLog(@"获取用户个人信息时出错 = %@", error);
+            }];
+            
+        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+            NSLog(@"获取access_token时出错 = %@", error);
+        }];
     }
 }
 

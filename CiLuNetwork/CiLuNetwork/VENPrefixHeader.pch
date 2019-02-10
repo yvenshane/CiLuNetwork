@@ -30,6 +30,10 @@
 #import "VENClassEmptyManager.h"
 #import "VENUserStatusManager.h"
 
+#define WeChat_AppID @"wx6132aa5b6edb38e6"
+#define WeChat_AppSecret @"954fd6d78405c670978c93879db65584"
+#define WeChat_Url @"https://api.weixin.qq.com/sns"
+
 #define kMainScreenFrameRect [UIScreen mainScreen].bounds
 #define kMainScreenWidth kMainScreenFrameRect.size.width
 #define kMainScreenHeight kMainScreenFrameRect.size.height

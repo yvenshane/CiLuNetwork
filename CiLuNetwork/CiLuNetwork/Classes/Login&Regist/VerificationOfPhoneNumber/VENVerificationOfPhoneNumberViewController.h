@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface VENVerificationOfPhoneNumberViewController : UIViewController
+@property (nonatomic, copy) NSString *union_id;
 
 @end

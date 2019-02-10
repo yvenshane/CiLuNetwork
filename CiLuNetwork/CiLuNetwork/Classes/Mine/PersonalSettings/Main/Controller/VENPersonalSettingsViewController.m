@@ -125,8 +125,15 @@ static NSString *cellIdentifier = @"cellIdentifier";
 
 - (void)loginoutButtonClick {
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    
+    // 登录
     [userDefaults removeObjectForKey:@"token"];
     
+    // 微信登录
+    [userDefaults removeObjectForKey:@"access_token"];
+    [userDefaults removeObjectForKey:@"openid"];
+    [userDefaults removeObjectForKey:@"refresh_token"];
+
     [self.navigationController popViewControllerAnimated:YES];
     self.block(@"loginoutSuccess");
 }

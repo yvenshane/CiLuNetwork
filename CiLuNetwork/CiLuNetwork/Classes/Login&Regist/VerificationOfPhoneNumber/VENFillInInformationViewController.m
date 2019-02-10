@@ -166,6 +166,7 @@
             vc.face_image = responseObject[@"data"][@"face_image"];
             vc.id_card = responseObject[@"data"][@"id_card"];
             vc.invitation_code = self.invitationCode;
+            vc.union_id = self.union_id;
             [self presentViewController:vc animated:YES completion:nil];
         }
         

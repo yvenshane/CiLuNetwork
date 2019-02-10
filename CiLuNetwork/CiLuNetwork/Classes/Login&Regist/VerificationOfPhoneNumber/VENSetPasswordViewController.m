@@ -7,6 +7,7 @@
 //
 
 #import "VENSetPasswordViewController.h"
+#import "VENLoginViewController.h"
 
 @interface VENSetPasswordViewController ()
 @property (weak, nonatomic) IBOutlet UITextField *setPasswordTextField;
@@ -31,6 +32,9 @@
     NSLog(@"mobile - %@", self.invitation_code);
     
     [self.setPasswordTextField addTarget:self action:@selector(setPasswordTextFieldChanged:) forControlEvents:UIControlEventEditingChanged];
+    
+    self.registButton.layer.cornerRadius = 4.0f;
+    self.registButton.layer.masksToBounds = YES;
 }
 
 - (void)setPasswordTextFieldChanged:(UITextField*)textField {
@@ -45,12 +49,24 @@
         return;
     }
     
-    NSDictionary *params = @{@"mobile" : self.mobile,
-                             @"password" : self.setPasswordTextField.text,
-                             @"tag" : self.leftButton.selected == YES ? @"1" : @"2",
-                             @"face_image" : self.face_image,
-                             @"id_card" : self.id_card,
-                             @"invitation_code" : self.invitation_code};
+    NSDictionary *params;
+    
+    if ([[VENClassEmptyManager sharedManager] isEmptyString:self.union_id]) {
+        params = @{@"mobile" : self.mobile,
+                   @"password" : self.setPasswordTextField.text,
+                   @"tag" : self.leftButton.selected == YES ? @"1" : @"2",
+                   @"face_image" : self.face_image,
+                   @"id_card" : self.id_card,
+                   @"invitation_code" : self.invitation_code};
+    } else {
+        params = @{@"mobile" : self.mobile,
+                   @"password" : self.setPasswordTextField.text,
+                   @"tag" : self.leftButton.selected == YES ? @"1" : @"2",
+                   @"face_image" : self.face_image,
+                   @"id_card" : self.id_card,
+                   @"invitation_code" : self.invitation_code,
+                   @"union_id" : self.union_id};
+    }
     
     [[VENNetworkTool sharedManager] requestWithMethod:HTTPMethodPost path:@"auth/register" params:params showLoading:YES successBlock:^(id response) {
         
@@ -61,15 +77,23 @@
             
             NSLog(@"tag - %@", [userDefaults objectForKey:@"tag"]);
 
-            [self.parentViewController.parentViewController dismissViewControllerAnimated:YES completion:nil];
+            // dismiss
+            UIViewController * presentingViewController = self.presentingViewController;
+            do {
+                if ([presentingViewController isKindOfClass:[VENLoginViewController class]]) {
+                    break;
+                }
+                presentingViewController = presentingViewController.presentingViewController;
+                
+            } while (presentingViewController.presentingViewController);
+            
+            [presentingViewController dismissViewControllerAnimated:YES completion:nil];
         }
         
     } failureBlock:^(NSError *error) {
         
     }];
-    
 }
-
 
 - (IBAction)leftButtonClick:(UIButton *)button {
     self.rightButton.selected = NO;
@@ -80,7 +104,6 @@
     self.leftButton.selected = NO;
     button.selected = YES;
 }
-
 
 - (IBAction)closeButtonClick:(id)sender {
     [self dismissViewControllerAnimated:YES completion:nil];
