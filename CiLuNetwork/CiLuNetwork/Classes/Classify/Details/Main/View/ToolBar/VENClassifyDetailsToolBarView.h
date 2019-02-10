@@ -13,5 +13,6 @@
 @property (nonatomic, strong) UIButton *shoppingCartButton;
 @property (nonatomic, strong) UIButton *addShoppingCartButton;
 @property (nonatomic, strong) UIButton *purchaseButton;
+@property (nonatomic, strong) UILabel *redDotLabel;
 
 @end

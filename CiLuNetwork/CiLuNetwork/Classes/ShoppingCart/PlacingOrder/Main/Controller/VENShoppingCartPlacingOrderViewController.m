@@ -143,23 +143,28 @@ static NSString *cellIdentifier = @"cellIdentifier";
     VENShoppingCartPlacingOrderHeaderView *headerView = [[[NSBundle mainBundle] loadNibNamed:@"VENShoppingCartPlacingOrderHeaderView" owner:nil options:nil] lastObject];
     [headerView.addReceivingAddressButton addTarget:self action:@selector(addReceivingAddressButtonClick) forControlEvents:UIControlEventTouchUpInside];
     
-    if (self.addressModel != nil) {
-        [headerView.addReceivingAddressButton setTitle:@"" forState:UIControlStateNormal];
-        [headerView.addReceivingAddressButton setImage:[UIImage imageNamed:@""] forState:UIControlStateNormal];
-        headerView.topLabel.hidden = NO;
-        headerView.bottomLabel.hidden = NO;
-        headerView.locationImageView.hidden = NO;
-        headerView.rightImageView.hidden = NO;
-        headerView.topLabel.text = [NSString stringWithFormat:@"%@    %@", self.addressModel.username, self.addressModel.mobile];
-        headerView.bottomLabel.text = self.addressModel.detail;
-        self.address_id = self.addressModel.address_id;
-    } else {
+    
+    if ([[VENClassEmptyManager sharedManager] isEmptyString:self.addressModel.username] || [[VENClassEmptyManager sharedManager] isEmptyString:self.addressModel.mobile]) {
         [headerView.addReceivingAddressButton setTitle:@"  添加收货地址" forState:UIControlStateNormal];
         [headerView.addReceivingAddressButton setImage:[UIImage imageNamed:@"icon_add02"] forState:UIControlStateNormal];
         headerView.topLabel.hidden = YES;
         headerView.bottomLabel.hidden = YES;
         headerView.locationImageView.hidden = YES;
         headerView.rightImageView.hidden = YES;
+    } else {
+        [headerView.addReceivingAddressButton setTitle:@"" forState:UIControlStateNormal];
+        [headerView.addReceivingAddressButton setImage:[UIImage imageNamed:@""] forState:UIControlStateNormal];
+        headerView.topLabel.hidden = NO;
+        headerView.bottomLabel.hidden = NO;
+        headerView.locationImageView.hidden = NO;
+        headerView.rightImageView.hidden = NO;
+        
+        
+        headerView.topLabel.text = [NSString stringWithFormat:@"%@    %@", self.addressModel.username, self.addressModel.mobile];
+        
+        
+        headerView.bottomLabel.text = self.addressModel.detail;
+        self.address_id = self.addressModel.address_id;
     }
     
     tableView.tableHeaderView = headerView;

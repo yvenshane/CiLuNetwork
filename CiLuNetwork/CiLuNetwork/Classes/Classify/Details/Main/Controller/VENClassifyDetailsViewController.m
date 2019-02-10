@@ -29,6 +29,8 @@
 @property (nonatomic, strong) UIButton *collectionButton;
 @property (nonatomic, strong) UIButton *collectionButton02;
 
+@property (nonatomic, strong) VENClassifyDetailsToolBarView *bottomToolBarView;
+
 @end
 
 @implementation VENClassifyDetailsViewController
@@ -216,17 +218,50 @@
 }
 
 - (void)setupBottomToolBar {
-    VENClassifyDetailsToolBarView *bottomToolBarView = [[VENClassifyDetailsToolBarView alloc] initWithFrame:CGRectMake(0, kMainScreenHeight - 48, kMainScreenWidth, 48)];
-    [self.view addSubview:bottomToolBarView];
+    [self.bottomToolBarView removeFromSuperview];
+    self.bottomToolBarView = nil;
     
-    [bottomToolBarView.customerServiceButton addTarget:self action:@selector(customerServiceButtonClick) forControlEvents:UIControlEventTouchUpInside];
-    [bottomToolBarView.shoppingCartButton addTarget:self action:@selector(shoppingCartButtonClick) forControlEvents:UIControlEventTouchUpInside];
-    [bottomToolBarView.addShoppingCartButton addTarget:self action:@selector(addShoppingCartButtonClick) forControlEvents:UIControlEventTouchUpInside];
-    [bottomToolBarView.purchaseButton addTarget:self action:@selector(purchaseButtonClick) forControlEvents:UIControlEventTouchUpInside];
+    if (self.bottomToolBarView == nil) {
+        VENClassifyDetailsToolBarView *bottomToolBarView = [[VENClassifyDetailsToolBarView alloc] initWithFrame:CGRectMake(0, kMainScreenHeight - 48, kMainScreenWidth, 48)];
+        [self.view addSubview:bottomToolBarView];
+        
+        [[VENNetworkTool sharedManager] requestWithMethod:HTTPMethodPost path:@"cart/lists" params:nil showLoading:NO successBlock:^(id response) {
+            
+            if ([response[@"status"] integerValue] == 0) {
+                if ([response[@"data"][@"count"] integerValue] > 0) {
+                    bottomToolBarView.redDotLabel.hidden = NO;
+                    bottomToolBarView.redDotLabel.text = [NSString stringWithFormat:@"%@", response[@"data"][@"count"]];
+                } else {
+                    bottomToolBarView.redDotLabel.hidden = YES;
+                }
+            }
+            
+        } failureBlock:^(NSError *error) {
+            
+        }];
+        
+        [bottomToolBarView.customerServiceButton addTarget:self action:@selector(customerServiceButtonClick) forControlEvents:UIControlEventTouchUpInside];
+        [bottomToolBarView.shoppingCartButton addTarget:self action:@selector(shoppingCartButtonClick) forControlEvents:UIControlEventTouchUpInside];
+        [bottomToolBarView.addShoppingCartButton addTarget:self action:@selector(addShoppingCartButtonClick) forControlEvents:UIControlEventTouchUpInside];
+        [bottomToolBarView.purchaseButton addTarget:self action:@selector(purchaseButtonClick) forControlEvents:UIControlEventTouchUpInside];
+        
+        self.bottomToolBarView = bottomToolBarView;
+    }
 }
 
+#pragma mark - 客服
 - (void)customerServiceButtonClick {
     NSLog(@"客服");
+    
+    NSDictionary *metaData = [[NSUserDefaults standardUserDefaults] objectForKey:@"metaData"];
+    NSString *phoneNumber = metaData[@"service_telephone"];
+    NSString *callPhone = [NSString stringWithFormat:@"telprompt://%@", phoneNumber];
+    
+    if (@available(iOS 10.0, *)) {
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:callPhone] options:@{} completionHandler:nil];
+    } else {
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:callPhone]];
+    }
 }
 
 - (void)shoppingCartButtonClick {
@@ -241,17 +276,28 @@
         
         if ([response[@"status"] integerValue] == 0) {
             [[NSNotificationCenter defaultCenter] postNotificationName:@"RefreshShoppingCart" object:nil];
+            [self setupBottomToolBar];
         }
         
     } failureBlock:^(NSError *error) {
         
     }];
-    
 }
 
+#pragma mark - 立即购买
 - (void)purchaseButtonClick {
     NSLog(@"立即购买");
-
+    
+//    [[VENNetworkTool sharedManager] requestWithMethod:HTTPMethodPost path:@"cart/check" params:@{@"ids" : [tempMuArr componentsJoinedByString:@","]} showLoading:YES successBlock:^(id response) {
+//        
+//        if ([response[@"status"] integerValue] == 0) {
+//            VENShoppingCartPlacingOrderViewController *vc = [[VENShoppingCartPlacingOrderViewController alloc] init];
+//            vc.hidesBottomBarWhenPushed = YES;
+//            [self.navigationController pushViewController:vc animated:YES];
+//        }
+//    } failureBlock:^(NSError *error) {
+//        
+//    }];
 }
 
 - (UIView *)backgroundView {

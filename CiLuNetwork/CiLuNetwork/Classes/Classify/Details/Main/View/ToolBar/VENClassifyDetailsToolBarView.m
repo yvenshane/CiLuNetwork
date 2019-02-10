@@ -50,6 +50,17 @@
         wordLabel2.font = [UIFont systemFontOfSize:10.0f];
         [self addSubview:wordLabel2];
         
+        // 小红点
+        UILabel *redDotLabel = [[UILabel alloc] init];
+        redDotLabel.textAlignment = NSTextAlignmentCenter;
+        redDotLabel.backgroundColor = [UIColor redColor];
+        redDotLabel.font = [UIFont systemFontOfSize:10.0f];
+        redDotLabel.textColor = [UIColor whiteColor];
+        redDotLabel.layer.cornerRadius = 6.5f;
+        redDotLabel.layer.masksToBounds = YES;
+        redDotLabel.hidden = YES;
+        [iconImageView2 addSubview:redDotLabel];
+        
         // 加入购物车
         UIButton *addShoppingCartButton = [[UIButton alloc] init];
         [addShoppingCartButton setTitle:@"加入购物车" forState:UIControlStateNormal];
@@ -78,6 +89,7 @@
         self.iconImageView2 = iconImageView2;
         self.wordLabel = wordLabel;
         self.wordLabel2 = wordLabel2;
+        self.redDotLabel = redDotLabel;
         self.splitLineView = splitLineView;
     }
     return self;
@@ -95,6 +107,7 @@
     self.iconImageView2.frame = CGRectMake((kMainScreenWidth / 3 + 20) / 5 / 2 + ((kMainScreenWidth / 3 + 20) / 5 * 3) - 18 / 2, 8, 18, 18);
     self.wordLabel.frame = CGRectMake((kMainScreenWidth / 3 + 20) / 5 / 2 + (kMainScreenWidth / 3 + 20) / 5 - 24 / 2, 8 + 18 + 3, 24, 14);
     self.wordLabel2.frame = CGRectMake((kMainScreenWidth / 3 + 20) / 5 / 2 + ((kMainScreenWidth / 3 + 20) / 5 * 3) - 32 / 2, 8 + 18 + 3, 32, 14);
+    self.redDotLabel.frame = CGRectMake(12, -4, 13, 13);
     self.splitLineView.frame = CGRectMake(0, 0, kMainScreenWidth, 1);
 }
 
