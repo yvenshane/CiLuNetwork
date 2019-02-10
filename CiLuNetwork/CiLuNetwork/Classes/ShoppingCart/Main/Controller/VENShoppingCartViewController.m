@@ -128,6 +128,22 @@ static NSString *cellIdentifier = @"cellIdentifier";
             }
             
              [self.tableView reloadData];
+        } else { // 10099
+            [self.choiceListMuArr removeAllObjects];
+            self.isSelectAll = NO;
+            self.isEdit = NO;
+            
+            [self.shoppingBar removeFromSuperview];
+            self.shoppingBar = nil;
+            
+            self.navigationItem.rightBarButtonItem = nil;
+            
+            [self.placeholderBackgroundView removeFromSuperview];
+            self.placeholderBackgroundView = nil;
+            
+            if (self.placeholderBackgroundView == nil) {
+                [self setupPlaceholderStatus];
+            }
         }
         
     } failureBlock:^(NSError *error) {
@@ -401,18 +417,61 @@ static NSString *cellIdentifier = @"cellIdentifier";
 #pragma mark - 结算 / 删除
 - (void)payButtonClick {
     if (self.choiceListMuArr.count > 0) {
+        
+        NSMutableArray *tempMuArr = [NSMutableArray array];
+        for (VENShoppingCartModel *model in self.choiceListMuArr) {
+            [tempMuArr addObject:model.shoppingCartID];
+            
+        }
+        
+        NSDictionary *params = @{@"ids" : [tempMuArr componentsJoinedByString:@","]};
+        
         if (self.isEdit == YES) {
             NSLog(@"删除");
+            
+
+            
+            [[VENNetworkTool sharedManager] requestWithMethod:HTTPMethodPost path:@"cart/remove" params:params showLoading:YES successBlock:^(id response) {
+                
+                if ([response[@"status"] integerValue] == 0) {
+                    
+                    if (self.choiceListMuArr.count > 0) {
+                        [self.choiceListMuArr removeAllObjects];
+                    }
+                    
+                    if (self.listMuArr.count > 0) {
+                        [self.listMuArr removeAllObjects];
+                    }
+                    
+                    if (self.choiceButtonsMuArr.count > 0) {
+                        [self.choiceButtonsMuArr removeAllObjects];
+                    }
+                    
+                    if (self.numberButtonsMuArr.count > 0) {
+                        [self.numberButtonsMuArr removeAllObjects];
+                    }
+                    
+                    [self computedPrice];
+                    [self.tableView reloadData];
+                    
+                    if (self.listMuArr.count < 1) {
+                        [self.shoppingBar removeFromSuperview];
+                        self.shoppingBar = nil;
+                        self.isEdit = NO;
+                        self.navigationItem.rightBarButtonItem = nil;
+                        [self loadDta];
+                    }
+                    
+                }
+                
+            } failureBlock:^(NSError *error) {
+                
+            }];
+            
         } else {
             NSLog(@"结算");
             
-            NSMutableArray *tempMuArr = [NSMutableArray array];
-            for (VENShoppingCartModel *model in self.choiceListMuArr) {
-                [tempMuArr addObject:model.shoppingCartID];
-                
-            }
-            
-            [[VENNetworkTool sharedManager] requestWithMethod:HTTPMethodPost path:@"cart/check" params:@{@"ids" : [tempMuArr componentsJoinedByString:@","]} showLoading:YES successBlock:^(id response) {
+            [[VENNetworkTool sharedManager] requestWithMethod:HTTPMethodPost path:@"cart/check" params:params showLoading:YES successBlock:^(id response) {
                 
                 if ([response[@"status"] integerValue] == 0) {
                     VENShoppingCartPlacingOrderViewController *vc = [[VENShoppingCartPlacingOrderViewController alloc] init];
