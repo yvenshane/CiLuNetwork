@@ -245,6 +245,8 @@
     // nav 黑线
     [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
     [self.navigationController.navigationBar setShadowImage:[UIImage new]];
+    
+    [[VENBadgeValueManager sharedManager] setupRedDotWithTabBar:self.tabBarController];
 }
 
 - (void)viewDidAppear:(BOOL)animated {

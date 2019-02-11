@@ -34,6 +34,12 @@
 static NSString *cellIdentifier = @"cellIdentifier";
 @implementation VENShoppingCartViewController
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:YES];
+    
+    [[VENBadgeValueManager sharedManager] setupRedDotWithTabBar:self.tabBarController];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -43,7 +49,25 @@ static NSString *cellIdentifier = @"cellIdentifier";
     
     [self setupTableView];
     
-    [_tableView.mj_header beginRefreshing];
+    if ([[VENUserStatusManager sharedManager] isLogin]) {
+        [_tableView.mj_header beginRefreshing];
+    } else {
+        [self.choiceListMuArr removeAllObjects];
+        self.isSelectAll = NO;
+        self.isEdit = NO;
+        
+        [self.shoppingBar removeFromSuperview];
+        self.shoppingBar = nil;
+        
+        self.navigationItem.rightBarButtonItem = nil;
+        
+        [self.placeholderBackgroundView removeFromSuperview];
+        self.placeholderBackgroundView = nil;
+        
+        if (self.placeholderBackgroundView == nil) {
+            [self setupPlaceholderStatus];
+        }
+    }
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notification:) name:@"RefreshShoppingCart" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notification2:) name:@"Logout" object:nil];
@@ -128,22 +152,6 @@ static NSString *cellIdentifier = @"cellIdentifier";
             }
             
              [self.tableView reloadData];
-        } else { // 10099
-            [self.choiceListMuArr removeAllObjects];
-            self.isSelectAll = NO;
-            self.isEdit = NO;
-            
-            [self.shoppingBar removeFromSuperview];
-            self.shoppingBar = nil;
-            
-            self.navigationItem.rightBarButtonItem = nil;
-            
-            [self.placeholderBackgroundView removeFromSuperview];
-            self.placeholderBackgroundView = nil;
-            
-            if (self.placeholderBackgroundView == nil) {
-                [self setupPlaceholderStatus];
-            }
         }
         
     } failureBlock:^(NSError *error) {
@@ -299,6 +307,20 @@ static NSString *cellIdentifier = @"cellIdentifier";
                         [self loadDta];
                     }
                     
+                    [[VENNetworkTool sharedManager] requestWithMethod:HTTPMethodPost path:@"cart/lists" params:nil showLoading:NO successBlock:^(id response) {
+                        
+                        if ([response[@"status"] integerValue] == 0) {
+                            if ([response[@"data"][@"count"] integerValue] > 0) {
+                                [[NSUserDefaults standardUserDefaults] setObject:[NSString stringWithFormat:@"%@", response[@"data"][@"count"]] forKey:@"RedDot"];
+                                [self.tabBarController.tabBar.items[2] setBadgeValue:[[NSUserDefaults standardUserDefaults] objectForKey:@"RedDot"]];
+                            } else {
+                                [self.tabBarController.tabBar.items[2] setBadgeValue:nil];
+                            }
+                        }
+                        
+                    } failureBlock:^(NSError *error) {
+                        
+                    }];
                 }
                 
                 
@@ -462,6 +484,20 @@ static NSString *cellIdentifier = @"cellIdentifier";
                         [self loadDta];
                     }
                     
+                    [[VENNetworkTool sharedManager] requestWithMethod:HTTPMethodPost path:@"cart/lists" params:nil showLoading:NO successBlock:^(id response) {
+                        
+                        if ([response[@"status"] integerValue] == 0) {
+                            if ([response[@"data"][@"count"] integerValue] > 0) {
+                                [[NSUserDefaults standardUserDefaults] setObject:[NSString stringWithFormat:@"%@", response[@"data"][@"count"]] forKey:@"RedDot"];
+                                [self.tabBarController.tabBar.items[2] setBadgeValue:[[NSUserDefaults standardUserDefaults] objectForKey:@"RedDot"]];
+                            } else {
+                                [self.tabBarController.tabBar.items[2] setBadgeValue:nil];
+                            }
+                        }
+                        
+                    } failureBlock:^(NSError *error) {
+                        
+                    }];
                 }
                 
             } failureBlock:^(NSError *error) {

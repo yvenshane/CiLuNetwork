@@ -37,6 +37,12 @@ static NSString *cellIdentifier2 = @"cellIdentifier2";
 static NSString *cellIdentifier3 = @"cellIdentifier3";
 @implementation VENMineViewController
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:YES];
+    
+    [[VENBadgeValueManager sharedManager] setupRedDotWithTabBar:self.tabBarController];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.

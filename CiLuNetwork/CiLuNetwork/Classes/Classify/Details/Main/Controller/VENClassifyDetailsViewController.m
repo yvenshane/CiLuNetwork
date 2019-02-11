@@ -108,6 +108,7 @@
     
     // 轮播图
     SDCycleScrollView *cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, kMainScreenWidth, 375) delegate:self placeholderImage:nil];
+    cycleScrollView.backgroundColor = [UIColor whiteColor];
     cycleScrollView.pageControlAliment = SDCycleScrollViewPageContolAlimentCenter;
     cycleScrollView.currentPageDotColor = [UIColor colorWithRed:26/255.0 green:26/255.0 blue:26/255.0 alpha:0.5];
     cycleScrollView.pageDotColor = [UIColor colorWithRed:26/255.0 green:26/255.0 blue:26/255.0 alpha:0.2];
@@ -236,6 +237,7 @@
                     if ([response[@"data"][@"count"] integerValue] > 0) {
                         bottomToolBarView.redDotLabel.hidden = NO;
                         bottomToolBarView.redDotLabel.text = [NSString stringWithFormat:@"%@", response[@"data"][@"count"]];
+                        [[NSUserDefaults standardUserDefaults] setObject:[NSString stringWithFormat:@"%@", response[@"data"][@"count"]] forKey:@"RedDot"];
                     } else {
                         bottomToolBarView.redDotLabel.hidden = YES;
                     }

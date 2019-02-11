@@ -69,6 +69,7 @@
 		2C42B181221168C40028A3CF /* FaceLivenessSDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 2C42B17F221168C40028A3CF /* FaceLivenessSDK.bundle */; };
 		2C42B182221168C40028A3CF /* RPSDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 2C42B180221168C40028A3CF /* RPSDK.bundle */; };
 		2C42B18D221172990028A3CF /* FaceTheme.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 2C42B18C221172990028A3CF /* FaceTheme.bundle */; };
+		2C42B190221193470028A3CF /* VENBadgeValueManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C42B18F221193470028A3CF /* VENBadgeValueManager.m */; };
 		2C4E5B7D21BE933900A041B3 /* VENFilterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C4E5B7C21BE933900A041B3 /* VENFilterView.m */; };
 		2C54DEC921DC504C00E72241 /* VENMyBalanceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C54DEC821DC504C00E72241 /* VENMyBalanceViewController.m */; };
 		2C54DECD21DC507200E72241 /* VENMyBalanceTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C54DECB21DC507200E72241 /* VENMyBalanceTableViewCell.m */; };
@@ -426,6 +427,8 @@
 		2C42B17F221168C40028A3CF /* FaceLivenessSDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = FaceLivenessSDK.bundle; sourceTree = "<group>"; };
 		2C42B180221168C40028A3CF /* RPSDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = RPSDK.bundle; sourceTree = "<group>"; };
 		2C42B18C221172990028A3CF /* FaceTheme.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = FaceTheme.bundle; sourceTree = "<group>"; };
+		2C42B18E221193470028A3CF /* VENBadgeValueManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VENBadgeValueManager.h; sourceTree = "<group>"; };
+		2C42B18F221193470028A3CF /* VENBadgeValueManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VENBadgeValueManager.m; sourceTree = "<group>"; };
 		2C4E5B7B21BE933900A041B3 /* VENFilterView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VENFilterView.h; sourceTree = "<group>"; };
 		2C4E5B7C21BE933900A041B3 /* VENFilterView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VENFilterView.m; sourceTree = "<group>"; };
 		2C54DEC721DC504C00E72241 /* VENMyBalanceViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VENMyBalanceViewController.h; sourceTree = "<group>"; };
@@ -2168,6 +2171,8 @@
 				2C78042C22003DA300EBD7C8 /* VENNetworkTool.m */,
 				2C94E29D21E77291003F6595 /* VENUserStatusManager.h */,
 				2C94E29E21E77291003F6595 /* VENUserStatusManager.m */,
+				2C42B18E221193470028A3CF /* VENBadgeValueManager.h */,
+				2C42B18F221193470028A3CF /* VENBadgeValueManager.m */,
 			);
 			path = SharedManager;
 			sourceTree = "<group>";
@@ -3186,6 +3191,7 @@
 				2C78043F2200525000EBD7C8 /* VENAboutUsViewController.m in Sources */,
 				2C94E27B21E73715003F6595 /* LGPhotoPickerGroup.m in Sources */,
 				2C9365FB21CCE6EF002B0ED9 /* VENShoppingCartPlacingOrderHeaderView.m in Sources */,
+				2C42B190221193470028A3CF /* VENBadgeValueManager.m in Sources */,
 				2CDFA0A621B5813500254B52 /* MJRefreshHeader.m in Sources */,
 				2C94E26F21E73715003F6595 /* LGPhotoPickerBrowserViewController.m in Sources */,
 				2CDFA05E21B5813500254B52 /* NSArray+MASAdditions.m in Sources */,

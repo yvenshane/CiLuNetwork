@@ -31,6 +31,12 @@
 
 @implementation VENHomePageViewController
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:YES];
+    
+    [[VENBadgeValueManager sharedManager] setupRedDotWithTabBar:self.tabBarController];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.

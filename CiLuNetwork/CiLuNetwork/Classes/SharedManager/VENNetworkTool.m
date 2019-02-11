@@ -109,7 +109,7 @@ static dispatch_once_t onceToken;
                     dispatch_async(dispatch_get_main_queue(), ^{
                         VENLoginViewController *vc = [[VENLoginViewController alloc] init];
                         vc.block = ^(NSString *str) {
-                            
+                            [[NSNotificationCenter defaultCenter] postNotificationName:@"RefreshMinePage" object:nil];
                         };
                         [[self findCurrentViewController] presentViewController:vc animated:YES completion:nil];
                     });

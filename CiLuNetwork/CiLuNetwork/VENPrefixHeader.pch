@@ -29,6 +29,7 @@
 #import "VENMBProgressHUDManager.h"
 #import "VENClassEmptyManager.h"
 #import "VENUserStatusManager.h"
+#import "VENBadgeValueManager.h"
 
 #define WeChat_AppID @"wx6132aa5b6edb38e6"
 #define WeChat_AppSecret @"954fd6d78405c670978c93879db65584"
