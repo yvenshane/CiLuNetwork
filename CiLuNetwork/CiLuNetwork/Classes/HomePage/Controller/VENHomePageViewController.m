@@ -39,13 +39,27 @@
     [self setupCollectionView];
     
     [self.collectionView.mj_header beginRefreshing];
+    
+    UISwipeGestureRecognizer *swipeGestureRecognizerLeft = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swip:)];
+    [self.view addGestureRecognizer:swipeGestureRecognizerLeft];
+    swipeGestureRecognizerLeft.direction = UISwipeGestureRecognizerDirectionLeft;
+    // 添加向右轻扫手势
+    UISwipeGestureRecognizer *swipeGestureRecognizerRight = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swip:)];
+    [self.view addGestureRecognizer:swipeGestureRecognizerRight];
+    swipeGestureRecognizerRight.direction = UISwipeGestureRecognizerDirectionRight;
+    // 监听手势的方法
+}
+
+- (void)swip:(UISwipeGestureRecognizer *)sender {
+    NSLog(@"%ld", sender.direction); // 判断轻扫手势的方向
 }
 
 - (void)loadData {
     
     NSString *tag = [[[NSUserDefaults standardUserDefaults] objectForKey:@"tag"] stringValue];
     if ([[VENClassEmptyManager sharedManager] isEmptyString:tag]) {
-        tag = @"1";
+        NSDictionary *metaData = [[NSUserDefaults standardUserDefaults] objectForKey:@"metaData"];
+        tag = [metaData[@"tag_list"][0][@"id"] stringValue];
     }
     
     [[VENNetworkTool sharedManager] requestWithMethod:HTTPMethodPost path:@"goods/index" params:@{@"tag" : tag} showLoading:YES successBlock:^(id response) {
@@ -66,11 +80,7 @@
             
             [self setupCycleScrollView];
             [self setupHorizontalCollectionView];
-            
-            static dispatch_once_t onceToken;
-            dispatch_once(&onceToken, ^{
-                [self setupNavigationItemTitleView];
-            });
+            [self setupNavigationItemTitleView];
             
             [self.collectionView reloadData];
             self.collectionViewHeaderView2.frame = CGRectMake(0, 327 + ceilf(self.hotGoods.count / 2.0) * 248 + ceilf(self.hotGoods.count / 2.0) * 10,  kMainScreenWidth, 62);
@@ -221,6 +231,8 @@
 
 - (void)rightButtonClick {
     NSLog(@"右边");
+    
+    [[NSUserDefaults standardUserDefaults] setObject:@2 forKey:@"tag"];
 }
 
 - (void)setupNavigationItemLeftBarButtonItem {
@@ -234,6 +246,8 @@
 
 - (void)leftButtonClick {
     NSLog(@"左边");
+    
+    [[NSUserDefaults standardUserDefaults] setObject:@1 forKey:@"tag"];
 }
 
 - (void)setupNavigationItemTitleView {
@@ -257,6 +271,8 @@
             [userDefaults setObject:metaData[@"tag_list"][1][@"id"] forKey:@"tag"];
             [self.collectionView.mj_header beginRefreshing];
         }
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"Reset" object:nil];
     };
     
     self.navigationItem.titleView = titleView;

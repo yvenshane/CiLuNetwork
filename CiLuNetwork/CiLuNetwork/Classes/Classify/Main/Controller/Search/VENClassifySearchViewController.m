@@ -62,7 +62,8 @@
     
     NSString *tag = [[[NSUserDefaults standardUserDefaults] objectForKey:@"tag"] stringValue];
     if ([[VENClassEmptyManager sharedManager] isEmptyString:tag]) {
-        tag = @"1";
+        NSDictionary *metaData = [[NSUserDefaults standardUserDefaults] objectForKey:@"metaData"];
+        tag = [metaData[@"tag_list"][0][@"id"] stringValue];
     }
     
     NSDictionary *params = @{@"cate_id" : @"0",

@@ -26,6 +26,7 @@
 @property (nonatomic, strong) VENClassifyModel *current_conditionsModel;
 @property (nonatomic, copy) NSArray *lists_goods;
 
+@property (nonatomic, assign) NSInteger nowIndexPath;
 @property (nonatomic, strong) NSMutableArray *selectedItemAtIndexMuArr;
 
 @end
@@ -41,7 +42,8 @@
     
     NSString *tag = [[[NSUserDefaults standardUserDefaults] objectForKey:@"tag"] stringValue];
     if ([[VENClassEmptyManager sharedManager] isEmptyString:tag]) {
-        tag = @"1";
+        NSDictionary *metaData = [[NSUserDefaults standardUserDefaults] objectForKey:@"metaData"];
+        tag = [metaData[@"tag_list"][0][@"id"] stringValue];
     }
     
     NSDictionary *params = @{@"tag" : tag};
@@ -72,6 +74,8 @@
     [self setupSearchView];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notification:) name:@"PushToClassifyPage" object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notification2:) name:@"Reset" object:nil];
 }
 
 - (void)notification:(NSNotification *)noti {
@@ -79,6 +83,12 @@
     NSIndexPath *indexPath = noti.object;
     
     [self.categoryView selectItemAtIndex:indexPath.row + 1];
+}
+
+#pragma mark - 解决切换 tag 刷新分类的问题
+- (void)notification2:(NSNotification *)noti {
+    [self.listVCArray[self.nowIndexPath].collectionView.mj_header beginRefreshing];
+    [self.selectedItemAtIndexMuArr removeAllObjects];
 }
 
 - (void)setupFilterView {
@@ -98,6 +108,8 @@
         [self.listVCArray[index].collectionView.mj_header beginRefreshing];
         [self.selectedItemAtIndexMuArr addObject:[NSString stringWithFormat:@"%ld", (long)index]];
     }
+    
+    self.nowIndexPath = index;
 }
 
 - (void)categoryView:(JXCategoryBaseView *)categoryView didClickSelectedItemAtIndex:(NSInteger)index {

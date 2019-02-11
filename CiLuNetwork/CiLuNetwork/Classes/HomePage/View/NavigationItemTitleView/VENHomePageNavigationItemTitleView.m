@@ -31,10 +31,6 @@
         [leftButton addTarget:self action:@selector(leftButtonClick) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:leftButton];
         
-        UIView *leftView = [[UIView alloc] init];
-        leftView.backgroundColor = COLOR_THEME;
-        [self addSubview:leftView];
-        
         UIButton *rightButton = [[UIButton alloc] init];
         [rightButton setTitle:metaData[@"tag_list"][1][@"name"] forState:UIControlStateNormal];
         [rightButton setTitleColor:COLOR_THEME forState:UIControlStateSelected];
@@ -43,13 +39,34 @@
         [rightButton addTarget:self action:@selector(rightButtonClick) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:rightButton];
         
+        UIView *leftView = [[UIView alloc] init];
+        leftView.backgroundColor = COLOR_THEME;
+        [self addSubview:leftView];
+        
         UIView *rightView = [[UIView alloc] init];
-        rightView.hidden = YES;
         rightView.backgroundColor = COLOR_THEME;
         [self addSubview:rightView];
         
-        leftButton.selected = YES;
-        leftButton.userInteractionEnabled = NO;
+        NSString *tag = [[[NSUserDefaults standardUserDefaults] objectForKey:@"tag"] stringValue];
+        if ([[VENClassEmptyManager sharedManager] isEmptyString:tag]) {
+            tag = [metaData[@"tag_list"][0][@"id"] stringValue];
+        }
+        
+        if ([tag isEqualToString:[metaData[@"tag_list"][0][@"id"] stringValue]]) {
+            leftButton.selected = YES;
+            leftButton.userInteractionEnabled = NO;
+            rightButton.selected = NO;
+            rightButton.userInteractionEnabled = YES;
+            leftView.hidden = NO;
+            rightView.hidden = YES;
+        } else if ([tag isEqualToString:[metaData[@"tag_list"][1][@"id"] stringValue]]) {
+            leftButton.selected = NO;
+            leftButton.userInteractionEnabled = YES;
+            rightButton.selected = YES;
+            rightButton.userInteractionEnabled = NO;
+            leftView.hidden = YES;
+            rightView.hidden = NO;
+        }
         
         self.leftButton = leftButton;
         self.rightButton = rightButton;

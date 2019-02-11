@@ -18,6 +18,8 @@
 @property (weak, nonatomic) IBOutlet UIButton *otherButton;
 @property (weak, nonatomic) IBOutlet UILabel *otherLabel;
 
+@property (nonatomic, copy) NSArray *tag_list;
+
 @property (nonatomic, assign) BOOL setPasswordTextFieldStatus;
 
 @end
@@ -32,6 +34,12 @@
     NSLog(@"mobile - %@", self.face_image);
     NSLog(@"mobile - %@", self.id_card);
     NSLog(@"mobile - %@", self.invitation_code);
+    
+    NSDictionary *metaData = [[NSUserDefaults standardUserDefaults] objectForKey:@"metaData"];
+    self.tag_list = metaData[@"tag_list"];
+
+    [self.leftButton setTitle:[NSString stringWithFormat:@"  %@", self.tag_list[0][@"name"]] forState:UIControlStateNormal];
+    [self.rightButton setTitle:[NSString stringWithFormat:@"  %@", self.tag_list[1][@"name"]] forState:UIControlStateNormal];
     
     self.registButton.layer.cornerRadius = 4.0f;
     self.registButton.layer.masksToBounds = YES;
@@ -60,14 +68,14 @@
     if ([[VENClassEmptyManager sharedManager] isEmptyString:self.union_id]) {
         params = @{@"mobile" : self.mobile,
                    @"password" : self.setPasswordTextField.text,
-                   @"tag" : self.leftButton.selected == YES ? @"1" : @"2",
+                   @"tag" : self.leftButton.selected == YES ? [self.tag_list[0][@"id"] stringValue] : [self.tag_list[1][@"id"] stringValue],
                    @"face_image" : self.face_image,
                    @"id_card" : self.id_card,
                    @"invitation_code" : self.invitation_code};
     } else {
         params = @{@"mobile" : self.mobile,
                    @"password" : self.setPasswordTextField.text,
-                   @"tag" : self.leftButton.selected == YES ? @"1" : @"2",
+                   @"tag" : self.leftButton.selected == YES ? [self.tag_list[0][@"id"] stringValue] : [self.tag_list[1][@"id"] stringValue],
                    @"face_image" : self.face_image,
                    @"id_card" : self.id_card,
                    @"invitation_code" : self.invitation_code,
@@ -77,11 +85,15 @@
     [[VENNetworkTool sharedManager] requestWithMethod:HTTPMethodPost path:@"auth/register" params:params showLoading:YES successBlock:^(id response) {
         
         if ([response[@"status"] integerValue] == 0) {
+
+            if (self.leftButton.selected && !self.rightButton.selected) {
+                [[NSUserDefaults standardUserDefaults] setObject:self.tag_list[0][@"id"] forKey:@"tag"];
+            } else if (!self.leftButton.selected && self.rightButton.selected) {
+                [[NSUserDefaults standardUserDefaults] setObject:self.tag_list[1][@"id"] forKey:@"tag"];
+            }
             
-            NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-            [userDefaults setObject:@"1" forKey:@"tag"];
-            
-            NSLog(@"tag - %@", [userDefaults objectForKey:@"tag"]);
+            // 刷新 分类页面
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"Reset" object:nil];
 
             // dismiss
             UIViewController * presentingViewController = self.presentingViewController;
