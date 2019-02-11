@@ -39,6 +39,36 @@
 		2C30BC5D21F486DB001A4CB2 /* VENShoppingCartPlacingOrderReceivingAddressModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C30BC5C21F486DB001A4CB2 /* VENShoppingCartPlacingOrderReceivingAddressModel.m */; };
 		2C40EE7921F6F52300EC21FA /* VENShoppingCartPlacingOrderPaymentOrderPayTypeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C40EE7821F6F52300EC21FA /* VENShoppingCartPlacingOrderPaymentOrderPayTypeModel.m */; };
 		2C4208A421E6D1C70033E030 /* VENMBProgressHUDManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C4208A121E6D1C70033E030 /* VENMBProgressHUDManager.m */; };
+		2C42B14A221166C40028A3CF /* RPSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C42B149221166C40028A3CF /* RPSDK.framework */; };
+		2C42B14C221166D50028A3CF /* FaceLivenessOpen.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C42B14B221166D50028A3CF /* FaceLivenessOpen.framework */; };
+		2C42B14E221166E30028A3CF /* SecurityGuardSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C42B14D221166E30028A3CF /* SecurityGuardSDK.framework */; };
+		2C42B150221166EC0028A3CF /* SGMain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C42B14F221166EC0028A3CF /* SGMain.framework */; };
+		2C42B152221166F70028A3CF /* SGNoCaptcha.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C42B151221166F60028A3CF /* SGNoCaptcha.framework */; };
+		2C42B154221167030028A3CF /* SGSecurityBody.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C42B153221167030028A3CF /* SGSecurityBody.framework */; };
+		2C42B1562211670E0028A3CF /* AliyunOSSiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C42B1552211670E0028A3CF /* AliyunOSSiOS.framework */; };
+		2C42B1582211671D0028A3CF /* WindVane.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C42B1572211671D0028A3CF /* WindVane.framework */; };
+		2C42B15A221167260028A3CF /* WindVaneBasic.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C42B159221167260028A3CF /* WindVaneBasic.framework */; };
+		2C42B15C2211672B0028A3CF /* WindVaneBridge.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C42B15B2211672B0028A3CF /* WindVaneBridge.framework */; };
+		2C42B15E221167330028A3CF /* WindVaneCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C42B15D221167330028A3CF /* WindVaneCore.framework */; };
+		2C42B1602211673F0028A3CF /* ZipArchive.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C42B15F2211673E0028A3CF /* ZipArchive.framework */; };
+		2C42B1622211674B0028A3CF /* AliReachability.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C42B1612211674B0028A3CF /* AliReachability.framework */; };
+		2C42B1642211679C0028A3CF /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C42B1632211679C0028A3CF /* CoreMedia.framework */; };
+		2C42B166221167B40028A3CF /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C42B165221167B40028A3CF /* AVFoundation.framework */; };
+		2C42B168221167BD0028A3CF /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C42B167221167BC0028A3CF /* ImageIO.framework */; };
+		2C42B16A221167C30028A3CF /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C42B169221167C30028A3CF /* MobileCoreServices.framework */; };
+		2C42B16C221167CA0028A3CF /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C42B16B221167CA0028A3CF /* MediaPlayer.framework */; };
+		2C42B16E221167D00028A3CF /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C42B16D221167D00028A3CF /* CoreLocation.framework */; };
+		2C42B170221167D80028A3CF /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C42B16F221167D80028A3CF /* AddressBook.framework */; };
+		2C42B172221167DD0028A3CF /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C42B171221167DD0028A3CF /* AddressBookUI.framework */; };
+		2C42B174221167F20028A3CF /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C42B173221167F20028A3CF /* AudioToolbox.framework */; };
+		2C42B176221167F90028A3CF /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C42B175221167F90028A3CF /* AssetsLibrary.framework */; };
+		2C42B178221168030028A3CF /* libresolv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C42B177221168030028A3CF /* libresolv.tbd */; };
+		2C42B17A221168090028A3CF /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C42B179221168090028A3CF /* WebKit.framework */; };
+		2C42B17C221168110028A3CF /* libiconv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C42B17B221168110028A3CF /* libiconv.tbd */; };
+		2C42B17E221168AA0028A3CF /* yw_1222_0769.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2C42B17D221168AA0028A3CF /* yw_1222_0769.jpg */; };
+		2C42B181221168C40028A3CF /* FaceLivenessSDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 2C42B17F221168C40028A3CF /* FaceLivenessSDK.bundle */; };
+		2C42B182221168C40028A3CF /* RPSDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 2C42B180221168C40028A3CF /* RPSDK.bundle */; };
+		2C42B18D221172990028A3CF /* FaceTheme.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 2C42B18C221172990028A3CF /* FaceTheme.bundle */; };
 		2C4E5B7D21BE933900A041B3 /* VENFilterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C4E5B7C21BE933900A041B3 /* VENFilterView.m */; };
 		2C54DEC921DC504C00E72241 /* VENMyBalanceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C54DEC821DC504C00E72241 /* VENMyBalanceViewController.m */; };
 		2C54DECD21DC507200E72241 /* VENMyBalanceTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C54DECB21DC507200E72241 /* VENMyBalanceTableViewCell.m */; };
@@ -366,6 +396,36 @@
 		2C40EE7821F6F52300EC21FA /* VENShoppingCartPlacingOrderPaymentOrderPayTypeModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VENShoppingCartPlacingOrderPaymentOrderPayTypeModel.m; sourceTree = "<group>"; };
 		2C4208A121E6D1C70033E030 /* VENMBProgressHUDManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VENMBProgressHUDManager.m; sourceTree = "<group>"; };
 		2C4208A221E6D1C70033E030 /* VENMBProgressHUDManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VENMBProgressHUDManager.h; sourceTree = "<group>"; };
+		2C42B149221166C40028A3CF /* RPSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = RPSDK.framework; sourceTree = "<group>"; };
+		2C42B14B221166D50028A3CF /* FaceLivenessOpen.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FaceLivenessOpen.framework; sourceTree = "<group>"; };
+		2C42B14D221166E30028A3CF /* SecurityGuardSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SecurityGuardSDK.framework; sourceTree = "<group>"; };
+		2C42B14F221166EC0028A3CF /* SGMain.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SGMain.framework; sourceTree = "<group>"; };
+		2C42B151221166F60028A3CF /* SGNoCaptcha.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SGNoCaptcha.framework; sourceTree = "<group>"; };
+		2C42B153221167030028A3CF /* SGSecurityBody.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SGSecurityBody.framework; sourceTree = "<group>"; };
+		2C42B1552211670E0028A3CF /* AliyunOSSiOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AliyunOSSiOS.framework; sourceTree = "<group>"; };
+		2C42B1572211671D0028A3CF /* WindVane.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = WindVane.framework; sourceTree = "<group>"; };
+		2C42B159221167260028A3CF /* WindVaneBasic.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = WindVaneBasic.framework; sourceTree = "<group>"; };
+		2C42B15B2211672B0028A3CF /* WindVaneBridge.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = WindVaneBridge.framework; sourceTree = "<group>"; };
+		2C42B15D221167330028A3CF /* WindVaneCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = WindVaneCore.framework; sourceTree = "<group>"; };
+		2C42B15F2211673E0028A3CF /* ZipArchive.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ZipArchive.framework; sourceTree = "<group>"; };
+		2C42B1612211674B0028A3CF /* AliReachability.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AliReachability.framework; sourceTree = "<group>"; };
+		2C42B1632211679C0028A3CF /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
+		2C42B165221167B40028A3CF /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		2C42B167221167BC0028A3CF /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
+		2C42B169221167C30028A3CF /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		2C42B16B221167CA0028A3CF /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
+		2C42B16D221167D00028A3CF /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		2C42B16F221167D80028A3CF /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
+		2C42B171221167DD0028A3CF /* AddressBookUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBookUI.framework; path = System/Library/Frameworks/AddressBookUI.framework; sourceTree = SDKROOT; };
+		2C42B173221167F20028A3CF /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		2C42B175221167F90028A3CF /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
+		2C42B177221168030028A3CF /* libresolv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libresolv.tbd; path = usr/lib/libresolv.tbd; sourceTree = SDKROOT; };
+		2C42B179221168090028A3CF /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
+		2C42B17B221168110028A3CF /* libiconv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libiconv.tbd; path = usr/lib/libiconv.tbd; sourceTree = SDKROOT; };
+		2C42B17D221168AA0028A3CF /* yw_1222_0769.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = yw_1222_0769.jpg; sourceTree = "<group>"; };
+		2C42B17F221168C40028A3CF /* FaceLivenessSDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = FaceLivenessSDK.bundle; sourceTree = "<group>"; };
+		2C42B180221168C40028A3CF /* RPSDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = RPSDK.bundle; sourceTree = "<group>"; };
+		2C42B18C221172990028A3CF /* FaceTheme.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = FaceTheme.bundle; sourceTree = "<group>"; };
 		2C4E5B7B21BE933900A041B3 /* VENFilterView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VENFilterView.h; sourceTree = "<group>"; };
 		2C4E5B7C21BE933900A041B3 /* VENFilterView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VENFilterView.m; sourceTree = "<group>"; };
 		2C54DEC721DC504C00E72241 /* VENMyBalanceViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VENMyBalanceViewController.h; sourceTree = "<group>"; };
@@ -888,20 +948,46 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2CEF611B21F72C6A009B5EC8 /* libsqlite3.0.tbd in Frameworks */,
+				2C42B17C221168110028A3CF /* libiconv.tbd in Frameworks */,
+				2C42B17A221168090028A3CF /* WebKit.framework in Frameworks */,
+				2C42B178221168030028A3CF /* libresolv.tbd in Frameworks */,
+				2C42B176221167F90028A3CF /* AssetsLibrary.framework in Frameworks */,
+				2C42B174221167F20028A3CF /* AudioToolbox.framework in Frameworks */,
+				2CEF610321F710EA009B5EC8 /* SystemConfiguration.framework in Frameworks */,
+				2C42B172221167DD0028A3CF /* AddressBookUI.framework in Frameworks */,
+				2C42B170221167D80028A3CF /* AddressBook.framework in Frameworks */,
+				2C42B16E221167D00028A3CF /* CoreLocation.framework in Frameworks */,
+				2C42B16C221167CA0028A3CF /* MediaPlayer.framework in Frameworks */,
+				2C42B16A221167C30028A3CF /* MobileCoreServices.framework in Frameworks */,
+				2C42B168221167BD0028A3CF /* ImageIO.framework in Frameworks */,
+				2C42B166221167B40028A3CF /* AVFoundation.framework in Frameworks */,
+				2CEF610521F710F4009B5EC8 /* CoreTelephony.framework in Frameworks */,
 				2CEF611321F71139009B5EC8 /* CoreMotion.framework in Frameworks */,
+				2C42B1642211679C0028A3CF /* CoreMedia.framework in Frameworks */,
+				2C42B1582211671D0028A3CF /* WindVane.framework in Frameworks */,
+				2C42B14C221166D50028A3CF /* FaceLivenessOpen.framework in Frameworks */,
+				2CEF611B21F72C6A009B5EC8 /* libsqlite3.0.tbd in Frameworks */,
+				2C42B1602211673F0028A3CF /* ZipArchive.framework in Frameworks */,
 				2CEF611121F7112F009B5EC8 /* CFNetwork.framework in Frameworks */,
 				2CEF610F21F71129009B5EC8 /* Foundation.framework in Frameworks */,
 				2CEF610D21F7111F009B5EC8 /* UIKit.framework in Frameworks */,
+				2C42B14A221166C40028A3CF /* RPSDK.framework in Frameworks */,
+				2C42B15E221167330028A3CF /* WindVaneCore.framework in Frameworks */,
+				2C42B15A221167260028A3CF /* WindVaneBasic.framework in Frameworks */,
 				2CEF611921F71797009B5EC8 /* libWeChatSDK.a in Frameworks */,
+				2C42B154221167030028A3CF /* SGSecurityBody.framework in Frameworks */,
+				2C42B152221166F70028A3CF /* SGNoCaptcha.framework in Frameworks */,
+				2C42B1562211670E0028A3CF /* AliyunOSSiOS.framework in Frameworks */,
+				2C42B15C2211672B0028A3CF /* WindVaneBridge.framework in Frameworks */,
 				2CEF610B21F71119009B5EC8 /* CoreGraphics.framework in Frameworks */,
 				2CEF610921F71109009B5EC8 /* CoreText.framework in Frameworks */,
 				2CEF610721F710FE009B5EC8 /* QuartzCore.framework in Frameworks */,
-				2CEF610521F710F4009B5EC8 /* CoreTelephony.framework in Frameworks */,
-				2CEF610321F710EA009B5EC8 /* SystemConfiguration.framework in Frameworks */,
 				2CEF610121F710D4009B5EC8 /* libz.tbd in Frameworks */,
 				2CEF60FF21F710CB009B5EC8 /* libc++.tbd in Frameworks */,
+				2C42B150221166EC0028A3CF /* SGMain.framework in Frameworks */,
 				2CEF60FA21F70D68009B5EC8 /* AlipaySDK.framework in Frameworks */,
+				2C42B1622211674B0028A3CF /* AliReachability.framework in Frameworks */,
+				2C42B14E221166E30028A3CF /* SecurityGuardSDK.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1083,6 +1169,47 @@
 				2CDAD38A22018C1100D6FE34 /* VENMyPointsModel.m */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		2C42B148221166A20028A3CF /* FaceRecognition */ = {
+			isa = PBXGroup;
+			children = (
+				2C42B1612211674B0028A3CF /* AliReachability.framework */,
+				2C42B15F2211673E0028A3CF /* ZipArchive.framework */,
+				2C42B15D221167330028A3CF /* WindVaneCore.framework */,
+				2C42B15B2211672B0028A3CF /* WindVaneBridge.framework */,
+				2C42B159221167260028A3CF /* WindVaneBasic.framework */,
+				2C42B1572211671D0028A3CF /* WindVane.framework */,
+				2C42B1552211670E0028A3CF /* AliyunOSSiOS.framework */,
+				2C42B153221167030028A3CF /* SGSecurityBody.framework */,
+				2C42B151221166F60028A3CF /* SGNoCaptcha.framework */,
+				2C42B14F221166EC0028A3CF /* SGMain.framework */,
+				2C42B14D221166E30028A3CF /* SecurityGuardSDK.framework */,
+				2C42B14B221166D50028A3CF /* FaceLivenessOpen.framework */,
+				2C42B149221166C40028A3CF /* RPSDK.framework */,
+			);
+			path = FaceRecognition;
+			sourceTree = "<group>";
+		};
+		2C42B18822116B2B0028A3CF /* 验证手机号 */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "验证手机号";
+			sourceTree = "<group>";
+		};
+		2C42B18922116B310028A3CF /* 完善信息 */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "完善信息";
+			sourceTree = "<group>";
+		};
+		2C42B18B22116B470028A3CF /* 设置密码 */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "设置密码";
 			sourceTree = "<group>";
 		};
 		2C54DEC321DC4FB900E72241 /* MyBalance */ = {
@@ -1753,12 +1880,15 @@
 		2CD4FF4921C797C200868525 /* VerificationOfPhoneNumber */ = {
 			isa = PBXGroup;
 			children = (
+				2C42B18822116B2B0028A3CF /* 验证手机号 */,
 				2CD4FF3821C78BB200868525 /* VENVerificationOfPhoneNumberViewController.h */,
 				2CD4FF3921C78BB200868525 /* VENVerificationOfPhoneNumberViewController.m */,
 				2CD4FF3A21C78BB200868525 /* VENVerificationOfPhoneNumberViewController.xib */,
+				2C42B18922116B310028A3CF /* 完善信息 */,
 				2CD4FF3D21C78FCF00868525 /* VENFillInInformationViewController.h */,
 				2CD4FF3E21C78FCF00868525 /* VENFillInInformationViewController.m */,
 				2CD4FF3F21C78FCF00868525 /* VENFillInInformationViewController.xib */,
+				2C42B18B22116B470028A3CF /* 设置密码 */,
 				2CD4FF4221C793B400868525 /* VENSetPasswordViewController.h */,
 				2CD4FF4321C793B400868525 /* VENSetPasswordViewController.m */,
 				2CD4FF4421C793B400868525 /* VENSetPasswordViewController.xib */,
@@ -1797,6 +1927,10 @@
 		2CDF9F2D21B5724B00254B52 = {
 			isa = PBXGroup;
 			children = (
+				2C42B18C221172990028A3CF /* FaceTheme.bundle */,
+				2C42B17F221168C40028A3CF /* FaceLivenessSDK.bundle */,
+				2C42B180221168C40028A3CF /* RPSDK.bundle */,
+				2C42B17D221168AA0028A3CF /* yw_1222_0769.jpg */,
 				2CDF9F3821B5724B00254B52 /* CiLuNetwork */,
 				2CDF9F3721B5724B00254B52 /* Products */,
 				2CEF60FC21F710A2009B5EC8 /* Frameworks */,
@@ -1829,6 +1963,7 @@
 		2CDF9F5021B575FF00254B52 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				2C42B148221166A20028A3CF /* FaceRecognition */,
 				2CEF60F021F70D68009B5EC8 /* Pay */,
 				2CDF9F7821B5810C00254B52 /* ThirdPartyFramework */,
 				2CDF9F7721B57FE400254B52 /* SharedManager */,
@@ -2628,6 +2763,19 @@
 		2CEF60FC21F710A2009B5EC8 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2C42B17B221168110028A3CF /* libiconv.tbd */,
+				2C42B179221168090028A3CF /* WebKit.framework */,
+				2C42B177221168030028A3CF /* libresolv.tbd */,
+				2C42B175221167F90028A3CF /* AssetsLibrary.framework */,
+				2C42B173221167F20028A3CF /* AudioToolbox.framework */,
+				2C42B171221167DD0028A3CF /* AddressBookUI.framework */,
+				2C42B16F221167D80028A3CF /* AddressBook.framework */,
+				2C42B16D221167D00028A3CF /* CoreLocation.framework */,
+				2C42B16B221167CA0028A3CF /* MediaPlayer.framework */,
+				2C42B169221167C30028A3CF /* MobileCoreServices.framework */,
+				2C42B167221167BC0028A3CF /* ImageIO.framework */,
+				2C42B165221167B40028A3CF /* AVFoundation.framework */,
+				2C42B1632211679C0028A3CF /* CoreMedia.framework */,
 				2CEF611A21F72C6A009B5EC8 /* libsqlite3.0.tbd */,
 				2CEF611221F71139009B5EC8 /* CoreMotion.framework */,
 				2CEF611021F7112F009B5EC8 /* CFNetwork.framework */,
@@ -2949,6 +3097,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2C42B181221168C40028A3CF /* FaceLivenessSDK.bundle in Resources */,
+				2C42B182221168C40028A3CF /* RPSDK.bundle in Resources */,
+				2C42B17E221168AA0028A3CF /* yw_1222_0769.jpg in Resources */,
 				2C2D738321DDA58B006E417D /* VENMyPointsHeaderViewTableViewCell.xib in Resources */,
 				2CF7EFB221CB3B900020A448 /* VENClassifyDetailsHeaderView.xib in Resources */,
 				2CD4FF3721C782E500868525 /* VENLoginViewController.xib in Resources */,
@@ -2981,6 +3132,7 @@
 				2C1B7E0921DCBF000030532B /* VENMyBalanceAddAccountTableViewCell.xib in Resources */,
 				2CF7EFC221CB7A2A0020A448 /* VENClassifyDetailsUserEvaluateTableViewCell.xib in Resources */,
 				2C98D45621D61C1E004E1153 /* VENMyOrderOrderDetailsOrderEvaluationViewController.xib in Resources */,
+				2C42B18D221172990028A3CF /* FaceTheme.bundle in Resources */,
 				2CDFA09821B5813500254B52 /* MJRefresh.bundle in Resources */,
 				2CD4FF4621C793B400868525 /* VENSetPasswordViewController.xib in Resources */,
 				2C54DED421DC549300E72241 /* VENMyBalanceHeaderViewTableViewCell.xib in Resources */,
@@ -3384,9 +3536,11 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 3JRZ4BFGFJ;
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/CiLuNetwork/Classes/Pay/AliPay",
+					"$(PROJECT_DIR)/CiLuNetwork/Classes/FaceRecognition",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/CiLuNetwork/VENPrefixHeader.pch";
@@ -3400,6 +3554,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/CiLuNetwork/Classes/Pay/WXPay",
 				);
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ahaiba.CiLuNetwork;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -3415,9 +3570,11 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 3JRZ4BFGFJ;
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/CiLuNetwork/Classes/Pay/AliPay",
+					"$(PROJECT_DIR)/CiLuNetwork/Classes/FaceRecognition",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/CiLuNetwork/VENPrefixHeader.pch";
@@ -3431,6 +3588,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/CiLuNetwork/Classes/Pay/WXPay",
 				);
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ahaiba.CiLuNetwork;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

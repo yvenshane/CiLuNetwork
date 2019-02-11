@@ -255,7 +255,7 @@ static dispatch_once_t onceToken;
             UIImage *image = photos[i];
             NSData *imageData = UIImageJPEGRepresentation(image, 0.28);
 
-            [formData appendPartWithFileData:imageData name:@"avatar" fileName:fileName mimeType:@"image/jpeg"];
+            [formData appendPartWithFileData:imageData name:@"face_image" fileName:fileName mimeType:@"image/jpeg"];
         }
     } progress:^(NSProgress * _Nonnull uploadProgress) {
 

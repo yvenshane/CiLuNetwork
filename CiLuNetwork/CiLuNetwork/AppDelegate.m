@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "VENTabBarController.h"
+#import <RPSDK/RPSDK.h>
 
 @interface AppDelegate () <WXApiDelegate>
 
@@ -37,6 +38,9 @@
     
     // 注册微信 APPID
     [WXApi registerApp:@"wx6132aa5b6edb38e6" enableMTA:NO];
+    
+    // 阿里 人脸识别
+    [RPSDK initialize:RPSDKEnvOnline]; //必须为RPSDKEnvOnline
     
     return YES;
 }

@@ -8,6 +8,7 @@
 
 #import "VENFillInInformationViewController.h"
 #import "VENSetPasswordViewController.h"
+#import <RPSDK/RPSDK.h>
 
 #import "LGPhotoPickerViewController.h"
 #import "LGPhotoPickerBrowserViewController.h"
@@ -104,6 +105,7 @@
      */
     
     [self.upDataButton setImage:assets[0].compressionImage forState:UIControlStateNormal];
+    self.upDataButton.imageView.contentMode = UIViewContentModeScaleAspectFill;
     self.pickImage = assets[0].compressionImage;
     
     self.nextButton.backgroundColor = self.idNumberTextFieldStatus == YES && self.pickImage != nil ? COLOR_THEME : UIColorFromRGB(0xDEDEDE);
@@ -142,6 +144,7 @@
         
         ZLCamera *canamerPhoto = cameras[0];
         [self.upDataButton setImage:canamerPhoto.photoImage forState:UIControlStateNormal];
+        self.upDataButton.imageView.contentMode = UIViewContentModeScaleAspectFill;
         self.pickImage = canamerPhoto.photoImage;
         
         self.nextButton.backgroundColor = self.idNumberTextFieldStatus == YES && self.pickImage != nil ? COLOR_THEME : UIColorFromRGB(0xDEDEDE);
@@ -150,34 +153,51 @@
 }
 
 - (void)updataFaceImageWith:(UIImage *)image {
-    
-    [[VENNetworkTool sharedManager] POST:@"auth/uploadFaceImage" parameters:@{@"id_card" : self.idNumberTextField.text} constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
+    [[VENNetworkTool sharedManager] uploadImageWithPath:@"auth/uploadFaceImage" image:image params:@{@"id_card" : self.idNumberTextField.text} success:^(id response) {
         
-        [[VENMBProgressHUDManager sharedManager] addLoading];
-
-        [formData appendPartWithFileData:UIImagePNGRepresentation(image) name:@"face_image" fileName:@"face_image.png" mimeType:@"image/png"];
-        
-    } progress:^(NSProgress * _Nonnull uploadProgress) {
-        
-    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        NSLog(@"%@", responseObject);
-        
-        [[VENMBProgressHUDManager sharedManager] removeLoading];
-        
-        if ([responseObject[@"status"] integerValue] == 0) {
-            VENSetPasswordViewController *vc = [[VENSetPasswordViewController alloc] init];
-            vc.mobile = self.phoneCode;
-            vc.face_image = responseObject[@"data"][@"face_image"];
-            vc.id_card = responseObject[@"data"][@"id_card"];
-            vc.invitation_code = self.invitationCode;
-            vc.union_id = self.union_id;
-            [self presentViewController:vc animated:YES completion:nil];
+        if ([response[@"status"] integerValue] == 0) {
+            
+            NSString *face_image = response[@"data"][@"face_image"];
+            NSString *id_card = response[@"data"][@"id_card"];
+            
+            // 获取 人脸识别所需 token
+            [[VENNetworkTool sharedManager] requestWithMethod:HTTPMethodPost path:@"aliyun/getVerifyToken" params:@{@"face_image" : face_image} showLoading:NO successBlock:^(id response) {
+                
+                if ([response[@"status"] integerValue] == 0) {
+                    
+                    NSString *verifyToken = response[@"data"][@"token"];
+                    
+                    // 阿里云 人脸识别
+                    [RPSDK start:verifyToken rpCompleted:^(AUDIT auditState) {
+                        NSLog(@"verifyResult = %ld",(unsigned long)auditState);
+                        if(auditState == AUDIT_PASS) { //认证通过。
+                            VENSetPasswordViewController *vc = [[VENSetPasswordViewController alloc] init];
+                            vc.mobile = self.phoneCode;
+                            vc.face_image = face_image;
+                            vc.id_card = id_card;
+                            vc.invitation_code = self.invitationCode;
+                            vc.union_id = self.union_id;
+                            [self presentViewController:vc animated:YES completion:nil];
+                        }
+                        else if(auditState == AUDIT_FAIL) { //认证不通过。
+                        }
+                        else if(auditState == AUDIT_IN_AUDIT) { //认证中，通常不会出现，只有在认证审核系统内部出现超时、未在限定时间内返回认证结果时出现。此时提示用户系统处理中，稍后查看认证结果即可。
+                        }
+                        else if(auditState == AUDIT_NOT) { //未认证，用户取消。
+                        }
+                        else if(auditState == AUDIT_EXCEPTION) { //系统异常。
+                        }
+                    }withVC:self.navigationController];
+                    
+                }
+                
+            } failureBlock:^(NSError *error) {
+                
+            }];
+            
         }
+    } failure:^(NSError *error) {
         
-        [[VENMBProgressHUDManager sharedManager] showText:responseObject[@"message"]];
-        
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        [[VENMBProgressHUDManager sharedManager] removeLoading];
     }];
 }
 
