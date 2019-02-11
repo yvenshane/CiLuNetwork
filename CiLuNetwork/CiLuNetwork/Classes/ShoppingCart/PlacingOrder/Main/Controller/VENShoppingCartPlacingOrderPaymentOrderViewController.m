@@ -34,6 +34,7 @@ static NSString *cellIdentifier = @"cellIdentifier";
     [self handleData];
     
 #pragma mark - 微信&支付宝 回调
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notificationCenter:) name:@"BALANCE_RESULTDIC" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notificationCenter:) name:@"ALIPAY_RESULTDIC" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notificationCenter:) name:@"WX_RESULTDIC" object:nil];
 }
@@ -200,7 +201,12 @@ static NSString *cellIdentifier = @"cellIdentifier";
         
         if ([response[@"status"] integerValue] == 0) {
             
-            if ([type isEqualToString:@"2"]) { // 支付宝
+            if ([type isEqualToString:@"1"]) { // 余额支付
+                
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"BALANCE_RESULTDIC" object:nil];
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"RefreshMinePage" object:nil];
+                
+            } else if ([type isEqualToString:@"2"]) { // 支付宝
                 //应用注册scheme,在AliSDKDemo-Info.plist定义URL types
                 NSString *appScheme = @"CiluNetworkAlipay";
                 

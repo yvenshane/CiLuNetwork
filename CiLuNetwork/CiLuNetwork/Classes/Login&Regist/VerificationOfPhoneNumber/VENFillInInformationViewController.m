@@ -153,12 +153,16 @@
     
     [[VENNetworkTool sharedManager] POST:@"auth/uploadFaceImage" parameters:@{@"id_card" : self.idNumberTextField.text} constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
         
+        [[VENMBProgressHUDManager sharedManager] addLoading];
+
         [formData appendPartWithFileData:UIImagePNGRepresentation(image) name:@"face_image" fileName:@"face_image.png" mimeType:@"image/png"];
         
     } progress:^(NSProgress * _Nonnull uploadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSLog(@"%@", responseObject);
+        
+        [[VENMBProgressHUDManager sharedManager] removeLoading];
         
         if ([responseObject[@"status"] integerValue] == 0) {
             VENSetPasswordViewController *vc = [[VENSetPasswordViewController alloc] init];
@@ -173,7 +177,7 @@
         [[VENMBProgressHUDManager sharedManager] showText:responseObject[@"message"]];
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        
+        [[VENMBProgressHUDManager sharedManager] removeLoading];
     }];
 }
 

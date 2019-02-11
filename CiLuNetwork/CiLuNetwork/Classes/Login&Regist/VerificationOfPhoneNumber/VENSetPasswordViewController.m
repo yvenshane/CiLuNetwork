@@ -94,6 +94,8 @@
             
             // 刷新 分类页面
             [[NSNotificationCenter defaultCenter] postNotificationName:@"Reset" object:nil];
+            // 刷新 首页
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"ResetHomePage" object:nil];
 
             // dismiss
             UIViewController * presentingViewController = self.presentingViewController;

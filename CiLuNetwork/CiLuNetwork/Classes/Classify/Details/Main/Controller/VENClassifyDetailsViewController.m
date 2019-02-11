@@ -12,6 +12,8 @@
 #import "VENClassifyDetailsToolBarView.h"
 #import "VENClassifyDetailsUserEvaluateViewController.h"
 #import "VENClassifyDetailsModel.h"
+#import "VENShoppingCartPlacingOrderViewController.h"
+#import "VENLoginViewController.h"
 
 @interface VENClassifyDetailsViewController () <UITableViewDelegate, SDCycleScrollViewDelegate, UIWebViewDelegate>
 @property (nonatomic, strong) UIView *navigationBar;
@@ -270,6 +272,9 @@
 
 - (void)shoppingCartButtonClick {
     NSLog(@"购物车");
+    
+    self.tabBarController.selectedIndex = 2;
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 #pragma mark - 加入购物车
@@ -292,16 +297,17 @@
 - (void)purchaseButtonClick {
     NSLog(@"立即购买");
     
-//    [[VENNetworkTool sharedManager] requestWithMethod:HTTPMethodPost path:@"cart/check" params:@{@"ids" : [tempMuArr componentsJoinedByString:@","]} showLoading:YES successBlock:^(id response) {
-//        
-//        if ([response[@"status"] integerValue] == 0) {
-//            VENShoppingCartPlacingOrderViewController *vc = [[VENShoppingCartPlacingOrderViewController alloc] init];
-//            vc.hidesBottomBarWhenPushed = YES;
-//            [self.navigationController pushViewController:vc animated:YES];
-//        }
-//    } failureBlock:^(NSError *error) {
-//        
-//    }];
+    if ([[VENUserStatusManager sharedManager] isLogin]) {
+        VENShoppingCartPlacingOrderViewController *vc = [[VENShoppingCartPlacingOrderViewController alloc] init];
+        vc.goods_id = self.goods_id;
+        [self.navigationController pushViewController:vc animated:YES];
+    } else {
+        VENLoginViewController *vc = [[VENLoginViewController alloc] init];
+        vc.block = ^(NSString *str) {
+            
+        };
+        [self presentViewController:vc animated:YES completion:nil];
+    }
 }
 
 - (UIView *)backgroundView {

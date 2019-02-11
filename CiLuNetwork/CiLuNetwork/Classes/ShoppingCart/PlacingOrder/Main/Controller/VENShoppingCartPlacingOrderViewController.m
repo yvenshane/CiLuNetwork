@@ -39,17 +39,24 @@ static NSString *cellIdentifier = @"cellIdentifier";
 }
 
 - (void)loadData {
-    [[VENNetworkTool sharedManager] requestWithMethod:HTTPMethodPost path:@"order/preApply" params:nil showLoading:YES successBlock:^(id response) {
+    
+    NSDictionary *params = [[VENClassEmptyManager sharedManager] isEmptyString:self.goods_id] ? @{} : @{@"goods_id" : self.goods_id};
+    
+    [[VENNetworkTool sharedManager] requestWithMethod:HTTPMethodPost path:@"order/preApply" params:params showLoading:YES successBlock:^(id response) {
         
-        NSArray *goods_listArr = [NSArray yy_modelArrayWithClass:[VENShoppingCartModel class] json:response[@"data"][@"goods_list"]];
-        VENShoppingCartModel *goods_countModel = [VENShoppingCartModel yy_modelWithJSON:response[@"data"][@"goods_count"]];
-        self.addressModel = [VENShoppingCartModel yy_modelWithJSON:response[@"data"][@"address"]];
-        
-        self.goods_listArr = goods_listArr;
-        self.goods_countModel = goods_countModel;
-        
-        [self setupTableView];
-        [self setupBottomToolBar];
+        if ([response[@"status"] integerValue] == 0) {
+            NSArray *goods_listArr = [NSArray yy_modelArrayWithClass:[VENShoppingCartModel class] json:response[@"data"][@"goods_list"]];
+            VENShoppingCartModel *goods_countModel = [VENShoppingCartModel yy_modelWithJSON:response[@"data"][@"goods_count"]];
+            self.addressModel = [VENShoppingCartModel yy_modelWithJSON:response[@"data"][@"address"]];
+            
+            self.goods_listArr = goods_listArr;
+            self.goods_countModel = goods_countModel;
+            
+            [self setupTableView];
+            [self setupBottomToolBar];
+        } else {
+            [self.navigationController popViewControllerAnimated:YES];
+        }
         
     } failureBlock:^(NSError *error) {
         

@@ -13,6 +13,7 @@
 #import "VENHomePageCollectionViewHeaderView.h"
 #import "VENHomePageModel.h"
 #import "VENClassifyDetailsViewController.h"
+#import "VENClassifySearchViewController.h"
 
 @interface VENHomePageViewController () <SDCycleScrollViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout>
 @property (nonatomic, strong) UICollectionView *collectionView;
@@ -40,18 +41,11 @@
     
     [self.collectionView.mj_header beginRefreshing];
     
-    UISwipeGestureRecognizer *swipeGestureRecognizerLeft = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swip:)];
-    [self.view addGestureRecognizer:swipeGestureRecognizerLeft];
-    swipeGestureRecognizerLeft.direction = UISwipeGestureRecognizerDirectionLeft;
-    // 添加向右轻扫手势
-    UISwipeGestureRecognizer *swipeGestureRecognizerRight = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swip:)];
-    [self.view addGestureRecognizer:swipeGestureRecognizerRight];
-    swipeGestureRecognizerRight.direction = UISwipeGestureRecognizerDirectionRight;
-    // 监听手势的方法
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notificationCenter:) name:@"ResetHomePage" object:nil];
 }
 
-- (void)swip:(UISwipeGestureRecognizer *)sender {
-    NSLog(@"%ld", sender.direction); // 判断轻扫手势的方向
+- (void)notificationCenter:(NSNotification *)noti {
+    [self.collectionView.mj_header beginRefreshing];
 }
 
 - (void)loadData {
@@ -229,10 +223,13 @@
     self.navigationItem.rightBarButtonItem = barButton;
 }
 
+#pragma mark - 搜索
 - (void)rightButtonClick {
     NSLog(@"右边");
     
-    [[NSUserDefaults standardUserDefaults] setObject:@2 forKey:@"tag"];
+    VENClassifySearchViewController *vc = [[VENClassifySearchViewController alloc] init];
+    vc.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)setupNavigationItemLeftBarButtonItem {
@@ -247,7 +244,7 @@
 - (void)leftButtonClick {
     NSLog(@"左边");
     
-    [[NSUserDefaults standardUserDefaults] setObject:@1 forKey:@"tag"];
+    self.tabBarController.selectedIndex = 1;
 }
 
 - (void)setupNavigationItemTitleView {
@@ -276,6 +273,10 @@
     };
     
     self.navigationItem.titleView = titleView;
+}
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 /*

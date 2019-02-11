@@ -75,7 +75,11 @@
         [[AlipaySDK defaultService] processOrderWithPaymentResult:url standbyCallback:^(NSDictionary *resultDic) {
             NSLog(@"result = %@",resultDic);
             
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"ALIPAY_RESULTDIC" object:resultDic];
+            if ([resultDic[@"resultStatus"] integerValue] == 9000) {
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"ALIPAY_RESULTDIC" object:resultDic];
+            } else {
+                [[VENMBProgressHUDManager sharedManager] showText:resultDic[@"memo"]];
+            }
         }];
     } else {
         return [WXApi handleOpenURL:url delegate:self];
@@ -91,7 +95,11 @@
         [[AlipaySDK defaultService] processOrderWithPaymentResult:url standbyCallback:^(NSDictionary *resultDic) {
             NSLog(@"result = %@",resultDic);
             
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"ALIPAY_RESULTDIC" object:resultDic];
+            if ([resultDic[@"resultStatus"] integerValue] == 9000) {
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"ALIPAY_RESULTDIC" object:resultDic];
+            } else {
+                [[VENMBProgressHUDManager sharedManager] showText:resultDic[@"memo"]];
+            }
         }];
     } else {
         return [WXApi handleOpenURL:url delegate:self];
