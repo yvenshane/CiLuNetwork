@@ -12,7 +12,9 @@
 
 @interface VENClassifyDetailsUserEvaluateViewController () <UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong) UITableView *tableView;
-@property (nonatomic, copy) NSArray *commentsArr;
+
+@property (nonatomic, strong) NSMutableArray *commentsMuArr;
+@property (nonatomic, assign) NSInteger page;
 
 @end
 
@@ -30,29 +32,50 @@ static NSString *cellIdentifier = @"cellIdentifier";
     [self.tableView.mj_header beginRefreshing];
 }
 
-- (void)loadDataWith:(NSDictionary *)params {
+- (void)loadDataWithPage:(NSString *)page {
+    
+    NSDictionary *params = @{@"id" : self.goods_id,
+                             @"page" : page};
+    
     [[VENNetworkTool sharedManager] requestWithMethod:HTTPMethodPost path:@"goods/comments" params:params showLoading:YES successBlock:^(id response) {
-        [self.tableView.mj_header endRefreshing];
-        
-        NSArray *commentsArr = [NSArray yy_modelArrayWithClass:[VENClassifyDetailsUserEvaluateModel class] json:response[@"data"][@"comments"]];
-        self.commentsArr = commentsArr;
-        
-        [self.tableView reloadData];
+        if ([response[@"status"] integerValue] == 0) {
+            
+            if ([page integerValue] == 1) {
+                [self.tableView.mj_header endRefreshing];
+                
+                self.commentsMuArr = [NSMutableArray arrayWithArray:[NSArray yy_modelArrayWithClass:[VENClassifyDetailsUserEvaluateModel class] json:response[@"data"][@"comments"]]];
+                self.page = 1;
+            } else {
+                [self.tableView.mj_footer endRefreshing];
+                
+                [self.commentsMuArr addObjectsFromArray:[NSArray yy_modelArrayWithClass:[VENClassifyDetailsUserEvaluateModel class] json:response[@"data"][@"comments"]]];
+            }
+            
+            if ([response[@"data"][@"hasNext"] integerValue] == 0) {
+                [self.tableView.mj_footer endRefreshingWithNoMoreData];
+            }
+            
+            [self.tableView reloadData];
+        }
         
     } failureBlock:^(NSError *error) {
-        [self.tableView.mj_header endRefreshing];
+        if ([page integerValue] == 1) {
+            [self.tableView.mj_header endRefreshing];
+        }else {
+            [self.tableView.mj_footer endRefreshing];
+        }
     }];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.commentsArr.count;
+    return self.commentsMuArr.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     VENClassifyDetailsUserEvaluateTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
-    VENClassifyDetailsUserEvaluateModel *model = self.commentsArr[indexPath.row];
+    VENClassifyDetailsUserEvaluateModel *model = self.commentsMuArr[indexPath.row];
     
     [cell.userIconImageView sd_setImageWithURL:[NSURL URLWithString:model.avatar]];
     cell.userPhoneNumberLabel.text = model.name;
@@ -72,14 +95,11 @@ static NSString *cellIdentifier = @"cellIdentifier";
     [self.view addSubview:tableView];
     
     tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-        
-        NSDictionary *parmas = @{@"cate_id" : self.goods_id,
-                                 @"page" : @"1"};
-        [self loadDataWith:parmas];
+        [self loadDataWithPage:@"1"];
     }];
     
     tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
-        
+        [self loadDataWithPage:[NSString stringWithFormat:@"%ld", ++self.page]];
     }];
     
     _tableView = tableView;
