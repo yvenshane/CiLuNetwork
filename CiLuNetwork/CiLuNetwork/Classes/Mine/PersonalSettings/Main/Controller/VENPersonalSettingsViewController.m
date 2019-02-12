@@ -139,6 +139,8 @@ static NSString *cellIdentifier = @"cellIdentifier";
     self.block(@"loginoutSuccess");
     [[NSNotificationCenter defaultCenter] postNotificationName:@"Logout" object:nil];
     
+    [self.tabBarController.tabBar.items[2] setBadgeValue:nil];
+    
     [self.navigationController popViewControllerAnimated:YES];
 }
 

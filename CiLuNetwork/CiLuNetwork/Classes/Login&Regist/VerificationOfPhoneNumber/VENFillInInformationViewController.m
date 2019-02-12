@@ -153,7 +153,7 @@
 }
 
 - (void)updataFaceImageWith:(UIImage *)image {
-    [[VENNetworkTool sharedManager] uploadImageWithPath:@"auth/uploadFaceImage" image:image params:@{@"id_card" : self.idNumberTextField.text} success:^(id response) {
+    [[VENNetworkTool sharedManager] uploadImageWithPath:@"auth/uploadFaceImage" image:image name:@"face_image" params:@{@"id_card" : self.idNumberTextField.text} success:^(id response) {
         
         if ([response[@"status"] integerValue] == 0) {
             
@@ -180,8 +180,11 @@
                             [self presentViewController:vc animated:YES completion:nil];
                         }
                         else if(auditState == AUDIT_FAIL) { //认证不通过。
-                        }
-                        else if(auditState == AUDIT_IN_AUDIT) { //认证中，通常不会出现，只有在认证审核系统内部出现超时、未在限定时间内返回认证结果时出现。此时提示用户系统处理中，稍后查看认证结果即可。
+                          
+                            [[VENMBProgressHUDManager sharedManager] showText:@"认证不通过"];
+                            [self.upDataButton setImage:[UIImage imageNamed:@"icon_login_add"] forState:UIControlStateNormal];
+                            
+                        } else if(auditState == AUDIT_IN_AUDIT) { //认证中，通常不会出现，只有在认证审核系统内部出现超时、未在限定时间内返回认证结果时出现。此时提示用户系统处理中，稍后查看认证结果即可。
                         }
                         else if(auditState == AUDIT_NOT) { //未认证，用户取消。
                         }

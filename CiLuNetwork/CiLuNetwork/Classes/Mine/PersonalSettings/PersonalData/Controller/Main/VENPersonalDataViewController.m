@@ -237,7 +237,7 @@ static NSString *cellIdentifier = @"cellIdentifier";
 
 - (void)updataFaceImageWith:(UIImage *)image {
     
-    [[VENNetworkTool sharedManager] uploadImageWithPath:@"setting/uploadAvatar" image:image params:nil success:^(id response) {
+    [[VENNetworkTool sharedManager] uploadImageWithPath:@"setting/uploadAvatar" image:image name:@"avatar" params:nil success:^(id response) {
         
         if ([response[@"status"] integerValue] == 0) {
             VENMineTableViewCellStyleOne *cell = (VENMineTableViewCellStyleOne *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];

@@ -19,6 +19,7 @@
 @property (nonatomic, copy) NSArray *goods_listArr;
 @property (nonatomic, strong) VENShoppingCartModel *goods_countModel;
 @property (nonatomic, strong) VENShoppingCartModel *addressModel;
+@property (nonatomic, copy) NSString *discount;
 
 @property (nonatomic, strong) VENShoppingCartPlacingOrderHeaderView *headerView;
 @property (nonatomic, copy) NSString *address_id;
@@ -48,6 +49,7 @@ static NSString *cellIdentifier = @"cellIdentifier";
             NSArray *goods_listArr = [NSArray yy_modelArrayWithClass:[VENShoppingCartModel class] json:response[@"data"][@"goods_list"]];
             VENShoppingCartModel *goods_countModel = [VENShoppingCartModel yy_modelWithJSON:response[@"data"][@"goods_count"]];
             self.addressModel = [VENShoppingCartModel yy_modelWithJSON:response[@"data"][@"address"]];
+            self.discount = response[@"data"][@"discount"];
             
             self.goods_listArr = goods_listArr;
             self.goods_countModel = goods_countModel;
@@ -188,7 +190,7 @@ static NSString *cellIdentifier = @"cellIdentifier";
     NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"小计 %@", _goods_countModel.price_count_formatted]];
     [attributedString addAttributes:@{NSForegroundColorAttributeName : UIColorFromRGB(0xD0021B), NSFontAttributeName : [UIFont fontWithName:@"Helvetica-Bold" size:14.0f]} range:NSMakeRange(3, attributedString.length - 3)];
     footerView.totalPriceLabel.attributedText = attributedString;
-    
+    footerView.discountLabel.text = self.discount;
     
     tableView.tableFooterView = footerView;
     
