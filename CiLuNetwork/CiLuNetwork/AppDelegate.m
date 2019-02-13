@@ -75,6 +75,9 @@
 
 #pragma mark - 支付成功回调
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
+    
+    NSLog(@"url.host - %@", url.host);
+    
     if ([url.host isEqualToString:@"safepay"]) {
         //跳转支付宝钱包进行支付，处理支付结果
         [[AlipaySDK defaultService] processOrderWithPaymentResult:url standbyCallback:^(NSDictionary *resultDic) {
@@ -88,7 +91,7 @@
         }];
     } else if ([url.host isEqualToString:@"pay"]) {
         return [WXApi handleOpenURL:url delegate:self];
-    } else if ([url.host isEqualToString:@"uppayresult"]) {
+    } else if ([url.host isEqualToString:@"uppayresult"] || [url.host isEqualToString:@"paydemo"]) {
         [[UPPaymentControl defaultControl] handlePaymentResult:url completeBlock:^(NSString *code, NSDictionary *data) {
             if([code isEqualToString:@"success"]) {
                 [[NSNotificationCenter defaultCenter] postNotificationName:@"UNIONPAY_RESULTDIC" object:nil];
@@ -104,6 +107,9 @@
 
 // NOTE: 9.0以后使用新API接口
 - (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<NSString*, id> *)options {
+    
+    NSLog(@"url.host - %@", url.host);
+    
     if ([url.host isEqualToString:@"safepay"]) {
         //跳转支付宝钱包进行支付，处理支付结果
         [[AlipaySDK defaultService] processOrderWithPaymentResult:url standbyCallback:^(NSDictionary *resultDic) {
@@ -117,7 +123,7 @@
         }];
     } else if ([url.host isEqualToString:@"pay"]) {
         return [WXApi handleOpenURL:url delegate:self];
-    } else if ([url.host isEqualToString:@"uppayresult"]) {
+    } else if ([url.host isEqualToString:@"uppayresult"] || [url.host isEqualToString:@"paydemo"]) {
         [[UPPaymentControl defaultControl] handlePaymentResult:url completeBlock:^(NSString *code, NSDictionary *data) {
             if([code isEqualToString:@"success"]) {
                 [[NSNotificationCenter defaultCenter] postNotificationName:@"UNIONPAY_RESULTDIC" object:nil];
@@ -137,11 +143,14 @@
         switch (response.errCode) {
             case WXSuccess:
                 //服务器端查询支付通知或查询API返回的结果再提示成功
-                NSLog(@"支付成功");
+                [[VENMBProgressHUDManager sharedManager] showText:@"支付成功"];
                 [[NSNotificationCenter defaultCenter] postNotificationName:@"WX_RESULTDIC" object:nil];
                 break;
+            case WXErrCodeUserCancel:
+                [[VENMBProgressHUDManager sharedManager] showText:@"用户点击取消并返回"];
+                break;
             default:
-                NSLog(@"支付失败，retcode=%d", resp.errCode);
+                [[VENMBProgressHUDManager sharedManager] showText:[NSString stringWithFormat:@"支付失败，错误码：%d", resp.errCode]];
                 break;
         }
     } else if ([resp isKindOfClass:[SendAuthResp class]]) {// 微信登录

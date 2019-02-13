@@ -220,14 +220,22 @@ static NSString *cellIdentifier = @"cellIdentifier";
                     NSLog(@"reslut = %@",resultDic);
                 }];
             } else if ([type isEqualToString:@"3"]) { // 微信支付
-                PayReq *request = [[PayReq alloc] init];
-                request.partnerId = response[@"data"][@"sign_data"][@"partnerid"];
-                request.prepayId = response[@"data"][@"sign_data"][@"prepayid"];
-                request.package = response[@"data"][@"sign_data"][@"package"];
-                request.nonceStr = response[@"data"][@"sign_data"][@"noncestr"];
-                request.timeStamp = [response[@"data"][@"sign_data"][@"timestamp"] intValue];
-                request.sign= response[@"data"][@"sign_data"][@"sign"];
-                [WXApi sendReq:request];
+                if (WXApi.isWXAppInstalled) {
+                    if (WXApi.isWXAppSupportApi) {
+                        PayReq *request = [[PayReq alloc] init];
+                        request.partnerId = response[@"data"][@"sign_data"][@"partnerid"];
+                        request.prepayId = response[@"data"][@"sign_data"][@"prepayid"];
+                        request.package = response[@"data"][@"sign_data"][@"package"];
+                        request.nonceStr = response[@"data"][@"sign_data"][@"noncestr"];
+                        request.timeStamp = [response[@"data"][@"sign_data"][@"timestamp"] intValue];
+                        request.sign= response[@"data"][@"sign_data"][@"sign"];
+                        [WXApi sendReq:request];
+                    } else {
+                        [[VENMBProgressHUDManager sharedManager] showText:@"请升级微信至最新版本！"];
+                    }
+                } else {
+                    [[VENMBProgressHUDManager sharedManager] showText:@"请安装微信客户端"];
+                }
             } else if ([type isEqualToString:@"4"]) { // 银联支付
                 NSString *tn = response[@"data"][@"sign_data"][@"sign"];
                 
