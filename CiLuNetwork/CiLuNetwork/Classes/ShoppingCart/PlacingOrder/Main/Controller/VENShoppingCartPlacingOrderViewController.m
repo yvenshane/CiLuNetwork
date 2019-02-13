@@ -96,7 +96,7 @@ static NSString *cellIdentifier = @"cellIdentifier";
     
     UILabel *wordLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 48 / 2 - 17 / 2, kMainScreenWidth / 3 * 2 - 30, 17)];
     wordLabel.font = [UIFont systemFontOfSize:14.0f];
-    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"总计：%@", _goods_countModel.price_count_formatted]];
+    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"总计：%@", _goods_countModel.price_total_count_formatted]];
     [attributedString addAttributes:@{NSForegroundColorAttributeName : UIColorFromRGB(0xD0021B)} range:NSMakeRange(3, attributedString.length - 3)];
     [attributedString addAttributes:@{NSFontAttributeName : [UIFont fontWithName:@"Helvetica-Bold" size:18.0f]} range:NSMakeRange(4, attributedString.length - 4)];
     wordLabel.attributedText = attributedString;
