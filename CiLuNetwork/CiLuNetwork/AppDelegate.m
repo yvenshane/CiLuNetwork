@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import "VENTabBarController.h"
 #import <RPSDK/RPSDK.h>
+#import "UPPaymentControl.h"
 
 @interface AppDelegate () <WXApiDelegate>
 
@@ -85,10 +86,19 @@
                 [[VENMBProgressHUDManager sharedManager] showText:resultDic[@"memo"]];
             }
         }];
-    } else {
+    } else if ([url.host isEqualToString:@"pay"]) {
         return [WXApi handleOpenURL:url delegate:self];
+    } else if ([url.host isEqualToString:@"uppayresult"]) {
+        [[UPPaymentControl defaultControl] handlePaymentResult:url completeBlock:^(NSString *code, NSDictionary *data) {
+            if([code isEqualToString:@"success"]) {
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"UNIONPAY_RESULTDIC" object:nil];
+            } else if ([code isEqualToString:@"fail"]) {
+                [[VENMBProgressHUDManager sharedManager] showText:@"交易失败"];
+            } else if ([code isEqualToString:@"cancel"]) {
+                [[VENMBProgressHUDManager sharedManager] showText:@"交易取消"];
+            }
+        }];
     }
-    
     return YES;
 }
 
@@ -105,10 +115,19 @@
                 [[VENMBProgressHUDManager sharedManager] showText:resultDic[@"memo"]];
             }
         }];
-    } else {
+    } else if ([url.host isEqualToString:@"pay"]) {
         return [WXApi handleOpenURL:url delegate:self];
+    } else if ([url.host isEqualToString:@"uppayresult"]) {
+        [[UPPaymentControl defaultControl] handlePaymentResult:url completeBlock:^(NSString *code, NSDictionary *data) {
+            if([code isEqualToString:@"success"]) {
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"UNIONPAY_RESULTDIC" object:nil];
+            } else if ([code isEqualToString:@"fail"]) {
+                [[VENMBProgressHUDManager sharedManager] showText:@"交易失败"];
+            } else if ([code isEqualToString:@"cancel"]) {
+                [[VENMBProgressHUDManager sharedManager] showText:@"交易取消"];
+            }
+        }];
     }
-    
     return YES;
 }
 

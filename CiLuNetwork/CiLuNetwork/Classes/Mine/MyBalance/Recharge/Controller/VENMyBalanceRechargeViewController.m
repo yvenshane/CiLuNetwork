@@ -35,8 +35,10 @@ static NSString *cellIdentifier2 = @"cellIdentifier2";
     [self setupTableView];
     
 #pragma mark - 微信&支付宝 回调
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notificationCenter:) name:@"BALANCE_RESULTDIC" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notificationCenter:) name:@"ALIPAY_RESULTDIC" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notificationCenter:) name:@"WX_RESULTDIC" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notificationCenter:) name:@"UNIONPAY_RESULTDIC" object:nil];
 }
 
 - (void)notificationCenter:(NSNotification *)noti {

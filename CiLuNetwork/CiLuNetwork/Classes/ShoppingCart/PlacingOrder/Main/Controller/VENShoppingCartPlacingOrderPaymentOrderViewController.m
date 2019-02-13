@@ -11,6 +11,7 @@
 #import "VENShoppingCartPlacingOrderSuccessViewController.h"
 #import "VENShoppingCartPlacingOrderPaymentOrderModel.h"
 #import "VENShoppingCartPlacingOrderPaymentOrderPayTypeModel.h"
+#import "UPPaymentControl.h"
 
 @interface VENShoppingCartPlacingOrderPaymentOrderViewController () <UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong) UITableView *tableView;
@@ -37,6 +38,7 @@ static NSString *cellIdentifier = @"cellIdentifier";
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notificationCenter:) name:@"BALANCE_RESULTDIC" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notificationCenter:) name:@"ALIPAY_RESULTDIC" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notificationCenter:) name:@"WX_RESULTDIC" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notificationCenter:) name:@"UNIONPAY_RESULTDIC" object:nil];
 }
 
 - (void)notificationCenter:(NSNotification *)noti {
@@ -226,6 +228,15 @@ static NSString *cellIdentifier = @"cellIdentifier";
                 request.timeStamp = [response[@"data"][@"sign_data"][@"timestamp"] intValue];
                 request.sign= response[@"data"][@"sign_data"][@"sign"];
                 [WXApi sendReq:request];
+            } else if ([type isEqualToString:@"4"]) { // 银联支付
+                NSString *tn = response[@"data"][@"sign_data"][@"sign"];
+                
+                if (![[VENClassEmptyManager sharedManager] isEmptyString:tn]) {
+                    [[UPPaymentControl defaultControl]startPay:tn
+                                                    fromScheme:@"898340150460595"
+                                                          mode:@"00" // 生产环境:00 开发环境:01
+                                                viewController:self];
+                }
             }
         }
         

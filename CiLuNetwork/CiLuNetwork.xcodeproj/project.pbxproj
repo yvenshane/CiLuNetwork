@@ -92,6 +92,7 @@
 		2C64986121C9EC3F00F06CB7 /* VENClassifyDetailsPopupView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C64986021C9EC3F00F06CB7 /* VENClassifyDetailsPopupView.m */; };
 		2C64986521C9F3E300F06CB7 /* VENClassifyDetailsPopupViewTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C64986321C9F3E300F06CB7 /* VENClassifyDetailsPopupViewTableViewCell.m */; };
 		2C64986621C9F3E300F06CB7 /* VENClassifyDetailsPopupViewTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2C64986421C9F3E300F06CB7 /* VENClassifyDetailsPopupViewTableViewCell.xib */; };
+		2C68EAFB2213B4D2008E6BF2 /* libPaymentControl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C68EAFA2213B4D2008E6BF2 /* libPaymentControl.a */; };
 		2C6BC97121FE8DF3006752A8 /* VENPersonalDataViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C6BC97021FE8DF3006752A8 /* VENPersonalDataViewController.m */; };
 		2C6BC97521FEAE39006752A8 /* VENPersonalDataNamePageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C6BC97321FEAE39006752A8 /* VENPersonalDataNamePageViewController.m */; };
 		2C6BC97621FEAE39006752A8 /* VENPersonalDataNamePageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2C6BC97421FEAE39006752A8 /* VENPersonalDataNamePageViewController.xib */; };
@@ -467,6 +468,10 @@
 		2C64986221C9F3E300F06CB7 /* VENClassifyDetailsPopupViewTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VENClassifyDetailsPopupViewTableViewCell.h; sourceTree = "<group>"; };
 		2C64986321C9F3E300F06CB7 /* VENClassifyDetailsPopupViewTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VENClassifyDetailsPopupViewTableViewCell.m; sourceTree = "<group>"; };
 		2C64986421C9F3E300F06CB7 /* VENClassifyDetailsPopupViewTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VENClassifyDetailsPopupViewTableViewCell.xib; sourceTree = "<group>"; };
+		2C68EAF72213B4A4008E6BF2 /* UPAPayPluginDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UPAPayPluginDelegate.h; sourceTree = "<group>"; };
+		2C68EAF82213B4A4008E6BF2 /* UPAPayPlugin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UPAPayPlugin.h; sourceTree = "<group>"; };
+		2C68EAF92213B4A4008E6BF2 /* UPPaymentControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UPPaymentControl.h; sourceTree = "<group>"; };
+		2C68EAFA2213B4D2008E6BF2 /* libPaymentControl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libPaymentControl.a; sourceTree = "<group>"; };
 		2C6BC96F21FE8DF3006752A8 /* VENPersonalDataViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VENPersonalDataViewController.h; sourceTree = "<group>"; };
 		2C6BC97021FE8DF3006752A8 /* VENPersonalDataViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VENPersonalDataViewController.m; sourceTree = "<group>"; };
 		2C6BC97221FEAE39006752A8 /* VENPersonalDataNamePageViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VENPersonalDataNamePageViewController.h; sourceTree = "<group>"; };
@@ -951,12 +956,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2CEF610321F710EA009B5EC8 /* SystemConfiguration.framework in Frameworks */,
+				2CEF611121F7112F009B5EC8 /* CFNetwork.framework in Frameworks */,
 				2C42B17C221168110028A3CF /* libiconv.tbd in Frameworks */,
+				2C68EAFB2213B4D2008E6BF2 /* libPaymentControl.a in Frameworks */,
 				2C42B17A221168090028A3CF /* WebKit.framework in Frameworks */,
 				2C42B178221168030028A3CF /* libresolv.tbd in Frameworks */,
 				2C42B176221167F90028A3CF /* AssetsLibrary.framework in Frameworks */,
 				2C42B174221167F20028A3CF /* AudioToolbox.framework in Frameworks */,
-				2CEF610321F710EA009B5EC8 /* SystemConfiguration.framework in Frameworks */,
 				2C42B172221167DD0028A3CF /* AddressBookUI.framework in Frameworks */,
 				2C42B170221167D80028A3CF /* AddressBook.framework in Frameworks */,
 				2C42B16E221167D00028A3CF /* CoreLocation.framework in Frameworks */,
@@ -971,7 +978,6 @@
 				2C42B14C221166D50028A3CF /* FaceLivenessOpen.framework in Frameworks */,
 				2CEF611B21F72C6A009B5EC8 /* libsqlite3.0.tbd in Frameworks */,
 				2C42B1602211673F0028A3CF /* ZipArchive.framework in Frameworks */,
-				2CEF611121F7112F009B5EC8 /* CFNetwork.framework in Frameworks */,
 				2CEF610F21F71129009B5EC8 /* Foundation.framework in Frameworks */,
 				2CEF610D21F7111F009B5EC8 /* UIKit.framework in Frameworks */,
 				2C42B14A221166C40028A3CF /* RPSDK.framework in Frameworks */,
@@ -1455,6 +1461,17 @@
 				2C64985D21C9DBCC00F06CB7 /* VENClassifyDetailsViewController.m */,
 			);
 			path = Controller;
+			sourceTree = "<group>";
+		};
+		2C68EAF62213B48C008E6BF2 /* UnionPay */ = {
+			isa = PBXGroup;
+			children = (
+				2C68EAF82213B4A4008E6BF2 /* UPAPayPlugin.h */,
+				2C68EAF72213B4A4008E6BF2 /* UPAPayPluginDelegate.h */,
+				2C68EAF92213B4A4008E6BF2 /* UPPaymentControl.h */,
+				2C68EAFA2213B4D2008E6BF2 /* libPaymentControl.a */,
+			);
+			path = UnionPay;
 			sourceTree = "<group>";
 		};
 		2C6BC96D21FE8DAF006752A8 /* Main */ = {
@@ -2750,6 +2767,7 @@
 		2CEF60F021F70D68009B5EC8 /* Pay */ = {
 			isa = PBXGroup;
 			children = (
+				2C68EAF62213B48C008E6BF2 /* UnionPay */,
 				2CEF611421F71797009B5EC8 /* WXPay */,
 				2CEF60F121F70D68009B5EC8 /* AliPay */,
 			);
@@ -3559,6 +3577,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/CiLuNetwork/Classes/Pay/WXPay",
+					"$(PROJECT_DIR)/CiLuNetwork/Classes/Pay/UnionPay",
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ahaiba.CiLuNetwork;
@@ -3593,6 +3612,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/CiLuNetwork/Classes/Pay/WXPay",
+					"$(PROJECT_DIR)/CiLuNetwork/Classes/Pay/UnionPay",
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ahaiba.CiLuNetwork;
