@@ -169,7 +169,7 @@ static CGFloat BOTTOM_HEIGHT = 60;
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     [button setImage:[UIImage imageNamed:imageName] forState:UIControlStateNormal];
     button.backgroundColor = [UIColor clearColor];
-    button.frame = CGRectMake(x, 0, 80, self.topView.frame.size.height);
+    button.frame = CGRectMake(x, 5, 80, self.topView.frame.size.height);
     [self.view addSubview:button];
     return button;
 }
@@ -182,7 +182,7 @@ static CGFloat BOTTOM_HEIGHT = 60;
     
     UIView *topView = [[UIView alloc] init];
     topView.backgroundColor = [UIColor blackColor];
-    topView.frame = CGRectMake(0, 0, self.view.frame.size.width, 40);
+    topView.frame = CGRectMake(0, 0, self.view.frame.size.width, 50);
     [self.view addSubview:topView];
     self.topView = topView;
     

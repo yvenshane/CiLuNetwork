@@ -104,7 +104,7 @@
     
     NSDictionary *params = @{@"mobile" : self.phoneTextField.text,
                              @"code" : self.verificationCodeTextField.text,
-                             @"type" : @"2"};
+                             @"type" : @"1"};
     
     [[VENNetworkTool sharedManager] requestWithMethod:HTTPMethodPost path:@"auth/verifyMobile" params:params showLoading:YES successBlock:^(id response) {
         

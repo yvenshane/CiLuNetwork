@@ -89,8 +89,6 @@
                 [[VENMBProgressHUDManager sharedManager] showText:resultDic[@"memo"]];
             }
         }];
-    } else if ([url.host isEqualToString:@"pay"]) {
-        return [WXApi handleOpenURL:url delegate:self];
     } else if ([url.host isEqualToString:@"uppayresult"] || [url.host isEqualToString:@"paydemo"]) {
         [[UPPaymentControl defaultControl] handlePaymentResult:url completeBlock:^(NSString *code, NSDictionary *data) {
             if([code isEqualToString:@"success"]) {
@@ -101,7 +99,10 @@
                 [[VENMBProgressHUDManager sharedManager] showText:@"交易取消"];
             }
         }];
+    } else {
+        return [WXApi handleOpenURL:url delegate:self];
     }
+    
     return YES;
 }
 
@@ -121,8 +122,6 @@
                 [[VENMBProgressHUDManager sharedManager] showText:resultDic[@"memo"]];
             }
         }];
-    } else if ([url.host isEqualToString:@"pay"]) {
-        return [WXApi handleOpenURL:url delegate:self];
     } else if ([url.host isEqualToString:@"uppayresult"] || [url.host isEqualToString:@"paydemo"]) {
         [[UPPaymentControl defaultControl] handlePaymentResult:url completeBlock:^(NSString *code, NSDictionary *data) {
             if([code isEqualToString:@"success"]) {
@@ -133,7 +132,10 @@
                 [[VENMBProgressHUDManager sharedManager] showText:@"交易取消"];
             }
         }];
+    } else {
+        return [WXApi handleOpenURL:url delegate:self];
     }
+    
     return YES;
 }
 
