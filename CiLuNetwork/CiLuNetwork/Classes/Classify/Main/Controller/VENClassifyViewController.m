@@ -43,7 +43,11 @@
     NSString *tag = [[[NSUserDefaults standardUserDefaults] objectForKey:@"tag"] stringValue];
     if ([[VENClassEmptyManager sharedManager] isEmptyString:tag]) {
         NSDictionary *metaData = [[NSUserDefaults standardUserDefaults] objectForKey:@"metaData"];
-        tag = [metaData[@"tag_list"][0][@"id"] stringValue];
+        if (metaData == nil) {
+            tag = @"1";
+        } else {
+            tag = [metaData[@"tag_list"][0][@"id"] stringValue];
+        }
     }
     
     NSDictionary *params = @{@"tag" : tag};

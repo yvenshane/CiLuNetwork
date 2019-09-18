@@ -150,7 +150,7 @@ static NSString *cellIdentifier3 = @"cellIdentifier3";
         
         if (indexPath.section == 2) {
             if (indexPath.row == 0) {
-                cell.leftLabel.text = @"我的余额";
+                cell.leftLabel.text = @"我的金币";
                 cell.rightLabel.hidden = NO;
                 cell.rightLabel.text = [NSString stringWithFormat:@"%@元", self.model.balance];
             } else {
@@ -247,7 +247,7 @@ static NSString *cellIdentifier3 = @"cellIdentifier3";
             [self.navigationController pushViewController:vc animated:YES];
         } else if (indexPath.section == 2) {
             if (indexPath.row == 0) {
-                NSLog(@"我的余额");
+                NSLog(@"我的金币");
                 
                 VENMyBalanceViewController *vc = [[VENMyBalanceViewController alloc] init];
                 vc.hidesBottomBarWhenPushed = YES;
