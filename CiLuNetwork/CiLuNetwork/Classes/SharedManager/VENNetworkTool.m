@@ -213,10 +213,6 @@ static dispatch_once_t onceToken;
     return address;
 }
 
-- (NSString *)getIDFA {
-    return [[[ASIdentifierManager sharedManager] advertisingIdentifier] UUIDString];
-}
-
 #pragma mark 上传单张图片
 - (void)uploadImageWithPath:(NSString *)path image:(UIImage *)image name:(NSString *)name params:(NSDictionary *)params success:(SuccessBlock)success failure:(FailureBlock)failure {
     
