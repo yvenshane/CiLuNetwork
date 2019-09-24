@@ -42,7 +42,7 @@ static NSString *cellIdentifier2 = @"cellIdentifier2";
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    self.navigationItem.title = @"我的积分";
+    self.navigationItem.title = @"积分管理";
     
     [self setupTableView];
     

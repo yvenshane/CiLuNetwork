@@ -150,16 +150,16 @@ static NSString *cellIdentifier3 = @"cellIdentifier3";
         
         if (indexPath.section == 2) {
             if (indexPath.row == 0) {
-                cell.leftLabel.text = @"我的金币";
+                cell.leftLabel.text = @"我的余额";
                 cell.rightLabel.hidden = NO;
                 cell.rightLabel.text = [NSString stringWithFormat:@"%@元", self.model.balance];
             } else {
                 cell.rightLabel.hidden = YES;
                 
                 if (indexPath.row == 1) {
-                    cell.leftLabel.text = @"我的积分";
+                    cell.leftLabel.text = @"积分管理";
                 } else if (indexPath.row == 2) {
-                    cell.leftLabel.text = @"佣金管理";
+                    cell.leftLabel.text = @"金币管理";
                 } else {
                     cell.leftLabel.text = @"我的团队";
                 }
@@ -247,19 +247,19 @@ static NSString *cellIdentifier3 = @"cellIdentifier3";
             [self.navigationController pushViewController:vc animated:YES];
         } else if (indexPath.section == 2) {
             if (indexPath.row == 0) {
-                NSLog(@"我的金币");
+                NSLog(@"我的余额");
                 
                 VENMyBalanceViewController *vc = [[VENMyBalanceViewController alloc] init];
                 vc.hidesBottomBarWhenPushed = YES;
                 [self.navigationController pushViewController:vc animated:YES];
             } else if (indexPath.row == 1) {
-                NSLog(@"我的积分");
+                NSLog(@"积分管理");
                 
                 VENMyPointsViewController *vc = [[VENMyPointsViewController alloc] init];
                 vc.hidesBottomBarWhenPushed = YES;
                 [self.navigationController pushViewController:vc animated:YES];
             } else if (indexPath.row == 2) {
-                NSLog(@"佣金管理");
+                NSLog(@"金币管理");
                 
                 VENMyCommissionViewController *vc = [[VENMyCommissionViewController alloc] init];
                 vc.hidesBottomBarWhenPushed = YES;

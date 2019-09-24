@@ -43,7 +43,7 @@ static NSString *cellIdentifier2 = @"cellIdentifier2";
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    self.navigationItem.title = @"佣金管理";
+    self.navigationItem.title = @"金币管理";
     
     [self setupTableView];
     
@@ -100,7 +100,7 @@ static NSString *cellIdentifier2 = @"cellIdentifier2";
         VENMyBalanceHeaderViewTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier2 forIndexPath:indexPath];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
-        cell.titleLabel.text = @"当前佣金（元）";
+        cell.titleLabel.text = @"当前金币（元）";
         cell.leftButton.hidden = YES;
         cell.rightButton.hidden = YES;
         cell.middleButton.hidden = NO;
