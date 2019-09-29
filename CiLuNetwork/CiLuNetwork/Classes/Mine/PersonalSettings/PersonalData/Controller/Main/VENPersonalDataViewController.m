@@ -51,7 +51,15 @@ static NSString *cellIdentifier = @"cellIdentifier";
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return section == 0 ? 3 : 2;
+    if (section == 0) {
+        return 3;
+    } else {
+        if ([[VENClassEmptyManager sharedManager] isEmptyString:self.model.invate_code]) {
+            return 1;
+        } else {
+            return 2;
+        }
+    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
