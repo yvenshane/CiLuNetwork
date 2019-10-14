@@ -227,7 +227,7 @@
     self.bottomToolBarView = nil;
     
     if (self.bottomToolBarView == nil) {
-        VENClassifyDetailsToolBarView *bottomToolBarView = [[VENClassifyDetailsToolBarView alloc] initWithFrame:CGRectMake(0, kMainScreenHeight - 48, kMainScreenWidth, 48)];
+        VENClassifyDetailsToolBarView *bottomToolBarView = [[VENClassifyDetailsToolBarView alloc] initWithFrame:CGRectMake(0, kMainScreenHeight - 48 - (tabBarHeight - 49), kMainScreenWidth, 48)];
         [self.view addSubview:bottomToolBarView];
         
         if ([[VENUserStatusManager sharedManager] isLogin]) {

@@ -49,7 +49,7 @@ static NSString *cellIdentifier = @"cellIdentifier";
         [[VENNetworkTool sharedManager] requestWithMethod:HTTPMethodPost path:@"address/data" params:nil showLoading:YES successBlock:^(id response) {
             
             if (self.cityPickerView == nil) {
-                VENCityPickerView *cityPickerView = [[VENCityPickerView alloc] initWithFrame:CGRectMake(0, kMainScreenHeight - 260, kMainScreenWidth, 260) forData:response[@"data"]];
+                VENCityPickerView *cityPickerView = [[VENCityPickerView alloc] initWithFrame:CGRectMake(0, kMainScreenHeight - 260 - (tabBarHeight - 49), kMainScreenWidth, 260) forData:response[@"data"]];
                 cityPickerView.block = ^(NSDictionary *dict) {
                     
                     [self.cityPickerView removeFromSuperview];
