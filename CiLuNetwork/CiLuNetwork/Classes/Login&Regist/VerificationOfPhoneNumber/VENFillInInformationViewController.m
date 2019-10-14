@@ -127,6 +127,8 @@
     pickerVc.delegate = self;
     //    pickerVc.nightMode = YES;//夜间模式
 //    self.showType = style;
+    
+    pickerVc.modalPresentationStyle = UIModalPresentationFullScreen;
     [pickerVc showPickerVc:self];
 }
 
@@ -155,6 +157,8 @@
         
         self.nextButton.backgroundColor = self.idNumberTextFieldStatus == YES && self.pickImage != nil ? COLOR_THEME : UIColorFromRGB(0xDEDEDE);
     };
+    
+    cameraVC.modalPresentationStyle = UIModalPresentationFullScreen;
     [cameraVC showPickerVc:self];
 }
 

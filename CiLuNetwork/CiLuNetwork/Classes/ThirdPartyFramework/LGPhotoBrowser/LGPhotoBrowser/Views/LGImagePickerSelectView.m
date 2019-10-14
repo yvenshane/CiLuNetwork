@@ -32,6 +32,13 @@
         [self.selectBtn setImage:GetImage(@"checkbox_pic_non2.png") forState:UIControlStateNormal];
         [self.selectBtn setImage:GetImage(@"checkbox_pic2.png") forState:UIControlStateSelected];
         [self addSubview:self.selectBtn];
+        
+        if (isIPhoneX) {
+            self.frame = CGRectMake(0, 0, SCREEN_WIDTH, 88);
+            bgView.frame = CGRectMake(0, 0, SCREEN_WIDTH, 88);
+            [self.backBtn setFrame:CGRectMake(0, 44, 60, 50)];
+            [self.selectBtn setFrame:CGRectMake(SCREEN_WIDTH - 40 - 15, 44, 40, 40)];
+        }
     }
     return self;
 }

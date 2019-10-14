@@ -224,6 +224,8 @@ static NSString *cellIdentifier = @"cellIdentifier";
     pickerVc.delegate = self;
     //    pickerVc.nightMode = YES;//夜间模式
     //    self.showType = style;
+    
+    pickerVc.modalPresentationStyle = UIModalPresentationFullScreen;
     [pickerVc showPickerVc:self];
 }
 
@@ -248,6 +250,8 @@ static NSString *cellIdentifier = @"cellIdentifier";
         ZLCamera *canamerPhoto = cameras[0];
         [self updataFaceImageWith:canamerPhoto.photoImage];
     };
+    
+    cameraVC.modalPresentationStyle = UIModalPresentationFullScreen;
     [cameraVC showPickerVc:self];
 }
 

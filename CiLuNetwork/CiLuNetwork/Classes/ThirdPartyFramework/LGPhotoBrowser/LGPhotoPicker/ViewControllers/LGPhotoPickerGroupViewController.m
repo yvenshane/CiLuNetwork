@@ -137,6 +137,8 @@
     _assetsVc.topShowPhotoPicker = self.topShowPhotoPicker;
 	_assetsVc.maxCount = self.maxCount;
 	_assetsVc.nightMode = self.nightMode;
+    
+    _assetsVc.modalPresentationStyle = UIModalPresentationFullScreen;
     [self.navigationController pushViewController:_assetsVc animated:YES];
 }
 
@@ -203,6 +205,8 @@
     _assetsVc.topShowPhotoPicker = self.topShowPhotoPicker;
     _assetsVc.maxCount = self.maxCount;
 	_assetsVc.nightMode = self.nightMode;
+    
+    _assetsVc.modalPresentationStyle = UIModalPresentationFullScreen;
     [self.navigationController pushViewController:_assetsVc animated:NO];
 }
 

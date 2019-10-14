@@ -177,8 +177,9 @@ static NSString *const _identifier = @"toolBarThumbCollectionViewCell";
     // 当前选中的值
     pickerBrowser.currentIndexPath = indexPath;    // 展示控制器
 //    [pickerBrowser showPickerVc:self];
-    [self.navigationController presentViewController:pickerBrowser animated:YES completion:nil];
     
+    pickerBrowser.modalPresentationStyle = UIModalPresentationFullScreen;
+    [self.navigationController presentViewController:pickerBrowser animated:YES completion:nil];
 }
 
 - (void)setSelectPickerAssets:(NSArray *)selectPickerAssets {
@@ -294,7 +295,14 @@ static NSString *const _identifier = @"toolBarThumbCollectionViewCell";
     
     NSDictionary *views = NSDictionaryOfVariableBindings(toorBar);
     NSString *widthVfl =  @"H:|-0-[toorBar]-0-|";
-    NSString *heightVfl = @"V:[toorBar(44)]-0-|";
+    NSString *heightVfl = @"";
+    
+    if (isIPhoneX) {
+        heightVfl = @"V:[toorBar(44)]-34-|";
+    } else {
+        heightVfl = @"V:[toorBar(44)]-0-|";
+    }
+    
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:widthVfl options:0 metrics:0 views:views]];
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:heightVfl options:0 metrics:0 views:views]];
     

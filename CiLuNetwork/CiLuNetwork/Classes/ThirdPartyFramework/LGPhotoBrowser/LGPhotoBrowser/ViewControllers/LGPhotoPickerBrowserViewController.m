@@ -121,7 +121,7 @@ typedef NS_ENUM(NSInteger, DraggingDirect) {
         self.pageLabel = pageLabel;
         
         NSString *widthVfl = @"H:|-0-[pageLabel]-0-|";
-        NSString *heightVfl = @"V:[pageLabel(ZLPickerPageCtrlH)]-20-|";
+        NSString *heightVfl = @"V:[pageLabel(ZLPickerPageCtrlH)]-100-|";
         NSDictionary *views = NSDictionaryOfVariableBindings(pageLabel);
         NSDictionary *metrics = @{@"ZLPickerPageCtrlH":@(LGPickerPageCtrlH)};
         
@@ -234,7 +234,7 @@ typedef NS_ENUM(NSInteger, DraggingDirect) {
 - (void)setupXGToolbar {
     if ((!_XGtoolbar)  && (!self.needHidenBar)) {
         CGFloat height = 44;
-        _XGtoolbar = [[LGPhotoPickerCustomToolBarView alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(self.view.bounds) - height, CGRectGetWidth(self.view.bounds), height) showType:self.showType];
+        _XGtoolbar = [[LGPhotoPickerCustomToolBarView alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(self.view.bounds) - height - (tabBarHeight - 49), CGRectGetWidth(self.view.bounds), height) showType:self.showType];
         _XGtoolbar.delegate = self;
 		_XGtoolbar.nightMode = self.nightMode;
         __weak LGPhotoPickerBrowserViewController * weakself = self;

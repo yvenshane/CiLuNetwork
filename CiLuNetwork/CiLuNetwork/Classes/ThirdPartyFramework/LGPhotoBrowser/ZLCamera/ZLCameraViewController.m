@@ -170,6 +170,11 @@ static CGFloat BOTTOM_HEIGHT = 60;
     [button setImage:[UIImage imageNamed:imageName] forState:UIControlStateNormal];
     button.backgroundColor = [UIColor clearColor];
     button.frame = CGRectMake(x, 5, 80, self.topView.frame.size.height);
+    
+    if (isIPhoneX) {
+        button.frame = CGRectMake(x, 5 + 44, 80, self.topView.frame.size.height);
+    }
+    
     [self.view addSubview:button];
     return button;
 }
@@ -195,7 +200,7 @@ static CGFloat BOTTOM_HEIGHT = 60;
     [flashBtn setTitle:@"关闭" forState:UIControlStateNormal];
     _flashBtn = flashBtn;
     // 底部View
-    UIView *controlView = [[UIView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height-BOTTOM_HEIGHT, self.view.frame.size.width, BOTTOM_HEIGHT)];
+    UIView *controlView = [[UIView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height-BOTTOM_HEIGHT-(tabBarHeight - 49), self.view.frame.size.width, BOTTOM_HEIGHT)];
     controlView.backgroundColor = [UIColor blackColor];
     controlView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleWidth;
     self.controlView = controlView;
