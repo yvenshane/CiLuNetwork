@@ -150,7 +150,7 @@ static NSString *cellIdentifier = @"cellIdentifier";
     [[NSNotificationCenter defaultCenter] postNotificationName:@"Logout" object:nil];
     
     [self.tabBarController.tabBar.items[2] setBadgeValue:nil];
-    [[NSUserDefaults standardUserDefaults] setObject:nil forKey:@"RedDot"];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"RedDot"];
     
     [self.navigationController popViewControllerAnimated:YES];
 }

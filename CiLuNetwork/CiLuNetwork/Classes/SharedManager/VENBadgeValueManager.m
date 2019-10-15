@@ -32,6 +32,7 @@ static dispatch_once_t onceToken;
                         [[NSUserDefaults standardUserDefaults] setObject:[NSString stringWithFormat:@"%@", response[@"data"][@"count"]] forKey:@"RedDot"];
                         [tabBar.tabBar.items[2] setBadgeValue:[[NSUserDefaults standardUserDefaults] objectForKey:@"RedDot"]];
                     } else {
+                        [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"RedDot"];
                         [tabBar.tabBar.items[2] setBadgeValue:nil];
                     }
                 }

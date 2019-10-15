@@ -117,13 +117,13 @@
     [headerView addSubview:cycleScrollView];
     
     // 返回
-    UIButton *backButton = [[UIButton alloc] initWithFrame:CGRectMake(15, 27.5, 30, 30)];
+    UIButton *backButton = [[UIButton alloc] initWithFrame:CGRectMake(15, statusNavHeight - 44 + 7.5, 30, 30)];
     [backButton setImage:[UIImage imageNamed:@"icon_back02"] forState:UIControlStateNormal];
     [backButton addTarget:self action:@selector(backButtonClick) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:backButton];
 
     // 收藏
-    UIButton *collectionButton = [[UIButton alloc] initWithFrame:CGRectMake(kMainScreenWidth - 45, 28, 30, 30)];
+    UIButton *collectionButton = [[UIButton alloc] initWithFrame:CGRectMake(kMainScreenWidth - 45, statusNavHeight - 44 + 8, 30, 30)];
     [collectionButton setImage:[UIImage imageNamed:[self.model.is_mark integerValue] == 0 ? @"icon_collection" : @"icon_collection_active"] forState:UIControlStateNormal];
     [collectionButton addTarget:self action:@selector(collectionButtonClick) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:collectionButton];
@@ -357,12 +357,12 @@
     navigationBar.alpha = 0;
     [self.view addSubview:navigationBar];
     
-    UIButton *backButton = [[UIButton alloc] initWithFrame:CGRectMake(8, 20, 44, 44)];
+    UIButton *backButton = [[UIButton alloc] initWithFrame:CGRectMake(8, statusNavHeight - 44, 44, 44)];
     [backButton setImage:[UIImage imageNamed:@"icon_back"] forState:UIControlStateNormal];
     [backButton addTarget:self action:@selector(backButtonClick) forControlEvents:UIControlEventTouchUpInside];
     [navigationBar addSubview:backButton];
     
-    UIButton *collectionButton = [[UIButton alloc] initWithFrame:CGRectMake(kMainScreenWidth - 8 - 44, 20, 44, 44)];
+    UIButton *collectionButton = [[UIButton alloc] initWithFrame:CGRectMake(kMainScreenWidth - 8 - 44, statusNavHeight - 44, 44, 44)];
     [collectionButton setImage:[UIImage imageNamed:[self.model.is_mark integerValue] == 0 ? @"icon_collection02" : @"icon_collection02_active"] forState:UIControlStateNormal];
     [collectionButton addTarget:self action:@selector(collectionButtonClick) forControlEvents:UIControlEventTouchUpInside];
     [navigationBar addSubview:collectionButton];

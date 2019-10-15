@@ -314,6 +314,7 @@ static NSString *cellIdentifier = @"cellIdentifier";
                                 [[NSUserDefaults standardUserDefaults] setObject:[NSString stringWithFormat:@"%@", response[@"data"][@"count"]] forKey:@"RedDot"];
                                 [self.tabBarController.tabBar.items[2] setBadgeValue:[[NSUserDefaults standardUserDefaults] objectForKey:@"RedDot"]];
                             } else {
+                                [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"RedDot"];
                                 [self.tabBarController.tabBar.items[2] setBadgeValue:nil];
                             }
                         }
@@ -491,6 +492,7 @@ static NSString *cellIdentifier = @"cellIdentifier";
                                 [[NSUserDefaults standardUserDefaults] setObject:[NSString stringWithFormat:@"%@", response[@"data"][@"count"]] forKey:@"RedDot"];
                                 [self.tabBarController.tabBar.items[2] setBadgeValue:[[NSUserDefaults standardUserDefaults] objectForKey:@"RedDot"]];
                             } else {
+                                [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"RedDot"];
                                 [self.tabBarController.tabBar.items[2] setBadgeValue:nil];
                             }
                         }
