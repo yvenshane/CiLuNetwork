@@ -161,16 +161,16 @@
             [self.categoryView selectItemAtIndex:i];
         };
         
-        listVC.block = ^(NSString *str) {
+        listVC.block = ^(NSString *str, NSArray *lists_goods) {
             
-            VENClassifyModel *model = self.lists_goods[[str integerValue]];
+            VENClassifyModel *model = lists_goods[[str integerValue]];
             
             VENClassifyDetailsViewController *vc = [[VENClassifyDetailsViewController alloc] init];
             vc.goods_id = model.goods_id;
             vc.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:vc animated:YES];
         };
-        listVC.view.frame = CGRectMake(i*width, 0, width, height - 36 - 50 + 9);
+        listVC.view.frame = CGRectMake(i*width, 0, width, height - 36 - tabBarHeight);
         
         [self.listVCArray addObject:listVC];
     }

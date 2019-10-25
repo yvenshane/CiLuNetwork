@@ -9,7 +9,7 @@
 #import "VENBaseViewController.h"
 #import "VENClassifyModel.h"
 
-typedef void (^collectionViewDidSelectBlock)(NSString *);
+typedef void (^collectionViewDidSelectBlock)(NSString *, NSArray*);
 typedef void (^titleDidSelectBlock)(NSInteger);
 @interface VENClassifyCollectionViewController : UICollectionViewController
 @property (nonatomic, strong) NSMutableArray *lists_goods;

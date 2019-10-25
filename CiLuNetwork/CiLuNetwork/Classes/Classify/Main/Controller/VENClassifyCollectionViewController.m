@@ -154,7 +154,7 @@
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    self.block([NSString stringWithFormat:@"%ld", (long)indexPath.row]);
+    self.block([NSString stringWithFormat:@"%ld", (long)indexPath.row], self.lists_goods);
 }
 
 - (void)dealloc {

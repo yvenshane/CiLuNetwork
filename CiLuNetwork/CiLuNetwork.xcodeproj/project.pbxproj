@@ -92,6 +92,7 @@
 		2C64986121C9EC3F00F06CB7 /* VENClassifyDetailsPopupView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C64986021C9EC3F00F06CB7 /* VENClassifyDetailsPopupView.m */; };
 		2C64986521C9F3E300F06CB7 /* VENClassifyDetailsPopupViewTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C64986321C9F3E300F06CB7 /* VENClassifyDetailsPopupViewTableViewCell.m */; };
 		2C64986621C9F3E300F06CB7 /* VENClassifyDetailsPopupViewTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2C64986421C9F3E300F06CB7 /* VENClassifyDetailsPopupViewTableViewCell.xib */; };
+		2C649DA92362BB6C00D5C601 /* UIViewController+DDYPresent.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C649DA72362BB6C00D5C601 /* UIViewController+DDYPresent.m */; };
 		2C68EAFB2213B4D2008E6BF2 /* libPaymentControl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C68EAFA2213B4D2008E6BF2 /* libPaymentControl.a */; };
 		2C6BC97121FE8DF3006752A8 /* VENPersonalDataViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C6BC97021FE8DF3006752A8 /* VENPersonalDataViewController.m */; };
 		2C6BC97521FEAE39006752A8 /* VENPersonalDataNamePageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C6BC97321FEAE39006752A8 /* VENPersonalDataNamePageViewController.m */; };
@@ -468,6 +469,8 @@
 		2C64986221C9F3E300F06CB7 /* VENClassifyDetailsPopupViewTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VENClassifyDetailsPopupViewTableViewCell.h; sourceTree = "<group>"; };
 		2C64986321C9F3E300F06CB7 /* VENClassifyDetailsPopupViewTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VENClassifyDetailsPopupViewTableViewCell.m; sourceTree = "<group>"; };
 		2C64986421C9F3E300F06CB7 /* VENClassifyDetailsPopupViewTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VENClassifyDetailsPopupViewTableViewCell.xib; sourceTree = "<group>"; };
+		2C649DA72362BB6C00D5C601 /* UIViewController+DDYPresent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+DDYPresent.m"; sourceTree = "<group>"; };
+		2C649DA82362BB6C00D5C601 /* UIViewController+DDYPresent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+DDYPresent.h"; sourceTree = "<group>"; };
 		2C68EAF72213B4A4008E6BF2 /* UPAPayPluginDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UPAPayPluginDelegate.h; sourceTree = "<group>"; };
 		2C68EAF82213B4A4008E6BF2 /* UPAPayPlugin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UPAPayPlugin.h; sourceTree = "<group>"; };
 		2C68EAF92213B4A4008E6BF2 /* UPPaymentControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UPPaymentControl.h; sourceTree = "<group>"; };
@@ -2180,6 +2183,8 @@
 		2CDF9F7721B57FE400254B52 /* SharedManager */ = {
 			isa = PBXGroup;
 			children = (
+				2C649DA82362BB6C00D5C601 /* UIViewController+DDYPresent.h */,
+				2C649DA72362BB6C00D5C601 /* UIViewController+DDYPresent.m */,
 				2CDFA0BB21B582D500254B52 /* VENClassEmptyManager.h */,
 				2CDFA0BE21B582D600254B52 /* VENClassEmptyManager.m */,
 				2C4208A221E6D1C70033E030 /* VENMBProgressHUDManager.h */,
@@ -3288,6 +3293,7 @@
 				2CD4FF4521C793B400868525 /* VENSetPasswordViewController.m in Sources */,
 				2CEB832F21B819CE004A8629 /* JXCategoryTitleView.m in Sources */,
 				2C78043A22004BFC00EBD7C8 /* VENResetPasswordViewController.m in Sources */,
+				2C649DA92362BB6C00D5C601 /* UIViewController+DDYPresent.m in Sources */,
 				2CDFA06721B5813500254B52 /* UIRefreshControl+AFNetworking.m in Sources */,
 				2CDF9F5721B575FF00254B52 /* VENNavigationController.m in Sources */,
 				2CDFA07821B5813500254B52 /* SDWebImageDecoder.m in Sources */,
